@@ -1,3 +1,6 @@
+/**
+ * Defines the supported event types.
+ */
 export const enum Events {
   CREATE = "create",
   RENAME = "rename",

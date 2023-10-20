@@ -1,3 +1,6 @@
+/**
+ * Defines the supported file types.
+ */
 export const enum FilesType {
   room = "room",
   file = "file",
@@ -6,6 +9,9 @@ export const enum FilesType {
   video = "video",
 }
 
+/**
+ * Defines the supported file extensions.
+ */
 export const enum FilesExst {
   avi = ".avi",
   csv = ".csv",

@@ -1,3 +1,6 @@
+/**
+ * Defines the component types.
+ */
 export const enum Components {
   box = "box",
   button = "button",
