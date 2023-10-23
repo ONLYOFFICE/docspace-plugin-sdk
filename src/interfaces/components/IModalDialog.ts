@@ -1,3 +1,19 @@
+/*
+* (c) Copyright Ascensio System SIA 2023
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
 import { IMessage } from "../utils";
 import { IBox } from "./IBox";
 
@@ -21,7 +37,7 @@ export interface IModalDialog {
   /**
    * Defines the modal dialog header.
    */
-  dialogHeader: string;
+  dialogHeader?: string;
 
   /**
    * Defines the modal dialog body.
@@ -47,6 +63,11 @@ export interface IModalDialog {
    * Specifies whether the border betweeen the body and footer is displayed.
    */
   withFooterBorder?: boolean;
+
+  /**
+   * Specifies whether to display the modal dialog body in the full screen mode without paddings.
+   */
+  fullScreen?: boolean;
 
   /**
    * Defines the event listeners.
@@ -75,7 +96,7 @@ export interface IModalDialog {
     /**
      * Defines a new modal dialog header.
      */
-    newDialogHeader: string;
+    newDialogHeader?: string;
 
     /**
      * Defines a new modal dialog body.
