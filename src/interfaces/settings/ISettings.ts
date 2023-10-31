@@ -16,11 +16,11 @@
 
 import { ButtonGroup, IBox } from "../components";
 /**
- * Defines the administator or owner settings block that is embedded in the modal window with the plugin description.
+ * Defines the administrator or owner settings block that is embedded in the modal window with the plugin description.
  */
 export interface ISettings {
   /**
-   * Defines the administator or owner settings.
+   * Defines the administrator or owner settings.
    */
   settings: IBox;
 

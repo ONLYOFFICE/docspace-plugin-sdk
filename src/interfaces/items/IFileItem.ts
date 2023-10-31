@@ -102,7 +102,7 @@ export interface IFileItem {
   fileRowIcon?: string;
 
   /**
-   * Defines a file icon which is displayed in the tile format. The preferred icon size is 96x96 px.	s
+   * Defines a file icon which is displayed in the tile format. The preferred icon size is 96x96 px.
    */
   fileTileIcon?: string;
 }

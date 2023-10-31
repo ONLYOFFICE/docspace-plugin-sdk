@@ -22,7 +22,7 @@ export interface ISettingsPlugin {
   // userPluginSettings: ISettings | null;
 
   /**
-   * Stores the administator or owner settings block that is embedded in the modal window with the plugin description.
+   * Stores the administrator or owner settings block that is embedded in the modal window with the plugin description.
    */
   adminPluginSettings: ISettings | null;
 
@@ -31,16 +31,16 @@ export interface ISettingsPlugin {
   // getUserPluginSettings(): ISettings | null;
 
   /**
-   * Update the administator or owner plugin settings.
+   * Update the administrator or owner plugin settings.
    *
-   * @param settings Defines the administator or owner settings block that is embedded in the modal window with the plugin description.
+   * @param settings Defines the administrator or owner settings block that is embedded in the modal window with the plugin description.
    */
   setAdminPluginSettings(settings: ISettings | null): void;
 
   /**
-   * Get the administator or owner plugin settings.
+   * Get the administrator or owner plugin settings.
    *
-   * @returns The administator or owner settings block that is embedded in the modal window with the plugin description.
+   * @returns The administrator or owner settings block that is embedded in the modal window with the plugin description.
    */
   getAdminPluginSettings(): ISettings | null;
 }
