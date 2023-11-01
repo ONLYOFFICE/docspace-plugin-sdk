@@ -33,7 +33,9 @@ const docspace = {
   pluginName: jsonDataObj.pluginName || "",
   homePage: jsonDataObj.homepage || "",
   image: jsonDataObj.logo || "",
-  scopes: jsonDataObj.scopes.join(","),
+  scopes: jsonDataObj.scopes.join(","), 
+  cspDomains:
+    (jsonDataObj.cspDomains && jsonDataObj.cspDomains.join(",")) || "",
 };
 
 zip.file("plugin.js", jsData);
