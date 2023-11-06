@@ -14,6 +14,9 @@
 * limitations under the License.
 */
 
+/**
+ * Defines the component types.
+ */
 export const enum Components {
   box = "box",
   button = "button",
