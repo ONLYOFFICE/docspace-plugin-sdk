@@ -1,20 +1,20 @@
 /*
-* (c) Copyright Ascensio System SIA 2023
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * (c) Copyright Ascensio System SIA 2023
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-import { Devices, UsersType } from "../../enums";
+import { Devices, Security, UsersType } from "../../enums";
 import { IMessage } from "../utils";
 /**
  * Describes the file properties.
@@ -90,6 +90,8 @@ export interface IFileItem {
    * If this parameter is not specified, then the current item will be available in any device types.
    */
   devices?: Devices[];
+
+  security?: Security[];
 
   /**
    * Defines a file type which is displayed in the list (for example, Document/Folder).

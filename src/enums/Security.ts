@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-import { Actions } from "./Actions";
-import { Events } from "./Events";
-import { PluginStatus } from "./Plugins";
-import { FilesExst, FilesType } from "./Files";
-import { UsersType } from "./UsersType";
-import { Components } from "./Components";
-import { Devices } from "./Devices";
-import { Security } from "./Security";
-
-export {
-  Actions,
-  Components,
-  Events,
-  FilesExst,
-  FilesType,
-  PluginStatus,
-  UsersType,
-  Devices,
-  Security,
-};
+/**
+ * Defines the supported room/folder security.
+ */
+export const enum Security {
+  Copy = "Copy",
+  CopySharedLink = "CopySharedLink",
+  CopyTo = "CopyTo",
+  Create = "Create",
+  Delete = "Delete",
+  Download = "Download",
+  Duplicate = "Duplicate",
+  EditAccess = "EditAccess",
+  EditRoom = "EditRoom",
+  Move = "Move",
+  MoveTo = "MoveTo",
+  Mute = "Mute",
+  Pin = "Pin",
+  Read = "Read",
+  Rename = "Rename",
+}
