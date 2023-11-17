@@ -91,7 +91,7 @@ export interface IFileItem {
    */
   devices?: Devices[];
 
-  security?: Security[];
+  // security?: Security[];
 
   /**
    * Defines a file type which is displayed in the list (for example, Document/Folder).

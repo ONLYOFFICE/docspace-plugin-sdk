@@ -64,5 +64,5 @@ export interface IMainButtonItem {
    */
   devices?: Devices[];
 
-  security?: Security[];
+  // security?: Security[];
 }
