@@ -97,5 +97,10 @@ export const enum Actions {
    */
   sendPostMessage = "send-post-message",
 
+  /**
+   * Calls a function to save the data that was transferred in the "settings" parameter
+   * and returns it in the "setAdminPluginSettingsValue" method each time the plugin is requested.
+   * It functions only when the "Save" button is clicked in the "Settings" block.
+   */
   saveSettings = "save-settings",
 }

@@ -81,5 +81,10 @@ export interface IContextMenuItem {
    */
   devices?: Devices[];
 
+  /**
+   * Defines the security parameters of the parent folder or room that will be checked.
+   * If all the parameters are true, the current item will be displayed in the context menu.
+   * If this parameter is undefined, it will be ignored.
+   */
   security?: Security[];
 }

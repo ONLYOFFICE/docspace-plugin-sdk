@@ -15,7 +15,7 @@
  */
 
 /**
- * Defines the supported room/folder security.
+ * Defines the supported room/folder security parameters.
  */
 export const enum Security {
   Copy = "Copy",
