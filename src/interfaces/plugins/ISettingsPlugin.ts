@@ -41,7 +41,6 @@ export interface ISettingsPlugin {
    * Transfer the administrator or owner plugin settings to all the portal users. It functions on the DocSpace side.
    *
    * @param settings Defines a parameter that is used to save and transfer the administrator or owner plugin settings to all the portal users.
-   * This parameter is used only with Actions.saveSettings.
    */
   setAdminPluginSettingsValue(settings: string | null): void;
 
