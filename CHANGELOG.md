@@ -4,7 +4,7 @@
 ## Added
 - csp settings
 - room and folder security
-- source cope documentation
+- source code documentation
 - update template creation
 
 ## Fixed
