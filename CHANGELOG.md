@@ -1,6 +1,6 @@
 # Change Log
 
-##
+## 1.0.0
 ## Added
 - csp settings
 - room and folder security
