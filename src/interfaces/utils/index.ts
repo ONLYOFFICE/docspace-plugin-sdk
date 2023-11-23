@@ -122,5 +122,9 @@ export interface IMessage {
    */
   postMessage?: IPostMessage;
 
+  /**
+   * Defines a parameter that is used to save and transfer the administrator or owner plugin settings to all the portal users.
+   * This parameter is used only with Actions.saveSettings.
+   */
   settings?: string;
 }
