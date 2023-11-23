@@ -1,5 +1,10 @@
 # Change Log
 
+##
+## Added
+- csp settings
+- room and folder security
+
 ## 0.0.2
 ## Added
 - ContextMenuItem: add new param for loading state in row
