@@ -4,6 +4,11 @@
 ## Added
 - csp settings
 - room and folder security
+- source cope documentation
+- update template creation
+
+## Fixed
+- fix template name validation
 
 ## 0.0.2
 ## Added
