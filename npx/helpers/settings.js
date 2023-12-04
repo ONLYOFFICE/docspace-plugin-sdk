@@ -41,7 +41,7 @@ const setAdminPluginSettings = `
   };`;
 
 const setAdminPluginSettingsValue = `
-  setAdminPluginSettings = (settings: string | null): void => {
+  setAdminPluginSettingsValue = (settings: string | null): void => {
    
   };`;
 

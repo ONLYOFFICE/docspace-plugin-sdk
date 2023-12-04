@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.0.1
+## Fixed
+- fix npx template with double setAdminPluginSettings
+
 ## 1.0.0
 ## Added
 - csp settings
