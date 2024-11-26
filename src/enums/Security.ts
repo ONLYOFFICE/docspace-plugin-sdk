@@ -15,7 +15,29 @@
  */
 
 /**
- * Defines the supported room/folder security parameters.
+ * Defines the available security permissions for rooms and folders in DocSpace.
+ *
+ * @remarks
+ * File and content operations:
+ * - Copy: Permission to copy files and folders
+ * - CopyTo: Permission to copy items to other locations
+ * - Create: Permission to create new files and folders
+ * - Delete: Permission to delete items
+ * - Download: Permission to download files
+ * - Duplicate: Permission to create duplicates of items
+ * - Move: Permission to move items
+ * - MoveTo: Permission to move items to other locations
+ * - Read: Permission to view and read content
+ * - Rename: Permission to rename items
+ *
+ * Sharing and access control:
+ * - CopySharedLink: Permission to copy sharing links
+ * - EditAccess: Permission to modify access rights
+ * - EditRoom: Permission to modify room settings
+ *
+ * Additional features:
+ * - Mute: Permission to mute notifications
+ * - Pin: Permission to pin items
  */
 export const enum Security {
   Copy = "Copy",

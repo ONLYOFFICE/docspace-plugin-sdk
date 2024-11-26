@@ -15,7 +15,12 @@
 */
 
 /**
- * Defines the supported device types.
+ * Defines the supported device types for responsive design and device-specific behavior.
+ *
+ * @remarks
+ * - mobile: Smartphones and small-screen mobile devices
+ * - tablet: Tablet devices and medium-sized screens
+ * - desktop: Desktop computers and large-screen devices
  */
 export const enum Devices {
   mobile = "mobile",

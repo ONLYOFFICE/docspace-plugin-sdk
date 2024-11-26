@@ -15,7 +15,16 @@
 */
 
 /**
- * Defines the supported event types.
+ * Defines the supported event types that can be listened to and handled in the DocSpace plugin system.
+ *
+ * @remarks
+ * - CREATE: Triggered when a new item is created
+ * - RENAME: Triggered when an item is renamed
+ * - ROOM_CREATE: Triggered when a new room is created
+ * - ROOM_EDIT: Triggered when a room is edited
+ * - CHANGE_COLUMN: Triggered when a column configuration is changed
+ * - CHANGE_USER_TYPE: Triggered when a user's type or role is modified
+ * - CREATE_PLUGIN_FILE: Triggered when a new file is created through a plugin
  */
 export const enum Events {
   CREATE = "create",

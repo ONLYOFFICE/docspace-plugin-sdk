@@ -16,95 +16,56 @@
 
 import { Devices, Security, UsersType } from "../../enums";
 import { IMessage } from "../utils";
+
 /**
+ * @Category File Plugin
+ *
  * Describes the file properties.
+ *
+ * @param folderId - The folder ID where the current file is located.
+ * @param fileExst - The file extension.
+ * @param id - The file ID.
+ * @param rootFolderType - The root folder type of the current file.
+ * @param rootFolderId - The root folder ID of the current file.
+ * @param title - The file title.
+ * @param viewUrl - The URL to open the current file in the viewer.
+ * @param webUrl - The absolute URL where the source viewed or edited document is stored.
  */
 export interface File {
-  /**
-   * Defines the folder ID where the current file is located.
-   */
   folderId: number;
-
-  /**
-   * Defines the file extension.
-   */
   fileExst: string;
-
-  /**
-   * Defines the file ID.
-   */
   id: number;
-
-  /**
-   * Defines the root folder type of the current file.
-   */
   rootFolderType: number;
-
-  /**
-   * Defines the root folder ID of the current file.
-   */
   rootFolderId: number;
-
-  /**
-   * Defines the file title.
-   */
   title: string;
-
-  /**
-   * Defines the URL to open the current file in the viewer.
-   */
   viewUrl: string;
-
-  /**
-   * Defines the absolute URL where the source viewed or edited document is stored.
-   */
   webUrl: string;
 }
 
 /**
  * Describes an item that allows the plugin to control clicking on the specified file type.
  * It does not work with the files that already have some actions.
+ *
+ * @param extension - The file extension. If several plugins have the same extension, the last plugin from this list is taken.
+ * @param onClick - A function that takes the File object with the file data as an argument.
+ * This function can be asynchronous. It will be executed when the user clicks on a file with the required extension.
+ * @param usersType - The types of users who have the access to the current item.
+ * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
+ * If this parameter is not specified, then the current item will be available for all user types.
+ * @param devices - The types of devices where the current item will be available.
+ * At the moment the following device types are available: mobile, tablet, desktop.
+ * If this parameter is not specified, then the current item will be available in any device types.
+ * @param fileTypeName - A file type which is displayed in the list (for example, Document/Folder).
+ * @param fileRowIcon - A file icon which is displayed in the table format. The preferred icon size is 32x32 px.
+ * @param fileTileIcon - A file icon which is displayed in the tile format. The preferred icon size is 96x96 px.
  */
 export interface IFileItem {
-  /**
-   * Defines the file extension. If several plugins have the same extension, the last plugin from this list is taken.
-   */
   extension: string;
-
-  /**
-   * Defines a function that takes the File object with the file data as an argument.
-   * This function can be asynchronous. It will be executed when the user clicks on a file with the required extension.
-   */
   onClick: (item: File) => Promise<IMessage> | IMessage | void;
-
-  /**
-   * Defines the types of users who have the access to the current item.
-   * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
-   * If this parameter is not specified, then the current item will be available for all user types.
-   */
   usersType?: UsersType[];
-
-  /**
-   * Defines the types of devices where the current item will be available.
-   * At the moment the following device types are available: mobile, tablet, desktop.
-   * If this parameter is not specified, then the current item will be available in any device types.
-   */
   devices?: Devices[];
-
   // security?: Security[];
-
-  /**
-   * Defines a file type which is displayed in the list (for example, Document/Folder).
-   */
   fileTypeName?: string;
-
-  /**
-   * Defines a file icon which is displayed in the table format. The preferred icon size is 32x32 px.
-   */
   fileRowIcon?: string;
-
-  /**
-   * Defines a file icon which is displayed in the tile format. The preferred icon size is 96x96 px.
-   */
   fileTileIcon?: string;
 }

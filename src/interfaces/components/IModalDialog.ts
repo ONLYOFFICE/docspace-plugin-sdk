@@ -18,6 +18,8 @@ import { IMessage } from "../utils";
 import { IBox } from "./IBox";
 
 /**
+ * @category Modal Dialog Component
+ *
  * The supported modal dialog types.
  */
 export const enum ModalDisplayType {
@@ -26,86 +28,49 @@ export const enum ModalDisplayType {
 }
 
 /**
+ * @category Modal Dialog Component
+ *
  * Modal dialog.
+ *
+ * @param displayType - Defines the modal dialog display type.
+ *
+ * @param dialogHeader - Defines the modal dialog header.
+ *
+ * @param dialogBody - Defines the modal dialog body.
+ *
+ * @param dialogFooter - Defines the modal dialog footer.
+ *
+ * @param autoMaxWidth - Specifies whether the "max-width: auto" property is set.
+ *
+ * @param autoMaxHeight - Specifies whether the "max-height: auto" property is set.
+ *
+ * @param withFooterBorder - Specifies whether the border betweeen the body and footer is displayed.
+ *
+ * @param fullScreen - Specifies whether to display the modal dialog body in the full screen mode without paddings.
+ *
+ * @param eventListeners - Defines the event listeners. Each listener has a name and an onAction function.
+ *
+ * @param onClose - Sets a function which is triggered whenever the "Close" button in the modal dialog is clicked.
+ *
+ * @param onLoad - Sets a function which is triggered whenever the modal dialog is loaded. Returns an object with optional new dialog header, body, and footer.
  */
 export interface IModalDialog {
-  /**
-   * Defines the modal dialog display type.
-   */
   displayType: ModalDisplayType;
-
-  /**
-   * Defines the modal dialog header.
-   */
   dialogHeader?: string;
-
-  /**
-   * Defines the modal dialog body.
-   */
   dialogBody: IBox;
-
-  /**
-   * Defines the modal dialog footer.
-   */
   dialogFooter?: IBox;
-
-  /**
-   * Specifies whether the "max-width: auto" property is set.
-   */
   autoMaxWidth?: boolean;
-
-  /**
-   * Specifies whether the "max-height: auto" property is set.
-   */
   autoMaxHeight?: boolean;
-
-  /**
-   * Specifies whether the border betweeen the body and footer is displayed.
-   */
   withFooterBorder?: boolean;
-
-  /**
-   * Specifies whether to display the modal dialog body in the full screen mode without paddings.
-   */
   fullScreen?: boolean;
-
-  /**
-   * Defines the event listeners.
-   */
   eventListeners?: {
-    /**
-     * Defines the event listener name.
-     */
     name: string;
-
-    /**
-     * Sets a function which is triggered whenever the event listener is processed.
-     */
     onAction: () => Promise<IMessage> | IMessage | Promise<void> | void;
   }[];
-
-  /**
-   * Sets a function which is triggered whenever the "Close" button in the modal dialog is clicked.
-   */
   onClose: () => Promise<IMessage> | IMessage | Promise<void> | void;
-
-  /**
-   * Sets a function which is triggered whenever the modal dialog is loaded.
-   */
   onLoad: () => Promise<{
-    /**
-     * Defines a new modal dialog header.
-     */
     newDialogHeader?: string;
-
-    /**
-     * Defines a new modal dialog body.
-     */
     newDialogBody: IBox;
-
-    /**
-     * Defines a new modal dialog footer.
-     */
     newDialogFooter?: IBox;
   }>;
 }

@@ -15,7 +15,21 @@
 */
 
 /**
- * Defines the component types.
+ * Defines the available UI component types in the DocSpace plugin system.
+ *
+ * @remarks
+ * - box: Container component for grouping other elements
+ * - button: Interactive button element
+ * - checkbox: Selectable checkbox input
+ * - input: Text input field
+ * - label: Text label for form elements
+ * - text: Static text display
+ * - textArea: Multi-line text input
+ * - toggleButton: Switch-like button with two states
+ * - img: Image display component
+ * - iFrame: Embedded frame component
+ * - comboBox: Dropdown selection input
+ * - skeleton: Loading placeholder component
  */
 export const enum Components {
   box = "box",

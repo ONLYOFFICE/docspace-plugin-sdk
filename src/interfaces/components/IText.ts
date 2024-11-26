@@ -15,71 +15,48 @@
 */
 
 /**
+ * @category Text Component
+ *
  * Plain text.
+ *
+ * @param text - Defines the text.
+ *
+ * @param title - Defines the text title.
+ *
+ * @param fontSize - Defines the text font size.
+ *
+ * @param fontWeight - Defines the text font weight.
+ *
+ * @param truncate - Specifies whether the word wrapping is set.
+ *
+ * @param isBold - Specifies whether the text font weight is set to bold.
+ *
+ * @param isItalic - Specifies whether the text style is set to italic.
+ *
+ * @param isInline - Specifies whether the "display: inline-block" property is set.
+ *
+ * @param textAlign - Specifies whether the "text-align" property is set.
+ *
+ * @param noSelect - Specifies whether the text selection is disabled.
+ *
+ * @param display - Specifies whether the "display" property is set.
+ *
+ * @param lineHeight - Defines the text line height.
+ *
+ * @param color - Defines the text color.
  */
 export interface IText {
-  /**
-   * Defines the text.
-   */
   text: string;
-
-  /**
-   * Defines the text title.
-   */
   title?: string;
-
-  /**
-   * Defines the text font size.
-   */
   fontSize?: string;
-
-  /**
-   * Defines the text font weight.
-   */
   fontWeight?: string | number;
-
-  /**
-   * Specifies whether the word wrapping is set.
-   */
   truncate?: boolean;
-
-  /**
-   * Specifies whether the text font weight is set to bold.
-   */
   isBold?: boolean;
-
-  /**
-   * Specifies whether the text style is set to italic.
-   */
   isItalic?: boolean;
-
-  /**
-   * Specifies whether the "display: inline-block" property is set.
-   */
   isInline?: boolean;
-
-  /**
-   * Specifies whether the "text-align" property is set.
-   */
   textAlign?: string;
-
-  /**
-   * Specifies whether the text selection is disabled.
-   */
   noSelect?: boolean;
-
-  /**
-   * Specifies whether the "display" property is set.
-   */
   display?: string;
-
-  /**
-   * Defines the text line height.
-   */
   lineHeight?: string;
-
-  /**
-   * Defines the text color.
-   */
   color?: string;
 }

@@ -15,39 +15,26 @@
  */
 
 import { ISettings } from "../settings/ISettings";
+
 /**
+ * @Category Settings Plugin
+ *
  * The plugin that manages settings for the administrator or owner.
+ *
+ * @param adminPluginSettings - The administrator or owner settings block that is embedded in the modal window with the plugin description.
+ *
+ * @method setAdminPluginSettings - Update the administrator or owner plugin settings.
+ * @param settings - Defines the administrator or owner settings block that is embedded in the modal window with the plugin description.
+ *
+ * @method setAdminPluginSettingsValue - Transfer the administrator or owner plugin settings to all the portal users. It functions on the DocSpace side.
+ * @param settings - Defines a parameter that is used to save and transfer the administrator or owner plugin settings to all the portal users.
+ *
+ * @method getAdminPluginSettings - Get the administrator or owner plugin settings.
+ * @returns The administrator or owner settings block that is embedded in the modal window with the plugin description.
  */
 export interface ISettingsPlugin {
-  // userPluginSettings: ISettings | null;
-
-  /**
-   * Stores the administrator or owner settings block that is embedded in the modal window with the plugin description.
-   */
   adminPluginSettings: ISettings | null;
-
-  // setUserPluginSettings(settings: ISettings | null): void;
-
-  // getUserPluginSettings(): ISettings | null;
-
-  /**
-   * Update the administrator or owner plugin settings.
-   *
-   * @param settings Defines the administrator or owner settings block that is embedded in the modal window with the plugin description.
-   */
   setAdminPluginSettings(settings: ISettings | null): void;
-
-  /**
-   * Transfer the administrator or owner plugin settings to all the portal users. It functions on the DocSpace side.
-   *
-   * @param settings Defines a parameter that is used to save and transfer the administrator or owner plugin settings to all the portal users.
-   */
   setAdminPluginSettingsValue(settings: string | null): void;
-
-  /**
-   * Get the administrator or owner plugin settings.
-   *
-   * @returns The administrator or owner settings block that is embedded in the modal window with the plugin description.
-   */
   getAdminPluginSettings(): ISettings | null;
 }

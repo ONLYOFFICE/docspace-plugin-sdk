@@ -15,7 +15,14 @@
 */
 
 /**
- * Defines the supported file types.
+ * Defines the supported file and content types in the DocSpace system.
+ *
+ * @remarks
+ * - room: DocSpace room or workspace
+ * - file: Generic file type
+ * - folder: Directory or folder
+ * - image: Image file (various formats)
+ * - video: Video file (various formats)
  */
 export const enum FilesType {
   room = "room",
@@ -26,7 +33,40 @@ export const enum FilesType {
 }
 
 /**
- * Defines the supported file extensions.
+ * Defines the supported file extensions and their corresponding formats.
+ *
+ * @remarks
+ * Document formats:
+ * - doc, docx, docm, dotx: Microsoft Word documents
+ * - odt, fodt, ott: OpenDocument text formats
+ * - rtf: Rich Text Format
+ * - txt: Plain text
+ * - pdf: Portable Document Format
+ * - docxf, oform: Form documents
+ *
+ * Spreadsheet formats:
+ * - xls, xlsx, xlsm: Microsoft Excel spreadsheets
+ * - ods, ots: OpenDocument spreadsheet formats
+ *
+ * Presentation formats:
+ * - ppt, pptx, pptm: Microsoft PowerPoint presentations
+ * - odp, otp: OpenDocument presentation formats
+ * - pps, ppsx: PowerPoint show formats
+ * - pot: PowerPoint template
+ *
+ * Media formats:
+ * - avi, flv, mkv, mov, mp4, mpg, webm, m2ts, dvd: Video formats
+ * - svg: Scalable Vector Graphics
+ *
+ * Other formats:
+ * - csv: Comma-separated values
+ * - djvu: DjVu format
+ * - epub, fb2, pb2: E-book formats
+ * - iaf: Archive format
+ * - ics: Calendar format
+ * - mht: Web archive
+ * - xps: XML Paper Specification
+ * - xml: Extensible Markup Language
  */
 export const enum FilesExst {
   avi = ".avi",

@@ -15,7 +15,11 @@
 */
 
 /**
- * Defines the supported plugin statuses.
+ * Defines the possible visibility states of a DocSpace plugin.
+ *
+ * @remarks
+ * - active: Plugin is enabled and visible to users
+ * - hide: Plugin is disabled and hidden from the user interface
  */
 export const enum PluginStatus {
   active = "active",

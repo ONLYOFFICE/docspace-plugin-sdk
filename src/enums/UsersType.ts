@@ -15,7 +15,14 @@
 */
 
 /**
- * Defines the supported user types.
+ * Defines the user roles and their corresponding access levels in DocSpace.
+ *
+ * @remarks
+ * - owner: System owner with full administrative rights and control over the entire DocSpace instance
+ * - docSpaceAdmin: Administrator with system-wide management capabilities but limited compared to owner
+ * - roomAdmin: User with administrative rights within specific rooms or workspaces
+ * - collaborator: User with enhanced permissions for content creation and modification
+ * - user: Regular user with basic access rights for viewing and interacting with content
  */
 export const enum UsersType {
   owner = "Owner",
