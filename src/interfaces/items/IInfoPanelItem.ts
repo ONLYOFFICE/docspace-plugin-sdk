@@ -34,6 +34,8 @@ export interface IInfoPanelSubMenu {
 }
 
 /**
+ * @Category Info panel Plugin
+ *
  * Describes an item that will be embedded in the file info panel as a separate tab.
  *
  * @param key - The unique item identifier used by the service to recognize the item.
