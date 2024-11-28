@@ -15,7 +15,7 @@
  */
 
 /**
- * Defines the possible visibility states of a DocSpace plugin.
+ * Defines the supported plugin statuses.
  */
 export const enum PluginStatus {
   /** Plugin is enabled and visible to users */

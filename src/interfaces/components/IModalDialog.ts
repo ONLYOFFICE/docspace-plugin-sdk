@@ -203,10 +203,16 @@ export interface IModalDialog {
   fullScreen?: boolean;
 
   /**
-   * Defines the event listeners. Each listener has a name and an onAction function
+   * Defines the event listeners.
    */
   eventListeners?: {
+    /**
+     * Defines the event listener name.
+     */
     name: string;
+    /**
+     * Sets a function which is triggered whenever the event listener is processed.
+     */
     onAction: () => Promise<IMessage> | IMessage | Promise<void> | void;
   }[];
 
@@ -215,11 +221,19 @@ export interface IModalDialog {
 
   /**
    * Sets a function which is triggered whenever the modal dialog is loaded.
-   * Returns an object with optional new dialog header, body, and footer
    */
   onLoad: () => Promise<{
+    /**
+     * Defines a new modal dialog header.
+     */
     newDialogHeader?: string;
+    /**
+     * Defines a new modal dialog body.
+     */
     newDialogBody: IBox;
+    /**
+     * Defines a new modal dialog footer.
+     */
     newDialogFooter?: IBox;
   }>;
 }

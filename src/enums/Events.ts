@@ -15,7 +15,7 @@
  */
 
 /**
- * Defines the supported event types that can be listened to and handled in the DocSpace plugin system.
+ * Defines the supported event types.
  *
  */
 export const enum Events {

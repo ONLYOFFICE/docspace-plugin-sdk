@@ -15,7 +15,7 @@
  */
 
 /**
- * Defines the available UI component types in the DocSpace plugin system.
+ * Defines the component types.
  */
 export const enum Components {
   /** Container component for grouping other elements */

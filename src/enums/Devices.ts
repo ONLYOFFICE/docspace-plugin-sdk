@@ -15,7 +15,7 @@
  */
 
 /**
- * Defines the supported device types for responsive design and device-specific behavior.
+ * Defines the supported device types.
  */
 export const enum Devices {
   /** Smartphones and small-screen mobile devices */

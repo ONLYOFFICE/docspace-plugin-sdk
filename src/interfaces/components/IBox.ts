@@ -155,6 +155,8 @@ export interface IBox {
   /**
    * Defines a shorthand property for "grid-row-start", "grid-column-start", "grid-row-end",
    * and "grid-column-end", specifying the size of the grid item and location within the grid
+   * by contributing a line, a span, or nothing (automatic) to its grid placement,
+   * thereby specifying the edges of its grid area.
    */
   gridArea?: string;
 
@@ -186,7 +188,7 @@ export interface IBox {
   overflowProp?: string;
 
   /** Defines the horizontal alignment of a block element or table-cell box */
-  textAlignProp?: string;
+  textAlign?: string;
 
   /** The child components to render within this box */
   children?: Component;

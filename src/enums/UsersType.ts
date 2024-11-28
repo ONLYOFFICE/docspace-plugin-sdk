@@ -15,7 +15,7 @@
  */
 
 /**
- * Defines the user roles and their corresponding access levels in DocSpace.
+ * Defines the supported user types..
  */
 export const enum UsersType {
   /** System owner with full administrative rights and control over the entire DocSpace instance */

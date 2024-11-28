@@ -15,7 +15,7 @@
  */
 
 /**
- * Defines the supported file and content types in the DocSpace system.
+ * Defines the supported file types.
  */
 export const enum FilesType {
   /** DocSpace room or workspace */
@@ -35,7 +35,7 @@ export const enum FilesType {
 }
 
 /**
- * Defines the supported file extensions and their corresponding formats.
+ * Defines the supported file extensions.
  */
 export const enum FilesExst {
   // Document formats

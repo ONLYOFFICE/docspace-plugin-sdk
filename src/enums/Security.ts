@@ -15,7 +15,7 @@
  */
 
 /**
- * Defines the available security permissions for rooms and folders in DocSpace.
+ * Defines the supported room/folder security parameters.
  */
 export const enum Security {
   /** Permission to copy files and folders */
