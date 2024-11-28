@@ -19,28 +19,74 @@ import { Devices, FilesExst, FilesType, UsersType } from "../../enums";
 /**
  * Describes an item that will be embedded in the profile/main button/context menu.
  *
- * @param key - The unique item identifier used by the service to recognize the item.
- * @param isSeparator - Specifies if the current item is a separator or not.
- * @param FilesExst - The extensions of files where the current item will be displayed.
- * It only works if the FilesType.Files is specified in the fileType parameter.
- * If this parameter is not specified, then the current item will be displayed in any file extension.
- * @param FilesType - The types of files where the current item will be displayed.
- * Presently the following file types are available: room, file, folder, image, video.
- * If this parameter is not specified, then the current item will be displayed in any file type.
- * @param userTypes - The types of users who will see the current item.
- * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
- * If this parameter is not specified, then the current item will be displayed for all user types.
- * @param devices - The types of devices where the current item will be displayed.
- * At the moment the following device types are available: mobile, tablet, desktop.
- * If this parameter is not specified, then the current item will be displayed in any device types.
- *
  * @deprecated
+ *
+ * @example
+ * ```typescript
+ * // Example 1: Separator for document operations in context menu
+ * const documentSeparator: ISeparatorItem = {
+ *   key: "document-separator",
+ *   isSeparator: true,
+ *   FilesType: [FilesType.Files],
+ *   FilesExst: [FilesExst.docx, FilesExst.pdf],
+ *   userTypes: [UsersType.owner, UsersType.docSpaceAdmin],
+ *   devices: [Devices.desktop]
+ * }
+ *
+ * // Example 2: Separator for admin actions in profile menu
+ * const adminSeparator: ISeparatorItem = {
+ *   key: "admin-separator",
+ *   isSeparator: true,
+ *   userTypes: [UsersType.owner, UsersType.docSpaceAdmin],
+ *   devices: [Devices.desktop, Devices.tablet]
+ * }
+ *
+ * // Example 3: Separator for image operations
+ * const imageSeparator: ISeparatorItem = {
+ *   key: "image-separator",
+ *   isSeparator: true,
+ *   FilesType: [FilesType.Files],
+ *   FilesExst: [
+ *     FilesExst.jpeg,
+ *     FilesExst.jpg,
+ *     FilesExst.png,
+ *     FilesExst.gif
+ *   ]
+ * }
+ * ```
  */
 interface ISeparatorItem {
+  /** The unique item identifier used by the service to recognize the item */
   key: string;
+
+  /** Specifies if the current item is a separator or not */
   isSeparator: true;
+
+  /**
+   * The extensions of files where the current item will be displayed.
+   * It only works if the FilesType.Files is specified in the fileType parameter.
+   * If this parameter is not specified, then the current item will be displayed in any file extension.
+   */
   FilesExst?: FilesExst[];
+
+  /**
+   * The types of files where the current item will be displayed.
+   * Presently the following file types are available: room, file, folder, image, video.
+   * If this parameter is not specified, then the current item will be displayed in any file type.
+   */
   FilesType?: FilesType[];
+
+  /**
+   * The types of users who will see the current item.
+   * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
+   * If this parameter is not specified, then the current item will be displayed for all user types.
+   */
   userTypes?: UsersType[];
+
+  /**
+   * The types of devices where the current item will be displayed.
+   * At the moment the following device types are available: mobile, tablet, desktop.
+   * If this parameter is not specified, then the current item will be displayed in any device types.
+   */
   devices?: Devices[];
 }

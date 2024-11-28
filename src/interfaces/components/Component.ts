@@ -33,151 +33,139 @@ import { IToggleButton } from "./IToggleButton";
  * @category Box Component
  *
  * Defines the box component.
- *
- * @param component - Defines the "box" component type.
- *
- * @param props - Defines the box component properties.
- *
- * @param contextName - Defines the box component context name that updates the component via React context.
  */
 type BoxGroup = {
+  /** Defines the "box" component type */
   component: Components.box;
+  /** Defines the box component properties */
   props: IBox;
+  /** Defines the box component context name that updates the component via React context */
   contextName?: string;
 };
 
 /**
  * @category Button Component
  *
- * @param component - Defines the "button" component type.
- *
- * @param props - Defines the button component properties.
- *
- * @param contextName - Defines the button component context name that updates the component via React context.
+ * Defines the button component.
  */
 type ButtonGroup = {
+  /** Defines the "button" component type */
   component: Components.button;
+  /** Defines the button component properties */
   props: IButton;
+  /** Defines the button component context name that updates the component via React context */
   contextName?: string;
 };
 
 /**
  * @category Checkbox Component
  *
- * @param component - Defines the "checkbox" component type.
- *
- * @param props - Defines the checkbox component properties.
- *
- * @param contextName - Defines the checkbox component context name that updates the component via React context.
+ * Defines the checkbox component.
  */
 type CheckboxGroup = {
+  /** Defines the "checkbox" component type */
   component: Components.checkbox;
+  /** Defines the checkbox component properties */
   props: ICheckbox;
+  /** Defines the checkbox component context name that updates the component via React context */
   contextName?: string;
 };
 
 /**
  * @category ComboBox Component
  *
- * @param component - Defines the "comboBox" component type.
- *
- * @param props - Defines the combo box component properties.
- *
- * @param contextName - Defines the combo box component context name that updates the component via React context.
+ * Defines the combo box component.
  */
 type ComboBoxGroup = {
+  /** Defines the "comboBox" component type */
   component: Components.comboBox;
+  /** Defines the combo box component properties */
   props: IComboBox;
+  /** Defines the combo box component context name that updates the component via React context */
   contextName?: string;
 };
 
 /**
  * @category IFrame Component
  *
- * @param component - Defines the "iFrame" component type.
- *
- * @param props - Defines the iFrame component properties.
- *
- * @param contextName - Defines the iFrame component context name that updates the component via React context.
+ * Defines the iframe component.
  */
 type IFrameGroup = {
+  /** Defines the "iFrame" component type */
   component: Components.iFrame;
+  /** Defines the iFrame component properties */
   props: IFrame;
+  /** Defines the iFrame component context name that updates the component via React context */
   contextName?: string;
 };
 
 /**
  * @category Image Component
  *
- * @param component - Defines the "img" component type.
- *
- * @param props - Defines the image component properties.
- *
- * @param contextName - Defines the image component context name that updates the component via React context.
+ * Defines the image component.
  */
 type ImageGroup = {
+  /** Defines the "img" component type */
   component: Components.img;
+  /** Defines the image component properties */
   props: IImage;
+  /** Defines the image component context name that updates the component via React context */
   contextName?: string;
 };
 
 /**
  * @category Input Component
  *
- * @param component - Defines the "input" component type.
- *
- * @param props - Defines the input component properties.
- *
- * @param contextName - Defines the input component context name that updates the component via React context.
+ * Defines the input component.
  */
 type InputGroup = {
+  /** Defines the "input" component type */
   component: Components.input;
+  /** Defines the input component properties */
   props: IInput;
+  /** Defines the input component context name that updates the component via React context */
   contextName?: string;
 };
 
 /**
  * @category Label Component
  *
- * @param component - Defines the "label" component type.
- *
- * @param props - Defines the label component properties.
- *
- * @param contextName - Defines the label component context name that updates the component via React context.
+ * Defines the label component.
  */
 type LabelGroup = {
+  /** Defines the "label" component type */
   component: Components.label;
+  /** Defines the label component properties */
   props: ILabel;
+  /** Defines the label component context name that updates the component via React context */
   contextName?: string;
 };
 
 /**
  * @category Skeleton Component
  *
- * @param component - Defines the "skeleton" component type.
- *
- * @param props - Defines the skeleton component properties.
- *
- * @param contextName - Defines the skeleton component context name that updates the component via React context.
+ * Defines the skeleton component.
  */
 type SkeletonGroup = {
+  /** Defines the "skeleton" component type */
   component: Components.skeleton;
+  /** Defines the skeleton component properties */
   props: ISkeleton;
+  /** Defines the skeleton component context name that updates the component via React context */
   contextName?: string;
 };
 
 /**
  * @category Text Component
  *
- * @param component - Defines the "text" component type.
- *
- * @param props - Defines the text component properties.
- *
- * @param contextName - Defines the text component context name that updates the component via React context.
+ * Defines the text component.
  */
 type TextGroup = {
+  /** Defines the "text" component type */
   component: Components.text;
+  /** Defines the text component properties */
   props: IText;
+  /** Defines the text component context name that updates the component via React context */
   contextName?: string;
 };
 
@@ -185,31 +173,27 @@ type TextGroup = {
  * @category TextArea Component
  *
  * Defines the textarea component.
- *
- * @param component - Defines the "textArea" component type.
- *
- * @param props - Defines the textarea component properties.
- *
- * @param contextName - Defines the textarea component context name that updates the component via React context.
  */
 type TextAreaGroup = {
+  /** Defines the "textArea" component type */
   component: Components.textArea;
+  /** Defines the textarea component properties */
   props: ITextArea;
+  /** Defines the textarea component context name that updates the component via React context */
   contextName?: string;
 };
 
 /**
  * @category ToggleButton Component
  *
- * @param component - Defines the "toggleButton" component type.
- *
- * @param props - Defines the toggle button component properties.
- *
- * @param contextName - Defines the toggle button component context name that updates the component via React context.
+ * Defines the toggle button component.
  */
 type ToggleButtonGroup = {
+  /** Defines the "toggleButton" component type */
   component: Components.toggleButton;
+  /** Defines the toggle button component properties */
   props: IToggleButton;
+  /** Defines the toggle button component context name that updates the component via React context */
   contextName?: string;
 };
 

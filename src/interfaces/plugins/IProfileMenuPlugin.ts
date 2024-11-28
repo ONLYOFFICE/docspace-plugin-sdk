@@ -23,17 +23,100 @@ import { IPlugin } from "./IPlugin";
  * Plugin for embedding items in the profile menu.
  * This interface must be implemented in each plugin that adds items to the profile menu.
  *
- * @param profileMenuItems - Collection of menu items where keys are from ProfileMenuItem objects
- * @method addProfileMenuItem - Adds a new item to the profile menu
- * @param item - The profile menu item to add
- * @method getProfileMenuItems - Retrieves all profile menu items
- * @returns Collection of menu items where keys are from ProfileMenuItem objects
- * @method updateProfileMenuItem - Updates an existing profile menu item
- * @param item - The profile menu item to update
+ * @example
+ * ```typescript
+ * // Example 1: User Settings Plugin
+ * const settingsPlugin: IProfileMenuPlugin = {
+ *   profileMenuItems: new Map([
+ *     ["user-settings", {
+ *       key: "user-settings",
+ *       label: "User Settings",
+ *       icon: "settings-icon.svg",
+ *       onClick: async () => {
+ *         try {
+ *           await loadUserSettings();
+ *           return {
+ *             actions: [Actions.showToast],
+ *             toastProps: [{
+ *               type: "success",
+ *               title: "Settings Loaded",
+ *               message: "Preferences loaded | Options ready | Panel opened"
+ *             }]
+ *           };
+ *         } catch (error) {
+ *           return {
+ *             actions: [Actions.showToast],
+ *             toastProps: [{
+ *               type: "error",
+ *               title: "Settings Failed",
+ *               message: "Unable to load settings | Check permissions"
+ *             }]
+ *           };
+ *         }
+ *       }
+ *     }]
+ *   ]),
+ *   addProfileMenuItem(item) {
+ *     this.profileMenuItems.set(item.key, item);
+ *   },
+ *   getProfileMenuItems() {
+ *     return this.profileMenuItems;
+ *   }
+ * };
+ * 
+ * // Example 2: User Profile Plugin
+ * const profilePlugin: IProfileMenuPlugin = {
+ *   profileMenuItems: new Map([
+ *     ["user-profile", {
+ *       key: "user-profile",
+ *       label: "View Profile",
+ *       icon: "profile-icon.svg",
+ *       onClick: async () => {
+ *         try {
+ *           await loadUserProfile();
+ *           return {
+ *             actions: [Actions.showToast],
+ *             toastProps: [{
+ *               type: "success",
+ *               title: "Profile Loaded",
+ *               message: "Data retrieved | Profile ready | View updated"
+ *             }]
+ *           };
+ *         } catch (error) {
+ *           return {
+ *             actions: [Actions.showToast],
+ *             toastProps: [{
+ *               type: "error",
+ *               title: "Profile Failed",
+ *               message: "Unable to load profile | Check connection"
+ *             }]
+ *           };
+ *         }
+ *       }
+ *     }]
+ *   ]),
+ *   addProfileMenuItem(item) {
+ *     this.profileMenuItems.set(item.key, item);
+ *   },
+ *   getProfileMenuItems() {
+ *     return this.profileMenuItems;
+ *   }
+ * };
+ * ```
  */
 export interface IProfileMenuPlugin extends IPlugin {
+  /**
+   * Stores a collection of elements where the keys are the key parameters from the ProfileMenuItem objects.
+   * A list for hooking interactions with profile menu is generated based on this collection.
+   */
   profileMenuItems: Map<string, IProfileMenuItem>;
+
+  /** Add a new profile menu item */
   addProfileMenuItem(item: IProfileMenuItem): void;
+
+  /** Get all the profile menu items */
   getProfileMenuItems(): Map<string, IProfileMenuItem>;
+
+  /** Updates an existing profile menu item */
   updateProfileMenuItem(item: IProfileMenuItem): void;
 }

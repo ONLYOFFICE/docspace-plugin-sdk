@@ -19,29 +19,53 @@
  *
  * Field name in the form.
  *
- * @param text - Defines the element text.
+ * @example
+ * ```typescript
+ * // Example 1: Required field label
+ * const emailLabel: ILabel = {
+ *   text: "Email Address",
+ *   isRequired: true,
+ *   error: false,
+ *   isInline: true,
+ *   title: "Enter your email address",
+ *   htmlFor: "email-input",
+ *   display: "flex"
+ * }
  *
- * @param isRequired - Specifies whether the field to which the label is attached is required.
- *
- * @param error - Specifies whether the field to which the label is attached is incorrect.
- *
- * @param isInline - Specifies whether the "display: inline-block" property is set.
- *
- * @param title - Defines the label title.
- *
- * @param truncate - Specifies whether the word wrapping is disabled.
- *
- * @param htmlFor - Defines the field ID to which the label is attached.
- *
- * @param display - Specifies whether the "display" property is set.
+ * // Example 2: Error state label with truncation
+ * const longFieldLabel: ILabel = {
+ *   text: "Document Processing Configuration Settings",
+ *   isRequired: false,
+ *   error: true,
+ *   truncate: true,
+ *   title: "Configure document processing settings",
+ *   htmlFor: "doc-settings",
+ *   display: "block"
+ * }
+ * ```
  */
 export interface ILabel {
+  /** Defines the element text */
   text: string;
+
+  /** Specifies whether the field to which the label is attached is required */
   isRequired?: boolean;
+
+  /** Specifies whether the field to which the label is attached is incorrect */
   error?: boolean;
+
+  /** Specifies whether the "display: inline-block" property is set */
   isInline?: boolean;
+
+  /** Defines the label title */
   title?: string;
+
+  /** Specifies whether the word wrapping is disabled */
   truncate?: boolean;
+
+  /** Defines the field ID to which the label is attached */
   htmlFor?: string;
+
+  /** Specifies whether the "display" property is set */
   display?: string;
 }

@@ -21,18 +21,27 @@ import { IMessage } from "../utils";
  *
  * Custom combo box option.
  *
- * @param key - Defines the combo box option key.
- *
- * @param label - Defines the combo box option label.
- *
- * @param icon - Defines the combo box option icon.
- *
- * @param disabled - Specifies if the combo box option is disabled or not.
+ * @example
+ * ```typescript
+ * const languageOption: IComboBoxItem = {
+ *   key: "en-US",
+ *   label: "English (US)",
+ *   icon: "language-en.svg",
+ *   disabled: false
+ * }
+ * ```
  */
 export interface IComboBoxItem {
+  /** Defines the combo box option key */
   key: string;
+
+  /** Defines the combo box option label */
   label: string;
+
+  /** Defines the combo box option icon */
   icon?: string;
+
+  /** Specifies if the combo box option is disabled or not */
   disabled?: boolean;
 }
 
@@ -41,53 +50,106 @@ export interface IComboBoxItem {
  *
  * Custom combo box input.
  *
- * @param options - Defines the combo box options.
- *
- * @param selectedOption - Defines the combo box selected option.
- *
- * @param onSelect - Sets a function which is triggered whenever the combo box is selected.
- *
- * @param scaled - Specifies that the combo box is scaled by its parent.
- *
- * @param directionX - Defines the position of the combo box in the X direction.
- *
- * @param directionY - Defines the position of the combo box in the Y direction.
- *
- * @param displayType - Defines the combo box display type.
- *
- * @param dropDownMaxHeight - Defines the maximum height of the dropdown list.
- *
- * @param showDisabledItems - Specifies if the disabled combo box options will be displayed or not when "displayType !== toggle".
- *
- * @param withBackdrop - Specifies whether the combo box contains a backdrop.
- *
- * @param isDisabled - Specifies if the combo box is disabled or not.
- *
- * @param noBorder - Specifies whether to display the combo box without borders.
- *
- * @param opened - Specifies whether to open the combo box.
- *
- * @param scaledOptions - Specifies whether the combo box options are scaled by the combo box button.
- *
- * @param onToggle - Sets a function which is triggered whenever the combo box is clicked when "displayType == toggle".
- *
- * @param modernView - Specifies whether to display the combo box in the modern view.
+ * @example
+ * ```typescript
+ * const languageSelector: IComboBox = {
+ *   options: [
+ *     {
+ *       key: "en-US",
+ *       label: "English (US)",
+ *       icon: "language-en.svg"
+ *     },
+ *     {
+ *       key: "es-ES",
+ *       label: "Español",
+ *       icon: "language-es.svg"
+ *     },
+ *     {
+ *       key: "fr-FR",
+ *       label: "Français",
+ *       icon: "language-fr.svg",
+ *       disabled: true
+ *     }
+ *   ],
+ *   selectedOption: {
+ *     key: "en-US",
+ *     label: "English (US)",
+ *     icon: "language-en.svg"
+ *   },
+ *   onSelect: (item) => {
+ *     return {
+ *       actions: [Actions.updateProps, Actions.showToast],
+ *       newProps: {
+ *         selectedOption: item
+ *       },
+ *       toastProps: [{
+ *         title: "Language Changed",
+ *         type: "success",
+ *         message: `Interface language changed to ${item.label}`
+ *       }]
+ *     };
+ *   },
+ *   scaled: true,
+ *   directionX: "right",
+ *   directionY: "bottom",
+ *   displayType: "default",
+ *   dropDownMaxHeight: 300,
+ *   showDisabledItems: true,
+ *   withBackdrop: true,
+ *   isDisabled: false,
+ *   noBorder: false,
+ *   opened: false,
+ *   scaledOptions: true,
+ *   modernView: true
+ * }
+ * ```
  */
 export interface IComboBox {
+  /** Defines the combo box options */
   options: IComboBoxItem[];
+
+  /** Defines the combo box selected option */
   selectedOption: IComboBoxItem;
+
+  /** Sets a function which is triggered whenever the combo box is selected */
   onSelect?: (item: IComboBoxItem) => IMessage | void;
+
+  /** Specifies that the combo box is scaled by its parent */
   scaled?: boolean;
+
+  /** Defines the position of the combo box in the X direction */
   directionX?: "left" | "right";
+
+  /** Defines the position of the combo box in the Y direction */
   directionY?: "bottom" | "top" | "both";
+
+  /** Defines the combo box display type */
   displayType?: "default" | "toggle";
+
+  /** Defines the maximum height of the dropdown list */
   dropDownMaxHeight?: number;
+
+  /** Specifies if the disabled combo box options will be displayed or not when "displayType !== toggle" */
   showDisabledItems?: boolean;
+
+  /** Specifies whether the combo box contains a backdrop */
   withBackdrop?: boolean;
+
+  /** Specifies if the combo box is disabled or not */
   isDisabled?: boolean;
+
+  /** Specifies whether to display the combo box without borders */
   noBorder?: boolean;
+
+  /** Specifies whether to open the combo box */
   opened?: boolean;
+
+  /** Specifies whether the combo box options are scaled by the combo box button */
   scaledOptions?: boolean;
+
+  /** Sets a function which is triggered whenever the combo box is clicked when "displayType == toggle" */
   onToggle?: () => IMessage | void;
+
+  /** Specifies whether to display the combo box in the modern view */
   modernView?: boolean;
 }

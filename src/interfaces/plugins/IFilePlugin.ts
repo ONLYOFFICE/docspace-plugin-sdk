@@ -21,21 +21,115 @@ import { IFileItem } from "../items";
  *
  * The plugin that can interact with the file list.
  *
- * @param fileItems - Stores a collection of elements where the keys are the key parameters from the FileItem objects.
- * A list for hooking interactions with files is generated based on this collection.
- *
- * @method addFileItem - Add a new item for interactions with files.
- * @param item - Defines an item for interactions with files.
- *
- * @method getFileItems - Get all the items for interactions with files.
- * @returns A collection of elements where the keys are the key parameters from the FileItem objects.
- *
- * @method updateFileItem - Update the item for interactions with files.
- * @param item - Defines an item for interactions with files.
+ * @example
+ * ```typescript
+ * // Example 1: File Compression Plugin
+ * const compressionPlugin: IFilePlugin = {
+ *   fileItems: new Map([
+ *     ["compress", {
+ *       key: "compress",
+ *       label: "Compress File",
+ *       icon: "compress-icon.svg",
+ *       onClick: async () => {
+ *         try {
+ *           await compressSelectedFile();
+ *           return {
+ *             actions: [Actions.showToast],
+ *             toastProps: [{
+ *               type: "success",
+ *               title: "File Compressed",
+ *               message: "Compression complete | Space saved | Ready to use"
+ *             }]
+ *           };
+ *         } catch (error) {
+ *           return {
+ *             actions: [Actions.showToast],
+ *             toastProps: [{
+ *               type: "error",
+ *               title: "Compression Failed",
+ *               message: "Unable to compress file | Check file size"
+ *             }]
+ *           };
+ *         }
+ *       }
+ *     }]
+ *   ]),
+ *   getFileItems() {
+ *     return this.fileItems;
+ *   },
+ *   addFileItem(item) {
+ *     this.fileItems.set(item.key, item);
+ *   },
+ *   updateFileItem(item) {
+ *     this.fileItems.set(item.key, item);
+ *   }
+ * };
+ * 
+ * // Example 2: File Encryption Plugin
+ * const encryptionPlugin: IFilePlugin = {
+ *   fileItems: new Map([
+ *     ["encrypt", {
+ *       key: "encrypt",
+ *       label: "Encrypt File",
+ *       icon: "encrypt-icon.svg",
+ *       onClick: async () => {
+ *         try {
+ *           await encryptSelectedFile();
+ *           return {
+ *             actions: [Actions.showToast],
+ *             toastProps: [{
+ *               type: "success",
+ *               title: "File Encrypted",
+ *               message: "Encryption complete | Security applied | Ready to store"
+ *             }]
+ *           };
+ *         } catch (error) {
+ *           return {
+ *             actions: [Actions.showToast],
+ *             toastProps: [{
+ *               type: "error",
+ *               title: "Encryption Failed",
+ *               message: "Unable to encrypt file | Check key status"
+ *             }]
+ *           };
+ *         }
+ *       }
+ *     }]
+ *   ]),
+ *   getFileItems() {
+ *     return this.fileItems;
+ *   },
+ *   addFileItem(item) {
+ *     this.fileItems.set(item.key, item);
+ *   },
+ *   updateFileItem(item) {
+ *     this.fileItems.set(item.key, item);
+ *   }
+ * };
+ * ```
  */
 export interface IFilePlugin {
+  /**
+   * Stores a collection of elements where the keys are the key parameters from the FileItem objects.
+   * A list for hooking interactions with files is generated based on this collection.
+   */
   fileItems: Map<string, IFileItem>;
+
+  /**
+   * Add a new item for interactions with files.
+   * @param item - The file item to add, containing key, label, icon, and onClick handler
+   */
   addFileItem(item: IFileItem): void;
+
+  /**
+   * Get all the items for interactions with files.
+   * @returns A Map containing all registered file items, where keys are item identifiers
+   */
   getFileItems(): Map<string, IFileItem>;
+
+  /**
+   * Update an existing file interaction item.
+   * @param item - The file item to update with new properties
+   */
   updateFileItem(item: IFileItem): void;
 }

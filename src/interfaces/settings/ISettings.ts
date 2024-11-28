@@ -20,19 +20,20 @@ import { ButtonGroup, IBox } from "../components";
  * @Category Settings Plugin
  *
  * Defines the administrator or owner settings block that is embedded in the modal window with the plugin description.
- *
- * @param settings - Defines the administrator or owner settings.
- *
- * @param saveButton - Defines the button to save the settings.
- *
- * @param isLoading - Specifies if the settings block will be displayed as a loader icon or not.
- *
- * @param onLoad - Defines a function that is triggered whenever the settings block is loaded.
- * Returns a promise with the updated settings box and optional save button.
  */
 export interface ISettings {
+  /** Defines the administrator or owner settings */
   settings: IBox;
+
+  /** Defines the button to save the settings */
   saveButton: ButtonGroup;
+
+  /** Specifies if the settings block will be displayed as a loader icon or not */
   isLoading?: boolean;
+
+  /**
+   * Defines a function that is triggered whenever the settings block is loaded.
+   * Returns a promise with the updated settings box and optional save button.
+   */
   onLoad?: () => Promise<{ settings: IBox; saveButton?: ButtonGroup }>;
 }

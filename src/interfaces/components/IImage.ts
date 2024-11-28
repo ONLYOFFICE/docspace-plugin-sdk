@@ -19,26 +19,56 @@
  *
  * A component that is used to embed an image not from the assets folder into a modal window or the settings page.
  *
- * @param src - Defines the full path to the image.
- *
- * @param alt - Defines the image alt attribute.
- *
- * @param width - Defines the image width.
- *
- * @param height - Defines the image height.
- *
- * @param name - Defines the image name.
- *
- * @param id - Defines the image ID.
- *
- * @param style - Defines the image style.
+ * @example
+ * ```typescript
+ * // Example 1: Plugin logo in settings
+ * const pluginLogo: IImage = {
+ *   src: "https://example.com/plugin-logo.png",
+ *   alt: "Plugin Logo",
+ *   width: "120px",
+ *   height: "40px",
+ *   name: "plugin-logo",
+ *   id: "settings-logo",
+ *   style: {
+ *     objectFit: "contain",
+ *     marginBottom: "16px"
+ *   }
+ * }
+ * 
+ * // Example 2: Responsive preview image
+ * const documentPreview: IImage = {
+ *   src: "https://example.com/document-preview.jpg",
+ *   alt: "Document Preview",
+ *   width: "100%",
+ *   height: "auto",
+ *   name: "doc-preview",
+ *   style: {
+ *     borderRadius: "4px",
+ *     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+ *     maxWidth: "800px"
+ *   }
+ * }
+ * ```
  */
 export interface IImage {
+  /** Defines the full path to the image */
   src: string;
+
+  /** Defines the image alt attribute */
   alt: string;
+
+  /** Defines the image width */
   width?: string;
+
+  /** Defines the image height */
   height?: string;
+
+  /** Defines the image name */
   name?: string;
+
+  /** Defines the image ID */
   id?: string;
+
+  /** Defines the image style */
   style?: { [key: string]: string };
 }

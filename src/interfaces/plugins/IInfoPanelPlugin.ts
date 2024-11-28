@@ -21,21 +21,100 @@ import { IInfoPanelItem } from "../items";
  *
  * The plugin that is embedded as a separate tab in the file info panel.
  *
- * @param infoPanelItems - Stores a collection of elements where the keys are the key parameters from the InfoPanelItem objects.
- * A list for embedding into the info panel is generated based on this collection.
+ * @example
+ * ```typescript
+ * // Example 1: Document Info Panel Plugin
+ * const documentInfoPanel: IInfoPanelPlugin = {
+ *   infoPanelItems: new Map([
+ *     ["doc-info", {
+ *       key: "doc-info",
+ *       label: "Document Info",
+ *       icon: "info-icon.svg",
+ *       onClick: async () => {
+ *         try {
+ *           const info = await getDocumentInfo();
+ *           return {
+ *             actions: [Actions.showToast],
+ *             toastProps: [{
+ *               type: "success",
+ *               title: "Info Retrieved",
+ *               message: "Document details | Data loaded | Panel updated"
+ *             }]
+ *           };
+ *         } catch (error) {
+ *           return {
+ *             actions: [Actions.showToast],
+ *             toastProps: [{
+ *               type: "error",
+ *               title: "Info Failed",
+ *               message: "Unable to load info | Check permissions"
+ *             }]
+ *           };
+ *         }
+ *       }
+ *     }]
+ *   ]),
+ *   getInfoPanelItems() {
+ *     return this.infoPanelItems;
+ *   },
+ *   updateInfoPanelItem(item) {
+ *     this.infoPanelItems.set(item.key, item);
+ *   }
+ * };
  *
- * @method addInfoPanelItem - Add a new info panel item.
- * @param item - Defines an info panel item.
- *
- * @method getInfoPanelItems - Get all the info panel items.
- * @returns A collection of elements where the keys are the key parameters from the InfoPanelItem objects.
- *
- * @method updateInfoPanelItem - Update the info panel item.
- * @param item - Defines a new info panel item.
+ * // Example 2: File Analytics Panel Plugin
+ * const analyticsPanel: IInfoPanelPlugin = {
+ *   infoPanelItems: new Map([
+ *     ["file-stats", {
+ *       key: "file-stats",
+ *       label: "File Analytics",
+ *       icon: "analytics-icon.svg",
+ *       onClick: async () => {
+ *         try {
+ *           await loadFileAnalytics();
+ *           return {
+ *             actions: [Actions.showToast],
+ *             toastProps: [{
+ *               type: "success",
+ *               title: "Analytics Loaded",
+ *               message: "Stats calculated | Charts rendered | View ready"
+ *             }]
+ *           };
+ *         } catch (error) {
+ *           return {
+ *             actions: [Actions.showToast],
+ *             toastProps: [{
+ *               type: "error",
+ *               title: "Analytics Failed",
+ *               message: "Unable to load stats | Check data source"
+ *             }]
+ *           };
+ *         }
+ *       }
+ *     }]
+ *   ]),
+ *   getInfoPanelItems() {
+ *     return this.infoPanelItems;
+ *   },
+ *   updateInfoPanelItem(item) {
+ *     this.infoPanelItems.set(item.key, item);
+ *   }
+ * };
+ * ```
  */
 export interface IInfoPanelPlugin {
+  /**
+   * Stores a collection of elements where the keys are the key parameters from the InfoPanelItem objects.
+   * A list for embedding into the info panel is generated based on this collection.
+   */
   infoPanelItems: Map<string, IInfoPanelItem>;
+
+  /** Add a new info panel item */
   addInfoPanelItem(item: IInfoPanelItem): void;
+
+  /** Get all the info panel items */
   getInfoPanelItems(): Map<string, IInfoPanelItem>;
+
+  /** Update the info panel item */
   updateInfoPanelItem(item: IInfoPanelItem): void;
 }

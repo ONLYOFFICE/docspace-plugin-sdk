@@ -19,14 +19,37 @@
  *
  * A component that is used to hide components during uploading.
  *
- * @param width - Defines the skeleton width.
+ * @example
+ * ```typescript
+ * // Example 1: Avatar placeholder skeleton
+ * const avatarSkeleton: ISkeleton = {
+ *   width: "40px",
+ *   height: "40px",
+ *   borderRadius: "50%"
+ * }
  *
- * @param height - Defines the skeleton height.
+ * // Example 2: Content card skeleton
+ * const cardSkeleton: ISkeleton = {
+ *   width: "100%",
+ *   height: "120px",
+ *   borderRadius: "8px"
+ * }
  *
- * @param borderRadius - Defines the skeleton border radius.
+ * // Example 3: Text line skeleton
+ * const textSkeleton: ISkeleton = {
+ *   width: "80%",
+ *   height: "16px",
+ *   borderRadius: "4px"
+ * }
+ * ```
  */
 export interface ISkeleton {
+  /** Defines the skeleton width */
   width: string;
+
+  /** Defines the skeleton height */
   height: string;
+
+  /** Defines the skeleton border radius */
   borderRadius?: string;
 }

@@ -21,20 +21,20 @@ import { PluginStatus } from "../../enums";
  *
  * The default plugin.
  * This interface must be implemented in each plugin because without the plugin status it will not be built in.
- *
- * @param status - The plugin status (active or hide).
- * @param onLoadCallback - Callback which will be executed when uploading the plugin to the portal.
- * @method updateStatus - Update the plugin status.
- * @param status - A new plugin status (active or hide).
- * @method getStatus - Get the current plugin status.
- * @returns The current plugin status.
- * @method setOnLoadCallback - Sets the onLoadCallback variable to the plugin.
- * @param callback - Callback which will be executed when uploading the plugin to the portal.
  */
 export interface IPlugin {
+  /** The plugin status (active or hide) */
   status: PluginStatus;
+
+  /** Callback which will be executed when uploading the plugin to the portal */
   onLoadCallback: () => Promise<void>;
+
+  /** Update the plugin status */
   updateStatus(status: PluginStatus): void;
+
+  /** Get the current plugin status */
   getStatus(): PluginStatus;
+
+  /** Sets the onLoadCallback variable to the plugin */
   setOnLoadCallback(callback: () => Promise<void>): void;
 }

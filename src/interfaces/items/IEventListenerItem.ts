@@ -18,28 +18,111 @@ import { Devices, Events, UsersType } from "../../enums";
 import { IMessage } from "../utils";
 
 /**
- * @Category Event listener Plugin
+ * @Category Event Listener Plugin
+ * 
+ * Describes an event listener that will be registered with the service.
+ * 
+ * @example
+ * ```typescript
+ * // Example 1: Auto-categorize new rooms
+ * const roomCategorizer: IEventListenerItem = {
+ *   key: "auto-categorize-room",
+ *   eventType: Events.ROOM_CREATE,
+ *   eventHandler: async () => {
+ *     try {
+ *       await categorizationService.processNewRoom();
+ *       return {
+ *         actions: [Actions.showToast],
+ *         toastProps: [{
+ *           type: "success",
+ *           title: "Room Categorized Successfully",
+ *           message: "Room categorized successfully | Category: New Category | Status: Success"
+ *         }]
+ *       };
+ *     } catch (error) {
+ *       return {
+ *         actions: [Actions.showToast],
+ *         toastProps: [{
+ *           type: "warning",
+ *           title: "Room Categorization Skipped",
+ *           message: "Error occurred during categorization | Status: Failed"
+ *         }]
+ *       };
+ *     }
+ *   },
+ *   usersTypes: [UsersType.docSpaceAdmin, UsersType.roomAdmin],
+ *   devices: [Devices.desktop]
+ * }
  *
- * Describes an item that allows the plugin to respond to the built-in DocSpace events (creating a room/file, etc.).
- * Each event can have several listeners. When the event is activated, the dialog cannot be hooked.
+ * // Example 2: Track file renames for audit
+ * const fileRenameTracker: IEventListenerItem = {
+ *   key: "file-rename-tracker",
+ *   eventType: Events.RENAME,
+ *   eventHandler: async () => {
+ *     try {
+ *       await auditService.logFileRename();
+ *       return {
+ *         actions: [Actions.updateItems],
+ *         itemList: await getUpdatedFileList()
+ *       };
+ *     } catch (error) {
+ *       console.error("Failed to log file rename:", error);
+ *     }
+ *   },
+ *   usersTypes: [
+ *     UsersType.owner,
+ *     UsersType.docSpaceAdmin,
+ *     UsersType.roomAdmin,
+ *     UsersType.collaborator
+ *   ]
+ * }
  *
- * @param key - The unique item identifier used by the service to recognize the item.
- * @param eventType - The event type which will be executed.
- * Presently the following events are available: CREATE, RENAME, ROOM_CREATE, ROOM_EDIT, CHANGE_COLUMN, CHANGE_USER_TYPE, CREATE_PLUGIN_FILE.
- * @param eventHandler - A function that will be executed when the event is triggered.
- * This function can be asynchronous.
- * After the event is executed, only updating the items or displaying toast is possible, other actions are blocked.
- * @param usersTypes - The types of users who have the access to the current item.
- * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
- * If this parameter is not specified, then the current item will be available for all user types.
- * @param devices - The types of devices where the current item will be available.
- * At the moment the following device types are available: mobile, tablet, desktop.
- * If this parameter is not specified, then the current item will be available in any device types.
+ * // Example 3: Column change notification
+ * const columnChangeNotifier: IEventListenerItem = {
+ *   key: "column-change-notifier",
+ *   eventType: Events.CHANGE_COLUMN,
+ *   eventHandler: () => {
+ *     return {
+ *       actions: [Actions.showToast],
+ *       toastProps: [{
+ *         type: "info",
+ *         title: "Column Layout Updated",
+ *         message: "Column layout updated successfully | New layout applied"
+ *       }]
+ *     };
+ *   },
+ *   devices: [Devices.desktop, Devices.tablet]
+ * }
+ * ```
  */
 export interface IEventListenerItem {
+  /** The unique item identifier used by the service to recognize the item */
   key: string;
+
+  /** 
+   * The event type which will be executed.
+   * Presently the following events are available: CREATE, RENAME, ROOM_CREATE, ROOM_EDIT, CHANGE_COLUMN, CHANGE_USER_TYPE, CREATE_PLUGIN_FILE.
+   */
   eventType: Events;
+
+  /**
+   * A function that will be executed when the event is triggered.
+   * This function can be asynchronous.
+   * After the event is executed, only updating the items or displaying toast is possible, other actions are blocked.
+   */
   eventHandler: () => Promise<IMessage> | IMessage | void;
+
+  /**
+   * The types of users who have the access to the current item.
+   * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
+   * If this parameter is not specified, then the current item will be available for all user types.
+   */
   usersTypes?: UsersType[];
+
+  /**
+   * The types of devices where the current item will be available.
+   * At the moment the following device types are available: mobile, tablet, desktop.
+   * If this parameter is not specified, then the current item will be available in any device types.
+   */
   devices?: Devices[];
 }

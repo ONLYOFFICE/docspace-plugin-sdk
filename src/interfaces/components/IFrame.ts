@@ -19,26 +19,58 @@
  *
  * A component that is used to embed a third-party website into a modal window or the settings page.
  *
- * @param src - Defines the base URL to a modal window or the settings page. It is used to generate links.
+ * @example
+ * ```typescript
+ * // Example 1: Embedding a PDF viewer in a modal window
+ * const pdfViewer: IFrame = {
+ *   src: "https://example.com/pdf-viewer",
+ *   width: "100%",
+ *   height: "80%",
+ *   name: "pdf-viewer-frame",
+ *   sandbox: "allow-scripts allow-same-origin allow-forms",
+ *   id: "pdf-viewer-iframe",
+ *   style: {
+ *     border: "none",
+ *     borderRadius: "8px",
+ *     boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)"
+ *   }
+ * }
  *
- * @param width - Defines the frame width measured in percent.
- *
- * @param height - Defines the frame height measured in percent.
- *
- * @param name - Defines the name of the object inserted into the page.
- *
- * @param sandbox - Defines the frame sandbox.
- *
- * @param id - Defines the element ID.
- *
- * @param style - Defines the frame style.
+ * // Example 2: Embedding a settings configuration page
+ * const settingsConfig: IFrame = {
+ *   src: "https://example.com/plugin-settings",
+ *   width: "100%",
+ *   height: "100%",
+ *   name: "plugin-settings",
+ *   sandbox: "allow-scripts allow-same-origin allow-forms allow-popups",
+ *   id: "settings-iframe",
+ *   style: {
+ *     border: "1px solid #eceef1",
+ *     backgroundColor: "#ffffff",
+ *     padding: "16px"
+ *   }
+ * }
+ * ```
  */
 export interface IFrame {
+  /** Defines the base URL to a modal window or the settings page. It is used to generate links */
   src: string;
+
+  /** Defines the frame width measured in percent */
   width?: string;
+
+  /** Defines the frame height measured in percent */
   height?: string;
+
+  /** Defines the name of the object inserted into the page */
   name?: string;
+
+  /** Defines the frame sandbox */
   sandbox?: string;
+
+  /** Defines the element ID */
   id?: string;
+
+  /** Defines the frame style */
   style?: { [key: string]: string };
 }

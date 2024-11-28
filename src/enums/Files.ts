@@ -1,117 +1,142 @@
 /*
-* (c) Copyright Ascensio System SIA 2024
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * (c) Copyright Ascensio System SIA 2024
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 /**
  * Defines the supported file and content types in the DocSpace system.
- *
- * @remarks
- * - room: DocSpace room or workspace
- * - file: Generic file type
- * - folder: Directory or folder
- * - image: Image file (various formats)
- * - video: Video file (various formats)
  */
 export const enum FilesType {
+  /** DocSpace room or workspace */
   room = "room",
+
+  /** Generic file type */
   file = "file",
+
+  /** Directory or folder */
   folder = "folder",
+
+  /** Image file (various formats) */
   image = "image",
+
+  /** Video file (various formats) */
   video = "video",
 }
 
 /**
  * Defines the supported file extensions and their corresponding formats.
- *
- * @remarks
- * Document formats:
- * - doc, docx, docm, dotx: Microsoft Word documents
- * - odt, fodt, ott: OpenDocument text formats
- * - rtf: Rich Text Format
- * - txt: Plain text
- * - pdf: Portable Document Format
- * - docxf, oform: Form documents
- *
- * Spreadsheet formats:
- * - xls, xlsx, xlsm: Microsoft Excel spreadsheets
- * - ods, ots: OpenDocument spreadsheet formats
- *
- * Presentation formats:
- * - ppt, pptx, pptm: Microsoft PowerPoint presentations
- * - odp, otp: OpenDocument presentation formats
- * - pps, ppsx: PowerPoint show formats
- * - pot: PowerPoint template
- *
- * Media formats:
- * - avi, flv, mkv, mov, mp4, mpg, webm, m2ts, dvd: Video formats
- * - svg: Scalable Vector Graphics
- *
- * Other formats:
- * - csv: Comma-separated values
- * - djvu: DjVu format
- * - epub, fb2, pb2: E-book formats
- * - iaf: Archive format
- * - ics: Calendar format
- * - mht: Web archive
- * - xps: XML Paper Specification
- * - xml: Extensible Markup Language
  */
 export const enum FilesExst {
-  avi = ".avi",
-  csv = ".csv",
-  djvu = ".djvu",
+  // Document formats
+  /** Microsoft Word document */
   doc = ".doc",
-  docm = ".docm",
+  /** Microsoft Word document (XML-based) */
   docx = ".docx",
+  /** Microsoft Word macro-enabled document */
+  docm = ".docm",
+  /** Microsoft Word template */
   dotx = ".dotx",
-  dvd = ".dvd",
-  epub = ".epub",
-  pb2 = ".pb2",
-  fb2 = ".fb2",
-  flv = ".flv",
-  fodt = ".fodt",
-  iaf = ".iaf",
-  ics = ".ics",
-  m2ts = ".m2ts",
-  mht = ".mht",
-  mkv = ".mkv",
-  mov = ".mov",
-  mp4 = ".mp4",
-  mpg = ".mpg",
-  odp = ".odp",
-  ods = ".ods",
+  /** OpenDocument text format */
   odt = ".odt",
-  otp = ".otp",
-  ots = ".ots",
+  /** OpenDocument flat XML text format */
+  fodt = ".fodt",
+  /** OpenDocument text template */
   ott = ".ott",
-  pdf = ".pdf",
-  pot = ".pot",
-  pps = ".pps",
-  ppsx = ".ppsx",
-  ppt = ".ppt",
-  pptm = ".pptm",
-  pptx = ".pptx",
+  /** Rich Text Format */
   rtf = ".rtf",
-  svg = ".svg",
+  /** Plain text */
   txt = ".txt",
-  webm = ".webm",
-  xls = ".xls",
-  xlsm = ".xlsm",
-  xlsx = ".xlsx",
-  xps = ".xps",
-  xml = ".xml",
-  oform = ".oform",
+  /** Portable Document Format */
+  pdf = ".pdf",
+  /** Form document (DOCX-based) */
   docxf = ".docxf",
+  /** Form document (OpenDocument-based) */
+  oform = ".oform",
+
+  // Spreadsheet formats
+  /** Microsoft Excel spreadsheet */
+  xls = ".xls",
+  /** Microsoft Excel spreadsheet (XML-based) */
+  xlsx = ".xlsx",
+  /** Microsoft Excel macro-enabled spreadsheet */
+  xlsm = ".xlsm",
+  /** OpenDocument spreadsheet */
+  ods = ".ods",
+  /** OpenDocument spreadsheet template */
+  ots = ".ots",
+
+  // Presentation formats
+  /** Microsoft PowerPoint presentation */
+  ppt = ".ppt",
+  /** Microsoft PowerPoint presentation (XML-based) */
+  pptx = ".pptx",
+  /** Microsoft PowerPoint macro-enabled presentation */
+  pptm = ".pptm",
+  /** OpenDocument presentation */
+  odp = ".odp",
+  /** OpenDocument presentation template */
+  otp = ".otp",
+  /** PowerPoint show format */
+  pps = ".pps",
+  /** PowerPoint show format (XML-based) */
+  ppsx = ".ppsx",
+  /** PowerPoint template */
+  pot = ".pot",
+  /** OpenDocument flat XML presentation */
+  //fodp = ".fodp", // Removed, as it was not present in the original code
+
+  // Media formats
+  /** Video file (AVI format) */
+  avi = ".avi",
+  /** Video file (FLV format) */
+  flv = ".flv",
+  /** Video file (MKV format) */
+  mkv = ".mkv",
+  /** Video file (MOV format) */
+  mov = ".mov",
+  /** Video file (MP4 format) */
+  mp4 = ".mp4",
+  /** Video file (MPEG format) */
+  mpg = ".mpg",
+  /** Video file (WebM format) */
+  webm = ".webm",
+  /** Video file (M2TS format) */
+  m2ts = ".m2ts",
+  /** Video file (DVD format) */
+  dvd = ".dvd",
+  /** Scalable Vector Graphics */
+  svg = ".svg",
+
+  // Other formats
+  /** Comma-separated values */
+  csv = ".csv",
+  /** DjVu format */
+  djvu = ".djvu",
+  /** E-book format (EPUB) */
+  epub = ".epub",
+  /** E-book format (FB2) */
+  fb2 = ".fb2",
+  /** E-book format (PB2) */
+  pb2 = ".pb2",
+  /** Archive format (IAF) */
+  iaf = ".iaf",
+  /** Calendar format (ICS) */
+  ics = ".ics",
+  /** Web archive (MHT) */
+  mht = ".mht",
+  /** XML Paper Specification */
+  xps = ".xps",
+  /** Extensible Markup Language */
+  xml = ".xml",
 }

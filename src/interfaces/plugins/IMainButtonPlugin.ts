@@ -17,25 +17,119 @@
 import { IMainButtonItem } from "../items";
 
 /**
- * @Category Main button Plugin
+ * @Category Main Button Plugin
  *
- * The plugin that is embedded in the main button.
+ * The plugin that can add items to the main button menu.
  *
- * @param mainButtonItems - Stores a collection of elements where the keys are the key parameters from the MainButtonItem objects.
- * A list for embedding into the main button menu is generated based on this collection.
- *
- * @method addMainButtonItem - Add a new main button item.
- * @param item - Defines a main button item.
- *
- * @method getMainButtonItems - Get all the main button items.
- * @returns A collection of elements where the keys are the key parameters from the MainButtonItem objects.
- *
- * @method updateMainButtonItem - Update the main button item.
- * @param item - Defines a new main button item.
+ * @example
+ * ```typescript
+ * // Example 1: Document Export Plugin
+ * const exportPlugin: IMainButtonPlugin = {
+ *   mainButtonItems: new Map([
+ *     ["export-pdf", {
+ *       key: "export-pdf",
+ *       label: "Export to PDF",
+ *       icon: "pdf-icon.svg",
+ *       onClick: async () => {
+ *         try {
+ *           await exportToPdf();
+ *           return {
+ *             actions: [Actions.showToast],
+ *             toastProps: [{
+ *               type: "success",
+ *               title: "Export Complete",
+ *               message: "PDF created | File saved | Ready to download"
+ *             }]
+ *           };
+ *         } catch (error) {
+ *           return {
+ *             actions: [Actions.showToast],
+ *             toastProps: [{
+ *               type: "error",
+ *               title: "Export Failed",
+ *               message: "Unable to export | Check document status"
+ *             }]
+ *           };
+ *         }
+ *       }
+ *     }]
+ *   ]),
+ *   addMainButtonItem(item) {
+ *     this.mainButtonItems.set(item.key, item);
+ *   },
+ *   getMainButtonItems() {
+ *     return this.mainButtonItems;
+ *   },
+ *   updateMainButtonItem(item) {
+ *     this.mainButtonItems.set(item.key, item);
+ *   }
+ * };
+ * 
+ * // Example 2: Batch Processing Plugin
+ * const batchPlugin: IMainButtonPlugin = {
+ *   mainButtonItems: new Map([
+ *     ["batch-process", {
+ *       key: "batch-process",
+ *       label: "Batch Process",
+ *       icon: "batch-icon.svg",
+ *       onClick: async () => {
+ *         try {
+ *           await processBatch();
+ *           return {
+ *             actions: [Actions.showToast],
+ *             toastProps: [{
+ *               type: "success",
+ *               title: "Batch Complete",
+ *               message: "Files processed | Results saved | View summary"
+ *             }]
+ *           };
+ *         } catch (error) {
+ *           return {
+ *             actions: [Actions.showToast],
+ *             toastProps: [{
+ *               type: "error",
+ *               title: "Batch Failed",
+ *               message: "Processing error | Check file list"
+ *             }]
+ *           };
+ *         }
+ *       }
+ *     }]
+ *   ]),
+ *   addMainButtonItem(item) {
+ *     this.mainButtonItems.set(item.key, item);
+ *   },
+ *   getMainButtonItems() {
+ *     return this.mainButtonItems;
+ *   },
+ *   updateMainButtonItem(item) {
+ *     this.mainButtonItems.set(item.key, item);
+ *   }
+ * };
+ * ```
  */
 export interface IMainButtonPlugin {
+  /**
+   * Stores a collection of elements where the keys are the key parameters from the MainButtonItem objects.
+   * A list of main button menu items is generated based on this collection.
+   */
   mainButtonItems: Map<string, IMainButtonItem>;
+
+  /**
+   * Add a new item to the main button menu.
+   * @param item - The main button item to add, containing key, label, icon, and onClick handler
+   */
   addMainButtonItem(item: IMainButtonItem): void;
+
+  /**
+   * Get all registered main button menu items.
+   * @returns A Map containing all registered main button items, where keys are item identifiers
+   */
   getMainButtonItems(): Map<string, IMainButtonItem>;
+
+  /**
+   * Update an existing main button menu item.
+   * @param item - The main button item to update with new properties
+   */
   updateMainButtonItem(item: IMainButtonItem): void;
 }
