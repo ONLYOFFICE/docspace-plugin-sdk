@@ -15,7 +15,7 @@
  */
 
 /**
- * @module
+ * @module Enums
  *
  * Defines the supported user types.
  */

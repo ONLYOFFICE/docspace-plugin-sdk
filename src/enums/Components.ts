@@ -15,9 +15,7 @@
  */
 
 /**
- * @module
- *
- * @group Enums
+ * @module Enums
  *
  * Defines the available UI component.
  */

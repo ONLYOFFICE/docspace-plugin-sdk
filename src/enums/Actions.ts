@@ -15,9 +15,8 @@
  */
 
 /**
- * @module
+ * @module Enums
  *
- * @group Enums
  *
  *
  *
