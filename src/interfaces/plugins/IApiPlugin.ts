@@ -20,8 +20,10 @@
  * The plugin that is provided with the origin, proxy, and prefix to make requests to the portal server.
  *
  * @example
+ *
+ * API configuration manager with endpoint validation
+ *
  * ```typescript
- * // Example 1: Document API Plugin
  * const documentApi: IApiPlugin = {
  *   origin: "https://docspace.example.com",
  *   proxy: "/api/proxy",

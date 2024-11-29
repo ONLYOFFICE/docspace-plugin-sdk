@@ -20,8 +20,10 @@
  * A component that is used to embed a third-party website into a modal window or the settings page.
  *
  * @example
+ *
+ * Embedding a PDF viewer in a modal window
+ *
  * ```typescript
- * // Example 1: Embedding a PDF viewer in a modal window
  * const pdfViewer: IFrame = {
  *   src: "https://example.com/pdf-viewer",
  *   width: "100%",
@@ -35,8 +37,13 @@
  *     boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)"
  *   }
  * }
+ * ```
  *
- * // Example 2: Embedding a settings configuration page
+ * @example
+ *
+ * Embedding a settings configuration page
+ *
+ * ```typescript
  * const settingsConfig: IFrame = {
  *   src: "https://example.com/plugin-settings",
  *   width: "100%",

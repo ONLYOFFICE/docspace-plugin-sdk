@@ -23,8 +23,10 @@ import { IMessage } from "../utils";
  * Describes an event listener that will be registered with the service.
  * 
  * @example
+ *
+ * Automatic room categorization with role-based access
+ *
  * ```typescript
- * // Example 1: Auto-categorize new rooms
  * const roomCategorizer: IEventListenerItem = {
  *   key: "auto-categorize-room",
  *   eventType: Events.ROOM_CREATE,
@@ -53,8 +55,13 @@ import { IMessage } from "../utils";
  *   usersTypes: [UsersType.docSpaceAdmin, UsersType.roomAdmin],
  *   devices: [Devices.desktop]
  * }
+ * ```
  *
- * // Example 2: Track file renames for audit
+ * @example
+ *
+ * File rename audit logging with permission control
+ *
+ * ```typescript
  * const fileRenameTracker: IEventListenerItem = {
  *   key: "file-rename-tracker",
  *   eventType: Events.RENAME,
@@ -76,8 +83,13 @@ import { IMessage } from "../utils";
  *     UsersType.collaborator
  *   ]
  * }
+ * ```
  *
- * // Example 3: Column change notification
+ * @example
+ *
+ * Device-aware column layout change notification
+ *
+ * ```typescript
  * const columnChangeNotifier: IEventListenerItem = {
  *   key: "column-change-notifier",
  *   eventType: Events.CHANGE_COLUMN,

@@ -22,8 +22,10 @@ import { IInfoPanelItem } from "../items";
  * The plugin that is embedded as a separate tab in the file info panel.
  *
  * @example
+ *
+ * Document metadata viewer with permission checks
+ *
  * ```typescript
- * // Example 1: Document Info Panel Plugin
  * const documentInfoPanel: IInfoPanelPlugin = {
  *   infoPanelItems: new Map([
  *     ["doc-info", {
@@ -61,8 +63,13 @@ import { IInfoPanelItem } from "../items";
  *     this.infoPanelItems.set(item.key, item);
  *   }
  * };
+ * ```
  *
- * // Example 2: File Analytics Panel Plugin
+ * @example
+ *
+ * File statistics analyzer with visualization
+ *
+ * ```typescript
  * const analyticsPanel: IInfoPanelPlugin = {
  *   infoPanelItems: new Map([
  *     ["file-stats", {

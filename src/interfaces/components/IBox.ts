@@ -22,6 +22,9 @@ import { Component } from "./Component";
  * Defines the border properties for a box element.
  *
  * @example
+ *
+ * Border properties with custom styling
+ *
  * ```typescript
  * const borderProps: IBorderProp = {
  *   color: "blue",
@@ -52,6 +55,9 @@ export interface IBorderProp {
  * Box provides general CSS capabilities like flexbox layout, paddings, background color, border, and animation.
  *
  * @example
+ *
+ * Flexible input container with gradient background
+ *
  * ```typescript
  * const newInputProps: IInput = {
  *   value: "",

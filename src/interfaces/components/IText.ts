@@ -20,8 +20,10 @@
  * Plain text.
  *
  * @example
+ *
+ * Bold centered heading with custom typography
+ *
  * ```typescript
- * // Example 1: Heading text
  * const heading: IText = {
  *   text: "Document Management",
  *   fontSize: "24px",
@@ -32,8 +34,13 @@
  *   noSelect: true,
  *   textAlign: "center"
  * }
+ * ```
  *
- * // Example 2: Description text with truncation
+ * @example
+ *
+ * Truncated description with hover tooltip
+ *
+ * ```typescript
  * const description: IText = {
  *   text: "This is a long description that will be truncated if it exceeds the container width...",
  *   fontSize: "14px",
@@ -42,8 +49,13 @@
  *   truncate: true,
  *   title: "Full description shown on hover"
  * }
+ * ```
  *
- * // Example 3: Inline status text
+ * @example
+ *
+ * Inline processing status with custom styling
+ *
+ * ```typescript
  * const status: IText = {
  *   text: "Processing",
  *   fontSize: "12px",

@@ -24,8 +24,10 @@ import { IPlugin } from "./IPlugin";
  * This interface must be implemented in each plugin that adds items to the profile menu.
  *
  * @example
+ *
+ * User preferences manager with error handling
+ *
  * ```typescript
- * // Example 1: User Settings Plugin
  * const settingsPlugin: IProfileMenuPlugin = {
  *   profileMenuItems: new Map([
  *     ["user-settings", {
@@ -63,8 +65,13 @@ import { IPlugin } from "./IPlugin";
  *     return this.profileMenuItems;
  *   }
  * };
+ * ```
  * 
- * // Example 2: User Profile Plugin
+ * @example
+ *
+ * Interactive user profile viewer
+ *
+ * ```typescript
  * const profilePlugin: IProfileMenuPlugin = {
  *   profileMenuItems: new Map([
  *     ["user-profile", {

@@ -22,8 +22,10 @@ import { IContextMenuItem } from "../items";
  * The plugin that is embedded in the context menu of files, folders, rooms, images, video (audio).
  *
  * @example
+ *
+ * Document sharing and export menu with status feedback
+ *
  * ```typescript
- * // Example 1: Document Actions Context Menu Plugin
  * const documentActions: IContextMenuPlugin = {
  *   contextMenuItems: new Map([
  *     ["doc-share", {
@@ -96,8 +98,13 @@ import { IContextMenuItem } from "../items";
  *     }
  *   }
  * };
+ * ```
  * 
- * // Example 2: File Operations Context Menu Plugin
+ * @example
+ *
+ * File compression and encryption tools
+ *
+ * ```typescript
  * const fileOperations: IContextMenuPlugin = {
  *   contextMenuItems: new Map([
  *     ["file-compress", {

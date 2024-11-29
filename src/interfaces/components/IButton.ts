@@ -38,6 +38,9 @@ export const enum ButtonSize {
  * A component that is used for an action on a page.
  *
  * @example
+ *
+ * Primary save button with loading state and error handling
+ *
  * ```typescript
  * const saveButton: IButton = {
  *   label: "Save Changes",

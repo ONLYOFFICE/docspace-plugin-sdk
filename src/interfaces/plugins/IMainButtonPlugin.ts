@@ -22,8 +22,10 @@ import { IMainButtonItem } from "../items";
  * The plugin that can add items to the main button menu.
  *
  * @example
+ *
+ * PDF export functionality with progress feedback
+ *
  * ```typescript
- * // Example 1: Document Export Plugin
  * const exportPlugin: IMainButtonPlugin = {
  *   mainButtonItems: new Map([
  *     ["export-pdf", {
@@ -64,8 +66,13 @@ import { IMainButtonItem } from "../items";
  *     this.mainButtonItems.set(item.key, item);
  *   }
  * };
+ * ```
  * 
- * // Example 2: Batch Processing Plugin
+ * @example
+ *
+ * Batch document processor with status notifications
+ *
+ * ```typescript
  * const batchPlugin: IMainButtonPlugin = {
  *   mainButtonItems: new Map([
  *     ["batch-process", {

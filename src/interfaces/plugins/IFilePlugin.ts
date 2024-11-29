@@ -22,8 +22,10 @@ import { IFileItem } from "../items";
  * The plugin that can interact with the file list.
  *
  * @example
+ *
+ * File compression utility with size validation
+ *
  * ```typescript
- * // Example 1: File Compression Plugin
  * const compressionPlugin: IFilePlugin = {
  *   fileItems: new Map([
  *     ["compress", {
@@ -64,8 +66,13 @@ import { IFileItem } from "../items";
  *     this.fileItems.set(item.key, item);
  *   }
  * };
+ * ```
  * 
- * // Example 2: File Encryption Plugin
+ * @example
+ *
+ * File encryption manager with key validation
+ *
+ * ```typescript
  * const encryptionPlugin: IFilePlugin = {
  *   fileItems: new Map([
  *     ["encrypt", {

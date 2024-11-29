@@ -22,8 +22,10 @@ import { IMessage } from "../utils";
  * Custom textarea.
  *
  * @example
+ *
+ * JSON configuration editor with syntax validation
+ *
  * ```typescript
- * // Example 1: JSON configuration editor
  * const configEditor: ITextArea = {
  *   value: JSON.stringify({
  *     apiKey: "your-api-key",
@@ -63,8 +65,13 @@ import { IMessage } from "../utils";
  *   fontSize: 14,
  *   copyInfoText: true
  * }
+ * ```
  *
- * // Example 2: Comment textarea with character limit
+ * @example
+ *
+ * Character-limited comment box with dynamic validation
+ *
+ * ```typescript
  * const commentBox: ITextArea = {
  *   value: "",
  *   onChange: (value) => {

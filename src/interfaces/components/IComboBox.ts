@@ -22,6 +22,9 @@ import { IMessage } from "../utils";
  * Custom combo box option.
  *
  * @example
+ *
+ * Basic language option with icon
+ *
  * ```typescript
  * const languageOption: IComboBoxItem = {
  *   key: "en-US",
@@ -51,6 +54,9 @@ export interface IComboBoxItem {
  * Custom combo box input.
  *
  * @example
+ *
+ * Multi-language selector with toast notifications
+ *
  * ```typescript
  * const languageSelector: IComboBox = {
  *   options: [

@@ -36,32 +36,49 @@ export const enum ToastType {
  * Toast notification component for displaying temporary messages.
  *
  * @example
+ *
+ * Auto-dismissing success notification
+ *
  * ```typescript
- * // Example 1: Success toast with auto-dismiss
  * const saveSuccess: IToast = {
  *   type: ToastType.success,
  *   title: "Changes saved successfully",
  *   withCross: false,
  *   timeout: 3000 // Dismiss after 3 seconds
  * }
+ * ```
  *
- * // Example 2: Error toast with manual dismiss
+ * @example
+ *
+ * Persistent error notification with manual dismiss
+ *
+ * ```typescript
  * const errorToast: IToast = {
  *   type: ToastType.error,
  *   title: "Failed to upload file. Please try again.",
  *   withCross: true,
  *   timeout: 0 // Stay until manually dismissed
  * }
+ * ```
  *
- * // Example 3: Warning toast with medium duration
+ * @example
+ *
+ * Session expiration warning with medium duration
+ *
+ * ```typescript
  * const warningToast: IToast = {
  *   type: ToastType.warning,
  *   title: "Your session will expire in 5 minutes",
  *   withCross: true,
  *   timeout: 5000
  * }
+ * ```
  *
- * // Example 4: Info toast with auto-dismiss
+ * @example
+ *
+ * Temporary update notification
+ *
+ * ```typescript
  * const infoToast: IToast = {
  *   type: ToastType.info,
  *   title: "New updates are available",

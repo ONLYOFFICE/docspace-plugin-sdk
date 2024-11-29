@@ -55,8 +55,10 @@ export interface File {
  * The file item can be displayed as a file or a folder.
  *
  * @example
+ *
+ * 3D model viewer with format validation
+ *
  * ```typescript
- * // Example 1: 3D Model viewer file item
  * const modelViewer: IFileItem = {
  *   key: "3d-model",
  *   extensions: [".obj", ".stl", ".fbx"],
@@ -84,8 +86,13 @@ export interface File {
  *     }
  *   }
  * }
+ * ```
  *
- * // Example 2: Markdown file preview
+ * @example
+ *
+ * Markdown content processor with error handling
+ *
+ * ```typescript
  * const markdownPreview: IFileItem = {
  *   key: "markdown",
  *   extensions: [".md", ".markdown"],
@@ -113,8 +120,13 @@ export interface File {
  *     }
  *   }
  * }
+ * ```
  *
- * // Example 3: Audio file player
+ * @example
+ *
+ * Interactive audio player with metadata support
+ *
+ * ```typescript
  * const audioPlayer: IFileItem = {
  *   key: "audio-player",
  *   extensions: [".mp3", ".wav", ".ogg"],

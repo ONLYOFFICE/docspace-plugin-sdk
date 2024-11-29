@@ -22,8 +22,10 @@ import { IMessage } from "../utils";
  * Custom toggle button input for binary state controls.
  *
  * @example
+ *
+ * Theme switcher with custom margin
+ *
  * ```typescript
- * // Example 1: Dark mode toggle
  * const darkModeToggle: IToggleButton = {
  *   label: "Dark Mode",
  *   isChecked: false,
@@ -40,8 +42,13 @@ import { IMessage } from "../utils";
  *     marginLeft: "16px"
  *   }
  * }
+ * ```
  *
- * // Example 2: Notifications toggle with disabled state
+ * @example
+ *
+ * Permission-aware notification settings
+ *
+ * ```typescript
  * const notificationsToggle: IToggleButton = {
  *   label: "Enable Notifications",
  *   isChecked: true,
@@ -60,8 +67,13 @@ import { IMessage } from "../utils";
  *     };
  *   }
  * }
+ * ```
  *
- * // Example 3: Auto-save toggle with custom styling
+ * @example
+ *
+ * Styled auto-save control with custom background
+ *
+ * ```typescript
  * const autoSaveToggle: IToggleButton = {
  *   label: "Auto-save",
  *   isChecked: true,

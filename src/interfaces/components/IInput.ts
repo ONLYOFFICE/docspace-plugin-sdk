@@ -82,8 +82,10 @@ export const enum InputType {
  * Input field for single-line strings.
  *
  * @example
+ *
+ * Search input with icon and hover effects
+ *
  * ```typescript
- * // Example 1: Search input with icon
  * const searchInput: IInput = {
  *   value: "",
  *   onChange: (value) => {
@@ -101,12 +103,14 @@ export const enum InputType {
  *   iconColor: "#666666",
  *   hoverColor: "#333333",
  *   isIconFill: true,
- *   onIconClick: () => {
- *     // Trigger search
- *   }
  * }
+ * ```
  *
- * // Example 2: Password input with validation
+ * @example
+ *
+ * Password input with validation and error handling
+ *
+ * ```typescript
  * const passwordInput: IInput = {
  *   value: "",
  *   type: InputType.password,

@@ -35,8 +35,10 @@ export const enum ModalDisplayType {
  * Modal dialog.
  *
  * @example
+ *
+ * Interactive document preview modal with dynamic content loading
+ *
  * ```typescript
- * // Example 1: File preview modal
  * const filePreviewModal: IModalDialog = {
  *   displayType: ModalDisplayType.modal,
  *   dialogHeader: "Document Preview",
@@ -128,8 +130,13 @@ export const enum ModalDisplayType {
  *     };
  *   }
  * }
+ * ```
  *
- * // Example 2: Settings panel
+ * @example
+ *
+ * Side panel settings dialog with API key configuration
+ *
+ * ```typescript
  * const settingsPanel: IModalDialog = {
  *   displayType: ModalDisplayType.aside,
  *   dialogHeader: "Plugin Settings",

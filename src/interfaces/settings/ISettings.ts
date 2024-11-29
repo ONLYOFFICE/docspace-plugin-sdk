@@ -20,6 +20,170 @@ import { ButtonGroup, IBox } from "../components";
  * @Category Settings Plugin
  *
  * Defines the administrator or owner settings block that is embedded in the modal window with the plugin description.
+ *
+ * @example
+ *
+ * Theme customization settings with color picker
+ *
+ * ```typescript
+ * const themeSettings: ISettings = {
+ *   settings: {
+ *     type: "box",
+ *     children: [
+ *       {
+ *         type: "colorPicker",
+ *         id: "primary-color",
+ *         label: "Primary Color",
+ *         value: "#007BFF",
+ *         onChange: (color) => updateThemeColor(color)
+ *       },
+ *       {
+ *         type: "toggle",
+ *         id: "dark-mode",
+ *         label: "Dark Mode",
+ *         value: false,
+ *         onChange: (enabled) => toggleDarkMode(enabled)
+ *       }
+ *     ]
+ *   },
+ *   saveButton: {
+ *     type: "button",
+ *     label: "Save Theme",
+ *     onClick: async () => {
+ *       try {
+ *         await saveThemeSettings();
+ *         return {
+ *           actions: [Actions.showToast],
+ *           toastProps: [{
+ *             type: "success",
+ *             title: "Theme Updated",
+ *             message: "Theme settings saved | Changes applied | Refresh to see updates"
+ *           }]
+ *         };
+ *       } catch (error) {
+ *         return {
+ *           actions: [Actions.showToast],
+ *           toastProps: [{
+ *             type: "error",
+ *             title: "Save Failed",
+ *             message: "Unable to save theme | Check your changes"
+ *           }]
+ *         };
+ *       }
+ *     }
+ *   },
+ *   isLoading: false,
+ *   onLoad: async () => {
+ *     const savedSettings = await loadThemeSettings();
+ *     return {
+ *       settings: {
+ *         type: "box",
+ *         children: [
+ *           {
+ *             type: "colorPicker",
+ *             id: "primary-color",
+ *             label: "Primary Color",
+ *             value: savedSettings.primaryColor
+ *           },
+ *           {
+ *             type: "toggle",
+ *             id: "dark-mode",
+ *             label: "Dark Mode",
+ *             value: savedSettings.darkMode
+ *           }
+ *         ]
+ *       }
+ *     };
+ *   }
+ * };
+ * ```
+ *
+ * @example
+ *
+ * Language configuration settings with validation
+ *
+ * ```typescript
+ * const languageSettings: ISettings = {
+ *   settings: {
+ *     type: "box",
+ *     children: [
+ *       {
+ *         type: "select",
+ *         id: "default-language",
+ *         label: "Default Language",
+ *         options: [
+ *           { value: "en", label: "English" },
+ *           { value: "es", label: "Spanish" },
+ *           { value: "fr", label: "French" }
+ *         ],
+ *         value: "en",
+ *         onChange: (lang) => updateDefaultLanguage(lang)
+ *       },
+ *       {
+ *         type: "toggle",
+ *         id: "auto-detect",
+ *         label: "Auto-detect User Language",
+ *         value: true,
+ *         onChange: (enabled) => toggleAutoDetect(enabled)
+ *       }
+ *     ]
+ *   },
+ *   saveButton: {
+ *     type: "button",
+ *     label: "Save Language Settings",
+ *     onClick: async () => {
+ *       try {
+ *         await saveLanguageSettings();
+ *         return {
+ *           actions: [Actions.showToast],
+ *           toastProps: [{
+ *             type: "success",
+ *             title: "Language Updated",
+ *             message: "Language settings saved | Changes applied | Refresh to see updates"
+ *           }]
+ *         };
+ *       } catch (error) {
+ *         return {
+ *           actions: [Actions.showToast],
+ *           toastProps: [{
+ *             type: "error",
+ *             title: "Save Failed",
+ *             message: "Unable to save language settings | Check your changes"
+ *           }]
+ *         };
+ *       }
+ *     }
+ *   },
+ *   isLoading: false,
+ *   onLoad: async () => {
+ *     const savedSettings = await loadLanguageSettings();
+ *     return {
+ *       settings: {
+ *         type: "box",
+ *         children: [
+ *           {
+ *             type: "select",
+ *             id: "default-language",
+ *             label: "Default Language",
+ *             options: [
+ *               { value: "en", label: "English" },
+ *               { value: "es", label: "Spanish" },
+ *               { value: "fr", label: "French" }
+ *             ],
+ *             value: savedSettings.defaultLanguage
+ *           },
+ *           {
+ *             type: "toggle",
+ *             id: "auto-detect",
+ *             label: "Auto-detect User Language",
+ *             value: savedSettings.autoDetect
+ *           }
+ *         ]
+ *       }
+ *     };
+ *   }
+ * };
+ * ```
  */
 export interface ISettings {
   /** Defines the administrator or owner settings */

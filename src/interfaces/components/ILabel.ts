@@ -20,8 +20,10 @@
  * Field name in the form.
  *
  * @example
+ *
+ * Required field label with inline display
+ *
  * ```typescript
- * // Example 1: Required field label
  * const emailLabel: ILabel = {
  *   text: "Email Address",
  *   isRequired: true,
@@ -31,8 +33,13 @@
  *   htmlFor: "email-input",
  *   display: "flex"
  * }
+ * ```
  *
- * // Example 2: Error state label with truncation
+ * @example
+ *
+ * Error state label with truncation and block display
+ *
+ * ```typescript
  * const longFieldLabel: ILabel = {
  *   text: "Document Processing Configuration Settings",
  *   isRequired: false,

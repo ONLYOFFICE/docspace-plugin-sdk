@@ -22,8 +22,10 @@ import { Devices, FilesExst, FilesType, UsersType } from "../../enums";
  * @deprecated
  *
  * @example
+ *
+ * Document operations separator with role restrictions
+ *
  * ```typescript
- * // Example 1: Separator for document operations in context menu
  * const documentSeparator: ISeparatorItem = {
  *   key: "document-separator",
  *   isSeparator: true,
@@ -32,16 +34,26 @@ import { Devices, FilesExst, FilesType, UsersType } from "../../enums";
  *   userTypes: [UsersType.owner, UsersType.docSpaceAdmin],
  *   devices: [Devices.desktop]
  * }
+ * ```
  *
- * // Example 2: Separator for admin actions in profile menu
+ * @example
+ *
+ * Multi-device admin menu separator
+ *
+ * ```typescript
  * const adminSeparator: ISeparatorItem = {
  *   key: "admin-separator",
  *   isSeparator: true,
  *   userTypes: [UsersType.owner, UsersType.docSpaceAdmin],
  *   devices: [Devices.desktop, Devices.tablet]
  * }
+ * ```
  *
- * // Example 3: Separator for image operations
+ * @example
+ *
+ * Image operations separator with format filtering
+ *
+ * ```typescript
  * const imageSeparator: ISeparatorItem = {
  *   key: "image-separator",
  *   isSeparator: true,

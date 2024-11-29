@@ -22,6 +22,9 @@ import { IMessage } from "../utils";
  * Custom checkbox input.
  *
  * @example
+ *
+ * Privacy policy checkbox with submit button state control
+ *
  * ```typescript
  * const privacyCheckbox: ICheckbox = {
  *   isChecked: false,

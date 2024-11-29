@@ -23,8 +23,10 @@ import { IMessage } from "../utils";
  * Describes an item that will be embedded in the profile menu.
  * 
  * @example
+ *
+ * API key management with status monitoring
+ *
  * ```typescript
- * // Example 1: API Key Management
  * const apiKeyManager: IProfileMenuItem = {
  *   key: "api-keys",
  *   label: "API Keys",
@@ -52,8 +54,13 @@ import { IMessage } from "../utils";
  *     }
  *   }
  * };
+ * ```
  * 
- * // Example 2: Integration Settings
+ * @example
+ *
+ * Service integration health checker
+ *
+ * ```typescript
  * const integrationSettings: IProfileMenuItem = {
  *   key: "integrations",
  *   label: "Integrations",

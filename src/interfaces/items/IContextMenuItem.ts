@@ -30,8 +30,10 @@ import { IMessage } from "../utils";
  * Describes an item that will be embedded in the context menu.
  * 
  * @example
+ *
+ * File analysis with progress reporting
+ *
  * ```typescript
- * // Example 1: File Analysis
  * const analyzeFile: IContextMenuItem = {
  *   key: "analyze-file",
  *   label: "Analyze File",
@@ -59,8 +61,13 @@ import { IMessage } from "../utils";
  *     }
  *   }
  * };
+ * ```
  * 
- * // Example 2: File Sharing
+ * @example
+ *
+ * Secure file sharing with clipboard integration
+ *
+ * ```typescript
  * const shareFile: IContextMenuItem = {
  *   key: "share-file",
  *   label: "Share File",

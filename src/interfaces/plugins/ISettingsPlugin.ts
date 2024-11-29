@@ -23,8 +23,10 @@ import { ISettings } from "../settings/ISettings";
  * The plugin that can interact with the settings panel.
  *
  * @example
+ *
+ * Theme customization settings with error handling
+ *
  * ```typescript
- * // Example 1: Theme Settings Plugin
  * const themeSettings: ISettingsPlugin = {
  *   adminPluginSettings: new Map([
  *     ["theme", {
@@ -84,8 +86,13 @@ import { ISettings } from "../settings/ISettings";
  *     return this.adminPluginSettings;
  *   }
  * };
+ * ```
  * 
- * // Example 2: Language Settings Plugin
+ * @example
+ *
+ * Multi-language support configuration
+ *
+ * ```typescript
  * const languageSettings: ISettingsPlugin = {
  *   adminPluginSettings: new Map([
  *     ["language", {

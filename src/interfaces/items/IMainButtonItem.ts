@@ -23,8 +23,10 @@ import { IMessage } from "../utils";
  * Describes an item that will be embedded in the main button menu.
  * 
  * @example
+ *
+ * PDF export functionality with progress feedback
+ *
  * ```typescript
- * // Example 1: Export to PDF
  * const exportToPdf: IMainButtonItem = {
  *   key: "export-pdf",
  *   label: "Export to PDF",
@@ -52,8 +54,13 @@ import { IMessage } from "../utils";
  *     }
  *   }
  * };
+ * ```
  * 
- * // Example 2: Backup Selected Files
+ * @example
+ *
+ * File backup system with status notifications
+ *
+ * ```typescript
  * const backupFiles: IMainButtonItem = {
  *   key: "backup-files",
  *   label: "Backup Files",

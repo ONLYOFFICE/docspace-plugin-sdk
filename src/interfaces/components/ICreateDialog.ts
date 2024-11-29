@@ -24,6 +24,9 @@ import { IComboBoxItem } from "./IComboBox";
  * The user gets the full access to the functionality but cannot control the layout.
  *
  * @example
+ *
+ * Document creation dialog with multiple format options
+ *
  * ```typescript
  * const newDocumentDialog: ICreateDialog = {
  *   title: "Create New Document",

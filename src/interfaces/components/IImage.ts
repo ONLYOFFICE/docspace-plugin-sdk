@@ -20,8 +20,10 @@
  * A component that is used to embed an image not from the assets folder into a modal window or the settings page.
  *
  * @example
+ *
+ * Plugin logo with fixed dimensions and spacing
+ *
  * ```typescript
- * // Example 1: Plugin logo in settings
  * const pluginLogo: IImage = {
  *   src: "https://example.com/plugin-logo.png",
  *   alt: "Plugin Logo",
@@ -34,8 +36,13 @@
  *     marginBottom: "16px"
  *   }
  * }
- * 
- * // Example 2: Responsive preview image
+ * ```
+ *
+ * @example
+ *
+ * Responsive document preview with modern styling
+ *
+ * ```typescript
  * const documentPreview: IImage = {
  *   src: "https://example.com/document-preview.jpg",
  *   alt: "Document Preview",

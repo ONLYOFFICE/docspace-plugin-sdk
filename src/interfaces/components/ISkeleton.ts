@@ -20,22 +20,34 @@
  * A component that is used to hide components during uploading.
  *
  * @example
+ *
+ * Circular avatar placeholder for loading states
+ *
  * ```typescript
- * // Example 1: Avatar placeholder skeleton
  * const avatarSkeleton: ISkeleton = {
  *   width: "40px",
  *   height: "40px",
  *   borderRadius: "50%"
  * }
+ * ```
  *
- * // Example 2: Content card skeleton
+ * @example
+ *
+ * Responsive content card loading placeholder
+ *
+ * ```typescript
  * const cardSkeleton: ISkeleton = {
  *   width: "100%",
  *   height: "120px",
  *   borderRadius: "8px"
  * }
+ * ```
  *
- * // Example 3: Text line skeleton
+ * @example
+ *
+ * Text line loading animation
+ *
+ * ```typescript
  * const textSkeleton: ISkeleton = {
  *   width: "80%",
  *   height: "16px",

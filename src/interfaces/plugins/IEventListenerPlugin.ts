@@ -22,8 +22,10 @@ import { IEventListenerItem } from "../items";
  * The plugin that is given the access to the portal events.
  *
  * @example
+ *
+ * Room activity monitor with permission checks
+ *
  * ```typescript
- * // Example 1: Room Events Listener Plugin
  * const roomListener: IEventListenerPlugin = {
  *   eventListenerItems: new Map([
  *     ["room-activity", {
@@ -60,8 +62,13 @@ import { IEventListenerItem } from "../items";
  *     return this.eventListenerItems;
  *   }
  * };
+ * ```
  * 
- * // Example 2: File Events Monitor Plugin
+ * @example
+ *
+ * File operations tracker with history logging
+ *
+ * ```typescript
  * const fileMonitor: IEventListenerPlugin = {
  *   eventListenerItems: new Map([
  *     ["file-rename", {

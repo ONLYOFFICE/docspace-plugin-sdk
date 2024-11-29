@@ -42,8 +42,10 @@ export interface IInfoPanelSubMenu {
  * It is available only inside a room (folder) and is not available for the room list.
  *
  * @example
+ *
+ * AI-powered document analysis with error handling
+ *
  * ```typescript
- * // Example 1: AI Document Analysis
  * const documentAnalysis: IInfoPanelItem = {
  *   key: "ai-analysis",
  *   title: "AI Analysis",
@@ -73,8 +75,13 @@ export interface IInfoPanelSubMenu {
  *     }
  *   }
  * }
+ * ```
  *
- * // Example 2: Image Metadata Viewer
+ * @example
+ *
+ * Image metadata viewer with file type restrictions
+ *
+ * ```typescript
  * const imageMetadata: IInfoPanelItem = {
  *   key: "image-metadata",
  *   title: "Image Info",
