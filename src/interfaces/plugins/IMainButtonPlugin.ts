@@ -17,7 +17,9 @@
 import { IMainButtonItem } from "../items";
 
 /**
- * @Category Main Button Plugin
+ * @module Plugins
+ *
+ * @category Main Button Plugin
  *
  * The plugin that can add items to the main button menu.
  *
@@ -67,7 +69,7 @@ import { IMainButtonItem } from "../items";
  *   }
  * };
  * ```
- * 
+ *
  * @example
  *
  * Batch document processor with status notifications

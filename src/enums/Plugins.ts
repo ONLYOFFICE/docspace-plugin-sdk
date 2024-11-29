@@ -15,6 +15,8 @@
  */
 
 /**
+ * @module
+ *
  * Defines the supported plugin statuses.
  */
 export const enum PluginStatus {

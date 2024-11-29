@@ -17,6 +17,8 @@
 import { Component } from "./Component";
 
 /**
+ * @module Components
+ *
  * @category Box Component
  *
  * Defines the border properties for a box element.
@@ -49,6 +51,8 @@ export interface IBorderProp {
 }
 
 /**
+ * @module Components
+ *
  * @category Box Component
  *
  * A container that lays out its contents in one direction.

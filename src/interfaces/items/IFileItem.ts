@@ -18,7 +18,9 @@ import { Devices, UsersType } from "../../enums";
 import { IMessage } from "../utils";
 
 /**
- * @Category File Plugin
+ * @module Plugins
+ *
+ * @category File Plugin
  *
  * Describes the file properties.
  */
@@ -49,7 +51,8 @@ export interface File {
 }
 
 /**
- * @Category File Plugin
+ * @module Plugins
+ * @category File Plugin
  *
  * Describes an item that will be embedded in the file list.
  * The file item can be displayed as a file or a folder.

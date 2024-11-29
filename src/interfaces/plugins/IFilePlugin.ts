@@ -17,7 +17,9 @@
 import { IFileItem } from "../items";
 
 /**
- * @Category File Plugin
+ * @module Plugins
+ *
+ * @category File Plugin
  *
  * The plugin that can interact with the file list.
  *
@@ -67,7 +69,7 @@ import { IFileItem } from "../items";
  *   }
  * };
  * ```
- * 
+ *
  * @example
  *
  * File encryption manager with key validation

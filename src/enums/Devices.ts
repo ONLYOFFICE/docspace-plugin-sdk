@@ -15,6 +15,8 @@
  */
 
 /**
+ * @module
+ *
  * Defines the supported device types.
  */
 export const enum Devices {

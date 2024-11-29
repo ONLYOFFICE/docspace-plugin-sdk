@@ -17,7 +17,9 @@
 import { PluginStatus } from "../../enums";
 
 /**
- * @Category Plugin
+ * @module Plugins
+ *
+ * @category Plugin
  *
  * The default plugin.
  * This interface must be implemented in each plugin because without the plugin status it will not be built in.
@@ -29,7 +31,7 @@ import { PluginStatus } from "../../enums";
  * ```typescript
  * const documentAnalyzer: IPlugin = {
  *   status: PluginStatus.Active,
- *   
+ *
  *   async onLoadCallback() {
  *     try {
  *       await initializeAnalyzer();
@@ -39,16 +41,16 @@ import { PluginStatus } from "../../enums";
  *       this.status = PluginStatus.Hide;
  *     }
  *   },
- *   
+ *
  *   updateStatus(status) {
  *     this.status = status;
  *     console.log(`Plugin status updated to: ${status}`);
  *   },
- *   
+ *
  *   getStatus() {
  *     return this.status;
  *   },
- *   
+ *
  *   setOnLoadCallback(callback) {
  *     this.onLoadCallback = callback;
  *   }
@@ -62,7 +64,7 @@ import { PluginStatus } from "../../enums";
  * ```typescript
  * const backupPlugin: IPlugin = {
  *   status: PluginStatus.Active,
- *   
+ *
  *   async onLoadCallback() {
  *     try {
  *       await validateBackupConfig();
@@ -73,20 +75,20 @@ import { PluginStatus } from "../../enums";
  *       this.status = PluginStatus.Hide;
  *     }
  *   },
- *   
+ *
  *   updateStatus(status) {
  *     const prevStatus = this.status;
  *     this.status = status;
- *     
+ *
  *     if (prevStatus !== status) {
  *       console.log(`Backup service transitioned from ${prevStatus} to ${status}`);
  *     }
  *   },
- *   
+ *
  *   getStatus() {
  *     return this.status;
  *   },
- *   
+ *
  *   setOnLoadCallback(callback) {
  *     this.onLoadCallback = callback;
  *   }

@@ -15,6 +15,8 @@
  */
 
 /**
+ * @module
+ *
  * Defines the supported file types.
  */
 export const enum FilesType {

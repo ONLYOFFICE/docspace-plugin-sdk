@@ -15,6 +15,8 @@
  */
 
 /**
+ * @module Plugins
+ *
  * @category API Plugin
  *
  * The plugin that is provided with the origin, proxy, and prefix to make requests to the portal server.
@@ -28,7 +30,7 @@
  *   origin: "https://docspace.example.com",
  *   proxy: "/api/proxy",
  *   prefix: "/api/v1",
- *   
+ *
  *   setOrigin(origin) {
  *     try {
  *       this.origin = origin;
@@ -51,27 +53,27 @@
  *       };
  *     }
  *   },
- *   
+ *
  *   setProxy(proxy) {
  *     this.proxy = proxy;
  *   },
- *   
+ *
  *   setPrefix(prefix) {
  *     this.prefix = prefix;
  *   },
- *   
+ *
  *   getOrigin() {
  *     return this.origin;
  *   },
- *   
+ *
  *   getProxy() {
  *     return this.proxy;
  *   },
- *   
+ *
  *   getPrefix() {
  *     return this.prefix;
  *   },
- *   
+ *
  *   setAPI(origin, proxy, prefix) {
  *     try {
  *       this.origin = origin;
@@ -96,7 +98,7 @@
  *       };
  *     }
  *   },
- *   
+ *
  *   getAPI() {
  *     return {
  *       origin: this.origin,

@@ -15,8 +15,9 @@
  */
 
 /**
- * Defines the supported user types.
+ * @module
  *
+ * Defines the supported user types.
  */
 export const enum UsersType {
   /** System owner with full administrative rights and control over the entire DocSpace instance */

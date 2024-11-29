@@ -17,7 +17,9 @@
 import { IEventListenerItem } from "../items";
 
 /**
- * @Category Event listener Plugin
+ * @module Plugins
+ *
+ * @category Event listener Plugin
  *
  * The plugin that is given the access to the portal events.
  *
@@ -63,7 +65,7 @@ import { IEventListenerItem } from "../items";
  *   }
  * };
  * ```
- * 
+ *
  * @example
  *
  * File operations tracker with history logging

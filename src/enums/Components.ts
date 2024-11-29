@@ -15,7 +15,11 @@
  */
 
 /**
- * Defines the component types.
+ * @module
+ *
+ * @group Enums
+ *
+ * Defines the available UI component.
  */
 export const enum Components {
   /** Container component for grouping other elements */

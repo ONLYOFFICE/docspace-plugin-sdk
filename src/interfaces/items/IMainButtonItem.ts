@@ -18,10 +18,12 @@ import { Devices, UsersType } from "../../enums";
 import { IMessage } from "../utils";
 
 /**
- * @Category Main Button Plugin
- * 
+ * @module Plugins
+ *
+ * @category Main Button Plugin
+ *
  * Describes an item that will be embedded in the main button menu.
- * 
+ *
  * @example
  *
  * PDF export functionality with progress feedback
@@ -55,7 +57,7 @@ import { IMessage } from "../utils";
  *   }
  * };
  * ```
- * 
+ *
  * @example
  *
  * File backup system with status notifications

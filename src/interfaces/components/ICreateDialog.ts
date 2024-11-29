@@ -18,6 +18,8 @@ import { IMessage } from "../utils";
 import { IComboBoxItem } from "./IComboBox";
 
 /**
+ * @module Components
+ *
  * @category Create Dialog Component
  *
  * Modal dialog for creating certain item (file, folder, etc.).

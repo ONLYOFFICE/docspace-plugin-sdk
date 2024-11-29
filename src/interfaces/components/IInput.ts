@@ -17,6 +17,8 @@
 import { IMessage } from "../utils";
 
 /**
+ * @module Components
+ *
  * @category Input Component
  *
  * The supported input sizes.
@@ -45,6 +47,7 @@ export const enum InputSize {
 }
 
 /**
+ * @module Components
  * @category Input Component
  *
  * The input autocomplete feature.
@@ -61,6 +64,7 @@ export const enum InputAutocomplete {
 }
 
 /**
+ * @module Components
  * @category Input Component
  *
  * The supported input types.
@@ -77,6 +81,7 @@ export const enum InputType {
 }
 
 /**
+ * @module Components
  * @category Input Component
  *
  * Input field for single-line strings.

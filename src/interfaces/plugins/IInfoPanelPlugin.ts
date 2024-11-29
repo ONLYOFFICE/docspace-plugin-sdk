@@ -17,7 +17,9 @@
 import { IInfoPanelItem } from "../items";
 
 /**
- * @Category Info panel Plugin
+ * @module Plugins
+ *
+ * @category Info panel Plugin
  *
  * The plugin that is embedded as a separate tab in the file info panel.
  *

@@ -25,10 +25,12 @@ import {
 import { IMessage } from "../utils";
 
 /**
- * @Category Context Menu Plugin
- * 
+ * @module Plugins
+ *
+ * @category Context Menu Plugin
+ *
  * Describes an item that will be embedded in the context menu.
- * 
+ *
  * @example
  *
  * File analysis with progress reporting
@@ -62,7 +64,7 @@ import { IMessage } from "../utils";
  *   }
  * };
  * ```
- * 
+ *
  * @example
  *
  * Secure file sharing with clipboard integration

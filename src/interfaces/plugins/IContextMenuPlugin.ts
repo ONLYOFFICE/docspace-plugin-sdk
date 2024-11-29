@@ -17,7 +17,9 @@
 import { IContextMenuItem } from "../items";
 
 /**
- * @Category Context menu Plugin
+ * @module Plugins
+ *
+ * @category Context menu Plugin
  *
  * The plugin that is embedded in the context menu of files, folders, rooms, images, video (audio).
  *
@@ -99,7 +101,7 @@ import { IContextMenuItem } from "../items";
  *   }
  * };
  * ```
- * 
+ *
  * @example
  *
  * File compression and encryption tools

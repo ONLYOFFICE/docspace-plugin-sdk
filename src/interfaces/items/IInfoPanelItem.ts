@@ -20,7 +20,9 @@ import { IBox } from "../components";
 import { IMessage } from "../utils";
 
 /**
- * @Category Info panel Plugin
+ * @module Plugins
+ *
+ * @category Info panel Plugin
  *
  * Describes the item submenu.
  */
@@ -36,10 +38,10 @@ export interface IInfoPanelSubMenu {
 }
 
 /**
- * @Category Info panel Plugin
+ * @module Plugins
+ * @category Info Panel Item
  *
- * Describes an item that will be embedded in the info panel.
- * It is available only inside a room (folder) and is not available for the room list.
+ * The info panel item that is displayed in the info panel.
  *
  * @example
  *

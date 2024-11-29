@@ -17,7 +17,9 @@
 import { ISettings } from "../settings/ISettings";
 
 /**
- * @Category Settings Plugin
+ * @module Plugins
+ *
+ * @category Settings Plugin
  *
  * The plugin that manages settings for the administrator or owner.
  * The plugin that can interact with the settings panel.
@@ -87,7 +89,7 @@ import { ISettings } from "../settings/ISettings";
  *   }
  * };
  * ```
- * 
+ *
  * @example
  *
  * Multi-language support configuration

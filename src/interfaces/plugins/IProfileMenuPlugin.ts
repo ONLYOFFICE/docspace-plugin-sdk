@@ -15,10 +15,11 @@
  */
 
 import { IProfileMenuItem } from "../items";
-import { IPlugin } from "./IPlugin";
 
 /**
- * @Category Profile menu Plugin
+ * @module Plugins
+ *
+ * @category Profile menu Plugin
  *
  * Plugin for embedding items in the profile menu.
  * This interface must be implemented in each plugin that adds items to the profile menu.
@@ -66,7 +67,7 @@ import { IPlugin } from "./IPlugin";
  *   }
  * };
  * ```
- * 
+ *
  * @example
  *
  * Interactive user profile viewer
@@ -111,7 +112,7 @@ import { IPlugin } from "./IPlugin";
  * };
  * ```
  */
-export interface IProfileMenuPlugin extends IPlugin {
+export interface IProfileMenuPlugin {
   /**
    * Stores a collection of elements where the keys are the key parameters from the ProfileMenuItem objects.
    * A list for hooking interactions with profile menu is generated based on this collection.

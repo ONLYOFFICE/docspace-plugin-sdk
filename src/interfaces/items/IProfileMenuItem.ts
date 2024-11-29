@@ -18,10 +18,12 @@ import { Devices, UsersType } from "../../enums";
 import { IMessage } from "../utils";
 
 /**
- * @Category Profile Menu Plugin
- * 
+ * @module Plugins
+ *
+ * @category Profile Menu Plugin
+ *
  * Describes an item that will be embedded in the profile menu.
- * 
+ *
  * @example
  *
  * API key management with status monitoring
@@ -55,7 +57,7 @@ import { IMessage } from "../utils";
  *   }
  * };
  * ```
- * 
+ *
  * @example
  *
  * Service integration health checker

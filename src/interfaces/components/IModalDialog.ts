@@ -18,6 +18,8 @@ import { IMessage } from "../utils";
 import { IBox } from "./IBox";
 
 /**
+ * @module Components
+ *
  * @category Modal Dialog Component
  *
  * The supported modal dialog types.
@@ -30,6 +32,7 @@ export const enum ModalDisplayType {
 }
 
 /**
+ * @module Components
  * @category Modal Dialog Component
  *
  * Modal dialog.

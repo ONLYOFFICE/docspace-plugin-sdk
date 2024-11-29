@@ -15,6 +15,8 @@
  */
 
 /**
+ * @module Components
+ *
  * @category Label Component
  *
  * Field name in the form.

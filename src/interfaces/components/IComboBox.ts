@@ -17,6 +17,8 @@
 import { IMessage } from "../utils";
 
 /**
+ * @module Components
+ *
  * @category ComboBox Component
  *
  * Custom combo box option.
@@ -49,6 +51,7 @@ export interface IComboBoxItem {
 }
 
 /**
+ * @module Components
  * @category ComboBox Component
  *
  * Custom combo box input.

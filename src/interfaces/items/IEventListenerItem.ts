@@ -18,10 +18,12 @@ import { Devices, Events, UsersType } from "../../enums";
 import { IMessage } from "../utils";
 
 /**
- * @Category Event Listener Plugin
- * 
+ * @module Plugins
+ *
+ * @category Event Listener Plugin
+ *
  * Describes an event listener that will be registered with the service.
- * 
+ *
  * @example
  *
  * Automatic room categorization with role-based access
@@ -111,7 +113,7 @@ export interface IEventListenerItem {
   /** The unique item identifier used by the service to recognize the item */
   key: string;
 
-  /** 
+  /**
    * The event type which will be executed.
    * Presently the following events are available: CREATE, RENAME, ROOM_CREATE, ROOM_EDIT, CHANGE_COLUMN, CHANGE_USER_TYPE, CREATE_PLUGIN_FILE.
    */

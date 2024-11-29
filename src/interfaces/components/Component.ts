@@ -30,6 +30,8 @@ import { ITextArea } from "./ITextArea";
 import { IToggleButton } from "./IToggleButton";
 
 /**
+ * @module Components
+ *
  * @category Box Component
  *
  * Defines the box component.
@@ -44,6 +46,8 @@ type BoxGroup = {
 };
 
 /**
+ * @module Components
+ *
  * @category Button Component
  *
  * Defines the button component.
@@ -58,6 +62,8 @@ type ButtonGroup = {
 };
 
 /**
+ * @module Components
+ *
  * @category Checkbox Component
  *
  * Defines the checkbox component.
@@ -72,6 +78,8 @@ type CheckboxGroup = {
 };
 
 /**
+ * @module Components
+ *
  * @category ComboBox Component
  *
  * Defines the combo box component.
@@ -86,6 +94,8 @@ type ComboBoxGroup = {
 };
 
 /**
+ * @module Components
+ *
  * @category IFrame Component
  *
  * Defines the iframe component.
@@ -100,6 +110,8 @@ type IFrameGroup = {
 };
 
 /**
+ * @module Components
+ *
  * @category Image Component
  *
  * Defines the image component.
@@ -114,6 +126,8 @@ type ImageGroup = {
 };
 
 /**
+ * @module Components
+ *
  * @category Input Component
  *
  * Defines the input component.
@@ -128,6 +142,8 @@ type InputGroup = {
 };
 
 /**
+ * @module Components
+ *
  * @category Label Component
  *
  * Defines the label component.
@@ -142,6 +158,8 @@ type LabelGroup = {
 };
 
 /**
+ * @module Components
+ *
  * @category Skeleton Component
  *
  * Defines the skeleton component.
@@ -156,6 +174,8 @@ type SkeletonGroup = {
 };
 
 /**
+ * @module Components
+ *
  * @category Text Component
  *
  * Defines the text component.
@@ -170,6 +190,8 @@ type TextGroup = {
 };
 
 /**
+ * @module Components
+ *
  * @category TextArea Component
  *
  * Defines the textarea component.
@@ -184,6 +206,8 @@ type TextAreaGroup = {
 };
 
 /**
+ * @module Components
+ *
  * @category ToggleButton Component
  *
  * Defines the toggle button component.
@@ -198,6 +222,8 @@ type ToggleButtonGroup = {
 };
 
 /**
+ * @module Components
+ *
  * @category Component
  *
  * A component that is used to add components into Box.

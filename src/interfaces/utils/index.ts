@@ -34,6 +34,8 @@ import {
 } from "../components";
 
 /**
+ * @module Actions
+ *
  * @category Post Message
  *
  * The properties that are used to send a message to a frame.
@@ -63,6 +65,8 @@ export interface IPostMessage {
 }
 
 /**
+ * @module Actions
+ *
  * @category Post Message
  *
  * A message which is returned when any item interacts with a user (onClick, onChange, onSelect, etc.).

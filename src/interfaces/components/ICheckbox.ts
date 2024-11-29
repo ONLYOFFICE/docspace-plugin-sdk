@@ -17,6 +17,8 @@
 import { IMessage } from "../utils";
 
 /**
+ * @module Components
+ *
  * @category Checkbox Component
  *
  * Custom checkbox input.

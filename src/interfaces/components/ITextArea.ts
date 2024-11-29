@@ -17,6 +17,8 @@
 import { IMessage } from "../utils";
 
 /**
+ * @module Components
+ *
  * @category TextArea Component
  *
  * Custom textarea.

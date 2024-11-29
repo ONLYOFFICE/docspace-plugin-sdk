@@ -15,6 +15,8 @@
  */
 
 /**
+ * @module
+ *
  * Defines the supported event types.
  *
  */

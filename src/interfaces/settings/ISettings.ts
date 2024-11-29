@@ -17,7 +17,9 @@
 import { ButtonGroup, IBox } from "../components";
 
 /**
- * @Category Settings Plugin
+ * @module Plugins
+ *
+ * @category Settings Plugin
  *
  * Defines the administrator or owner settings block that is embedded in the modal window with the plugin description.
  *
