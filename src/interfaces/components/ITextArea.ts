@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
+/**
+ * @module Components/TextArea
+ */
+
 import { IMessage } from "../utils";
 
 /**
- * @module Components
- *
- * @category TextArea Component
- *
  * Custom textarea.
  *
  * @example

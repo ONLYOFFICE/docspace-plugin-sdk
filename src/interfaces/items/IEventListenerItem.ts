@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
+/**
+ * @module Plugins/EventListener
+ */
+
 import { Devices, Events, UsersType } from "../../enums";
 import { IMessage } from "../utils";
 
 /**
- * @module Plugins
- *
- * @category Event Listener Plugin
- *
  * Describes an event listener that will be registered with the service.
  *
  * @example

@@ -15,10 +15,10 @@
  */
 
 /**
- * @module Components
- *
- * @category Label Component
- *
+ * @module Components/Label
+ */
+
+/**
  * Field name in the form.
  *
  * @example

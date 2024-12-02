@@ -15,8 +15,7 @@
  */
 
 /**
- * @module Components
- * @category Test
+ * @module Components/Text
  */
 
 /**

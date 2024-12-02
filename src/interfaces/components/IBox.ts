@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
+/**
+ * @module Components/Box
+ */
+
 import { Component } from "./Component";
 
 /**
- * @module Components
- *
- * @category Box Component
  *
  * Defines the border properties for a box element.
  *
@@ -51,9 +52,6 @@ export interface IBorderProp {
 }
 
 /**
- * @module Components
- *
- * @category Box Component
  *
  * A container that lays out its contents in one direction.
  * Box provides general CSS capabilities like flexbox layout, paddings, background color, border, and animation.

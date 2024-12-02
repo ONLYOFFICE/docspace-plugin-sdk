@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
+/**
+ * @module Plugins/InfoPanel
+ */
+
 import { IInfoPanelItem } from "../items";
 
 /**
- * @module Plugins
- *
- * @category Info panel Plugin
- *
  * The plugin that is embedded as a separate tab in the file info panel.
  *
  * @example

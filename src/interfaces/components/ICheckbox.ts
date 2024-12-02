@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
+/**
+ * @module Components/Checkbox
+ */
+
 import { IMessage } from "../utils";
 
 /**
- * @module Components
- *
- * @category Checkbox Component
- *
  * Custom checkbox input.
  *
  * @example

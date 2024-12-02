@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * @module Plugins/ContextMenu
+ */
+
 import {
   Devices,
   FilesExst,
@@ -25,10 +29,6 @@ import {
 import { IMessage } from "../utils";
 
 /**
- * @module Plugins
- *
- * @category Context Menu Plugin
- *
  * Describes an item that will be embedded in the context menu.
  *
  * @example

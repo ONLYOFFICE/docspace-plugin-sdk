@@ -15,10 +15,10 @@
  */
 
 /**
- * @module Components
- *
- * @category Toast Component
- *
+ * @module Components/Toast
+ */
+
+/**
  * The supported toast types.
  */
 export const enum ToastType {
@@ -33,9 +33,6 @@ export const enum ToastType {
 }
 
 /**
- * @module Components
- * @category Toast Component
- *
  * Toast notification component for displaying temporary messages.
  *
  * @example

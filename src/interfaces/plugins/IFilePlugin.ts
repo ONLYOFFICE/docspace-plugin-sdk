@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
+/**
+ * @module Plugins/File
+ */
+
 import { IFileItem } from "../items";
 
 /**
- * @module Plugins
- *
- * @category File Plugin
- *
  * The plugin that can interact with the file list.
  *
  * @example

@@ -16,7 +16,9 @@
 
 /**
  * @module Enums
- *
+ */
+
+/**
  * Defines the supported user types.
  */
 export const enum UsersType {

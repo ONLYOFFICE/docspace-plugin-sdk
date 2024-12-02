@@ -15,10 +15,10 @@
  */
 
 /**
- * @module Components
- *
- * @category Image Component
- *
+ * @module Components/Image
+ */
+
+/**
  * A component that is used to embed an image not from the assets folder into a modal window or the settings page.
  *
  * @example

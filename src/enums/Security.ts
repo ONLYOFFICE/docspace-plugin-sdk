@@ -15,8 +15,10 @@
  */
 
 /**
- * @module
- *
+ * @module Enums
+ */
+
+/**
  * Defines the supported room/folder security parameters.
  */
 export const enum Security {

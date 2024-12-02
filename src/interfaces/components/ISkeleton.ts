@@ -15,9 +15,10 @@
  */
 
 /**
- * @module Components
- * @category Skeleton Component
- *
+ * @module Components/Skeleton
+ */
+
+/**
  * A component that is used to hide components during uploading.
  *
  * @example

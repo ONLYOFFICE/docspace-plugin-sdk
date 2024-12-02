@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
+/**
+ * @module Plugins/ProfileMenu
+ */
+
 import { Devices, UsersType } from "../../enums";
 import { IMessage } from "../utils";
 
 /**
- * @module Plugins
- *
- * @category Profile Menu Plugin
- *
  * Describes an item that will be embedded in the profile menu.
  *
  * @example

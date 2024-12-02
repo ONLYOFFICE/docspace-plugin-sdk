@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
+/**
+ * @module Plugins/Settings
+ */
+
 import { ISettings } from "../settings/ISettings";
 
 /**
- * @module Plugins
- *
- * @category Settings Plugin
- *
  * The plugin that manages settings for the administrator or owner.
  * The plugin that can interact with the settings panel.
  *

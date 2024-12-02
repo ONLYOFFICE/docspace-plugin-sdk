@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
+/**
+ * @module Plugins/File
+ */
+
 import { Devices, UsersType } from "../../enums";
 import { IMessage } from "../utils";
 
 /**
- * @module Plugins
- *
- * @category File Plugin
- *
  * Describes the file properties.
  */
 export interface File {
@@ -51,9 +51,6 @@ export interface File {
 }
 
 /**
- * @module Plugins
- * @category File Plugin
- *
  * Describes an item that will be embedded in the file list.
  * The file item can be displayed as a file or a folder.
  *

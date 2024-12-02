@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
+/**
+ * @module Plugins/MainButton
+ */
+
 import { IMainButtonItem } from "../items";
 
 /**
- * @module Plugins
- *
- * @category Main Button Plugin
- *
  * The plugin that can add items to the main button menu.
  *
  * @example

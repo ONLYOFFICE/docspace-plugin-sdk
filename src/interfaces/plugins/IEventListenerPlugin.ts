@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
+/**
+ * @module Plugins/EventListener
+ */
+
 import { IEventListenerItem } from "../items";
 
 /**
- * @module Plugins
- *
- * @category Event listener Plugin
- *
  * The plugin that is given the access to the portal events.
  *
  * @example

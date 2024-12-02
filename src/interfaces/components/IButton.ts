@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
+/**
+ * @module Components/Button
+ */
+
 import { IMessage } from "../utils";
 
 /**
- * @module Components
- *
- * @category Button Component
- *
  * Defines button size options
  */
 export const enum ButtonSize {
@@ -35,11 +35,7 @@ export const enum ButtonSize {
 }
 
 /**
- * @module Components
- *
- * @category Button Component
- *
- * A component that is used for an action on a page.
+ *  A component that is used for an action on a page.
  *
  * @example
  *

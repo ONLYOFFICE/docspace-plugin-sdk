@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
+/**
+ * @module Plugins/MainButton
+ */
+
 import { Devices, UsersType } from "../../enums";
 import { IMessage } from "../utils";
 
 /**
- * @module Plugins
- *
- * @category Main Button Plugin
- *
  * Describes an item that will be embedded in the main button menu.
  *
  * @example

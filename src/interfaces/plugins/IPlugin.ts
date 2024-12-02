@@ -12,15 +12,16 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ */
+
+/**
+ * @module Plugins/API
  */
 
 import { PluginStatus } from "../../enums";
 
 /**
- * @module Plugins
- *
- * @category Plugin
- *
  * The default plugin.
  * This interface must be implemented in each plugin because without the plugin status it will not be built in.
  *

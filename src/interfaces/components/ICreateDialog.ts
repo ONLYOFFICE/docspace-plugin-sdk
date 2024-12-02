@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
+/**
+ * @module Components/CreateDialog
+ */
+
 import { IMessage } from "../utils";
 import { IComboBoxItem } from "./IComboBox";
 
 /**
- * @module Components
- *
- * @category Create Dialog Component
- *
  * Modal dialog for creating certain item (file, folder, etc.).
  * The user gets the full access to the functionality but cannot control the layout.
  *

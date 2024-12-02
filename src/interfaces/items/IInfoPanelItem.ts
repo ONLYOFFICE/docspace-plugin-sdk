@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
+/**
+ * @module Plugins/InfoPanel
+ */
+
 import { Devices, UsersType } from "../../enums";
 import { FilesExst, FilesType } from "../../enums/Files";
 import { IBox } from "../components";
 import { IMessage } from "../utils";
 
 /**
- * @module Plugins
- *
- * @category Info panel Plugin
- *
  * Describes the item submenu.
  */
 export interface IInfoPanelSubMenu {
@@ -38,9 +38,6 @@ export interface IInfoPanelSubMenu {
 }
 
 /**
- * @module Plugins
- * @category Info Panel Item
- *
  * The info panel item that is displayed in the info panel.
  *
  * @example

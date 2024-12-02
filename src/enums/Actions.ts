@@ -16,10 +16,9 @@
 
 /**
  * @module Enums
- *
- *
- *
- *
+ */
+
+/**
  * A collection of events that will be processed on the portal side.
  */
 export const enum Actions {

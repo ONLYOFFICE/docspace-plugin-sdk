@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * @module Actions/PostMessage
+ */
+
 import { Actions } from "../../enums";
 import {
   IBox,
@@ -34,10 +38,6 @@ import {
 } from "../components";
 
 /**
- * @module Actions
- *
- * @category Post Message
- *
  * The properties that are used to send a message to a frame.
  * If the frame ID is not specified or the frame with such an ID does not exist, then nothing changes.
  *
@@ -65,10 +65,6 @@ export interface IPostMessage {
 }
 
 /**
- * @module Actions
- *
- * @category Post Message
- *
  * A message which is returned when any item interacts with a user (onClick, onChange, onSelect, etc.).
  *
  * @example

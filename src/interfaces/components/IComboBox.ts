@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
+/**
+ * @module Components/ComboBox
+ */
+
 import { IMessage } from "../utils";
 
 /**
- * @module Components
- *
- * @category ComboBox Component
- *
  * Custom combo box option.
  *
  * @example
@@ -51,9 +51,6 @@ export interface IComboBoxItem {
 }
 
 /**
- * @module Components
- * @category ComboBox Component
- *
  * Custom combo box input.
  *
  * @example

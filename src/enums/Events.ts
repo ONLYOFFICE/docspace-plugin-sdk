@@ -16,9 +16,10 @@
 
 /**
  * @module Enums
- *
- * Defines the supported event types.
- *
+ */
+
+/**
+ * Defines the supported event types for the plugin system.
  */
 export const enum Events {
   /** Triggered when a new item is created */

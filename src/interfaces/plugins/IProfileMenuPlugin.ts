@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
+/**
+ * @module Plugins/ProfileMenu
+ */
+
 import { IProfileMenuItem } from "../items";
 
 /**
- * @module Plugins
- *
- * @category Profile menu Plugin
- *
  * Plugin for embedding items in the profile menu.
  * This interface must be implemented in each plugin that adds items to the profile menu.
  *

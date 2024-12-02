@@ -17,10 +17,6 @@
 import { Devices, FilesExst, FilesType, UsersType } from "../../enums";
 
 /**
- * @module Plugins
- *
- * @category Separator Item
- *
  * The separator item that is used to separate items in menus.
  *
  * Describes an item that will be embedded in the profile/main button/context menu.

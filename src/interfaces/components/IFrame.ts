@@ -15,10 +15,10 @@
  */
 
 /**
- * @module Components
- *
- * @category IFrame Component
- *
+ * @module Components/Frame
+ */
+
+/**
  * A component that is used to embed a third-party website into a modal window or the settings page.
  *
  * @example

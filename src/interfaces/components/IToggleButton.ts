@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
+/**
+ * @module Components/ToggleButton
+ */
+
 import { IMessage } from "../utils";
 
 /**
- * @module Components
- *
- * @category Toggle Button Component
- *
  * Custom toggle button input for binary state controls.
  *
  * @example

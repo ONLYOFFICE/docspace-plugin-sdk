@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
+/**
+ * @module Plugins/ContextMenu
+ */
+
 import { IContextMenuItem } from "../items";
 
 /**
- * @module Plugins
- *
- * @category Context menu Plugin
- *
  * The plugin that is embedded in the context menu of files, folders, rooms, images, video (audio).
  *
  * @example

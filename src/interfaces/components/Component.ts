@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * @module Components/Component
+ */
+
 import { Components } from "../../enums";
 
 import { IBox } from "./IBox";
@@ -30,10 +34,6 @@ import { ITextArea } from "./ITextArea";
 import { IToggleButton } from "./IToggleButton";
 
 /**
- * @module Components
- *
- * @category Box Component
- *
  * Defines the box component.
  */
 type BoxGroup = {
@@ -46,10 +46,6 @@ type BoxGroup = {
 };
 
 /**
- * @module Components
- *
- * @category Button Component
- *
  * Defines the button component.
  */
 type ButtonGroup = {
@@ -62,10 +58,6 @@ type ButtonGroup = {
 };
 
 /**
- * @module Components
- *
- * @category Checkbox Component
- *
  * Defines the checkbox component.
  */
 type CheckboxGroup = {
@@ -78,10 +70,6 @@ type CheckboxGroup = {
 };
 
 /**
- * @module Components
- *
- * @category ComboBox Component
- *
  * Defines the combo box component.
  */
 type ComboBoxGroup = {
@@ -94,10 +82,6 @@ type ComboBoxGroup = {
 };
 
 /**
- * @module Components
- *
- * @category IFrame Component
- *
  * Defines the iframe component.
  */
 type IFrameGroup = {
@@ -110,10 +94,6 @@ type IFrameGroup = {
 };
 
 /**
- * @module Components
- *
- * @category Image Component
- *
  * Defines the image component.
  */
 type ImageGroup = {
@@ -126,10 +106,6 @@ type ImageGroup = {
 };
 
 /**
- * @module Components
- *
- * @category Input Component
- *
  * Defines the input component.
  */
 type InputGroup = {
@@ -142,10 +118,6 @@ type InputGroup = {
 };
 
 /**
- * @module Components
- *
- * @category Label Component
- *
  * Defines the label component.
  */
 type LabelGroup = {
@@ -158,10 +130,6 @@ type LabelGroup = {
 };
 
 /**
- * @module Components
- *
- * @category Skeleton Component
- *
  * Defines the skeleton component.
  */
 type SkeletonGroup = {
@@ -174,10 +142,6 @@ type SkeletonGroup = {
 };
 
 /**
- * @module Components
- *
- * @category Text Component
- *
  * Defines the text component.
  */
 type TextGroup = {
@@ -190,10 +154,6 @@ type TextGroup = {
 };
 
 /**
- * @module Components
- *
- * @category TextArea Component
- *
  * Defines the textarea component.
  */
 type TextAreaGroup = {
@@ -206,10 +166,6 @@ type TextAreaGroup = {
 };
 
 /**
- * @module Components
- *
- * @category ToggleButton Component
- *
  * Defines the toggle button component.
  */
 type ToggleButtonGroup = {
@@ -222,10 +178,6 @@ type ToggleButtonGroup = {
 };
 
 /**
- * @module Components
- *
- * @category Component
- *
  * A component that is used to add components into Box.
  * Only components that are embedded into DOM can be wrapped (toast, modal dialog, etc. cannot be wrapped).
  */
