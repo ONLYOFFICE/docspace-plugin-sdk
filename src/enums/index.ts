@@ -14,6 +14,14 @@
  * limitations under the License.
  */
 
+/**
+ * @ignore
+ */
+
+/**
+ * Contains all supported enums.
+ */
+
 import { Actions } from "./Actions";
 import { Events } from "./Events";
 import { PluginStatus } from "./Plugins";

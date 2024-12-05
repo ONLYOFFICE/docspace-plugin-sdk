@@ -1,6 +1,8 @@
 # Change Log
 
 ## x.x.x
+## Added
+- Add typedoc
 ## Fixed
 - change ITextArea prop 'heightTextArea' for string or number
 

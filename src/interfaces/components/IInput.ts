@@ -1,18 +1,18 @@
 /*
-* (c) Copyright Ascensio System SIA 2024
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * (c) Copyright Ascensio System SIA 2024
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 import { IMessage } from "../utils";
 
@@ -20,10 +20,25 @@ import { IMessage } from "../utils";
  * The supported input sizes.
  */
 export const enum InputSize {
+  /**
+   * Base size of the input field.
+   */
   base = "base",
+  /**
+   * Middle size of the input field.
+   */
   middle = "middle",
+  /**
+   * Big size of the input field.
+   */
   big = "big",
+  /**
+   * Huge size of the input field.
+   */
   huge = "huge",
+  /**
+   * Large size of the input field.
+   */
   large = "large",
 }
 
@@ -31,7 +46,13 @@ export const enum InputSize {
  * The input autocomplete feature.
  */
 export const enum InputAutocomplete {
+  /**
+   * Autocomplete is enabled.
+   */
   on = "on",
+  /**
+   * Autocomplete is disabled.
+   */
   off = "off",
 }
 
@@ -39,12 +60,83 @@ export const enum InputAutocomplete {
  * The supported input types.
  */
 export const enum InputType {
+  /**
+   * Text input type.
+   */
   text = "text",
+  /**
+   * Password input type.
+   */
   password = "password",
 }
 
 /**
  * Input field for single-line strings.
+ *
+ * @example
+ *
+ * Search input with icon and hover effects
+ *
+ * ```typescript
+ * const searchInput: IInput = {
+ *   value: "",
+ *   onChange: (value) => {
+ *     return {
+ *       actions: [Actions.updateProps],
+ *       newProps: {
+ *         value
+ *       }
+ *     };
+ *   },
+ *   placeholder: "Search documents...",
+ *   size: InputSize.middle,
+ *   iconName: "search",
+ *   iconSize: 16,
+ *   iconColor: "#666666",
+ *   hoverColor: "#333333",
+ *   isIconFill: true,
+ * }
+ * ```
+ *
+ * @example
+ *
+ * Password input with validation and error handling
+ *
+ * ```typescript
+ * const passwordInput: IInput = {
+ *   value: "",
+ *   type: InputType.password,
+ *   onChange: (value) => {
+ *     const hasError = value.length < 8;
+ *     return {
+ *       actions: [Actions.updateProps],
+ *       newProps: {
+ *         value,
+ *         hasError
+ *       }
+ *     };
+ *   },
+ *   onBlur: (value) => {
+ *     if (value.length < 8) {
+ *       return {
+ *         actions: [Actions.showToast],
+ *         toastProps: [{
+ *           title: "Validation Error",
+ *           type: "error",
+ *           message: "Password must be at least 8 characters long"
+ *         }]
+ *       };
+ *     }
+ *   },
+ *   placeholder: "Enter password",
+ *   name: "password",
+ *   autoComplete: InputAutocomplete.off,
+ *   size: InputSize.big,
+ *   isAutoFocused: true,
+ *   hasError: false,
+ *   maxLength: "32"
+ * }
+ * ```
  */
 export interface IInput {
   /**
@@ -166,7 +258,7 @@ export interface IInput {
 
   /**
    * Defines the input icon color.
-  */
+   */
   iconColor?: string;
 
   /**

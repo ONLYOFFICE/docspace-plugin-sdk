@@ -71,9 +71,6 @@ export const enum Actions {
    */
   showToast = "show-toast",
 
-  // showSettingsModal = "show-settings-modal",
-  // closeSettingsModal = "close-settings-modal",
-
   /**
    * Calls a function to open a modal window for creating certain item (file, folder, etc.).
    * It does not work if the "createDialogProps" parameter is not passed to the message.

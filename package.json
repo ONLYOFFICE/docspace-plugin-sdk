@@ -32,6 +32,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.18.10",
+    "typedoc": "^0.26.11",
+    "typedoc-plugin-merge-modules": "^6.1.0",
     "typescript": "^4.7.4"
   },
   "dependencies": {
