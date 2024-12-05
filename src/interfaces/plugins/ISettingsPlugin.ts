@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * @module Plugins/Settings
- */
-
 import { ISettings } from "../settings/ISettings";
 
 /**

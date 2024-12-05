@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * @module Components/ToggleButton
- */
-
 import { IMessage } from "../utils";
 
 /**

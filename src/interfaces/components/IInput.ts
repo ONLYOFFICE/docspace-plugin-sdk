@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * @module Components/Input
- */
-
 import { IMessage } from "../utils";
 
 /**

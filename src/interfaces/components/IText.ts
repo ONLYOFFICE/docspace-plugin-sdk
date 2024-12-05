@@ -15,10 +15,6 @@
  */
 
 /**
- * @module Components/Text
- */
-
-/**
  * Plain text.
  *
  * @example

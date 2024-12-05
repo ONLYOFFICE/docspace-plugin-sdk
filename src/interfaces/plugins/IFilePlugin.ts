@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * @module Plugins/File
- */
-
 import { IFileItem } from "../items";
 
 /**

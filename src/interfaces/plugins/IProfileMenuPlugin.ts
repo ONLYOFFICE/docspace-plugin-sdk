@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * @module Plugins/ProfileMenu
- */
-
 import { IProfileMenuItem } from "../items";
 
 /**

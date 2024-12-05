@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * @module Plugins/InfoPanel
- */
-
 import { IInfoPanelItem } from "../items";
 
 /**

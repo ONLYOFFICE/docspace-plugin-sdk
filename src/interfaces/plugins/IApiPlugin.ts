@@ -15,10 +15,6 @@
  */
 
 /**
- * @module Plugins/API
- */
-
-/**
  * The plugin that is provided with the origin, proxy, and prefix to make requests to the portal server.
  *
  * @example

@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * @module Components/Button
- */
-
 import { IMessage } from "../utils";
 
 /**

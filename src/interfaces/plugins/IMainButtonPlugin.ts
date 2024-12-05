@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * @module Plugins/MainButton
- */
-
 import { IMainButtonItem } from "../items";
 
 /**

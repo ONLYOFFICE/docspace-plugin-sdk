@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * @module Plugins/Settings
- */
-
 import { ButtonGroup, IBox } from "../components";
 
 /**

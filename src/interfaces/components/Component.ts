@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * @module Components/Component
- */
-
 import { Components } from "../../enums";
 
 import { IBox } from "./IBox";

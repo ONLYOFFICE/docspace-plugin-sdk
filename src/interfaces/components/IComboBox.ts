@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * @module Components/ComboBox
- */
-
 import { IMessage } from "../utils";
 
 /**

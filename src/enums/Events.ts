@@ -15,10 +15,6 @@
  */
 
 /**
- * @module Enums
- */
-
-/**
  * Defines the supported event types for the plugin system.
  */
 export const enum Events {

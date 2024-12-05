@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * @module Components/ModalDialog
- */
-
 import { IMessage } from "../utils";
 import { IBox } from "./IBox";
 

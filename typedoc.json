@@ -1,0 +1,28 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["./src"],
+  "entryPointStrategy": "expand",
+  "out": "docs",
+  "json": "docs/documentation.json",
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "excludeExternals": true,
+  "includeVersion": true,
+  "searchInComments": true,
+  "pretty": true,
+  "validation": {
+    "invalidLink": true,
+    "notDocumented": true
+  },
+  "intentionallyNotExported": [],
+  "treatWarningsAsErrors": false,
+  "cleanOutputDir": true,
+  "gitRevision": "main",
+  "plugin": ["typedoc-plugin-merge-modules"],
+  "mergeModulesRenameDefaults": true,
+  "mergeModulesMergeMode": "module",
+  "exclude": ["**/index.ts"],
+  "compilerOptions": {
+    "stripInternal": true
+  }
+}

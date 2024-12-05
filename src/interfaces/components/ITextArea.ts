@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * @module Components/TextArea
- */
-
 import { IMessage } from "../utils";
 
 /**

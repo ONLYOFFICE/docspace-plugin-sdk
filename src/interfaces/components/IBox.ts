@@ -15,7 +15,8 @@
  */
 
 /**
- * @module Components/Box
+ * @module Box
+ * Module containing Box-related components and interfaces for layout and styling
  */
 
 import { Component } from "./Component";

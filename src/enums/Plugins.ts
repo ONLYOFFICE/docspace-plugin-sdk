@@ -14,9 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * @module Enums
- */
 
 /**
  * Defines the supported plugin statuses.

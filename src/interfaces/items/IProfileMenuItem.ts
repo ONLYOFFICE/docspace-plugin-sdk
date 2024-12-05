@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * @module Plugins/ProfileMenu
- */
-
 import { Devices, UsersType } from "../../enums";
 import { IMessage } from "../utils";
 

@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * @module Actions/PostMessage
- */
-
 import { Actions } from "../../enums";
 import {
   IBox,

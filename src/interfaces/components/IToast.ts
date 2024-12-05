@@ -15,10 +15,6 @@
  */
 
 /**
- * @module Components/Toast
- */
-
-/**
  * The supported toast types.
  */
 export const enum ToastType {

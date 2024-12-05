@@ -15,10 +15,6 @@
  *
  */
 
-/**
- * @module Plugins/API
- */
-
 import { PluginStatus } from "../../enums";
 
 /**

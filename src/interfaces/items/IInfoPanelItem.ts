@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * @module Plugins/InfoPanel
- */
-
 import { Devices, UsersType } from "../../enums";
 import { FilesExst, FilesType } from "../../enums/Files";
 import { IBox } from "../components";

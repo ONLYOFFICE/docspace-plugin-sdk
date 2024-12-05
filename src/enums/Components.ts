@@ -15,10 +15,6 @@
  */
 
 /**
- * @module Enums
- */
-
-/**
  * Defines the available UI component.
  */
 export const enum Components {

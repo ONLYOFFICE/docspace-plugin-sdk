@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * @module Plugins/ContextMenu
- */
-
 import { IContextMenuItem } from "../items";
 
 /**

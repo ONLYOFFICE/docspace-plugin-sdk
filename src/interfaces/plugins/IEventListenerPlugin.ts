@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * @module Plugins/EventListener
- */
-
 import { IEventListenerItem } from "../items";
 
 /**

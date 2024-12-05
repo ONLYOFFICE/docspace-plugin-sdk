@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * @module Plugins/MainButton
- */
-
 import { Devices, UsersType } from "../../enums";
 import { IMessage } from "../utils";
 

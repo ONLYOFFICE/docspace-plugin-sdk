@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * @module Plugins/EventListener
- */
-
 import { Devices, Events, UsersType } from "../../enums";
 import { IMessage } from "../utils";
 

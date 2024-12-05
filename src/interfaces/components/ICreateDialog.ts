@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * @module Components/CreateDialog
- */
-
 import { IMessage } from "../utils";
 import { IComboBoxItem } from "./IComboBox";
 
