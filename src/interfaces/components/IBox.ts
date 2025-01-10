@@ -14,11 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * @module Box
- * Module containing Box-related components and interfaces for layout and styling
- */
-
 import { Component } from "./Component";
 
 /**
