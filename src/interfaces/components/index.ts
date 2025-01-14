@@ -25,6 +25,62 @@
  *
  * Here is a description of the category Button.
  *
+ * @categoryDescription Box
+ *
+ * Here is a description of the category Box.
+ *
+ * @categoryDescription Checkbox
+ *
+ * Here is a description of the category Checkbox.
+ *
+ * @categoryDescription ComboBox
+ *
+ * Here is a description of the category ComboBox.
+ *
+ * @categoryDescription CreateDialog
+ *
+ * Here is a description of the category CreateDialog.
+ *
+ * @categoryDescription Frame
+ *
+ * Here is a description of the category Frame.
+ *
+ * @categoryDescription Image
+ *
+ * Here is a description of the category Image.
+ *
+ * @categoryDescription Input
+ *
+ * Here is a description of the category Input.
+ *
+ * @categoryDescription Label
+ *
+ * Here is a description of the category Label.
+ *
+ * @categoryDescription ModalDialog
+ *
+ * Here is a description of the category ModalDialog.
+ *
+ * @categoryDescription Skeleton
+ *
+ * Here is a description of the category Skeleton.
+ *
+ * @categoryDescription Text
+ *
+ * Here is a description of the category Text.
+ *
+ * @categoryDescription TextArea
+ *
+ * Here is a description of the category TextArea.
+ *
+ * @categoryDescription Toast
+ *
+ * Here is a description of the category Toast.
+ *
+ * @categoryDescription ToggleButton
+ *
+ * Here is a description of the category ToggleButton.
+ *
  * @module Components
  */
 

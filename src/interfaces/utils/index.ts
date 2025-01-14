@@ -21,6 +21,14 @@
  *
  * Here is a description of the module Utils.
  *
+ * @categoryDescription Message
+ *
+ * Here is a description of the category Message.
+ *
+ * @categoryDescription PostMessage
+ *
+ * Here is a description of the category PostMessage.
+ *
  * @module Utils
  */
 
@@ -47,6 +55,8 @@ import {
  * The properties that are used to send a message to a frame.
  * If the frame ID is not specified or the frame with such an ID does not exist, then nothing changes.
  *
+ * @category PostMessage
+ *
  * @example
  *
  * Document preview frame communication
@@ -72,6 +82,8 @@ export interface IPostMessage {
 
 /**
  * A message which is returned when any item interacts with a user (onClick, onChange, onSelect, etc.).
+ *
+ * @category Message
  *
  * @example
  *

@@ -21,6 +21,8 @@ import { IEventListenerItem } from "../items";
 /**
  * The plugin that is given the access to the portal events.
  *
+ * @category EventListenerPlugin
+ *
  * @example
  *
  * Room activity monitor with permission checks

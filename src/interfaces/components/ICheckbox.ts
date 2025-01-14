@@ -21,6 +21,20 @@ import { IMessage } from "../utils";
 /**
  * Custom checkbox.
  *
+ * @category Checkbox
+ *
+ * @categoryDescription State
+ *
+ * Here is a description of the category State.
+ *
+ * @categoryDescription Appearance
+ *
+ * Here is a description of the category Appearance.
+ *
+ * @categoryDescription Behavior
+ *
+ * Here is a description of the category Behavior.
+ *
  * @example
  *
  * Privacy policy checkbox with submit button state control
@@ -55,36 +69,80 @@ import { IMessage } from "../utils";
  * ```
  */
 export interface ICheckbox {
-  /** Sets the checked state of the checkbox */
+  /**
+   * Sets the checked state of the checkbox
+   *
+   * @category State
+   */
   isChecked: boolean;
 
-  /** Sets a function which is triggered whenever the checkbox input is clicked */
-  onChange: () => IMessage | void;
-
-  /** Defines the checkbox input label */
+  /**
+   * Defines the checkbox label
+   *
+   * @category Content
+   */
   label?: string;
 
-  /** Specifies if the word wrapping is disabled or not */
+  /**
+   * Sets a function which is triggered whenever the checkbox input is clicked
+   *
+   * @category Behavior
+   */
+  onChange: () => IMessage | void;
+
+  /**
+   * Specifies if the word wrapping is disabled or not
+   *
+   * @category Appearance
+   */
   truncate?: boolean;
 
-  /** Defines the checkbox tab index */
+  /**
+   * Defines the checkbox tab index
+   *
+   * @category Appearance
+   */
   tabIndex?: number;
 
-  /** Specifies whether a notification will be sent if an error occurs */
+  /**
+   * Specifies whether a notification will be sent if an error occurs
+   *
+   * @category State
+   */
   hasError?: boolean;
 
-  /** Defines the HTML "name" property */
+  /**
+   * Defines the HTML "name" property
+   *
+   * @category Content
+   */
   name?: string;
 
-  /** Defines the checkbox input value */
+  /**
+   * Defines the checkbox input value
+   *
+   * @category State
+   */
   value?: string;
 
-  /** Specifies whether the checkbox state will be displayed as a black rectangle in the checkbox when it is set to true */
+  /**
+   * Specifies whether the checkbox state will be displayed as a black rectangle in the checkbox when it is set to true
+   *
+   * @category State
+   */
   isIndeterminate?: boolean;
 
-  /** Specifies if the checkbox input is disabled */
+  /**
+   * Specifies if the checkbox input is disabled
+   *
+   * @category State
+   */
   isDisabled?: boolean;
 
-  /** Defines the checkbox input title */
+  /**
+   * Defines the checkbox input title
+   *
+   * @category Appearance
+   */
   title?: string;
 }

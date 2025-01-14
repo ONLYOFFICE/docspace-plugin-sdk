@@ -21,6 +21,8 @@ import { IMainButtonItem } from "../items";
 /**
  * The plugin that can add items to the main button menu.
  *
+ * @category MainButtonPlugin
+ *
  * @example
  *
  * PDF export functionality with progress feedback

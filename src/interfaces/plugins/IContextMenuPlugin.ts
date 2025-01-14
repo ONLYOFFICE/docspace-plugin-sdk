@@ -21,6 +21,8 @@ import { IContextMenuItem } from "../items";
 /**
  * The plugin that is embedded in the context menu of files, folders, rooms, images, video (audio).
  *
+ * @category ContextMenuPlugin
+ *
  * @example
  *
  * Document sharing and export menu with status feedback

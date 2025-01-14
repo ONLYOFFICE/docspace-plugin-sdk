@@ -21,6 +21,24 @@ import { IMessage } from "../utils";
 /**
  * Custom toggle button input for binary state controls.
  *
+ * @category ToggleButton
+ *
+ * @categoryDescription State
+ *
+ * Here is a description of the category State.
+ *
+ * @categoryDescription Content
+ *
+ * Here is a description of the category Content.
+ *
+ * @categoryDescription Appearance
+ *
+ * Here is a description of the category Appearance.
+ *
+ * @categoryDescription Behavior
+ *
+ * Here is a description of the category Behavior.
+ *
  * @example
  *
  * Theme switcher with custom margin
@@ -94,18 +112,33 @@ import { IMessage } from "../utils";
  * ```
  */
 export interface IToggleButton {
-  /** Defines the toggle button label */
+  /** Defines the toggle button label
+   *
+   * @category Content
+   */
   label?: string;
 
-  /** Specifies whether the toggle button is enabled */
+  /** Specifies whether the toggle button is enabled
+   *
+   * @category State
+   */
   isChecked: boolean;
 
-  /** Sets a function which is triggered whenever the toggle button is clicked */
+  /** Sets a function which is triggered whenever the toggle button is clicked
+   *
+   * @category Behavior
+   */
   onChange: () => IMessage | void;
 
-  /** Specifies whether the toggle button is disabled */
+  /** Specifies whether the toggle button is disabled
+   *
+   * @category State
+   */
   isDisabled?: boolean;
 
-  /** Defines the toggle button CSS style */
+  /** Defines the toggle button CSS style
+   *
+   * @category Appearance
+   */
   style?: any;
 }

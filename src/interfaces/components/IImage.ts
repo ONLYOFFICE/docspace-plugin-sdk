@@ -19,6 +19,16 @@
 /**
  * A component that is used to embed an image not from the assets folder into a modal window or the settings page.
  *
+ * @category Image
+ *
+ * @categoryDescription Content
+ *
+ * Here is a description of the category Content.
+ *
+ * @categoryDescription Appearance
+ *
+ * Here is a description of the category Appearance.
+ *
  * @example
  *
  * Plugin logo with fixed dimensions and spacing
@@ -58,24 +68,45 @@
  * ```
  */
 export interface IImage {
-  /** Defines the full path to the image */
+  /** Defines the full path to the image
+   *
+   * @category Content
+   */
   src: string;
 
-  /** Defines the image alt attribute */
+  /** Defines the image alt attribute
+   *
+   * @category Content
+   */
   alt: string;
 
-  /** Defines the image width */
+  /** Defines the image width
+   *
+   * @category Appearance
+   */
   width?: string;
 
-  /** Defines the image height */
+  /** Defines the image height
+   *
+   * @category Appearance
+   */
   height?: string;
 
-  /** Defines the image name */
+  /** Defines the image name
+   *
+   * @category Content
+   */
   name?: string;
 
-  /** Defines the image ID */
+  /** Defines the image ID
+   *
+   * @category Content
+   */
   id?: string;
 
-  /** Defines the image style */
+  /** Defines the image style
+   *
+   * @category Appearance
+   */
   style?: { [key: string]: string };
 }

@@ -21,6 +21,8 @@ import { IFileItem } from "../items";
 /**
  * The plugin that can interact with the file list.
  *
+ * @category FilePlugin
+ *
  * @example
  *
  * File compression utility with size validation

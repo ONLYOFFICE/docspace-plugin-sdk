@@ -20,7 +20,9 @@ import { Devices, UsersType } from "../../enums";
 import { IMessage } from "../utils";
 
 /**
- * Describes an item that will be embedded in the main button menu.
+ *Describes an item that will be embedded in the main button menu
+ *
+ * @category MainButtonItem
  *
  * @example
  *
@@ -91,22 +93,30 @@ import { IMessage } from "../utils";
  * ```
  */
 export interface IMainButtonItem {
-  /** The unique item identifier used by the service to recognize the item */
+  /**
+   * The unique item identifier used by the service to recognize the item
+   *
+   */
   key: string;
 
-  /** The item display name */
+  /**
+   * The item display name
+   *
+   */
   label: string;
 
   /**
    * The item display icon. The icon image must be uploaded to the assets folder.
    * Only the image name with the extension must be specified in this field.
    * The required icon size is 16x16 px. Otherwise, it will be compressed to this size.
+   *
    */
   icon: string;
 
   /**
    * A function that takes the file/folder/room id as an argument.
    * This function can be asynchronous.
+   *
    */
   onClick?: (id: number) => Promise<IMessage> | IMessage | void;
 
@@ -120,7 +130,7 @@ export interface IMainButtonItem {
   /**
    * The main button items that are added to the current item as a drop-down list.
    * In this case, the onClick event does not work.
-   */
+   *   */
   items?: IMainButtonItem[];
 
   /**

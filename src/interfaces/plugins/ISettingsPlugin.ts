@@ -22,6 +22,8 @@ import { ISettings } from "../settings/ISettings";
  * The plugin that manages settings for the administrator or owner.
  * The plugin that can interact with the settings panel.
  *
+ * @category SettingsPlugin
+ *
  * @example
  *
  * Theme customization settings with error handling

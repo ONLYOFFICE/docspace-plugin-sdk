@@ -21,6 +21,38 @@
  *
  * Here is a description of the module Plugins.
  *
+ * @categoryDescription APIPlugin
+ *
+ * Here is a description of the category APIPlugin.
+ *
+ * @categoryDescription ContextMenuPlugin
+ *
+ * Here is a description of the category ContextMenuPlugin.
+ *
+ * @categoryDescription EventListenerPlugin
+ *
+ * Here is a description of the category EventListenerPlugin.
+ *
+ * @categoryDescription FilePlugin
+ *
+ * Here is a description of the category FilePlugin.
+ *
+ * @categoryDescription InfoPanelPlugin
+ *
+ * Here is a description of the category InfoPanelPlugin.
+ *
+ * @categoryDescription MainButtonPlugin
+ *
+ * Here is a description of the category MainButtonPlugin.
+ *
+ * @categoryDescription ProfileMenuPlugin
+ *
+ * Here is a description of the category ProfileMenuPlugin.
+ *
+ * @categoryDescription SettingsPlugin
+ *
+ * Here is a description of the category SettingsPlugin.
+ *
  * @module Plugins
  */
 

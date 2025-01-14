@@ -22,6 +22,8 @@ import { IProfileMenuItem } from "../items";
  * Plugin for embedding items in the profile menu.
  * This interface must be implemented in each plugin that adds items to the profile menu.
  *
+ * @category ProfileMenuPlugin
+ *
  * @example
  *
  * User preferences manager with error handling

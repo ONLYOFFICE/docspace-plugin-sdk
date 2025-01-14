@@ -23,6 +23,8 @@ import { IMessage } from "../utils";
 
 /**
  * Describes the item submenu.
+ *
+ * @category InfoPanelItem
  */
 export interface IInfoPanelSubMenu {
   /** The tab display name */
@@ -37,6 +39,8 @@ export interface IInfoPanelSubMenu {
 
 /**
  * The info panel item that is displayed in the info panel.
+ *
+ * @category InfoPanelItem
  *
  * @example
  *
@@ -119,13 +123,22 @@ export interface IInfoPanelSubMenu {
  * ```
  */
 export interface IInfoPanelItem {
-  /** The unique item identifier used by the service to recognize the item */
+  /**
+   * The unique item identifier used by the service to recognize the item
+   *
+   */
   key: string;
 
-  /** The item submenu */
+  /**
+   * The item submenu
+   *
+   */
   subMenu: IInfoPanelSubMenu;
 
-  /** The tab UI of the info panel */
+  /**
+   * The tab UI of the info panel
+   *
+   */
   body: IBox;
 
   /**
@@ -138,6 +151,7 @@ export interface IInfoPanelItem {
    * The types of files where the current item will be displayed in the info panel.
    * Presently the following file types are available: room, file, folder, image, video.
    * If this parameter is not specified, then the current info panel item will be displayed in any file type.
+   *
    */
   filesType?: FilesType[];
 
@@ -145,6 +159,7 @@ export interface IInfoPanelItem {
    * The extensions of files where the current item will be displayed in the info panel.
    * It only works if the FilesType.Files is specified in the fileType parameter.
    * If this parameter is not specified, then the current info panel item will be displayed in any file extension.
+   *
    */
   filesExsts?: (FilesExst | string)[];
 
@@ -152,6 +167,7 @@ export interface IInfoPanelItem {
    * The types of users who will see the current item in the info panel.
    * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
    * If this parameter is not specified, then the current info panel item will be displayed for all user types.
+   *
    */
   usersTypes?: UsersType[];
 
@@ -159,6 +175,7 @@ export interface IInfoPanelItem {
    * The types of devices where the current item will be displayed in the info panel.
    * At the moment the following device types are available: mobile, tablet, desktop.
    * If this parameter is not specified, then the current info panel item will be displayed in any device types.
+   *
    */
   devices?: Devices[];
 }

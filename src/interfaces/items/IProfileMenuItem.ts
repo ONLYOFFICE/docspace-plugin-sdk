@@ -22,6 +22,8 @@ import { IMessage } from "../utils";
 /**
  * Describes an item that will be embedded in the profile menu.
  *
+ * @category ProfileMenuItem
+ *
  * @example
  *
  * API key management with status monitoring

@@ -19,6 +19,16 @@
 /**
  * Field name in the form.
  *
+ * @category Label
+ *
+ * @categoryDescription Content
+ *
+ * Here is a description of the category Content.
+ *
+ * @categoryDescription Appearance
+ *
+ * Here is a description of the category Appearance.
+ *
  * @example
  *
  * Required field label with inline display
@@ -52,27 +62,48 @@
  * ```
  */
 export interface ILabel {
-  /** Defines the element text */
+  /** Defines the element text
+   *
+   * @category Content
+   */
   text: string;
 
-  /** Specifies whether the field to which the label is attached is required */
+  /** Specifies whether the field to which the label is attached is required
+   *
+   * @category Appearance
+   */
   isRequired?: boolean;
 
-  /** Specifies whether the field to which the label is attached is incorrect */
+  /** Specifies whether the field to which the label is attached is incorrect
+   *
+   * @category Content
+   */
   error?: boolean;
 
-  /** Specifies whether the "display: inline-block" property is set */
+  /** Specifies whether the "display: inline-block" property is set
   isInline?: boolean;
 
-  /** Defines the label title */
+  /** Defines the label title
+   *
+   * @category Content
+   */
   title?: string;
 
-  /** Specifies whether the word wrapping is disabled */
+  /** Specifies whether the word wrapping is disabled
+   *
+   * @category Appearance
+   */
   truncate?: boolean;
 
-  /** Defines the field ID to which the label is attached */
+  /** Defines the field ID to which the label is attached
+   *
+   * @category Appearance
+   */
   htmlFor?: string;
 
-  /** Specifies whether the "display" property is set */
+  /** Specifies whether the "display" property is set
+   *
+   * @category Appearance
+   */
   display?: string;
 }

@@ -21,6 +21,8 @@ import { IMessage } from "../utils";
 
 /**
  * Describes the file properties.
+ *
+ * @category File
  */
 export interface File {
   /** The folder ID where the current file is located */
@@ -51,6 +53,8 @@ export interface File {
 /**
  * Describes an item that will be embedded in the file list.
  * The file item can be displayed as a file or a folder.
+ *
+ * @category FileItem
  *
  * @example
  *

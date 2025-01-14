@@ -29,6 +29,8 @@ import { IMessage } from "../utils";
 /**
  * Describes an item that will be embedded in the context menu.
  *
+ * @category ContextMenuItem
+ *
  * @example
  *
  * File analysis with progress reporting
@@ -98,29 +100,43 @@ import { IMessage } from "../utils";
  * ```
  */
 export interface IContextMenuItem {
-  /** The unique item identifier used by the service to recognize the item */
+  /**
+   * The unique item identifier used by the service to recognize the item
+   *
+   */
   key: string;
 
-  /** The item display name */
+  /**
+   * The item display name
+   *
+   */
   label: string;
 
   /**
    * The item display icon. The icon image must be uploaded to the "assets" folder.
    * Only the image name with the extension must be specified in this field. The required icon size is 16x16 px.
    * Otherwise, it will be compressed to this size.
+   *
    */
   icon: string;
 
-  /** A function that takes the file/folder/room id as an argument. This function can be asynchronous */
+  /**
+   * A function that takes the file/folder/room id as an argument. This function can be asynchronous
+   *
+   */
   onClick: (id: number) => Promise<IMessage> | IMessage | void;
 
-  /** Whether to add the action state to the item in the file list when the onClick event is triggered */
+  /**
+   * Whether to add the action state to the item in the file list when the onClick event is triggered
+   *
+   */
   withActiveItem?: boolean;
 
   /**
    * The extensions of files where the current item will be displayed in the context menu.
    * It only works if the FilesType.Files is specified in the fileType parameter.
    * If this parameter is not specified, then the current context menu item will be displayed in any file extension.
+   *
    */
   fileExt?: (FilesExst | string)[];
 
@@ -128,6 +144,7 @@ export interface IContextMenuItem {
    * The types of files where the current item will be displayed in the context menu.
    * Presently the following file types are available: room, file, folder, image, video.
    * If this parameter is not specified, then the current context menu item will be displayed in any file type.
+   *
    */
   fileType?: FilesType[];
 
@@ -135,6 +152,7 @@ export interface IContextMenuItem {
    * The types of users who will see the current item in the context menu.
    * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
    * If this parameter is not specified, then the current context menu item will be displayed for all user types.
+   *
    */
   usersTypes?: UsersType[];
 
@@ -142,6 +160,7 @@ export interface IContextMenuItem {
    * The types of devices where the current item will be displayed in the context menu.
    * At the moment the following device types are available: mobile, tablet, desktop.
    * If this parameter is not specified, then the current context menu item will be displayed in any device types.
+   *
    */
   devices?: Devices[];
 
@@ -149,6 +168,7 @@ export interface IContextMenuItem {
    * The security parameters of the parent folder or room that will be checked.
    * If all the parameters are true, the current item will be displayed in the context menu.
    * If this parameter is undefined, it will be ignored.
+   *
    */
   security?: Security[];
 }

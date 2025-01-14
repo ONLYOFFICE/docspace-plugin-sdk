@@ -21,6 +21,8 @@ import { IInfoPanelItem } from "../items";
 /**
  * The plugin that is embedded as a separate tab in the file info panel.
  *
+ * @category InfoPanelPlugin
+ *
  * @example
  *
  * Document metadata viewer with permission checks

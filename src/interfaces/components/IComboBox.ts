@@ -33,18 +33,44 @@ import { IMessage } from "../utils";
  *   disabled: false
  * }
  * ```
+ *
+ * @category ComboBox
+ *
+ * @categoryDescription Content
+ *
+ * Here is a description of the category Content.
+ *
+ * @categoryDescription State
+ *
+ * Here is a description of the category State.
  */
 export interface IComboBoxItem {
-  /** Defines the combo box option key */
+  /**
+   * Unique identifier for the option
+   *
+   * @category Options
+   */
   key: string;
 
-  /** Defines the combo box option label */
+  /**
+   * Display text for the option
+   *
+   * @category Content
+   */
   label: string;
 
-  /** Defines the combo box option icon */
+  /**
+   * Optional icon for the option
+   *
+   * @category Content
+   */
   icon?: string;
 
-  /** Specifies if the combo box option is disabled or not */
+  /**
+   * Specifies if the combo box option is disabled or not
+   *
+   * @category State
+   */
   disabled?: boolean;
 }
 
@@ -107,53 +133,131 @@ export interface IComboBoxItem {
  *   modernView: true
  * }
  * ```
+ *
+ * @category ComboBox
+ *
+ * @categoryDescription Options
+ *
+ * Here is a description of the category Options.
+ *
+ * @categoryDescription State
+ *
+ * Here is a description of the category State.
+ *
+ * @categoryDescription Behavior
+ *
+ * Here is a description of the category Behavior.
  */
 export interface IComboBox {
-  /** Defines the combo box options */
+  /**
+   * Defines the combo box options
+   *
+   * @category Options
+   */
   options: IComboBoxItem[];
 
-  /** Defines the combo box selected option */
+  /**
+   * Defines the combo box selected option
+   *
+   * @category State
+   */
   selectedOption: IComboBoxItem;
 
-  /** Sets a function which is triggered whenever the combo box is selected */
+  /**
+   * Sets a function which is triggered whenever the combo box is selected
+   *
+   * @category Behavior
+   */
   onSelect?: (item: IComboBoxItem) => IMessage | void;
 
-  /** Specifies that the combo box is scaled by its parent */
+  /**
+   * Specifies that the combo box is scaled by its parent
+   *
+   * @category Appearance
+   */
   scaled?: boolean;
 
-  /** Defines the position of the combo box in the X direction */
+  /**
+   * Defines the position of the combo box in the X direction
+   *
+   * @category Appearance
+   */
   directionX?: "left" | "right";
 
-  /** Defines the position of the combo box in the Y direction */
+  /**
+   * Defines the position of the combo box in the Y direction
+   *
+   * @category Appearance
+   */
   directionY?: "bottom" | "top" | "both";
 
-  /** Defines the combo box display type */
+  /**
+   * Defines the combo box display type
+   *
+   * @category Appearance
+   */
   displayType?: "default" | "toggle";
 
-  /** Defines the maximum height of the dropdown list */
-  dropDownMaxHeight?: number;
+  /**
+   * Specifies whether to display the combo box in the modern view
+   *
+   * @category Appearance
+   */
+  modernView?: boolean;
 
-  /** Specifies if the disabled combo box options will be displayed or not when "displayType !== toggle" */
-  showDisabledItems?: boolean;
-
-  /** Specifies whether the combo box contains a backdrop */
-  withBackdrop?: boolean;
-
-  /** Specifies if the combo box is disabled or not */
+  /**
+   * Specifies if the combo box is disabled or not
+   *
+   * @category State
+   */
   isDisabled?: boolean;
 
-  /** Specifies whether to display the combo box without borders */
-  noBorder?: boolean;
+  /**
+   * Whether to show disabled combo box options
+   *
+   * @category State
+   */
+  showDisabledItems?: boolean;
 
-  /** Specifies whether to open the combo box */
+  /**
+   * Specifies whether to open the combo box
+   *
+   * @category State
+   */
   opened?: boolean;
 
-  /** Specifies whether the combo box options are scaled by the combo box button */
+  /**
+   * Specifies whether the combo box options are scaled by the combo box button
+   *
+   * @category Appearance
+   */
   scaledOptions?: boolean;
 
-  /** Sets a function which is triggered whenever the combo box is clicked when "displayType == toggle" */
+  /**
+   * Sets a function which is triggered whenever the combo box is clicked when "displayType == toggle"
+   *
+   * @category Behavior
+   */
   onToggle?: () => IMessage | void;
 
-  /** Specifies whether to display the combo box in the modern view */
-  modernView?: boolean;
+  /**
+   * Specifies whether to display the combo box without borders
+   *
+   * @category Appearance
+   */
+  noBorder?: boolean;
+
+  /**
+   * Specifies whether the combo box contains a backdrop
+   *
+   * @category Appearance
+   */
+  withBackdrop?: boolean;
+
+  /**
+   * Defines the maximum height of the dropdown list
+   *
+   * @category Appearance
+   */
+  dropDownMaxHeight?: number;
 }

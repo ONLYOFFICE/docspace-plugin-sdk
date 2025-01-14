@@ -21,6 +21,8 @@ import { PluginStatus } from "../../enums";
  * The default plugin.
  * This interface must be implemented in each plugin because without the plugin status it will not be built in.
  *
+ * @category Plugin
+ *
  * @example
  *
  * Document analyzer plugin with lifecycle management
