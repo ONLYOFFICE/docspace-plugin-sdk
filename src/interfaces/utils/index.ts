@@ -1,4 +1,4 @@
-/*
+/**
  * (c) Copyright Ascensio System SIA 2024
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,6 +12,24 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * @license
+ */
+
+/**
+ * @packageDocumentation
+ *
+ * Here is a description of the module Utils.
+ *
+ * @categoryDescription Message
+ *
+ * Here is a description of the category Message.
+ *
+ * @categoryDescription PostMessage
+ *
+ * Here is a description of the category PostMessage.
+ *
+ * @module Utils
  */
 
 import { Actions } from "../../enums";
@@ -36,6 +54,8 @@ import {
 /**
  * The properties that are used to send a message to a frame.
  * If the frame ID is not specified or the frame with such an ID does not exist, then nothing changes.
+ *
+ * @category PostMessage
  *
  * @example
  *
@@ -62,6 +82,8 @@ export interface IPostMessage {
 
 /**
  * A message which is returned when any item interacts with a user (onClick, onChange, onSelect, etc.).
+ *
+ * @category Message
  *
  * @example
  *

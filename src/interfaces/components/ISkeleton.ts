@@ -1,4 +1,4 @@
-/*
+/**
  * (c) Copyright Ascensio System SIA 2024
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +12,16 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * @license
  */
 
 /**
  * A component that is used to hide components during uploading.
+ *
+ * @category Skeleton
+ *
+ * @categoryDescription Appearance
  *
  * @example
  *
@@ -54,12 +60,21 @@
  * ```
  */
 export interface ISkeleton {
-  /** Defines the skeleton width */
+  /** Defines the skeleton width
+   *
+   * @category Appearance
+   */
   width: string;
 
-  /** Defines the skeleton height */
+  /** Defines the skeleton height
+   *
+   * @category Appearance
+   */
   height: string;
 
-  /** Defines the skeleton border radius */
+  /** Defines the skeleton border radius
+   *
+   * @category Appearance
+   */
   borderRadius?: string;
 }

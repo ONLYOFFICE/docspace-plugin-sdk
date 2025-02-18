@@ -1,4 +1,4 @@
-/*
+/**
  * (c) Copyright Ascensio System SIA 2024
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,12 +12,16 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * @license
  */
 
 import { ButtonGroup, IBox } from "../components";
 
 /**
  * Defines the administrator or owner settings block that is embedded in the modal window with the plugin description.
+ *
+ * @category Settings
  *
  * @example
  *

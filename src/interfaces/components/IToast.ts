@@ -1,4 +1,4 @@
-/*
+/**
  * (c) Copyright Ascensio System SIA 2024
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +12,14 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * @license
  */
 
 /**
  * The supported toast types.
+ *
+ * @category Toast
  */
 export const enum ToastType {
   /** Success toast with green color scheme */
@@ -30,6 +34,20 @@ export const enum ToastType {
 
 /**
  * Toast notification component for displaying temporary messages.
+ *
+ * @category Toast
+ *
+ * @categoryDescription Content
+ *
+ * Here is a description of the category Content.
+ *
+ * @categoryDescription Appearance
+ *
+ * Here is a description of the category Appearance.
+ *
+ * @categoryDescription Behavior
+ *
+ * Here is a description of the category Behavior.
  *
  * @example
  *
@@ -84,10 +102,16 @@ export const enum ToastType {
  * ```
  */
 export interface IToast {
-  /** Defines the toast type, which determines the toast color and icon */
+  /** Defines the toast type, which determines the toast color and icon
+   *
+   * @category Appearance
+   */
   type: ToastType;
 
-  /** Defines the toast title */
+  /** Defines the toast title
+   *
+   * @category Content
+   */
   title: string;
 
   /**
@@ -99,6 +123,8 @@ export interface IToast {
   /**
    * Defines the time (in milliseconds) for showing the toast.
    * Setting the value to 0 allows the toast to be displayed continuously until clicking on it.
+   *
+   * @category Behavior
    */
   timeout?: number;
 }

@@ -1,4 +1,4 @@
-/*
+/**
  * (c) Copyright Ascensio System SIA 2024
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,13 +12,17 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * @license
  */
 
 import { Devices, Events, UsersType } from "../../enums";
 import { IMessage } from "../utils";
 
 /**
- * Describes an event listener that will be registered with the service.
+ * Event listener item.
+ *
+ * @category EventListenerItem
  *
  * @example
  *
@@ -106,12 +110,16 @@ import { IMessage } from "../utils";
  * ```
  */
 export interface IEventListenerItem {
-  /** The unique item identifier used by the service to recognize the item */
+  /**
+   * The unique item identifier used by the service to recognize the item
+   *
+   */
   key: string;
 
   /**
    * The event type which will be executed.
    * Presently the following events are available: CREATE, RENAME, ROOM_CREATE, ROOM_EDIT, CHANGE_COLUMN, CHANGE_USER_TYPE, CREATE_PLUGIN_FILE.
+   *
    */
   eventType: Events;
 
@@ -119,6 +127,7 @@ export interface IEventListenerItem {
    * A function that will be executed when the event is triggered.
    * This function can be asynchronous.
    * After the event is executed, only updating the items or displaying toast is possible, other actions are blocked.
+   *
    */
   eventHandler: () => Promise<IMessage> | IMessage | void;
 
@@ -126,6 +135,7 @@ export interface IEventListenerItem {
    * The types of users who have the access to the current item.
    * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
    * If this parameter is not specified, then the current item will be available for all user types.
+   *
    */
   usersTypes?: UsersType[];
 
@@ -133,6 +143,7 @@ export interface IEventListenerItem {
    * The types of devices where the current item will be available.
    * At the moment the following device types are available: mobile, tablet, desktop.
    * If this parameter is not specified, then the current item will be available in any device types.
+   *
    */
   devices?: Devices[];
 }

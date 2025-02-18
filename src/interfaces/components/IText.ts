@@ -1,4 +1,4 @@
-/*
+/**
  * (c) Copyright Ascensio System SIA 2024
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +12,22 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * @license
  */
 
 /**
  * Plain text.
+ *
+ * @category Text
+ *
+ * @categoryDescription Content
+ *
+ * Here is a description of the category Content.
+ *
+ * @categoryDescription Appearance
+ *
+ * Here is a description of the category Appearance.
  *
  * @example
  *
@@ -66,42 +78,81 @@
  * ```
  */
 export interface IText {
-  /** Defines the text */
+  /** Defines the text
+   *
+   * @category Content
+   */
   text: string;
 
-  /** Defines the text title */
+  /** Defines the text title
+   *
+   * @category Content
+   */
   title?: string;
 
-  /** Defines the text font size */
+  /** Defines the text font size
+   *
+   * @category Appearance
+   */
   fontSize?: string;
 
-  /** Defines the text font weight */
+  /** Defines the text font weight
+   *
+   * @category Appearance
+   */
   fontWeight?: string | number;
 
-  /** Specifies whether the word wrapping is set */
+  /** Specifies whether the word wrapping is set
+   *
+   * @category Appearance
+   */
   truncate?: boolean;
 
-  /** Specifies whether the text font weight is set to bold */
+  /** Specifies whether the text font weight is set to bold
+   *
+   * @category Appearance
+   */
   isBold?: boolean;
 
-  /** Specifies whether the text style is set to italic */
+  /** Specifies whether the text style is set to italic
+   *
+   * @category Appearance
+   */
   isItalic?: boolean;
 
-  /** Specifies whether the "display: inline-block" property is set */
+  /** Specifies whether the "display: inline-block" property is set
+   *
+   * @category Appearance
+   */
   isInline?: boolean;
 
-  /** Specifies whether the "text-align" property is set */
+  /** Specifies whether the "text-align" property is set
+   *
+   * @category Appearance
+   */
   textAlign?: string;
 
-  /** Specifies whether the text selection is disabled */
+  /** Specifies whether the text selection is disabled
+   *
+   * @category Appearance
+   */
   noSelect?: boolean;
 
-  /** Specifies whether the "display" property is set */
+  /** Specifies whether the "display" property is set
+   *
+   * @category Appearance
+   */
   display?: string;
 
-  /** Defines the text line height */
+  /** Defines the text line height
+   *
+   * @category Appearance
+   */
   lineHeight?: string;
 
-  /** Defines the text color */
+  /** Defines the text color
+   *
+   * @category Appearance
+   */
   color?: string;
 }

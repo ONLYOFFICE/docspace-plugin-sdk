@@ -1,4 +1,4 @@
-/*
+/**
  * (c) Copyright Ascensio System SIA 2024
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,6 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * @license
  */
 
 import { IMessage } from "../utils";
@@ -20,6 +22,20 @@ import { IComboBoxItem } from "./IComboBox";
 /**
  * Modal dialog for creating certain item (file, folder, etc.).
  * The user gets the full access to the functionality but cannot control the layout.
+ *
+ * @category CreateDialog
+ *
+ * @categoryDescription State
+ *
+ * Here is a description of the category State.
+ *
+ * @categoryDescription Content
+ *
+ * Here is a description of the category Content.
+ *
+ * @categoryDescription Behavior
+ *
+ * Here is a description of the category Behavior.
  *
  * @example
  *
@@ -102,36 +118,50 @@ import { IComboBoxItem } from "./IComboBox";
 export interface ICreateDialog {
   /**
    * Defines the modal dialog title.
+   *
+   * @category Content
    */
   title: string;
 
   /**
    * Defines the modal dialog start value.
+   *
+   * @category Content
    */
   startValue: string;
 
   /**
    * Specifies if the modal dialog is visible or not.
+   *
+   * @category State
    */
   visible: boolean;
 
   /**
    * Defines an array of the modal dialog options.
+   *
+   * @category Content
    */
   options?: IComboBoxItem[];
 
   /**
    * Defines the selected modal dialog option.
+   *
+   * @category Content
    */
   selectedOption?: IComboBoxItem;
 
   /**
    * Sets a function which is triggered whenever the modal dialog option is selected.
+   *
+   * @category Behavior
    */
   onSelect?: (option: IComboBoxItem) => IMessage | void;
 
   /**
    * Sets a function which is triggered whenever the data in the modal dialog is saved.
+   *
+   * @category Behavior
    */
   onSave?: (
     e: any,
@@ -140,21 +170,29 @@ export interface ICreateDialog {
 
   /**
    * Sets a function which is triggered whenever an action in the modal dialog is canceled.
+   *
+   * @category Behavior
    */
   onCancel?: (e: any) => void;
 
   /**
    * Sets a function which is triggered whenever the modal dialog is closed.
+   *
+   * @category Behavior
    */
   onClose?: (e: any) => void;
 
   /**
    * Specifies if this modal dialog is for creating certain item (file, folder, etc.).
+   *
+   * @category State
    */
   isCreateDialog: boolean;
 
   /**
    * Defines an extension of an item which will be created (file, folder, etc.).
+   *
+   * @category Content
    */
   extension?: string;
 }
