@@ -1,0 +1,28 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": [
+    "src/interfaces/**/index.ts",
+    "src/enums/index.ts"
+  ],
+  "excludeReferences": true,
+  "includeVersion": true,
+  "outputs": [
+    {
+      "name": "json",
+      "path": "dist/docspace-plugin-sdk.json"
+    },
+    {
+      "name": "html",
+      "path": "dist/docs",
+      "options": {
+        "navigation": {
+          "includeCategories": true,
+          "includeGroups": true
+        }
+      }
+    }
+  ],
+  // "treatValidationWarningsAsErrors": true,
+  // "treatWarningsAsErrors": true,
+  "validation": true
+}

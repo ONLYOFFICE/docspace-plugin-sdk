@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.1.0
+## Added
+- Add typedoc
+
+## Fixed
+- change ITextArea prop 'heightTextArea' for string or number
+- fix npx template with double setAdminPluginSettings
+
 ## 1.0.0
 ## Added
 - csp settings

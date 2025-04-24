@@ -1,5 +1,5 @@
-/*
- * (c) Copyright Ascensio System SIA 2023
+/**
+ * (c) Copyright Ascensio System SIA 2025
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,6 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * @license
  */
 
 /**
@@ -70,9 +72,6 @@ export const enum Actions {
    * It does not work if the "toastProps" parameter is not passed to the message.
    */
   showToast = "show-toast",
-
-  // showSettingsModal = "show-settings-modal",
-  // closeSettingsModal = "close-settings-modal",
 
   /**
    * Calls a function to open a modal window for creating certain item (file, folder, etc.).

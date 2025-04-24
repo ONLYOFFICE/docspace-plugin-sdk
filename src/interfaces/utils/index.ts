@@ -1,5 +1,5 @@
-/*
- * (c) Copyright Ascensio System SIA 2023
+/**
+ * (c) Copyright Ascensio System SIA 2025
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,6 +12,24 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * @license
+ */
+
+/**
+ * @packageDocumentation
+ *
+ * Here is a description of the module Utils.
+ *
+ * @categoryDescription Message
+ *
+ * Here is a description of the category Message.
+ *
+ * @categoryDescription PostMessage
+ *
+ * Here is a description of the category PostMessage.
+ *
+ * @module Utils
  */
 
 import { Actions } from "../../enums";
@@ -32,24 +50,104 @@ import {
   IToast,
   IToggleButton,
 } from "../components";
+
 /**
  * The properties that are used to send a message to a frame.
  * If the frame ID is not specified or the frame with such an ID does not exist, then nothing changes.
+ *
+ * @category PostMessage
+ *
+ * @example
+ *
+ * Document preview frame communication
+ *
+ * ```typescript
+ * const previewMessage: IPostMessage = {
+ *   frameId: "document-preview-frame",
+ *   message: {
+ *     action: "zoom",
+ *     scale: 1.5,
+ *     position: { x: 100, y: 200 }
+ *   }
+ * };
+ * ```
  */
 export interface IPostMessage {
-  /**
-   * Defines the frame ID.
-   */
+  /** Defines the frame ID */
   frameId: string;
 
-  /**
-   * Defines a message that will be sent to a frame.
-   */
+  /** Defines a message that will be sent to a frame */
   message: { [key: string]: any };
 }
 
 /**
  * A message which is returned when any item interacts with a user (onClick, onChange, onSelect, etc.).
+ *
+ * @category Message
+ *
+ * @example
+ *
+ * Form submission with validation and toast notification
+ *
+ * ```typescript
+ * const formSubmissionMessage: IMessage = {
+ *   actions: [Actions.updateProps, Actions.showToast, Actions.updateContext],
+ *   newProps: {
+ *     type: "input",
+ *     id: "email-input",
+ *     value: "user@example.com",
+ *     isDisabled: true
+ *   },
+ *   toastProps: [{
+ *     type: "success",
+ *     title: "Form Submitted",
+ *     message: "Your data has been saved successfully"
+ *   }],
+ *   contextProps: [{
+ *     name: "submit-button",
+ *     props: {
+ *       type: "button",
+ *       label: "Submitted",
+ *       isDisabled: true
+ *     }
+ *   }]
+ * };
+ * ```
+ *
+ * @example
+ *
+ * Dynamic form field updates with error handling
+ *
+ * ```typescript
+ * const fieldUpdateMessage: IMessage = {
+ *   actions: [Actions.updateProps, Actions.showToast, Actions.updateContext],
+ *   newProps: {
+ *     type: "comboBox",
+ *     id: "country-select",
+ *     options: [
+ *       { value: "us", label: "United States" },
+ *       { value: "uk", label: "United Kingdom" }
+ *     ],
+ *     value: "us"
+ *   },
+ *   toastProps: [{
+ *     type: "error",
+ *     title: "Validation Error",
+ *     message: "Please complete all required fields"
+ *   }],
+ *   contextProps: [{
+ *     name: "state-select",
+ *     props: {
+ *       type: "comboBox",
+ *       options: [
+ *         { value: "ca", label: "California" },
+ *         { value: "ny", label: "New York" }
+ *       ],
+ *       isDisabled: false
+ *     }
+ *   }]
+ * };
+ * ```
  */
 export interface IMessage {
   /**
@@ -78,16 +176,12 @@ export interface IMessage {
 
   /**
    * Defines the properties that update the state of the parent or child item after the event was executed.
+   * Contains an array of objects with:
+   * - name: Defines the item name
+   * - props: Defines the new properties for the parent or child item
    */
   contextProps?: {
-    /**
-     * Defines the item name.
-     */
     name: string;
-
-    /**
-     * Defines the new properties for the parent or child item.
-     */
     props:
       | IBox
       | IButton

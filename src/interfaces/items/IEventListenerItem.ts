@@ -1,5 +1,5 @@
-/*
- * (c) Copyright Ascensio System SIA 2023
+/**
+ * (c) Copyright Ascensio System SIA 2025
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,44 +12,138 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * @license
  */
 
 import { Devices, Events, UsersType } from "../../enums";
 import { IMessage } from "../utils";
+
 /**
- * Describes an item that allows the plugin to respond to the built-in DocSpace events (creating a room/file, etc.).
- * Each event can have several listeners. When the event is activated, the dialog cannot be hooked.
+ * Event listener item.
+ *
+ * @category EventListenerItem
+ *
+ * @example
+ *
+ * Automatic room categorization with role-based access
+ *
+ * ```typescript
+ * const roomCategorizer: IEventListenerItem = {
+ *   key: "auto-categorize-room",
+ *   eventType: Events.ROOM_CREATE,
+ *   eventHandler: async () => {
+ *     try {
+ *       await categorizationService.processNewRoom();
+ *       return {
+ *         actions: [Actions.showToast],
+ *         toastProps: [{
+ *           type: "success",
+ *           title: "Room Categorized Successfully",
+ *           message: "Room categorized successfully | Category: New Category | Status: Success"
+ *         }]
+ *       };
+ *     } catch (error) {
+ *       return {
+ *         actions: [Actions.showToast],
+ *         toastProps: [{
+ *           type: "warning",
+ *           title: "Room Categorization Skipped",
+ *           message: "Error occurred during categorization | Status: Failed"
+ *         }]
+ *       };
+ *     }
+ *   },
+ *   usersTypes: [UsersType.docSpaceAdmin, UsersType.roomAdmin],
+ *   devices: [Devices.desktop]
+ * }
+ * ```
+ *
+ * @example
+ *
+ * File rename audit logging with permission control
+ *
+ * ```typescript
+ * const fileRenameTracker: IEventListenerItem = {
+ *   key: "file-rename-tracker",
+ *   eventType: Events.RENAME,
+ *   eventHandler: async () => {
+ *     try {
+ *       await auditService.logFileRename();
+ *       return {
+ *         actions: [Actions.updateItems],
+ *         itemList: await getUpdatedFileList()
+ *       };
+ *     } catch (error) {
+ *       console.error("Failed to log file rename:", error);
+ *     }
+ *   },
+ *   usersTypes: [
+ *     UsersType.owner,
+ *     UsersType.docSpaceAdmin,
+ *     UsersType.roomAdmin,
+ *     UsersType.collaborator
+ *   ]
+ * }
+ * ```
+ *
+ * @example
+ *
+ * Device-aware column layout change notification
+ *
+ * ```typescript
+ * const columnChangeNotifier: IEventListenerItem = {
+ *   key: "column-change-notifier",
+ *   eventType: Events.CHANGE_COLUMN,
+ *   eventHandler: () => {
+ *     return {
+ *       actions: [Actions.showToast],
+ *       toastProps: [{
+ *         type: "info",
+ *         title: "Column Layout Updated",
+ *         message: "Column layout updated successfully | New layout applied"
+ *       }]
+ *     };
+ *   },
+ *   devices: [Devices.desktop, Devices.tablet]
+ * }
+ * ```
  */
 export interface IEventListenerItem {
   /**
-   * Defines the unique item identifier used by the service to recognize the item.
+   * The unique item identifier used by the service to recognize the item
+   *
    */
   key: string;
 
   /**
-   * Defines the event type which will be executed.
+   * The event type which will be executed.
    * Presently the following events are available: CREATE, RENAME, ROOM_CREATE, ROOM_EDIT, CHANGE_COLUMN, CHANGE_USER_TYPE, CREATE_PLUGIN_FILE.
+   *
    */
   eventType: Events;
 
   /**
-   * Defines a function that will be executed when the event is triggered.
+   * A function that will be executed when the event is triggered.
    * This function can be asynchronous.
    * After the event is executed, only updating the items or displaying toast is possible, other actions are blocked.
+   *
    */
   eventHandler: () => Promise<IMessage> | IMessage | void;
 
   /**
-   * Defines the types of users who have the access to the current item.
+   * The types of users who have the access to the current item.
    * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
    * If this parameter is not specified, then the current item will be available for all user types.
+   *
    */
   usersTypes?: UsersType[];
 
   /**
-   * Defines the types of devices where the current item will be available.
+   * The types of devices where the current item will be available.
    * At the moment the following device types are available: mobile, tablet, desktop.
    * If this parameter is not specified, then the current item will be available in any device types.
+   *
    */
   devices?: Devices[];
 }
