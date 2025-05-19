@@ -64,4 +64,52 @@ export const enum Security {
 
   /** Permission to rename items */
   Rename = "Rename",
+
+  /** Permission to convert files to other formats */
+  Convert = "Convert",
+
+  /** Permission to apply custom filters */
+  CustomFilter = "CustomFilter",
+
+  /** Permission to edit files */
+  Edit = "Edit",
+
+  /** Permission to view and edit file history */
+  EditHistory = "EditHistory",
+
+  /** Permission to read file history */
+  ReadHistory = "ReadHistory",
+
+  /** Permission to fill forms */
+  FillForms = "FillForms",
+
+  /** Permission to lock/unlock files */
+  Lock = "Lock",
+
+  /** Permission to review documents */
+  Review = "Review",
+
+  /** Permission to submit forms to gallery */
+  SubmitToFormGallery = "SubmitToFormGallery",
+
+  /** Permission to stop form filling process */
+  StopFilling = "StopFilling",
+
+  /** Permission to reset form filling */
+  ResetFilling = "ResetFilling",
+
+  /** Permission to edit forms */
+  EditForm = "EditForm",
+
+  /** Permission to comment on files */
+  Comment = "Comment",
+
+  /** Permission to create rooms from existing content */
+  CreateRoomFrom = "CreateRoomFrom",
+
+  /** Permission to copy links to files */
+  CopyLink = "CopyLink",
+
+  /** Permission to embed content */
+  Embed = "Embed",
 }
