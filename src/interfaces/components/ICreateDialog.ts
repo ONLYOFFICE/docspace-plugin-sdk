@@ -152,11 +152,25 @@ export interface ICreateDialog {
   selectedOption?: IComboBoxItem;
 
   /**
+   * Error text to display when validation fails or an error occurs.
+   *
+   * @category State
+   */
+  errorText?: string;
+
+  /**
    * Sets a function which is triggered whenever the modal dialog option is selected.
    *
    * @category Behavior
    */
   onSelect?: (option: IComboBoxItem) => IMessage | void;
+
+  /**
+   * Sets a function which is triggered whenever the input value changes.
+   *
+   * @category Behavior
+   */
+  onChange?: (value: string) => IMessage | void;
 
   /**
    * Sets a function which is triggered whenever the data in the modal dialog is saved.
@@ -183,11 +197,25 @@ export interface ICreateDialog {
   onClose?: (e: any) => void;
 
   /**
+   * Sets a function which is triggered whenever an error occurs during dialog operations.
+   *
+   * @category Behavior
+   */
+  onError?: (e: any) => void;
+
+  /**
    * Specifies if this modal dialog is for creating certain item (file, folder, etc.).
    *
    * @category State
    */
   isCreateDialog: boolean;
+
+  /**
+   * Specifies if the modal dialog should automatically focus on the error input field when an error occurs.
+   *
+   * @category Behavior
+   */
+  isAutoFocusOnError?: boolean;
 
   /**
    * Defines an extension of an item which will be created (file, folder, etc.).
