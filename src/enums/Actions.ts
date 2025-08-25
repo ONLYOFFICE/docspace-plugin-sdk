@@ -80,7 +80,7 @@ export const enum Actions {
   showCreateDialogModal = "show-create-dialog-modal",
 
   /**
-   * Calls a function to update a modal window for creating certain item (file, folder, etc.).
+   * Calls a function to update the properties of the create modal window.
    * It does not work if the "createDialogProps" parameter is not passed to the message.
    */
   updateCreateDialogModal = "update-create-dialog-modal",
