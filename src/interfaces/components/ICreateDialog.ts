@@ -197,7 +197,7 @@ export interface ICreateDialog {
   onClose?: (e: any) => void;
 
   /**
-   * Sets a function which is triggered whenever an error occurs during dialog operations.
+   * Sets a function which is triggered whenever an error occurs during the onSave operation.
    *
    * @category Behavior
    */
@@ -211,9 +211,9 @@ export interface ICreateDialog {
   isCreateDialog: boolean;
 
   /**
-   * Specifies if the modal dialog should automatically focus on the error input field when an error occurs.
+   * Specifies if this modal dialog should automatically focus on the error input field when an error occurs during the onSave operation.
    *
-   * @category Behavior
+   * @category State
    */
   isAutoFocusOnError?: boolean;
 
