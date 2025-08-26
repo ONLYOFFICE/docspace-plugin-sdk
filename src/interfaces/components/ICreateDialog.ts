@@ -201,7 +201,7 @@ export interface ICreateDialog {
    *
    * @category Behavior
    */
-  onError?: (e: any) => void;
+  onError?: (e: any) => Promise<IMessage> | Promise<void> | IMessage | void;
 
   /**
    * Specifies if this modal dialog is for creating certain item (file, folder, etc.).
