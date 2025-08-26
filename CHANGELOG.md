@@ -1,5 +1,12 @@
 # Change Log
 
+## #.#.#
+
+## Added
+
+- Add updateCreateDialogModal action
+- Add isAutoFocusOnError, errorText, onError, onChange properties to ICreateDialog
+
 ## 1.1.1
 
 ## Added
