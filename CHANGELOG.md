@@ -4,6 +4,7 @@
 
 ## Added
 
+- Add withoutBodyPadding and withoutHeaderMargin properties to IModalDialog
 - Add updateCreateDialogModal action
 - Add isAutoFocusOnError, errorText, onError, onChange properties to ICreateDialog
 
