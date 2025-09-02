@@ -16,7 +16,7 @@
  * @license
  */
 
-import { Devices, FilesSecurity, UsersType } from "../../enums";
+import { Devices, FilesSecurity, Security, UsersType } from "../../enums";
 import { IMessage } from "../utils";
 
 /**
@@ -200,4 +200,7 @@ export interface IFileItem {
 
   /** The security parameters of the file that will be checked. */
   fileSecurity?: FilesSecurity[];
+
+  /** The security parameters of the parent folder or room that will be checked. */
+  security?: Security[];
 }
