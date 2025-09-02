@@ -174,10 +174,10 @@ export interface IContextMenuItem {
   security?: Security[];
 
   /**
-   * The security parameters of the file that will be checked.
+   * The security parameters of the file or folder or room that will be checked.
    * If all the parameters are true, the current item will be displayed in the context menu.
    * If this parameter is undefined, it will be ignored.
    *
    */
-  fileSecurity?: FilesSecurity[];
+  itemSecurity?: (FilesSecurity | Security)[];
 }

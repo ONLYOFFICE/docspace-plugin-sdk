@@ -16,7 +16,7 @@
  * @license
  */
 
-import { Devices, UsersType } from "../../enums";
+import { Devices, FilesSecurity, UsersType } from "../../enums";
 import { IMessage } from "../utils";
 
 /**
@@ -197,4 +197,7 @@ export interface IFileItem {
 
   /** A file icon which is displayed in the tile format. The preferred icon size is 96x96 px */
   fileTileIcon?: string;
+
+  /** The security parameters of the file that will be checked. */
+  fileSecurity?: FilesSecurity[];
 }
