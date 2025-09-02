@@ -8,7 +8,7 @@
 
 ## Added
 
-- Add fileSecurity prop to IFileItem
+- Add fileSecurity, security props to IFileItem
 - Add itemSecurity prop to IContextMenuItem
 - Add withoutBodyPadding and withoutHeaderMargin properties to IModalDialog
 - Add updateCreateDialogModal action
