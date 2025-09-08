@@ -2,10 +2,6 @@
 
 ## #.#.#
 
-- Add items prop to IContextMenuItem
-
-## 2.0.0
-
 ## Changed
 
 - Separate security for file in another enum FilesSecurity
@@ -13,7 +9,7 @@
 ## Added
 
 - Add fileSecurity, security props to IFileItem
-- Add itemSecurity prop to IContextMenuItem
+- Add itemSecurity, items props to IContextMenuItem
 - Add withoutBodyPadding and withoutHeaderMargin properties to IModalDialog
 - Add updateCreateDialogModal action
 - Add isAutoFocusOnError, errorText, onError, onChange properties to ICreateDialog
