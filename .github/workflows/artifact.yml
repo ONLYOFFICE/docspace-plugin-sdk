@@ -1,0 +1,38 @@
+name: Artifact
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [opened, reopened]
+    branches: [master]
+
+jobs:
+  artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Install NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          registry-url: 'https://registry.npmjs.org/'
+      - name: Install Yarn
+        run: npm install -g yarn
+      - name: Install dependencies
+        run: yarn install
+      - name: Build project
+        run: yarn run build
+      - name: Pack Packages
+        run: yarn pack
+      - name: Find tgz name
+        id: tgz
+        run: |
+          FILE=$(ls ./*.tgz)
+          echo "package=$FILE" >> $GITHUB_OUTPUT
+          echo "packageName=$(basename "$FILE" .tgz)" >> $GITHUB_OUTPUT
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.tgz.outputs.packageName }}
+          path: ${{ steps.tgz.outputs.package }}
