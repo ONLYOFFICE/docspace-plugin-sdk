@@ -138,6 +138,20 @@ export interface ICreateDialog {
   visible: boolean;
 
   /**
+   * Specifies if the create button is disabled.
+   *
+   * @category State
+   */
+  isCreateDisabled?: boolean;
+
+  /**
+   * Specifies if the modal dialog should be closed after the create action.
+   *
+   * @category State
+   */
+  isCloseAfterCreate?: boolean;
+
+  /**
    * Defines an array of the modal dialog options.
    *
    * @category Content
