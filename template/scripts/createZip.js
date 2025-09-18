@@ -17,6 +17,27 @@
 const JSZip = require("jszip");
 const fs = require("fs");
 
+/**
+ * Dynamically reads information from the installed SDK package.
+ * @returns {{sdkVersion: string, minDocSpaceVersion: string}}
+ */
+function getSdkInfo() {
+  try {
+    // Find the package.json of the installed SDK
+    const sdkPackagePath = require.resolve('@onlyoffice/docspace-plugin-sdk/package.json');
+    const sdkPackage = JSON.parse(fs.readFileSync(sdkPackagePath, 'utf8'));
+
+    const sdkVersion = sdkPackage.version;
+    const minDocSpaceVersion = sdkPackage.minDocSpaceVersion;
+
+    return { sdkVersion, minDocSpaceVersion };
+  } catch (error) {
+    console.error(`❌ Error: Could not read information from '@onlyoffice/docspace-plugin-sdk'.`);
+    console.error('   Please make sure the package is installed correctly (`npm install`).');
+    process.exit(1);
+  }
+}
+
 const zip = new JSZip();
 
 const jsData = fs.readFileSync(`./dist/plugin.js`, "utf-8");
@@ -24,9 +45,14 @@ const jsonData = fs.readFileSync(`package.json`, "utf-8");
 
 const jsonDataObj = JSON.parse(jsonData);
 
+// Get the latest SDK info directly from the source
+const sdkInfo = getSdkInfo();
+
 const docspace = {
   name: jsonDataObj.name.toLowerCase(),
   version: jsonDataObj.version || "",
+  sdkVersion: sdkInfo.sdkVersion || "",
+  docspaceVersions: sdkInfo.minDocSpaceVersion || "",
   description: jsonDataObj.description || "",
   license: jsonDataObj.license || "",
   author: jsonDataObj.author || "",
