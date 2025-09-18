@@ -27,10 +27,9 @@ function getSdkInfo() {
     const sdkPackagePath = require.resolve('@onlyoffice/docspace-plugin-sdk/package.json');
     const sdkPackage = JSON.parse(fs.readFileSync(sdkPackagePath, 'utf8'));
 
-    const sdkVersion = sdkPackage.version;
     const minDocSpaceVersion = sdkPackage.minDocSpaceVersion;
 
-    return { sdkVersion, minDocSpaceVersion };
+    return { minDocSpaceVersion };
   } catch (error) {
     console.error(`❌ Error: Could not read information from '@onlyoffice/docspace-plugin-sdk'.`);
     console.error('   Please make sure the package is installed correctly (`npm install`).');
@@ -51,7 +50,6 @@ const sdkInfo = getSdkInfo();
 const docspace = {
   name: jsonDataObj.name.toLowerCase(),
   version: jsonDataObj.version || "",
-  sdkVersion: sdkInfo.sdkVersion || "",
   docspaceVersions: sdkInfo.minDocSpaceVersion || "",
   description: jsonDataObj.description || "",
   license: jsonDataObj.license || "",
