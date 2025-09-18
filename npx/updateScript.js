@@ -31,16 +31,31 @@ try {
   const destPath = path.resolve(process.cwd(), "./scripts/createZip.js");
 
   if (!fs.existsSync(sourcePath)) {
-    throw new Error("Source file not found in SDK template.");
+    throw new Error(
+      "Source file not found in SDK template. Cannot perform update check."
+    );
   }
 
-  // Ensure the destination directory exists
-  const destDir = path.dirname(destPath);
-  if (!fs.existsSync(destDir)) {
-    fs.mkdirSync(destDir, { recursive: true });
+  // If createZip.js doesn't exist in the plugin, we must create it.
+  if (!fs.existsSync(destPath)) {
+    const destDir = path.dirname(destPath);
+    if (!fs.existsSync(destDir)) {
+      fs.mkdirSync(destDir, { recursive: true });
+    }
+    fs.copyFileSync(sourcePath, destPath);
+    console.log("✅ scripts/createZip.js has been created.");
+    process.exit(0);
   }
 
-  // Copy the file
+  // If the file exists, compare its content with the source.
+  const sourceContent = fs.readFileSync(sourcePath, "utf8");
+  const destContent = fs.readFileSync(destPath, "utf8");
+
+  if (sourceContent === destContent) {
+    process.exit(0);
+  }
+
+  // If content is different, perform the update.
   fs.copyFileSync(sourcePath, destPath);
 
   console.log("✅ Successfully updated scripts/createZip.js");

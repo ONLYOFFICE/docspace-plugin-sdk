@@ -23,7 +23,7 @@
   ],
   "bin": {
     "create-docspace-plugin": "./npx/index.js",
-    "update-create-zip": "./npx/updateScript.js"
+    "update-docspace-build-plugin": "./npx/updateScript.js"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
