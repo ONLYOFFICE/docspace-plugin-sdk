@@ -87,7 +87,7 @@ async function buildPlugin() {
   const docspace = {
     name: jsonDataObj.name.toLowerCase(),
     version: jsonDataObj.version || "",
-    docspaceVersions: sdkInfo.minDocSpaceVersion || "",
+    minDocSpaceVersion: sdkInfo.minDocSpaceVersion || "",
     description: jsonDataObj.description || "",
     license: jsonDataObj.license || "",
     author: jsonDataObj.author || "",
@@ -131,7 +131,7 @@ async function buildPlugin() {
     console.log(`✅ Plugin built successfully: ${outputPath}`);
     console.log(`📦 Plugin name: ${docspace.name}`);
     console.log(`🔢 Version: ${docspace.version}`);
-    console.log(`🎯 Min DocSpace version: ${docspace.docspaceVersions}`);
+    console.log(`🎯 Min DocSpace version: ${docspace.minDocSpaceVersion}`);
   } catch (error) {
     console.error("❌ Error generating plugin zip:", error);
     process.exit(1);
