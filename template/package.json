@@ -6,7 +6,7 @@
   "private": true,
   "scopes": [],
   "scripts": {
-    "build": "webpack && npx update-docspace-build-plugin && node ./scripts/createZip.js",
+    "build": "webpack && npx build-docspace-plugin",
     "format": "npx prettier --write ."
   },
   "devDependencies": {
