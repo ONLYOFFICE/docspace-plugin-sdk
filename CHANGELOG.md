@@ -12,7 +12,7 @@
 - Add itemSecurity, items props to IContextMenuItem
 - Add withoutBodyPadding and withoutHeaderMargin properties to IModalDialog
 - Add updateCreateDialogModal action
-- Add isAutoFocusOnError, errorText, onError, onChange properties to ICreateDialog
+- Add isAutoFocusOnError, errorText, onError, onChange, isCloseAfterCreate, isCreateDisabled properties to ICreateDialog
 
 ## 1.1.1
 
