@@ -86,7 +86,7 @@ async function buildPlugin() {
   // Create config.json for the plugin
   const docspace = {
     name: jsonDataObj.name.toLowerCase(),
-    version: jsonDataObj.version || "",
+    version: jsonDataObj.version || DEFAULT_PLUGIN_VERSION,
     minDocSpaceVersion: sdkInfo.minDocSpaceVersion || "",
     description: jsonDataObj.description || "",
     license: jsonDataObj.license || "",
