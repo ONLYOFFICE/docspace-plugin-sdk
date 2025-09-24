@@ -116,12 +116,7 @@ async function buildPlugin() {
     console.log(`📁 Added ${assetsFiles.length} asset(s) to plugin`);
   }
 
-  // Ensure dist directory exists
   const distPath = path.join(currentDir, "dist");
-  if (!fs.existsSync(distPath)) {
-    fs.mkdirSync(distPath, { recursive: true });
-  }
-
   // Generate and save the zip file
   try {
     const content = await zip.generateAsync({ type: "nodebuffer" });
