@@ -5,6 +5,7 @@
 ## Changed
 
 - Separate security for file in another enum FilesSecurity
+- change onClick prop to optional in IContextMenuItem
 
 ## Added
 
