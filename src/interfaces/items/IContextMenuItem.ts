@@ -125,7 +125,7 @@ export interface IContextMenuItem {
    * A function that takes the file/folder/room id as an argument. This function can be asynchronous
    *
    */
-  onClick: (id: number) => Promise<IMessage> | IMessage | void;
+  onClick?: (id: number) => Promise<IMessage> | IMessage | void;
 
   /**
    * Specifies elements as submenus.
