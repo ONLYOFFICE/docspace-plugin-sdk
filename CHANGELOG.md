@@ -9,7 +9,7 @@
 ## Added
 
 - Add fileSecurity, security props to IFileItem
-- Add itemSecurity prop to IContextMenuItem
+- Add itemSecurity, items props to IContextMenuItem
 - Add withoutBodyPadding and withoutHeaderMargin properties to IModalDialog
 - Add updateCreateDialogModal action
 - Add isAutoFocusOnError, errorText, onError, onChange, isCloseAfterCreate, isCreateDisabled properties to ICreateDialog
