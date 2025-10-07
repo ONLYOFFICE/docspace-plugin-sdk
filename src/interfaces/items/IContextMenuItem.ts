@@ -125,14 +125,7 @@ export interface IContextMenuItem {
    * A function that takes the file/folder/room id as an argument. This function can be asynchronous
    *
    */
-  onClick?: (id: number) => Promise<IMessage> | IMessage | void;
-
-  /**
-   * Specifies elements as submenus.
-   * If specified, onClick on the parent will not work.
-   * If none of the child elements are displayed, for example due to security or itemSecurity, the parent will also be hidden.
-   */
-  items?: IContextMenuItem[];
+  onClick: (id: number) => Promise<IMessage> | IMessage | void;
 
   /**
    * Whether to add the action state to the item in the file list when the onClick event is triggered
