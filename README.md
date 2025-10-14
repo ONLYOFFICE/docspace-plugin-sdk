@@ -33,9 +33,9 @@ You can find a list of all the dialog questions [here](https://github.com/ONLYOF
 Code samples are available at [https://github.com/ONLYOFFICE/docspace-plugins](https://github.com/ONLYOFFICE/docspace-plugins).
 
 For plugins created with the old template (SDK 1.1.1), replace the build script in *package.json* with the following:
-   ```json
-   "build": "webpack && npx build-docspace-plugin"
-   ```
+```json
+"build": "webpack && npx build-docspace-plugin"
+```
 
 ## Building a plugin
 
