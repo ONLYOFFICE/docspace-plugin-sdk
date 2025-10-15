@@ -37,6 +37,10 @@ For plugins created with the old template (SDK 1.1.1), replace the build script 
 "build": "webpack && npx build-docspace-plugin"
 ```
 
+:::note
+To ensure the new npx command works correctly, you need to update the globally installed *@onlyoffice/docspace-plugin-sdk* package to version 2.0.0 or higher.
+:::
+
 ## Building a plugin
 
 To build a plugin, you need the *yarn* package manager to be installed. After that, follow the instructions below:
@@ -62,3 +66,5 @@ yarn build
 This command generates the obfuscated code from the entire project and collects it into the *plugin.js* file using the *webpack* npm package.
 
 The *dist* folder will be created in the root plugin folder and the plugin archive will be placed in it. This archive is the completed plugin that can be uploaded to the DocSpace portal.
+
+The old *createZip* script is no longer required and can be safely removed.
