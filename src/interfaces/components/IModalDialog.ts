@@ -235,6 +235,18 @@ export interface IModalDialog {
    */
   autoMaxHeight?: boolean;
 
+  /** Specifies whether the modal dialog body has no paddings
+   *
+   * @category Appearance
+   */
+  withoutBodyPadding?: boolean;
+
+  /** Specifies whether the modal dialog header has no bottom margins
+   *
+   * @category Appearance
+   */
+  withoutHeaderMargin?: boolean;
+
   /** Specifies whether the border betweeen the body and footer is displayed
    *
    * @category Appearance

@@ -1,5 +1,18 @@
 # Change Log
 
+## 2.0.0
+
+## Changed
+
+- Separate security for file in another enum FilesSecurity
+
+## Added
+
+- Add fileSecurity, security props to IFileItem
+- Add withoutBodyPadding and withoutHeaderMargin properties to IModalDialog
+- Add updateCreateDialogModal action
+- Add isAutoFocusOnError, errorText, onError, onChange, isCloseAfterCreate, isCreateDisabled properties to ICreateDialog
+
 ## 1.1.1
 
 ## Added

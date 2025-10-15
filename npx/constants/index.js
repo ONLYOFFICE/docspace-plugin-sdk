@@ -1,4 +1,4 @@
-/**
+/*
  * (c) Copyright Ascensio System SIA 2025
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,37 +12,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * @license
  */
 
-/**
- * @module
- * @mergeModuleWith <project>
- */
-
-/**
- * Contains all supported enums.
- */
-
-import { Actions } from "./Actions";
-import { Events } from "./Events";
-import { PluginStatus } from "./Plugins";
-import { FilesExst, FilesType, FilesSecurity } from "./Files";
-import { UsersType } from "./UsersType";
-import { Components } from "./Components";
-import { Devices } from "./Devices";
-import { Security } from "./Security";
-
-export {
-  Actions,
-  Components,
-  Events,
-  FilesExst,
-  FilesType,
-  FilesSecurity,
-  PluginStatus,
-  UsersType,
-  Devices,
-  Security,
-};
+export const DEFAULT_PLUGIN_VERSION = "0.0.1";

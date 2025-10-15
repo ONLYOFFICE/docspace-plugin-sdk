@@ -1,6 +1,7 @@
 {
   "name": "@onlyoffice/docspace-plugin-sdk",
-  "version": "1.1.1",
+  "version": "2.0.0",
+  "minDocSpaceVersion": "3.5.0",
   "description": "Simple plugin system for onlyoffice docspace",
   "license": "Apache-2.0",
   "homepage": "https://www.onlyoffice.com",
@@ -13,19 +14,21 @@
     "url": "git+https://github.com/ONLYOFFICE/docspace-plugin-sdk.git"
   },
   "bugs": {
-    "url": "https://github.com/ONLYOFFICE/docspace-plugin-sdk"
+    "url": "https://github.com/ONLYOFFICE/docspace-plugin-sdk",
+    "email": "support@onlyoffice.com"
   },
   "keywords": [
     "onlyoffice",
     "docspace",
     "plugin"
   ],
+  "bin": {
+    "build-docspace-plugin": "./npx/buildPlugin.js",
+    "create-docspace-plugin": "./npx/index.js"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
-  "bin": {
-    "create-docspace-plugin": "./npx/index.js"
-  },
   "scripts": {
     "build": "tsc",
     "prepublish": "tsc"
@@ -36,6 +39,7 @@
     "typescript": "^5.6.0"
   },
   "dependencies": {
-    "inquirer": "^9.1.0"
+    "inquirer": "^9.1.0",
+    "jszip": "^3.10.1"
   }
 }
