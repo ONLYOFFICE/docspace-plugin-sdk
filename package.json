@@ -41,5 +41,10 @@
   "dependencies": {
     "inquirer": "^9.1.0",
     "jszip": "^3.10.1"
+  },
+  "overrides": {
+    "external-editor": {
+      "tmp": "^0.2.4"
+    }
   }
 }
