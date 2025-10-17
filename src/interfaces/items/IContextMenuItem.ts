@@ -98,8 +98,25 @@ import { IMessage } from "../utils";
  *     }
  *   }
  * };
+ *```
+ *
+ * @example
+ *
+ * Nested context menu items from previous examples
+ *
+ * ```typescript
+ * const manageFile: IContextMenuItem = {
+ *   key: "manage-file",
+ *   label: "Manage File",
+ *   icon: "manage-file-icon.svg",
+ *   items: [
+ *     shareFile,
+ *     analyzeFile
+ *  ]
+ * };
  * ```
  */
+
 export interface IContextMenuItem {
   /**
    * The unique item identifier used by the service to recognize the item
@@ -125,7 +142,7 @@ export interface IContextMenuItem {
    * A function that takes the file/folder/room id as an argument. This function can be asynchronous
    *
    */
-  onClick: (id: number) => Promise<IMessage> | IMessage | void;
+  onClick?: (id: number) => Promise<IMessage> | IMessage | void;
 
   /**
    * Whether to add the action state to the item in the file list when the onClick event is triggered
@@ -148,6 +165,14 @@ export interface IContextMenuItem {
    *
    */
   fileType?: FilesType[];
+
+  /**
+   * Specifies elements as submenus.
+   * If specified, onClick on the parent will not work.
+   * If none of the child elements are displayed, for example due to security or itemSecurity, the parent will also be hidden.
+   * Max level of the menu is 2.
+   */
+  items?: IContextMenuItem[];
 
   /**
    * The types of users who will see the current item in the context menu.

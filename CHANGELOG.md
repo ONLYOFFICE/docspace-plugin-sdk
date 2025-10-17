@@ -1,5 +1,15 @@
 # Change Log
 
+## #.#.#
+
+## Changed
+
+- onClick prop optional in IContextMenuItem
+
+## Added
+
+- Add items prop to IContextMenuItem
+
 ## 2.0.0
 
 ## Changed
