@@ -102,6 +102,15 @@ async function buildPlugin() {
   zip.file("plugin.js", jsData);
   zip.file("config.json", JSON.stringify(docspace, null, 2));
 
+  // Add plugin.css
+  let pluginCssPath = path.join(currentDir, "dist", "plugin.css");
+
+  if (fs.existsSync(pluginCssPath)) {
+    const cssData = fs.readFileSync(pluginCssPath, "utf-8");
+    zip.file("plugin.css", cssData);
+    console.log(`🎨 Added plugin.css to plugin`);
+  }
+
   // Add assets if they exist
   const assetsPath = path.join(currentDir, "assets");
   if (fs.existsSync(assetsPath)) {
