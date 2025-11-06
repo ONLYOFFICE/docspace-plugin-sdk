@@ -8,9 +8,9 @@
 
 ## Added
 
-- Add support CSS files
-- Add prop className to components (IBox, IButton, ICheckbox, IComboBox, IFrame, IImage, IInput, ILabel, ISkeleton, IText, ITextArea, IToggleButton)
-- Add prop id to component IBox
+- Support CSS files
+- Prop className to components (IBox, IButton, ICheckbox, IComboBox, IFrame, IImage, IInput, ILabel, ISkeleton, IText, ITextArea, IToggleButton)
+- Prop id to component IBox
 
 ## 2.0.0
 
