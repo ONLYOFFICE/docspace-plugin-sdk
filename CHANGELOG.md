@@ -1,5 +1,11 @@
 # Change Log
 
+## #.#.#
+
+## Added
+
+- Add onGroupClick, isGroupAction props to IContextMenuItem
+
 ## 2.0.0
 
 ## Changed
