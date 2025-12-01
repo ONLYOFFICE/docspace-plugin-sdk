@@ -178,13 +178,13 @@ export interface IContextMenuItem {
    * A function that takes the file/folder/room id as an argument. This function can be asynchronous
    *
    */
-  onClick?: (id: number) => Promise<IMessage> | IMessage | void;
+  onClick?: (id: number) => Promise<IMessage> | Promise<void> | IMessage | void;
 
   /**
    * A function that takes the file/folder/room ids as an argument. This function can be asynchronous
    *
    */
-  onGroupClick?: (ids: number[]) => Promise<IMessage> | IMessage | void;
+  onGroupClick?: (ids: number[]) => Promise<IMessage> | Promise<void> | IMessage | void;
 
   /**
    * Whether the current element can be a group action
