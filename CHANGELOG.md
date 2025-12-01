@@ -2,9 +2,13 @@
 
 ## #.#.#
 
+## Changed
+
+- onClick prop optional in IContextMenuItem
+
 ## Added
 
-- Add onGroupClick, isGroupAction props to IContextMenuItem
+- Add items, onGroupClick, isGroupAction props to IContextMenuItem
 
 ## 2.0.0
 
