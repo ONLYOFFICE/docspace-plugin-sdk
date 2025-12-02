@@ -98,8 +98,61 @@ import { IMessage } from "../utils";
  *     }
  *   }
  * };
+ *```
+ *
+ * @example
+ *
+ * Nested context menu items from previous examples
+ *
+ * ```typescript
+ * const manageFile: IContextMenuItem = {
+ *   key: "manage-file",
+ *   label: "Manage File",
+ *   icon: "manage-file-icon.svg",
+ *   items: [
+ *     shareFile,
+ *     analyzeFile
+ *  ]
+ * };
+ * ```
+ *
+ * @example
+ *
+ * Bulk-tagging files
+ *
+ * ```typescript
+ * const bulkTagging: IContextMenuItem = {
+ *   key: "bulk-tagging-files",
+ *   label: "Add tags to files",
+ *   icon: "tag-icon.svg",
+ *   isGroupAction: true,
+ *   onGroupClick: async (ids) => {
+ *     try {
+ *       // A custom function to apply tags to multiple files
+ *       await addTagsToFiles(ids, ["important", "review"]);
+ *       return {
+ *         actions: [Actions.showToast],
+ *         toastProps: [{
+ *           type: "success",
+ *           title: "Files Tagged",
+ *           message: `${ids.length} files were successfully tagged.`
+ *         }]
+ *       };
+ *     } catch (error) {
+ *       return {
+ *         actions: [Actions.showToast],
+ *         toastProps: [{
+ *           type: "error",
+ *           title: "Tagging Failed",
+ *           message: "Could not tag selected files. Please try again."
+ *         }]
+ *       };
+ *     }
+ *   }
+ * };
  * ```
  */
+
 export interface IContextMenuItem {
   /**
    * The unique item identifier used by the service to recognize the item
@@ -125,7 +178,19 @@ export interface IContextMenuItem {
    * A function that takes the file/folder/room id as an argument. This function can be asynchronous
    *
    */
-  onClick: (id: number) => Promise<IMessage> | IMessage | void;
+  onClick?: (id: number) => Promise<IMessage> | Promise<void> | IMessage | void;
+
+  /**
+   * A function that takes the file/folder/room ids as an argument. This function can be asynchronous
+   *
+   */
+  onGroupClick?: (ids: number[]) => Promise<IMessage> | Promise<void> | IMessage | void;
+
+  /**
+   * Whether the current element can be a group action
+   *
+   */
+  isGroupAction?: boolean;
 
   /**
    * Whether to add the action state to the item in the file list when the onClick event is triggered
@@ -148,6 +213,14 @@ export interface IContextMenuItem {
    *
    */
   fileType?: FilesType[];
+
+  /**
+   * Specifies elements as submenus.
+   * If specified, onClick on the parent will not work.
+   * If none of the child elements are displayed, for example due to security or itemSecurity, the parent will also be hidden.
+   * Max level of the menu is 2.
+   */
+  items?: IContextMenuItem[];
 
   /**
    * The types of users who will see the current item in the context menu.

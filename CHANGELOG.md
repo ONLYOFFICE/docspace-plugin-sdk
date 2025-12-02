@@ -5,12 +5,16 @@
 ## Changed
 
 - Update template
+- onClick prop optional in IContextMenuItem
 
 ## Added
 
 - Support CSS files
 - Prop className to components (IBox, IButton, ICheckbox, IComboBox, IFrame, IImage, IInput, ILabel, ISkeleton, IText, ITextArea, IToggleButton)
 - Prop id to component IBox
+- onClick prop optional in IContextMenuItem
+- Add onGroupClick, isGroupAction props to IContextMenuItem
+- Add items prop to IContextMenuItem
 
 ## 2.0.0
 
