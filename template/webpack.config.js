@@ -13,7 +13,22 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
+        test: /\.module\.css$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: {
+              modules: {
+                localIdentName: "[local]__[hash:base64:5]",
+              },
+            },
+          },
+        ],
+      },
+      {
         test: /\.css$/i,
+        exclude: /\.module\.css$/i,
         use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
     ],
