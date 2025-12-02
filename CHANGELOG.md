@@ -9,6 +9,7 @@
 ## Added
 
 - Add items prop to IContextMenuItem
+- Add onGroupClick, isGroupAction props to IContextMenuItem
 
 ## 2.0.0
 

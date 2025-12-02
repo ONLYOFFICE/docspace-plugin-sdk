@@ -115,6 +115,42 @@ import { IMessage } from "../utils";
  *  ]
  * };
  * ```
+ *
+ * @example
+ *
+ * Bulk-tagging files
+ *
+ * ```typescript
+ * const bulkTagging: IContextMenuItem = {
+ *   key: "bulk-tagging-files",
+ *   label: "Add tags to files",
+ *   icon: "tag-icon.svg",
+ *   isGroupAction: true,
+ *   onGroupClick: async (ids) => {
+ *     try {
+ *       // A custom function to apply tags to multiple files
+ *       await addTagsToFiles(ids, ["important", "review"]);
+ *       return {
+ *         actions: [Actions.showToast],
+ *         toastProps: [{
+ *           type: "success",
+ *           title: "Files Tagged",
+ *           message: `${ids.length} files were successfully tagged.`
+ *         }]
+ *       };
+ *     } catch (error) {
+ *       return {
+ *         actions: [Actions.showToast],
+ *         toastProps: [{
+ *           type: "error",
+ *           title: "Tagging Failed",
+ *           message: "Could not tag selected files. Please try again."
+ *         }]
+ *       };
+ *     }
+ *   }
+ * };
+ * ```
  */
 
 export interface IContextMenuItem {
@@ -142,7 +178,19 @@ export interface IContextMenuItem {
    * A function that takes the file/folder/room id as an argument. This function can be asynchronous
    *
    */
-  onClick?: (id: number) => Promise<IMessage> | IMessage | void;
+  onClick?: (id: number) => Promise<IMessage> | Promise<void> | IMessage | void;
+
+  /**
+   * A function that takes the file/folder/room ids as an argument. This function can be asynchronous
+   *
+   */
+  onGroupClick?: (ids: number[]) => Promise<IMessage> | Promise<void> | IMessage | void;
+
+  /**
+   * Whether the current element can be a group action
+   *
+   */
+  isGroupAction?: boolean;
 
   /**
    * Whether to add the action state to the item in the file list when the onClick event is triggered
