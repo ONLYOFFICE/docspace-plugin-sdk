@@ -238,17 +238,6 @@ export default plugin;
         fs.writeFileSync(`${srcDir}/index.ts`, template, "utf8");
 
         break;
-
-      case "createZip.js":
-        const newCreateZip = contents.replaceAll(
-          "PluginNameReplace",
-          `${pluginName}`
-        );
-
-        fs.writeFileSync(writePath, newCreateZip, "utf8");
-
-        break;
-
       default:
         fs.writeFileSync(writePath, contents, "utf8");
     }

@@ -232,4 +232,12 @@ export interface ITextArea {
    * @category Behavior
    */
   copyInfoText?: boolean;
+
+  /**
+   * Defines the CSS class for styling the component.
+   * Can be used to override or extend the default component styles.
+   *
+   * @category Appearance
+   */
+  className?: string;
 }
