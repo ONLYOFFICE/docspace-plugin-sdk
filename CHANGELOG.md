@@ -4,10 +4,12 @@
 
 ## Changed
 
+- onLoad prop optional in IInfoPanelItem
 - onClick prop optional in IContextMenuItem
 
 ## Added
 
+- Add isTitleVisible prop to IInfoPanelItem
 - Add items prop to IContextMenuItem
 - Add onGroupClick, isGroupAction props to IContextMenuItem
 

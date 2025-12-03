@@ -142,10 +142,16 @@ export interface IInfoPanelItem {
   body: IBox;
 
   /**
+   * The visibility of the tab title. By default, the title is visible.
+   *
+   */
+  isTitleVisible?: boolean;
+
+  /**
    * A function that is executed after opening a tab.
    * It returns a new body. If this functionality is not needed, the old body value is returned.
    */
-  onLoad: () => Promise<{ body: IBox }>;
+  onLoad?: () => Promise<{ body: IBox }>;
 
   /**
    * The types of files where the current item will be displayed in the info panel.
