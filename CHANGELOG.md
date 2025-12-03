@@ -10,7 +10,7 @@
 
 ## Added
 
-- Add isTitleVisible prop to IInfoPanelItem
+- Add isHeaderVisible prop to IInfoPanelItem
 - Support CSS files
 - Prop className to components (IBox, IButton, ICheckbox, IComboBox, IFrame, IImage, IInput, ILabel, ISkeleton, IText, ITextArea, IToggleButton)
 - Prop id to component IBox

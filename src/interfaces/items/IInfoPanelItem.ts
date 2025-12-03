@@ -142,10 +142,11 @@ export interface IInfoPanelItem {
   body: IBox;
 
   /**
-   * The visibility of the tab title. By default, the title is visible.
+   * The property that controls whether the header is visible in the info panel.
+   * By default, the header is visible.
    *
    */
-  isTitleVisible?: boolean;
+  isHeaderVisible?: boolean;
 
   /**
    * A function that is executed after opening a tab.
