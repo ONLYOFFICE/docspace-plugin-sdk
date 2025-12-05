@@ -19,7 +19,7 @@
 /**
  * Defines the supported room/folder security parameters.
  */
-export const enum Security {
+export enum Security {
   /** Permission to copy files and folders */
   Copy = "Copy",
 

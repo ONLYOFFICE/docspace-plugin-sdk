@@ -21,7 +21,7 @@
  *
  * @category Toast
  */
-export const enum ToastType {
+export enum ToastType {
   /** Success toast with green color scheme */
   success = "success",
   /** Error toast with red color scheme */

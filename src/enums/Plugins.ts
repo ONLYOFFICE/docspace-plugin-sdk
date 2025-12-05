@@ -19,7 +19,7 @@
 /**
  * Defines the supported plugin statuses.
  */
-export const enum PluginStatus {
+export enum PluginStatus {
   /** Plugin is enabled and visible to users */
   active = "active",
 

@@ -19,7 +19,7 @@
 /**
  * Defines the supported device types.
  */
-export const enum Devices {
+export enum Devices {
   /** Smartphones and small-screen mobile devices */
   mobile = "mobile",
 

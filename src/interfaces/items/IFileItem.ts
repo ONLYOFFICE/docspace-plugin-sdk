@@ -173,7 +173,7 @@ export interface IFileItem {
    * A function that takes the File object with the file data as an argument.
    * This function can be asynchronous. It will be executed when the user clicks on a file with the required extension.
    */
-  onClick: (item: File) => Promise<IMessage> | IMessage | void;
+  onClick: (item: File) => Promise<IMessage> | Promise<void> | IMessage | void;
 
   /**
    * The types of users who have the access to the current item.

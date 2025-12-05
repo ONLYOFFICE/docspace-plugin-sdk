@@ -19,7 +19,7 @@
 /**
  * A collection of events that will be processed on the portal side.
  */
-export const enum Actions {
+export enum Actions {
   /**
    * Calls a function to update the state of the item which action was passed.
    * It does not work if the "newProps" parameter is not passed to the message.

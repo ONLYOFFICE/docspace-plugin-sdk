@@ -110,7 +110,7 @@ export interface IProfileMenuItem {
    * A function that takes the file/folder/room id as an argument.
    * This function can be asynchronous.
    */
-  onClick: () => Promise<IMessage> | IMessage | void;
+  onClick: () => Promise<IMessage> | Promise<void> | IMessage | void;
 
   /**
    * The types of users who will see the current item in the profile menu.

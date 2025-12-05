@@ -19,7 +19,7 @@
 /**
  * Defines the available UI component.
  */
-export const enum Components {
+export enum Components {
   /** Container component for grouping other elements */
   box = "box",
 

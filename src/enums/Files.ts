@@ -19,7 +19,7 @@
 /**
  * Defines the supported file types.
  */
-export const enum FilesType {
+export enum FilesType {
   /** DocSpace room or workspace */
   room = "room",
 
@@ -39,7 +39,7 @@ export const enum FilesType {
 /**
  * Defines the supported file extensions.
  */
-export const enum FilesExst {
+export enum FilesExst {
   // Document formats
   /** Microsoft Word document */
   doc = ".doc",
@@ -146,7 +146,7 @@ export const enum FilesExst {
 /**
  * Defines the supported file security parameters.
  */
-export const enum FilesSecurity {
+export enum FilesSecurity {
   /** Permission to convert files to other formats */
   Convert = "Convert",
 

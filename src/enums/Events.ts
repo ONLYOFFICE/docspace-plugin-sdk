@@ -19,7 +19,7 @@
 /**
  * Defines the supported event types for the plugin system.
  */
-export const enum Events {
+export enum Events {
   /** Triggered when a new item is created */
   CREATE = "create",
 
