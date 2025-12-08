@@ -129,7 +129,7 @@ export interface IEventListenerItem {
    * After the event is executed, only updating the items or displaying toast is possible, other actions are blocked.
    *
    */
-  eventHandler: () => Promise<IMessage> | IMessage | void;
+  eventHandler: () => Promise<IMessage> |  Promise<void> | IMessage | void;
 
   /**
    * The types of users who have the access to the current item.

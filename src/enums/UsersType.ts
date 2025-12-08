@@ -19,7 +19,7 @@
 /**
  * Defines the supported user types.
  */
-export const enum UsersType {
+export enum UsersType {
   /** System owner with full administrative rights and control over the entire DocSpace instance */
   owner = "Owner",
 

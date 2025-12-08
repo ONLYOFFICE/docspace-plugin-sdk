@@ -4,6 +4,8 @@
 
 ## Changed
 
+- Convert const enums to regular enums
+- Add Promise<void> return type to plugin methods 'onClick' (IFileItem, IInfoPanelItem, IMainButtonItem, IProfileMenuItem)
 - onLoad prop optional in IInfoPanelItem
 - Update template
 - onClick prop optional in IContextMenuItem
