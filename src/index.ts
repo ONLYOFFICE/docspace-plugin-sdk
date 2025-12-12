@@ -52,6 +52,7 @@ import {
   UsersType,
   Devices,
   Security,
+  PluginLocale,
 } from "./enums";
 
 import {
@@ -121,6 +122,7 @@ export {
   FilesType,
   FilesSecurity,
   PluginStatus,
+  PluginLocale,
   Component,
   BoxGroup,
   ButtonGroup,

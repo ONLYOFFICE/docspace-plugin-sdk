@@ -27,7 +27,7 @@
 
 import { Actions } from "./Actions";
 import { Events } from "./Events";
-import { PluginStatus } from "./Plugins";
+import { PluginStatus, PluginLocale } from "./Plugins";
 import { FilesExst, FilesType, FilesSecurity } from "./Files";
 import { UsersType } from "./UsersType";
 import { Components } from "./Components";
@@ -45,4 +45,5 @@ export {
   UsersType,
   Devices,
   Security,
+  PluginLocale,
 };

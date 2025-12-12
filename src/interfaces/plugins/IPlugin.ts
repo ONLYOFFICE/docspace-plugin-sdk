@@ -15,7 +15,7 @@
  *
  */
 
-import { PluginStatus } from "../../enums";
+import { PluginLocale, PluginStatus } from "../../enums";
 
 /**
  * The default plugin.
@@ -97,6 +97,15 @@ import { PluginStatus } from "../../enums";
 export interface IPlugin {
   /** The plugin status (active or hide) */
   status: PluginStatus;
+
+  /** The plugin language */
+  language?: PluginLocale;
+
+  /** Set the plugin language */
+  setLanguage?: (language: PluginLocale) => void;
+
+  /** Get the current plugin language */
+  getLanguage?: () => PluginLocale;
 
   /** Callback which will be executed when uploading the plugin to the portal */
   onLoadCallback: () => Promise<void>;

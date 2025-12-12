@@ -39,7 +39,7 @@ module.exports = {
     }),
   ],
   optimization: {
-    minimizer: [new CssMinimizerPlugin()],
+    minimizer: ["...", new CssMinimizerPlugin()],
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
