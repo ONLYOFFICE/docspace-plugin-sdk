@@ -101,10 +101,10 @@ export interface IPlugin {
   /** The plugin language */
   language?: PluginLocale;
 
-  /** Set the plugin language */
+  /** The method is called on the portal side when the portal language is changed. */
   setLanguage?: (language: PluginLocale) => void;
 
-  /** Get the current plugin language */
+  /** The method is called on the portal side to get the plugin language. */
   getLanguage?: () => PluginLocale;
 
   /** Callback which will be executed when uploading the plugin to the portal */
