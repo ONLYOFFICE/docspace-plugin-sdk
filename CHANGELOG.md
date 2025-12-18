@@ -4,6 +4,8 @@
 
 ## Changed
 
+- Remove type: "module" from package.json
+- Update webpack config in template (add "..." to minimizer array to save default minimizers)
 - Convert const enums to regular enums
 - Add Promise<void> return type to plugin methods 'onClick' (IFileItem, IInfoPanelItem, IMainButtonItem, IProfileMenuItem)
 - onLoad prop optional in IInfoPanelItem
@@ -12,6 +14,8 @@
 
 ## Added
 
+- Add PluginLocale enum to Plugins enums
+- Add language, setLanguage, getLanguage prop to IPlugin
 - Add isHeaderVisible prop to IInfoPanelItem
 - Support CSS files
 - Prop className to components (IBox, IButton, ICheckbox, IComboBox, IFrame, IImage, IInput, ILabel, ISkeleton, IText, ITextArea, IToggleButton)

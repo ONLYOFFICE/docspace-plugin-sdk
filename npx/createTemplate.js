@@ -80,10 +80,12 @@ function createTemplate(
         const newJson = JSON.parse(contents);
 
         newJson.name = name;
+        newJson.nameLocale = {};
         newJson.version = version || "";
         newJson.scopes = scopes || [];
         newJson.author = author || "";
         newJson.description = description || "";
+        newJson.descriptionLocale = {};
         newJson.pluginName = pluginName || "";
         newJson.license = license || "";
         newJson.logo = logo || "";
