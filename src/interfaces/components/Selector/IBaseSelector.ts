@@ -99,7 +99,17 @@ export type TBaseSelector =
     className?: string;
 
     isLoading?: boolean;
+
     isMultiSelect?: boolean;
+    maxSelectedItems?: number;
+    selectedItems?: TSelectorItem[];
+
+    descriptionText?: string;
+    emptyScreenHeader?: string;
+    emptyScreenDescription?: string;
+
+    searchEmptyScreenHeader?: string;
+    searchEmptyScreenDescription?: string;
 
     onLoad?: () => TReturnMessage;
     onSelect?: (params: TOnSelectParams) => TReturnMessage;
