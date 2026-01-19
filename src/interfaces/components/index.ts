@@ -114,6 +114,15 @@ import { IToggleButton } from "./IToggleButton";
 import { IToast, ToastType } from "./IToast";
 import { IButton, ButtonSize } from "./IButton";
 import { ISkeleton } from "./ISkeleton";
+import {
+  TSelector,
+  TBaseSelector,
+  TFilesSelector,
+  TRoomSelector,
+  TGroupsSelector,
+  TPeopleSelector,
+  TSelectorItem
+} from './Selector/ISelector';
 
 export {
   IBox,
@@ -152,4 +161,11 @@ export {
   IComboBoxItem,
   ICreateDialog,
   ISkeleton,
+  TSelector,
+  TBaseSelector,
+  TFilesSelector,
+  TPeopleSelector,
+  TGroupsSelector,
+  TRoomSelector,
+  TSelectorItem,
 };

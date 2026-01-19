@@ -53,6 +53,9 @@ import {
   Devices,
   Security,
   PluginLocale,
+  SelectorType,
+  RoomSearchArea,
+  RoomsType,
 } from "./enums";
 
 import {
@@ -92,6 +95,13 @@ import {
   IComboBoxItem,
   ICreateDialog,
   ISkeleton,
+  TSelector,
+  TBaseSelector,
+  TFilesSelector,
+  TGroupsSelector,
+  TPeopleSelector,
+  TRoomSelector,
+  TSelectorItem,
 } from "./interfaces/components";
 
 import { IPostMessage, IMessage } from "./interfaces/utils/index";
@@ -164,4 +174,14 @@ export {
   IPostMessage,
   Devices,
   Security,
+  SelectorType,
+  TSelector,
+  TBaseSelector,
+  TFilesSelector,
+  TGroupsSelector,
+  TPeopleSelector,
+  TRoomSelector,
+  TSelectorItem,
+  RoomSearchArea,
+  RoomsType,
 };

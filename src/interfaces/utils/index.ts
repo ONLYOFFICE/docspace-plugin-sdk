@@ -50,6 +50,7 @@ import {
   IToast,
   IToggleButton,
 } from "../components";
+import { TSelector } from "../components/Selector/ISelector";
 
 /**
  * The properties that are used to send a message to a frame.
@@ -210,6 +211,12 @@ export interface IMessage {
   modalDialogProps?: IModalDialog;
 
   /**
+   * Defines the properties that display the selector.
+   * This parameter is used only with Actions.showSelector.
+   */
+  selectorProps?: TSelector;
+
+  /**
    * Defines the properties that are used to send a message to a frame.
    * If the frame ID is not specified or the frame with such an ID does not exist, then nothing changes.
    * This parameter is used only with Actions.sendPostMessage.
@@ -222,3 +229,6 @@ export interface IMessage {
    */
   settings?: string;
 }
+
+
+export type TReturnMessage = Promise<IMessage> | Promise<void> | void | IMessage;

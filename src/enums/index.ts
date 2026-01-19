@@ -33,6 +33,8 @@ import { UsersType } from "./UsersType";
 import { Components } from "./Components";
 import { Devices } from "./Devices";
 import { Security } from "./Security";
+import { SelectorType } from "./Selector";
+import { RoomSearchArea, RoomsType } from "./Rooms";
 
 export {
   Actions,
@@ -46,4 +48,7 @@ export {
   Devices,
   Security,
   PluginLocale,
+  SelectorType,
+  RoomSearchArea,
+  RoomsType,
 };

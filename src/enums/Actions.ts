@@ -108,4 +108,12 @@ export enum Actions {
    * It functions only when the "Save" button is clicked in the "Settings" block.
    */
   saveSettings = "save-settings",
+
+  /**
+   * Calls a function to display a selector.
+   * It does not work if the "selectorProps" parameter is not passed to the message.
+   */
+  showSelector = "show-selector",
+  updateSelector = "update-selector",
+  closeSelector = "close-selector"
 }
