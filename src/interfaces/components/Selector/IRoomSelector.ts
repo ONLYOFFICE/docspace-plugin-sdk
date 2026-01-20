@@ -23,4 +23,5 @@ export type TRoomSelector = TSelectorHeader &
 
         onLoad?: () => TReturnMessage;
         onSubmit?: (selectedIds: (string | number)[]) => TReturnMessage;
+        onClose?: () => TReturnMessage;
     }

@@ -11,5 +11,6 @@ type TOnSubmitParams = {
 export type TGroupsSelector = TSelectorHeader & {
     className?: string;
     onLoad?: () => TReturnMessage;
+    onClose?: () => TReturnMessage;
     onSubmit: (params: TOnSubmitParams) => TReturnMessage;
 }

@@ -57,4 +57,5 @@ export type TFilesSelector = TSelectorHeader & {
   onSubmit?: (params: TOnSubmitParams) => TReturnMessage;
   onSelectItem?: (id: string | number | undefined) => TReturnMessage;
   onCancel?: () => TReturnMessage;
+  onClose?: () => TReturnMessage;
 };

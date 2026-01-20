@@ -112,6 +112,7 @@ export type TBaseSelector =
     searchEmptyScreenDescription?: string;
 
     onLoad?: () => TReturnMessage;
+    onClose?: () => TReturnMessage;
     onSelect?: (params: TOnSelectParams) => TReturnMessage;
   };
 
