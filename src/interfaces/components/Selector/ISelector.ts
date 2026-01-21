@@ -5,6 +5,11 @@ import { TGroupsSelector } from "./IGroupsSelector";
 import { TPeopleSelector } from "./IPeopleSelector";
 import { TRoomSelector } from "./IRoomSelector";
 
+/**
+ * A discriminated union representing all available selector components.
+ * The `type` property determines which selector to render, and the `props` property
+ * must match the corresponding selector's interface.
+ */
 type TSelector = {
     type: SelectorType.Base;
     props: TBaseSelector;
