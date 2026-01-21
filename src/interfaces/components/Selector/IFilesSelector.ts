@@ -162,4 +162,5 @@ export type TFilesSelector = TSelectorHeader & {
   /** A callback function that is triggered when the cancel button is clicked. */
   onCancel?: () => TReturnMessage;
   /** A callback function that is triggered when the selector is closed. */
+  onClose?: () => TReturnMessage;
 }

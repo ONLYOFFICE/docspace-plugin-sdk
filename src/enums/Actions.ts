@@ -110,20 +110,19 @@ export enum Actions {
   saveSettings = "save-settings",
 
   /**
-   * Opens a selector component defined by the `selectorProps`.
-   * This action is used to initially render any type of selector.
+   * Calls a function to display a selector.
+   * It does not work if the "selectorProps" parameter is not passed to the message.
    */
   showSelector = "show-selector",
 
   /**
-   * Updates the state of an already open selector with new properties.
-   * This is useful for dynamically changing items, labels, or behavior in response to user interaction.
-   * Requires passing new `selectorProps`.
+   * Calls a function to update a selector.
+   * It does not work if the "selectorProps" parameter is not passed to the message.
    */
   updateSelector = "update-selector",
 
   /**
-   * Closes the currently active selector component.
+   * Calls a function to close a selector.
    */
   closeSelector = "close-selector"
 }
