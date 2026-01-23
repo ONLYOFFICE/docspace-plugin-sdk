@@ -83,7 +83,6 @@ import { IMessage, TReturnMessage } from "../utils";
  * 
 
 /**
- * Types of operations for the floating progress button.
  * Determines the icon and visual representation of the operation.
  */
 export enum FloatingOperationType {
