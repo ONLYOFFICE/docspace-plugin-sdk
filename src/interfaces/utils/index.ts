@@ -39,6 +39,7 @@ import {
   ICheckbox,
   IComboBox,
   ICreateDialog,
+  IFloatingOperationsButton,
   IFrame,
   IImage,
   IInput,
@@ -162,12 +163,12 @@ export interface IMessage {
    * This parameter is used only with Actions.updateProps.
    */
   newProps?:
-    | IInput
-    | ICheckbox
-    | IToggleButton
-    | IButton
-    | ITextArea
-    | IComboBox;
+  | IInput
+  | ICheckbox
+  | IToggleButton
+  | IButton
+  | ITextArea
+  | IComboBox;
 
   /**
    * Defines the properties that display a toast notification after the user actions.
@@ -184,18 +185,18 @@ export interface IMessage {
   contextProps?: {
     name: string;
     props:
-      | IBox
-      | IButton
-      | ICheckbox
-      | IComboBox
-      | IFrame
-      | IImage
-      | IInput
-      | ILabel
-      | ISkeleton
-      | IText
-      | ITextArea
-      | IToggleButton;
+    | IBox
+    | IButton
+    | ICheckbox
+    | IComboBox
+    | IFrame
+    | IImage
+    | IInput
+    | ILabel
+    | ISkeleton
+    | IText
+    | ITextArea
+    | IToggleButton;
   }[];
 
   /**
@@ -215,6 +216,12 @@ export interface IMessage {
    * This parameter is used only with Actions.showSelector.
    */
   selectorProps?: TSelector;
+
+  /**
+   * Defines the properties that display the floating operations button.
+   * This parameter is used only with Actions.showFloatingOperationsButton, Actions.updateFloatingOperationsButton.
+   */
+  floatingOperationsButtonProps?: IFloatingOperationsButton;
 
   /**
    * Defines the properties that are used to send a message to a frame.

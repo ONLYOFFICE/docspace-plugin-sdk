@@ -102,6 +102,9 @@ import {
   TPeopleSelector,
   TRoomSelector,
   TSelectorItem,
+  IFloatingOperationsButton,
+  FloatingOperationType,
+  IFloatingOperation,
 } from "./interfaces/components";
 
 import { IPostMessage, IMessage } from "./interfaces/utils/index";
@@ -184,4 +187,7 @@ export {
   TSelectorItem,
   RoomSearchArea,
   RoomsType,
+  IFloatingOperationsButton,
+  FloatingOperationType,
+  IFloatingOperation,
 };
