@@ -124,5 +124,22 @@ export enum Actions {
   /**
    * Calls a function to close a selector.
    */
-  closeSelector = "close-selector"
+  closeSelector = "close-selector",
+
+  /**
+   * Calls a function to show a floating operations button.
+   * It does not work if the "floatingOperationsButtonProps" parameter is not passed to the message.
+   */
+  showFloatingOperationsButton = "show-floating-operations-button",
+
+  /**
+   * Calls a function to update a floating operations button.
+   * It does not work if the "floatingOperationsButtonProps" parameter is not passed to the message.
+   */
+  updateFloatingOperationsButton = "update-floating-operations-button",
+
+  /**
+   * Calls a function to close a floating operations button.
+   */
+  closeFloatingOperationsButton = "close-floating-operations-button"
 }

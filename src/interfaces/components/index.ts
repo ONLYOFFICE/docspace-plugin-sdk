@@ -123,6 +123,7 @@ import {
   TPeopleSelector,
   TSelectorItem
 } from './Selector/ISelector';
+import { IFloatingOperationsButton, FloatingOperationType, IFloatingOperation } from "./IFloatingOperationsButton";
 
 export {
   IBox,
@@ -168,4 +169,7 @@ export {
   TGroupsSelector,
   TRoomSelector,
   TSelectorItem,
+  IFloatingOperationsButton,
+  FloatingOperationType,
+  IFloatingOperation,
 };
