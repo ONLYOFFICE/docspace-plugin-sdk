@@ -1,5 +1,29 @@
-import { TReturnMessage } from "../../utils";
-import { TSelectorCancelButton, TSelectorHeader, TSelectorSubmitButton } from "./IBaseSelector";
+/**
+ * (c) Copyright Ascensio System SIA 2026
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * @license
+ */
+
+import {
+    TSelectorBaseProps,
+    TSelectorCancelButton,
+    TSelectorEmptyScreen,
+    TSelectorHeader,
+    TSelectorLifecycleEvents,
+    TSelectorSubmitButton
+} from "./IBaseSelector";
 
 /**
  * @example
@@ -56,16 +80,15 @@ import { TSelectorCancelButton, TSelectorHeader, TSelectorSubmitButton } from ".
  */
 export type TPeopleSelector = TSelectorHeader &
     TSelectorCancelButton &
-    TSelectorSubmitButton & {
-        /** A CSS class name to apply to the selector component. */
-        className?: string;
-
+    TSelectorSubmitButton &
+    TSelectorBaseProps &
+    TSelectorLifecycleEvents &
+    TSelectorEmptyScreen & {
         /**
          * The type of entity for which the user is being selected (e.g., for sharing a file).
          * @example "file" | "folder" | "room"
          */
         targetEntityType?: "file" | "folder" | "room";
-
         /**
          * If true, allows the selection of groups.
          * @default false
@@ -76,7 +99,6 @@ export type TPeopleSelector = TSelectorHeader &
          * @default false
          */
         isGroupsOnly?: boolean;
-
         /**
          * If true, includes guest users in the selector.
          * @default false
@@ -87,7 +109,6 @@ export type TPeopleSelector = TSelectorHeader &
          * @default false
          */
         isGuestsOnly?: boolean;
-
         /**
          * If true, allows multiple users and/or groups to be selected.
          * @default false
@@ -98,7 +119,6 @@ export type TPeopleSelector = TSelectorHeader &
          * @example "user-1234"
          */
         currentUserId?: string;
-
         /**
          * An array of user or group IDs to exclude from the list.
          * @example ["user-1234", "group-5678"]
@@ -114,18 +134,6 @@ export type TPeopleSelector = TSelectorHeader &
          * @default false
          */
         disableDisabledUsers?: boolean;
-
-        /**
-         * The header text to display when there are no users or groups to show.
-         * @example "No users found"
-         */
-        emptyScreenHeader?: string;
-        /**
-         * The description text to display when there are no users or groups to show.
-         * @example "Please try searching for users or groups."
-         */
-        emptyScreenDescription?: string;
-
         /**
          * The ID of the room to which the selector is related.
          * @example "room-1234"
@@ -142,15 +150,4 @@ export type TPeopleSelector = TSelectorHeader &
          * @default false
          */
         onlyRoomMembers?: boolean;
-
-        /**
-         * A callback function that is triggered when the selector is loaded.
-         * @example () => TReturnMessage
-         */
-        onLoad?: () => TReturnMessage;
-        /**
-         * A callback function that is triggered when the selector is closed.
-         * @example () => TReturnMessage
-         */
-        onClose?: () => TReturnMessage;
     }

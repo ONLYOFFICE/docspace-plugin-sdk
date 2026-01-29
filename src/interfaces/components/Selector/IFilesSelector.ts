@@ -1,6 +1,32 @@
+/**
+ * (c) Copyright Ascensio System SIA 2026
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * @license
+ */
+
 import { FilesExst, FilesSecurity, Security } from "../../../enums";
 import { TReturnMessage } from "../../utils";
-import { TBreadCrumbItem, TSelectorHeader } from "./IBaseSelector";
+import {
+  TBreadCrumbItem,
+  TSelectorBaseProps,
+  TSelectorCancelButton,
+  TSelectorHeader,
+  TSelectorLifecycleEvents,
+  TSelectorSearchCreate,
+  TSelectorSubmitButton
+} from "./IBaseSelector";
 
 /**
  * @example
@@ -111,56 +137,38 @@ type TGetIsDisabledParams = {
 /**
  * Defines the properties for a file and folder selector component.
  */
-export type TFilesSelector = TSelectorHeader & {
-  /** A unique identifier for the selector component. */
-  id?: string;
-
-  /** If true, allows multiple items to be selected. */
-  isMultiSelect?: boolean;
-  /** If true, displays a search input field. */
-  withSearch?: boolean;
-  /** If true, displays breadcrumb navigation. */
-  withBreadCrumbs?: boolean;
-  /** If true, allows users to create new folders. */
-  withCreate?: boolean;
-
-  /** The ID of the folder to open by default. */
-  currentFolderId?: string | number;
-  /** If true, displays only rooms at the root level. */
-  isRoomsOnly?: boolean;
-  /** If true, opens the root directory by default. */
-  openRoot?: boolean;
-
-  /** If true, displays a cancel button. */
-  withCancelButton?: boolean;
-  /** The text label for the cancel button. */
-  cancelButtonLabel?: string;
-  /** The text label for the submit button. */
-  submitButtonLabel?: string;
-
-  /** A descriptive text displayed within the selector. */
-  descriptionText?: string;
-  /** If true, displays an input field in the footer. */
-  withFooterInput?: boolean;
-  /** The header text for the footer input. */
-  footerInputHeader?: string;
-  /** The initial value for the footer input. */
-  currentFooterInputValue?: string;
-  /** If true, displays a checkbox in the footer. */
-  withFooterCheckbox?: boolean;
-  /** The label for the footer checkbox. */
-  footerCheckboxLabel?: string;
-
-  /** A callback function to determine if the submit button should be disabled. */
-  getIsDisabled: (params: TGetIsDisabledParams) => boolean;
-  /** A callback function that is triggered when the selector is loaded. */
-  onLoad?: () => TReturnMessage;
-  /** A callback function that is triggered when the submit button is clicked. */
-  onSubmit?: (params: TOnSubmitParams) => TReturnMessage;
-  /** A callback function that is triggered when an item is selected. */
-  onSelectItem?: (id: string | number | undefined) => TReturnMessage;
-  /** A callback function that is triggered when the cancel button is clicked. */
-  onCancel?: () => TReturnMessage;
-  /** A callback function that is triggered when the selector is closed. */
-  onClose?: () => TReturnMessage;
-}
+export type TFilesSelector = TSelectorHeader &
+  TSelectorBaseProps &
+  TSelectorLifecycleEvents &
+  TSelectorSearchCreate &
+  TSelectorCancelButton &
+  Pick<TSelectorSubmitButton, "submitButtonLabel"> & {
+    /** If true, allows multiple items to be selected. */
+    isMultiSelect?: boolean;
+    /** If true, displays breadcrumb navigation. */
+    withBreadCrumbs?: boolean;
+    /** The ID of the folder to open by default. */
+    currentFolderId?: string | number;
+    /** If true, displays only rooms at the root level. */
+    isRoomsOnly?: boolean;
+    /** If true, opens the root directory by default. */
+    openRoot?: boolean;
+    /** A descriptive text displayed within the selector. */
+    descriptionText?: string;
+    /** If true, displays an input field in the footer. */
+    withFooterInput?: boolean;
+    /** The header text for the footer input. */
+    footerInputHeader?: string;
+    /** The initial value for the footer input. */
+    currentFooterInputValue?: string;
+    /** If true, displays a checkbox in the footer. */
+    withFooterCheckbox?: boolean;
+    /** The label for the footer checkbox. */
+    footerCheckboxLabel?: string;
+    /** A callback function to determine if the submit button should be disabled. */
+    getIsDisabled: (params: TGetIsDisabledParams) => boolean;
+    /** A callback function that is triggered when the submit button is clicked. */
+    onSubmit?: (params: TOnSubmitParams) => TReturnMessage;
+    /** A callback function that is triggered when an item is selected. */
+    onSelect?: (id: string | number | undefined) => TReturnMessage;
+  }

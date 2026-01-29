@@ -1,6 +1,32 @@
+/**
+ * (c) Copyright Ascensio System SIA 2026
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * @license
+ */
+
 import { RoomSearchArea, RoomsType } from "../../../enums/Rooms";
 import { TReturnMessage } from "../../utils";
-import { TSelectorCancelButton, TSelectorHeader } from "./IBaseSelector";
+import {
+    TSelectorBaseProps,
+    TSelectorCancelButton,
+    TSelectorEmptyScreen,
+    TSelectorHeader,
+    TSelectorLifecycleEvents,
+    TSelectorSearchCreate,
+    TSelectorSubmitButton
+} from "./IBaseSelector";
 
 /**
  * @example
@@ -62,33 +88,16 @@ import { TSelectorCancelButton, TSelectorHeader } from "./IBaseSelector";
  * Defines the properties for a room selector component.
  */
 export type TRoomSelector = TSelectorHeader &
-    TSelectorCancelButton & {
-        /**
-         * A unique identifier for the selector component.
-         */
-        id?: string;
-        /**
-         * A CSS class name to apply to the selector component.
-         */
-        className?: string;
-
-        /**
-         * If true, displays a search input field in the selector.
-         */
-        withSearch?: boolean;
-        /**
-         * If true, allows users to create new rooms from within the selector.
-         */
-        withCreate?: boolean;
-
+    TSelectorCancelButton &
+    TSelectorBaseProps &
+    TSelectorLifecycleEvents &
+    TSelectorEmptyScreen &
+    TSelectorSearchCreate &
+    Pick<TSelectorSubmitButton, "submitButtonLabel"> & {
         /**
          * If true, allows multiple rooms to be selected.
          */
         isMultiSelect?: boolean;
-        /**
-         * The text label for the submit button.
-         */
-        submitButtonLabel?: string;
         /**
          * The type of rooms to display (e.g., 'collaboration', 'custom'). Can be a single type or an array of types.
          */
@@ -109,26 +118,8 @@ export type TRoomSelector = TSelectorHeader &
          * The default type for newly created rooms.
          */
         createDefineRoomType?: RoomsType;
-
-        /**
-         * The header text to display when there are no rooms to show.
-         */
-        emptyScreenHeader?: string;
-        /**
-         * The description text to display when there are no rooms to show.
-         */
-        emptyScreenDescription?: string;
-
-        /**
-         * A callback function that is triggered when the selector is loaded.
-         */
-        onLoad?: () => TReturnMessage;
         /**
          * A callback function that is triggered when the submit button is clicked.
          */
         onSubmit?: (selectedIds: (string | number)[]) => TReturnMessage;
-        /**
-         * A callback function that is triggered when the selector is closed.
-         */
-        onClose?: () => TReturnMessage;
     }

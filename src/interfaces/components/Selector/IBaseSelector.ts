@@ -1,3 +1,21 @@
+/**
+ * (c) Copyright Ascensio System SIA 2026
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * @license
+ */
+
 import { FilesExst, FilesSecurity, FilesType } from "../../../enums";
 import { TReturnMessage } from "../../utils";
 
@@ -214,6 +232,46 @@ export type TSelectorCancelButton = {
 }
 
 /**
+ * Common base properties shared across all selector types.
+ */
+export type TSelectorBaseProps = {
+  /** A unique identifier for the selector component. */
+  id?: string;
+  /** A CSS class name to apply to the selector component. */
+  className?: string;
+}
+
+/**
+ * Lifecycle callback properties for selectors.
+ */
+export type TSelectorLifecycleEvents = {
+  /** A callback function that is triggered when the selector is loaded. */
+  onLoad?: () => TReturnMessage;
+  /** A callback function that is triggered when the selector is closed. */
+  onClose?: () => TReturnMessage;
+}
+
+/**
+ * Empty screen message properties for selectors.
+ */
+export type TSelectorEmptyScreen = {
+  /** The header text to display when there are no items to show. */
+  emptyScreenHeader?: string;
+  /** The description text to display when there are no items to show. */
+  emptyScreenDescription?: string;
+}
+
+/**
+ * Search and create functionality properties for selectors.
+ */
+export type TSelectorSearchCreate = {
+  /** If true, displays a search input field. */
+  withSearch?: boolean;
+  /** If true, allows users to create new items. */
+  withCreate?: boolean;
+}
+
+/**
  * Defines the parameters passed to the `onSubmit` callback.
  */
 type TOnSubmitParams = {
@@ -246,38 +304,24 @@ export type TBaseSelector =
   TSelectorHeader &
   TSelectorCancelButton &
   TSelectorSubmitButton &
-  TSelectorCheckbox & {
-    /** A unique identifier for the selector component. */
-    id?: string;
-    /** A CSS class name to apply to the selector component. */
-    className?: string;
-
+  TSelectorCheckbox &
+  TSelectorBaseProps &
+  TSelectorLifecycleEvents &
+  TSelectorEmptyScreen & {
     /** If true, shows a loading indicator for the entire selector. */
     isLoading?: boolean;
-
     /** If true, allows multiple items to be selected. */
     isMultiSelect?: boolean;
     /** The maximum number of items that can be selected. */
     maxSelectedItems?: number;
     /** An array of initially selected items. */
     selectedItems?: TSelectorItem[];
-
     /** A descriptive text displayed within the selector. */
     descriptionText?: string;
-    /** The header text to display when there are no items to show. */
-    emptyScreenHeader?: string;
-    /** The description text to display when there are no items to show. */
-    emptyScreenDescription?: string;
-
     /** The header text to display when a search yields no results. */
     searchEmptyScreenHeader?: string;
     /** The description text to display when a search yields no results. */
     searchEmptyScreenDescription?: string;
-
-    /** A callback function that is triggered when the selector is loaded. */
-    onLoad?: () => TReturnMessage;
-    /** A callback function that is triggered when the selector is closed. */
-    onClose?: () => TReturnMessage;
     /** A callback function that is triggered when an item is selected. */
     onSelect?: (params: TOnSelectParams) => TReturnMessage;
   };
