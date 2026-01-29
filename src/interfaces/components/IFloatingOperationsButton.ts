@@ -29,45 +29,68 @@ import { IMessage, TReturnMessage } from "../utils";
  *   FilesType,
  * } from "@onlyoffice/docspace-plugin-sdk";
  * 
- * // Create operations array
- * const operations = [
- *   {
- *     label: "Uploading file.pdf",        // Text displayed to user
- *     operation: FloatingOperationType.Upload,  // Operation type (determines icon)
- *     alert: false,                       // No error
- *     completed: false,                   // Not completed yet
- *     percent: 0,                         // Initial progress 0%
- *   }
- * ];
- * 
- * // Configure floating operations button
+ * // Example: File upload with progress tracking
  * export const uploadButton: IFloatingOperationsButton = {
- *   operations,
+ *   operations: [
+ *     {
+ *       label: "Uploading document.pdf",
+ *       operation: FloatingOperationType.Upload,
+ *       alert: false,
+ *       completed: false,
+ *       percent: 0,
+ *       icon: "upload.svg", // Custom icon from assets folder
+ *     },
+ *     {
+ *       label: "Converting image.jpg",
+ *       operation: FloatingOperationType.Convert,
+ *       alert: false,
+ *       completed: false,
+ *       percent: 0,
+ *     }
+ *   ],
  *   operationsCompleted: false,
  *   operationsAlert: false,
  *   showCancelButton: true,
  *   
- *   // Called when user clicks cancel button
+ *   // Handle cancel button click
  *   cancelOperation: () => {
+ *     // Stop upload and close button
  *     return {
  *       actions: [Actions.closeFloatingOperationsButton]
  *     };
  *   },
  *   
- *   // Called when button is initialized
+ *   // Handle closing individual operation from list
+ *   onCancelOperationFromList: (operation) => {
+ *     const filteredOps = uploadButton.operations?.filter(
+ *       (op) => op.operation !== operation
+ *     ) ?? [];
+ *     
+ *     uploadButton.operations = filteredOps;
+ *     
+ *     return {
+ *       actions: [Actions.updateFloatingOperationsButton],
+ *       floatingOperationsButtonProps: uploadButton,
+ *     };
+ *   },
+ *   
+ *   // Initialize and track progress
  *   onLoad: (dispatchMessage) => {
  *     let progress = 0;
  *     
- *     // Simulate upload progress
  *     const interval = setInterval(() => {
- *       progress += 20;
- *       operations[0].percent = progress;
+ *       progress += 5;
  *       
- *       // Send update to DocSpace
+ *       const operations = uploadButton.operations?.map((op) => ({
+ *         ...op,
+ *         percent: progress,
+ *         completed: progress >= 100,
+ *       })) ?? [];
+ *       
  *       dispatchMessage({
  *         actions: [Actions.updateFloatingOperationsButton],
  *         floatingOperationsButtonProps: {
- *           ...floatingOperationsButtonProps,
+ *           ...uploadButton,
  *           operations,
  *           operationsCompleted: progress >= 100,
  *         },
@@ -76,11 +99,29 @@ import { IMessage, TReturnMessage } from "../utils";
  *       if (progress >= 100) {
  *         clearInterval(interval);
  *       }
- *     }, 1000);
- *     
+ *     }, 200);
+ *   },
+ *   
+ *   // Cleanup when button is closed
+ *   onClose: () => {
+ *     console.log("Operations button closed");
+ *     return {};
  *   },
  * };
  * 
+ * // Context menu item to trigger the button
+ * export const uploadMenuItem: IContextMenuItem = {
+ *   key: "upload-files",
+ *   label: "Upload with progress",
+ *   icon: "upload.svg",
+ *   fileType: [FilesType.file],
+ *   onClick: () => ({
+ *     actions: [Actions.showFloatingOperationsButton],
+ *     floatingOperationsButtonProps: uploadButton,
+ *   }),
+ * };
+ * ```
+ */
 
 /**
  * Determines the icon and visual representation of the operation.
@@ -116,43 +157,108 @@ export enum FloatingOperationType {
 
 /**
  * Represents a single operation in the floating operations button.
+ * Each operation displays as a row with icon, label, and progress indicator.
  */
 export interface IFloatingOperation {
-  /** Text label displayed to the user describing the operation */
+  /** 
+   * Text label displayed to the user describing the operation.
+   * Example: "Uploading document.pdf" or "Converting 5 files"
+   */
   label: string;
-  /** Type of operation - determines the icon and visual representation */
+  
+  /** 
+   * Type of operation - determines the default icon and visual representation.
+   * Use predefined types (Upload, Convert, etc.) or "Other" for custom operations.
+   */
   operation: FloatingOperationType;
-  /** Error flag - if true, the operation is displayed with a warning/error state */
+  
+  /** 
+   * Error flag - if true, the operation is displayed with a warning/error state.
+   * Shows red icon and allows user to see what went wrong.
+   */
   alert: boolean;
-  /** Completion flag - if true, the operation is marked as completed */
+  
+  /** 
+   * Completion flag - if true, the operation is marked as completed.
+   * Shows checkmark icon and allows user to dismiss the operation.
+   */
   completed: boolean;
-  /** If undefined, will be displayed infinity loader. Progress percentage of the operation (0-100) */
+  
+  /** 
+   * Progress percentage of the operation (0-100).
+   * If undefined, displays an infinite loader animation instead of percentage.
+   */
   percent?: number;
+  
+  /** 
+   * Custom icon for the operation (overrides default operation icon).
+   * The icon image must be uploaded to the "assets" folder.
+   * Only specify the filename here, e.g., "upload.svg" or "custom-icon.png".
+   */
+  icon?: string;
 }
 
 /**
  * Configuration for the floating operations button.
  * Used to display progress of long-running operations (upload, conversion, backup, etc.)
+ * The button appears as a floating action button in the bottom-right corner of DocSpace.
  */
 export interface IFloatingOperationsButton {
-  /** Array of operations to display in the button */
-  operations?: IFloatingOperation[];
-  /** Flag indicating all operations are completed - if true, button shows "completed" status */
-  operationsCompleted?: boolean;
-  /** Flag indicating there are errors - if true, button is displayed with alert state */
-  operationsAlert?: boolean;
-  /** Whether to show the cancel button */
-  showCancelButton?: boolean;
   /** 
-   * Callback for canceling the operation.
-   * Called when user clicks the cancel button.
+   * Array of operations to display in the button.
+   * Each operation shows as a separate row with its own progress indicator.
+   * Update this array and call Actions.updateFloatingOperationsButton to refresh the UI.
+   */
+  operations?: IFloatingOperation[];
+  
+  /** 
+   * Flag indicating all operations are completed.
+   * When true, the button shows a green checkmark and "completed" status.
+   * User can then dismiss the button or review completed operations.
+   */
+  operationsCompleted?: boolean;
+  
+  /** 
+   * Flag indicating there are errors in any operation.
+   * When true, the button is displayed with red alert state to draw attention.
+   * User can expand to see which operations failed.
+   */
+  operationsAlert?: boolean;
+  
+  /** 
+   * Whether to show the cancel button in the operations panel.
+   * When true, displays an "X" button allowing user to cancel all operations.
+   * Set to false for operations that cannot be interrupted.
+   */
+  showCancelButton?: boolean;
+  
+  /** 
+   * Callback for canceling all operations.
+   * Called when user clicks the cancel button in the operations panel.
+   * Typically returns Actions.closeFloatingOperationsButton to hide the button.
    */
   cancelOperation?: () => TReturnMessage;
+  
+  /**
+   * Callback for closing a single completed operation from the list.
+   * Called when user clicks the close icon next to an individual operation.
+   * @param operation - The operation type identifier to remove from the list
+   * @returns Message with Actions.updateFloatingOperationsButton and updated operations array
+   */
+  onCancelOperationFromList?: (operation: string) => TReturnMessage;
+  
   /** 
-   * Callback invoked when the button is initialized.
-   * Receives dispatchMessage function to send progress updates.
-   * Use dispatchMessage to update button state via Actions.updateFloatingOperationsButton.
-   * @param dispatchMessage - Function to send messages to DocSpace
+   * Callback invoked when the button is first displayed.
+   * Use this to start your operation and track progress.
+   * Call dispatchMessage with Actions.updateFloatingOperationsButton to update progress.
+   * @param dispatchMessage - Function to send progress updates to DocSpace
    */
   onLoad?: (dispatchMessage: (message: IMessage) => void) => TReturnMessage;
+  
+  /**
+   * Callback invoked when the button is closed or dismissed.
+   * Use this for cleanup (clearing intervals, canceling requests, etc.).
+   * Called automatically when user dismisses the button or all operations complete.
+   */
+  onClose?: () => TReturnMessage;
 }
