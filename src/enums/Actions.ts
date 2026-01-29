@@ -1,5 +1,5 @@
 /**
- * (c) Copyright Ascensio System SIA 2025
+ * (c) Copyright Ascensio System SIA 2026
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -108,4 +108,21 @@ export enum Actions {
    * It functions only when the "Save" button is clicked in the "Settings" block.
    */
   saveSettings = "save-settings",
+
+  /**
+   * Calls a function to display a selector.
+   * It does not work if the "selectorProps" parameter is not passed to the message.
+   */
+  showSelector = "show-selector",
+
+  /**
+   * Calls a function to update a selector.
+   * It does not work if the "selectorProps" parameter is not passed to the message.
+   */
+  updateSelector = "update-selector",
+
+  /**
+   * Calls a function to close a selector.
+   */
+  closeSelector = "close-selector"
 }

@@ -17,11 +17,12 @@
 - Add PluginLocale enum to Plugins enums
 - Add language, setLanguage, getLanguage prop to IPlugin
 - Add isHeaderVisible prop to IInfoPanelItem
-- Support CSS files
-- Prop className to components (IBox, IButton, ICheckbox, IComboBox, IFrame, IImage, IInput, ILabel, ISkeleton, IText, ITextArea, IToggleButton)
-- Prop id to component IBox
+- Add Support CSS files
+- Add prop className to components (IBox, IButton, ICheckbox, IComboBox, IFrame, IImage, IInput, ILabel, ISkeleton, IText, ITextArea, IToggleButton)
+- Add prop id to component IBox
 - Add onGroupClick, isGroupAction props to IContextMenuItem
 - Add items prop to IContextMenuItem
+- Add selector components (Base, Files, Groups, People, Room), enums (SelectorType, RoomSearchArea, RoomsType) and actions (showSelector, updateSelector, closeSelector)
 
 
 ## 2.0.0
