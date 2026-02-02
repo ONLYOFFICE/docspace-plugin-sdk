@@ -199,31 +199,37 @@ export interface IFloatingOperation {
    * Unique identifier for the operation.
    */
   id: string;
+
   /** 
    * Text label displayed to the user describing the operation.
    * Example: "Uploading document.pdf" or "Converting 5 files"
    */
   label: string;
+
   /** 
    * Type of operation - determines the default icon and visual representation.
    * Use predefined types (Upload, Convert, etc.).
    */
   operation: FloatingOperationType;
+
   /** 
    * Error flag - if true, the operation is displayed with a warning/error state.
    * Shows red icon.
    */
   alert: boolean;
+
   /** 
    * Completion flag - if true, the operation is marked as completed.
    * Shows checkmark icon and allows user to dismiss the operation.
    */
   completed: boolean;
+
   /** 
    * Progress percentage of the operation (0-100).
    * If undefined, displays an infinite loader animation instead of percentage.
    */
   percent?: number;
+
   /** 
    * Custom icon for the operation (overrides default operation icon).
    * The icon image must be uploaded to the "assets" folder.
@@ -258,17 +264,20 @@ export interface IFloatingOperationsButton {
    * Each operation shows as a row with icon, label, and progress indicator. Operations from multiple plugins are aggregated and displayed together.
    */
   operations?: IFloatingOperation[];
+
   /** 
    * Flag indicating all operations are completed.
    * When true, the button shows a green checkmark and "completed" status.
    * User can then dismiss the button or review completed operations.
    */
   operationsCompleted?: boolean;
+
   /** 
    * Flag indicating at least one operation has an error.
    * When true, the button shows a red warning indicator.
    */
   operationsAlert?: boolean;
+
   /** 
    * Controls the visibility of the cancel button. 
    * Cancel button is displayed only if the floating button contains only one operation from the plugin and this flag is set to true.
@@ -280,12 +289,14 @@ export interface IFloatingOperationsButton {
    * 
    */
   cancelOperation?: () => TReturnMessage;
+
   /** 
    * Callback executed when user closes a specific operation from the operations list.
    * Receives the operation ID.
    * Typically returns Actions.updateFloatingOperationsButton with the updated operations list.
    */
   onCancelOperationFromList?: (operationId: string) => TReturnMessage;
+
   /** 
    * Lifecycle callback executed once when the floating operations button is first displayed.
    * Receives a dispatchMessage function to send updates back to DocSpace.
