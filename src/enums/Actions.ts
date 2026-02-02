@@ -127,7 +127,7 @@ export enum Actions {
   closeSelector = "close-selector",
 
   /**
-   * Calls a function to add/show operations in floating button.
+   * Calls a function to add operations in floating button.
    * Multiple plugins can show operations simultaneously - they will be aggregated.
    * It does not work if the "floatingOperationsButtonProps" parameter is not passed to the message.
    * 
@@ -143,7 +143,7 @@ export enum Actions {
   updateFloatingOperationsButton = "update-floating-operations-button",
 
   /**
-   * Calls a function to remove/close the floating operations.
+   * Calls a function to remove the floating operations.
    * It does not work if the "floatingOperationsButtonPropsId" parameter is not passed to the message.
    */
   removeFloatingOperationsButton = "remove-floating-operations-button"
