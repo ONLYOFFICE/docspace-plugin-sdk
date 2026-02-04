@@ -20,6 +20,11 @@ import { IMessage, TReturnMessage } from "../utils";
 
 /**
  * @example
+ * 
+ * Demonstrates a floating operations in button with simulated upload progress, 
+ * allowing users to cancel the process or remove individual operations while 
+ * preventing a new upload until the current one finishes.
+ * 
  * ```typescript
  * import {
  *   IFloatingOperationsButton,
@@ -29,96 +34,126 @@ import { IMessage, TReturnMessage } from "../utils";
  *   FilesType,
  * } from "@onlyoffice/docspace-plugin-sdk";
  * 
- * // Example: File upload with progress tracking
- * export const uploadButton: IFloatingOperationsButton = {
- *   operations: [
- *     {
+ * const operations = [
+ *   {
+ *       id: "upload-document",
  *       label: "Uploading document.pdf",
  *       operation: FloatingOperationType.Upload,
  *       alert: false,
  *       completed: false,
  *       percent: 0,
- *       icon: "upload.svg", // Custom icon from assets folder
- *     },
- *     {
+ *       // custom icon from assets
+ *       icon: "upload.svg",
+ *   },
+ *   {
+ *       id: "convert-image",
  *       label: "Converting image.jpg",
  *       operation: FloatingOperationType.Convert,
  *       alert: false,
  *       completed: false,
  *       percent: 0,
- *     }
- *   ],
+ *   }
+ * ]
+ * 
+ * // flag to check if upload is in progress
+ * let isUpload = false;
+ * let intervalId: NodeJS.Timeout | null = null;
+ * 
+ * export const uploadButton: IFloatingOperationsButton = {
+ *   id: "upload-button",
  *   operationsCompleted: false,
  *   operationsAlert: false,
+ *   // show cancel button when there is only one operation left
  *   showCancelButton: true,
- *   
- *   // Handle cancel button click
+ * 
  *   cancelOperation: () => {
- *     // Stop upload and close button
- *     return {
- *       actions: [Actions.closeFloatingOperationsButton]
- *     };
+ *       // reset interval and flags
+ *       intervalId && clearInterval(intervalId);
+ *       isUpload = false;
+ *       intervalId = null;
+ *       // send message to remove floating operations from button
+ *       return {
+ *           actions: [Actions.removeFloatingOperationsButton],
+ *           floatingOperationsButtonPropsId: uploadButton.id,
+ *       };
  *   },
- *   
- *   // Handle closing individual operation from list
- *   onCancelOperationFromList: (operation) => {
- *     const filteredOps = uploadButton.operations?.filter(
- *       (op) => op.operation !== operation
- *     ) ?? [];
- *     
- *     uploadButton.operations = filteredOps;
- *     
- *     return {
- *       actions: [Actions.updateFloatingOperationsButton],
- *       floatingOperationsButtonProps: uploadButton,
- *     };
+ * 
+ *   onCancelOperationFromList: (id) => {
+ *       // remove operation from list
+ *       const filteredOps = uploadButton.operations?.filter(
+ *           (op) => op.id !== id
+ *       ) ?? [];
+ * 
+ *       // update operations
+ *       uploadButton.operations = filteredOps;
+ * 
+ *       // send message to update floating operations button
+ *       return {
+ *           actions: [Actions.updateFloatingOperationsButton],
+ *           floatingOperationsButtonProps: uploadButton,
+ *       };
  *   },
- *   
- *   // Initialize and track progress
+ * 
+ *   // event on add floating operations in button
  *   onLoad: (dispatchMessage) => {
- *     let progress = 0;
- *     
- *     const interval = setInterval(() => {
- *       progress += 5;
- *       
- *       const operations = uploadButton.operations?.map((op) => ({
- *         ...op,
- *         percent: progress,
- *         completed: progress >= 100,
- *       })) ?? [];
- *       
- *       dispatchMessage({
- *         actions: [Actions.updateFloatingOperationsButton],
- *         floatingOperationsButtonProps: {
- *           ...uploadButton,
- *           operations,
- *           operationsCompleted: progress >= 100,
- *         },
- *       });
- *       
- *       if (progress >= 100) {
- *         clearInterval(interval);
- *       }
- *     }, 200);
- *   },
- *   
- *   // Cleanup when button is closed
- *   onClose: () => {
- *     console.log("Operations button closed");
- *     return {};
+ *       let progress = 0;
+ *       isUpload = true;
+ * 
+ *       // update progress every 400ms
+ *       intervalId = setInterval(() => {
+ *           progress += 5;
+ * 
+ *           // update progress for each operation
+ *           const operations = uploadButton.operations?.map((op) => ({
+ *               ...op,
+ *               percent: progress,
+ *               completed: progress >= 100,
+ *           })) ?? [];
+ * 
+ *           uploadButton.operations = operations;
+ * 
+ *           // update operations completed
+ *           uploadButton.operationsCompleted = progress >= 100;
+ * 
+ *           // send message to update floating operations button
+ *           dispatchMessage({
+ *               actions: [Actions.updateFloatingOperationsButton],
+ *               floatingOperationsButtonProps: uploadButton,
+ *           });
+ * 
+ *           // stop interval if progress is 100
+ *           if (progress >= 100) {
+ *               // reset interval and flags
+ *               intervalId && clearInterval(intervalId);
+ *               isUpload = false;
+ *               intervalId = null;
+ *           }
+ *       }, 400);
  *   },
  * };
  * 
- * // Context menu item to trigger the button
  * export const uploadMenuItem: IContextMenuItem = {
  *   key: "upload-files",
  *   label: "Upload with progress",
  *   icon: "upload.svg",
  *   fileType: [FilesType.file],
- *   onClick: () => ({
- *     actions: [Actions.showFloatingOperationsButton],
- *     floatingOperationsButtonProps: uploadButton,
- *   }),
+ *   onClick: () => {
+ *       // if upload is in progress, do not allow to start new upload
+ *       if (isUpload) {
+ *           return;
+ *       }
+ * 
+ *       // Reset operations from previous upload
+ *       uploadButton.operations = structuredClone(operations);
+ *       uploadButton.operationsCompleted = false;
+ *       uploadButton.operationsAlert = false;
+ * 
+ *       // send message to add floating operations in button
+ *       return {
+ *           actions: [Actions.addFloatingOperationsButton],
+ *           floatingOperationsButtonProps: uploadButton,
+ *       };
+ *   },
  * };
  * ```
  */
@@ -161,35 +196,40 @@ export enum FloatingOperationType {
  */
 export interface IFloatingOperation {
   /** 
+   * Unique identifier for the operation.
+   */
+  id: string;
+
+  /** 
    * Text label displayed to the user describing the operation.
    * Example: "Uploading document.pdf" or "Converting 5 files"
    */
   label: string;
-  
+
   /** 
    * Type of operation - determines the default icon and visual representation.
-   * Use predefined types (Upload, Convert, etc.) or "Other" for custom operations.
+   * Use predefined types (Upload, Convert, etc.).
    */
   operation: FloatingOperationType;
-  
+
   /** 
    * Error flag - if true, the operation is displayed with a warning/error state.
-   * Shows red icon and allows user to see what went wrong.
+   * Shows red icon.
    */
   alert: boolean;
-  
+
   /** 
    * Completion flag - if true, the operation is marked as completed.
    * Shows checkmark icon and allows user to dismiss the operation.
    */
   completed: boolean;
-  
+
   /** 
    * Progress percentage of the operation (0-100).
    * If undefined, displays an infinite loader animation instead of percentage.
    */
   percent?: number;
-  
+
   /** 
    * Custom icon for the operation (overrides default operation icon).
    * The icon image must be uploaded to the "assets" folder.
@@ -202,63 +242,65 @@ export interface IFloatingOperation {
  * Configuration for the floating operations button.
  * Used to display progress of long-running operations (upload, conversion, backup, etc.)
  * The button appears as a floating action button in the bottom-right corner of DocSpace.
+ * 
+ * **Multiple Plugins Support:**
+ * Multiple plugins can show floating operations simultaneously. 
+ * When you call Actions.addFloatingOperationsButton, operations from all plugins are aggregated 
+ * and displayed together in a single FAB button.
+ * 
+ *  Use Actions.updateFloatingOperationsButton to update progress without replacing the entire configuration.
  */
 export interface IFloatingOperationsButton {
-  /** 
-   * Array of operations to display in the button.
-   * Each operation shows as a separate row with its own progress indicator.
-   * Update this array and call Actions.updateFloatingOperationsButton to refresh the UI.
+  /**
+  * Unique identifier for floating operations.
+  * Used to track and update operations from the same plugin. 
+  * When Actions.addFloatingOperationsButton is called again with the same identifier, operations in the button will not be replaced as long as there are operations in the button. 
+  * Use Actions.updateFloatingOperationsButton to update the state.
+  */
+  id: string;
+
+  /**
+   * Array of operations to display in the floating button.
+   * Each operation shows as a row with icon, label, and progress indicator. Operations from multiple plugins are aggregated and displayed together.
    */
   operations?: IFloatingOperation[];
-  
+
   /** 
    * Flag indicating all operations are completed.
    * When true, the button shows a green checkmark and "completed" status.
    * User can then dismiss the button or review completed operations.
    */
   operationsCompleted?: boolean;
-  
+
   /** 
-   * Flag indicating there are errors in any operation.
-   * When true, the button is displayed with red alert state to draw attention.
-   * User can expand to see which operations failed.
+   * Flag indicating at least one operation has an error.
+   * When true, the button shows a red warning indicator.
    */
   operationsAlert?: boolean;
-  
+
   /** 
-   * Whether to show the cancel button in the operations panel.
-   * When true, displays an "X" button allowing user to cancel all operations.
-   * Set to false for operations that cannot be interrupted.
+   * Controls the visibility of the cancel button. 
+   * Cancel button is displayed only if the floating button contains only one operation from the plugin and this flag is set to true.
    */
   showCancelButton?: boolean;
-  
+
   /** 
-   * Callback for canceling all operations.
-   * Called when user clicks the cancel button in the operations panel.
-   * Typically returns Actions.closeFloatingOperationsButton to hide the button.
+   * Callback executed when user clicks the cancel button in the floating button.
+   * 
    */
   cancelOperation?: () => TReturnMessage;
-  
-  /**
-   * Callback for closing a single completed operation from the list.
-   * Called when user clicks the close icon next to an individual operation.
-   * @param operation - The operation type identifier to remove from the list
-   * @returns Message with Actions.updateFloatingOperationsButton and updated operations array
-   */
-  onCancelOperationFromList?: (operation: string) => TReturnMessage;
-  
+
   /** 
-   * Callback invoked when the button is first displayed.
-   * Use this to start your operation and track progress.
-   * Call dispatchMessage with Actions.updateFloatingOperationsButton to update progress.
-   * @param dispatchMessage - Function to send progress updates to DocSpace
+   * Callback executed when user closes a specific operation from the operations list.
+   * Receives the operation ID.
+   * Typically returns Actions.updateFloatingOperationsButton with the updated operations list.
+   */
+  onCancelOperationFromList?: (operationId: string) => TReturnMessage;
+
+  /** 
+   * Lifecycle callback executed once when the floating operations button is first displayed.
+   * Receives a dispatchMessage function to send updates back to DocSpace.
+   * Use this to initialize progress tracking.
    */
   onLoad?: (dispatchMessage: (message: IMessage) => void) => TReturnMessage;
-  
-  /**
-   * Callback invoked when the button is closed or dismissed.
-   * Use this for cleanup (clearing intervals, canceling requests, etc.).
-   * Called automatically when user dismisses the button or all operations complete.
-   */
-  onClose?: () => TReturnMessage;
 }
