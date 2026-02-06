@@ -24,8 +24,8 @@
 - Add items prop to IContextMenuItem
 - Add selector components (Base, Files, Groups, People, Room), enums (SelectorType, RoomSearchArea, RoomsType) and actions (showSelector, updateSelector, closeSelector)
 - Add floating operations button component with progress tracking functionality and actions (addFloatingOperationsButton, updateFloatingOperationsButton, removeFloatingOperationsButton)
-- Added markdown documentation generation with TypeDoc
-- Added LLM instructions for DocSpace Plugin SDK development
+- Add markdown documentation generation with TypeDoc
+- Add LLM instructions for DocSpace Plugin SDK development
 
 
 ## 2.0.0
