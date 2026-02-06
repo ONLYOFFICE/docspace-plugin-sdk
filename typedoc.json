@@ -4,25 +4,81 @@
     "src/interfaces/**/index.ts",
     "src/enums/index.ts"
   ],
-  "excludeReferences": true,
-  "includeVersion": true,
-  "outputs": [
-    {
-      "name": "json",
-      "path": "dist/docspace-plugin-sdk.json"
-    },
-    {
-      "name": "html",
-      "path": "dist/docs",
-      "options": {
-        "navigation": {
-          "includeCategories": true,
-          "includeGroups": true
-        }
-      }
-    }
+  "plugin": [
+    "typedoc-plugin-markdown",
+    "typedoc-plugin-frontmatter",
+    "typedoc-docusaurus-theme"
   ],
-  // "treatValidationWarningsAsErrors": true,
-  // "treatWarningsAsErrors": true,
-  "validation": true
+  "out": "docs",
+  "entryFileName": "index.md",
+  "name": "@onlyoffice/docspace-plugin-sdk",
+  "includeVersion": true,
+  "excludeReferences": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "excludeInternal": true,
+  "excludeExternals": true,
+  "readme": "none",
+  "hideBreadcrumbs": true,
+  "hidePageHeader": true,
+  "hideGenerator": true,
+  "categorizeByGroup": false,
+  "categoryOrder": [
+    "*",
+    "Other"
+  ],
+  "defaultCategory": "Other",
+  "sort": [
+    "source-order"
+  ],
+  "sortEntryPoints": true,
+  "kindSortOrder": [
+    "Project",
+    "Module",
+    "Namespace",
+    "Enum",
+    "EnumMember",
+    "Class",
+    "Interface",
+    "TypeAlias",
+    "Constructor",
+    "Property",
+    "Variable",
+    "Function",
+    "Accessor",
+    "Method",
+    "Parameter",
+    "TypeParameter",
+    "TypeLiteral",
+    "CallSignature",
+    "ConstructorSignature",
+    "IndexSignature",
+    "GetSignature",
+    "SetSignature"
+  ],
+  "validation": {
+    "notExported": true,
+    "invalidLink": true,
+    "rewrittenLink": true,
+    "notDocumented": false,
+    "unusedMergeModuleWith": true
+  },
+  "treatValidationWarningsAsErrors": false,
+  "disableSources": false,
+  "sourceLinkTemplate": "https://github.com/ONLYOFFICE/docspace-plugin-sdk/blob/{gitRevision}/{path}#L{line}",
+  "gitRevision": "feature/typedoc",
+  "githubPages": false,
+  "searchInComments": true,
+  "cleanOutputDir": true,
+  "commentStyle": "jsdoc",
+  "useTsLinkResolution": true,
+  "jsDocCompatibility": {
+    "defaultTag": true,
+    "exampleTag": true,
+    "ignoreUnescapedBraces": true
+  },
+  "sidebar": {
+    "autoConfiguration": true,
+    "pretty": true
+  }
 }
