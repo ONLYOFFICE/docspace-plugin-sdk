@@ -51,7 +51,7 @@ import {
   IToast,
   IToggleButton,
 } from "../components";
-import { TSelector } from "../components/Selector/ISelector";
+import { TSelector } from "../components/Selector";
 
 /**
  * The properties that are used to send a message to a frame.
@@ -238,4 +238,9 @@ export interface IMessage {
 }
 
 
+/**
+ * Describes a return message.
+ *
+ * @category Message
+ */
 export type TReturnMessage = Promise<IMessage> | Promise<void> | void | IMessage;
