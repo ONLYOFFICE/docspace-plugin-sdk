@@ -38,15 +38,15 @@ export const enum ModalDisplayType {
  *
  * @categoryDescription Content
  *
- * Here is a description of the category Content.
+ * Properties that define the modal dialog's header, body, footer, and displayed content.
  *
  * @categoryDescription Appearance
  *
- * Here is a description of the category Appearance.
+ * Properties that control the visual styling, dimensions, padding, borders, and display mode.
  *
  * @categoryDescription Behavior
  *
- * Here is a description of the category Behavior.
+ * Callback functions and event handlers for lifecycle events, user interactions, and dialog state changes.
  *
  * @example
  *

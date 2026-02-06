@@ -39,15 +39,15 @@ export enum ToastType {
  *
  * @categoryDescription Content
  *
- * Here is a description of the category Content.
+ * Properties that define the toast's title and message content.
  *
  * @categoryDescription Appearance
  *
- * Here is a description of the category Appearance.
+ * Properties that control the toast's type, color scheme, and visual presentation.
  *
  * @categoryDescription Behavior
  *
- * Here is a description of the category Behavior.
+ * Properties that control the toast's dismissal behavior, timeout, and close button visibility.
  *
  * @example
  *
@@ -117,6 +117,8 @@ export interface IToast {
   /**
    * Specifies whether the "Close" button will be displayed in the toast to close it (true).
    * Otherwise, the toast will disappear after clicking on any toast area (false).
+   *
+   * @category Behavior
    */
   withCross?: boolean;
 

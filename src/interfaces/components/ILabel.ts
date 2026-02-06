@@ -23,11 +23,11 @@
  *
  * @categoryDescription Content
  *
- * Here is a description of the category Content.
+ * Properties that define the label's text, title, error state, and associated form field.
  *
  * @categoryDescription Appearance
  *
- * Here is a description of the category Appearance.
+ * Properties that control the visual styling, display mode, truncation, and required indicator.
  *
  * @example
  *

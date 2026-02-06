@@ -28,61 +28,6 @@ import {
   TSelectorSubmitButton
 } from "./IBaseSelector";
 
-/**
- * @example
- * ```typescript
- * // This example demonstrates a file selector for choosing a location to save a file.
- * // It includes a footer input for the filename, breadcrumbs for navigation, and
- * // custom logic to disable the submit button in the root directory.
- *
- * const filesSelectorProps: TFilesSelector = {
- *   // Defines the text and visibility of the header.
- *   withHeader: true,
- *   headerProps: {
- *     label: "Save File As",
- *   },
- *
- *   // The text to display on the main action button.
- *   submitButtonLabel: "Save",
- *   // Enables and sets the text for the cancel button.
- *   withCancelButton: true,
- *   cancelButtonLabel: "Cancel",
- *
- *   // Enables breadcrumbs for easy navigation through folders.
- *   withBreadCrumbs: true,
- *   // Enables the search functionality.
- *   withSearch: true,
- *   // Allows users to create new folders within the selector.
- *   withCreate: true,
- *
- *   // Adds an input field in the footer, typically for a filename.
- *   withFooterInput: true,
- *   footerInputHeader: "File name",
- *   currentFooterInputValue: "Untitled Document",
- *
- *   // A callback function to determine if the submit button should be disabled.
- *   getIsDisabled: ({ isRoot }) => {
- *     // In this case, disable the submit button if the user is in the root directory.
- *     return isRoot;
- *   },
- *
- *   // A callback function that is executed when the user clicks the submit button.
- *   onSubmit: (payload) => {
- *     // The `payload` object contains information about the selected location and filename.
- *     console.log("File save details:", payload);
- *
- *     // After submission, close the selector and show a confirmation message.
- *     return {
- *       actions: [Actions.closeSelector, Actions.showToast],
- *       toastProps: [{
- *         type: ToastType.success,
- *         title: `File saved as ${payload.fileName}`,
- *       }],
- *     };
- *   },
- * };
- * ```
- */
 
 /**
  * Represents information about a selected file.
@@ -136,6 +81,62 @@ type TGetIsDisabledParams = {
 
 /**
  * Defines the properties for a file and folder selector component.
+ * 
+ * @category Selector
+ * 
+ * @example
+ * ```typescript
+ * // This example demonstrates a file selector for choosing a location to save a file.
+ * // It includes a footer input for the filename, breadcrumbs for navigation, and
+ * // custom logic to disable the submit button in the root directory.
+ *
+ * const filesSelectorProps: TFilesSelector = {
+ *   // Defines the text and visibility of the header.
+ *   withHeader: true,
+ *   headerProps: {
+ *     label: "Save File As",
+ *   },
+ *
+ *   // The text to display on the main action button.
+ *   submitButtonLabel: "Save",
+ *   // Enables and sets the text for the cancel button.
+ *   withCancelButton: true,
+ *   cancelButtonLabel: "Cancel",
+ *
+ *   // Enables breadcrumbs for easy navigation through folders.
+ *   withBreadCrumbs: true,
+ *   // Enables the search functionality.
+ *   withSearch: true,
+ *   // Allows users to create new folders within the selector.
+ *   withCreate: true,
+ *
+ *   // Adds an input field in the footer, typically for a filename.
+ *   withFooterInput: true,
+ *   footerInputHeader: "File name",
+ *   currentFooterInputValue: "Untitled Document",
+ *
+ *   // A callback function to determine if the submit button should be disabled.
+ *   getIsDisabled: ({ isRoot }) => {
+ *     // In this case, disable the submit button if the user is in the root directory.
+ *     return isRoot;
+ *   },
+ *
+ *   // A callback function that is executed when the user clicks the submit button.
+ *   onSubmit: (payload) => {
+ *     // The `payload` object contains information about the selected location and filename.
+ *     console.log("File save details:", payload);
+ *
+ *     // After submission, close the selector and show a confirmation message.
+ *     return {
+ *       actions: [Actions.closeSelector, Actions.showToast],
+ *       toastProps: [{
+ *         type: ToastType.success,
+ *         title: `File saved as ${payload.fileName}`,
+ *       }],
+ *     };
+ *   },
+ * };
+ * ```
  */
 export type TFilesSelector = TSelectorHeader &
   TSelectorBaseProps &

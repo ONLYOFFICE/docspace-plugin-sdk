@@ -27,15 +27,15 @@ import { IComboBoxItem } from "./IComboBox";
  *
  * @categoryDescription State
  *
- * Here is a description of the category State.
+ * Properties that control the dialog's visibility, button states, error states, and focus behavior.
  *
  * @categoryDescription Content
  *
- * Here is a description of the category Content.
+ * Properties that define the dialog's title, input value, options, extension, and displayed text.
  *
  * @categoryDescription Behavior
  *
- * Here is a description of the category Behavior.
+ * Callback functions for handling user interactions, validation, save, cancel, and error events.
  *
  * @example
  *

@@ -25,7 +25,25 @@ import {
     TSelectorSubmitButton
 } from "./IBaseSelector";
 
+
+
 /**
+ * Defines the properties for a user and group selector component.
+ * 
+ * @category Selector
+ * 
+ * @categoryDescription Configuration
+ * 
+ * Properties that configure which types of users and groups are displayed in the selector.
+ * 
+ * @categoryDescription Filtering
+ * 
+ * Properties that control filtering and exclusion of specific users or groups.
+ * 
+ * @categoryDescription State
+ * 
+ * Properties that control the selector's behavior and visibility state.
+ * 
  * @example
  * ```typescript
  * // This example demonstrates how to configure a selector for choosing users and groups.
@@ -72,12 +90,6 @@ import {
  * };
  * ```
  */
-
-
-
-/**
- * Defines the properties for a user and group selector component.
- */
 export type TPeopleSelector = TSelectorHeader &
     TSelectorCancelButton &
     TSelectorSubmitButton &
@@ -87,67 +99,93 @@ export type TPeopleSelector = TSelectorHeader &
         /**
          * The type of entity for which the user is being selected (e.g., for sharing a file).
          * @example "file" | "folder" | "room"
+         * 
+         * @category Configuration
          */
         targetEntityType?: "file" | "folder" | "room";
         /**
          * If true, allows the selection of groups.
          * @default false
+         * 
+         * @category Configuration
          */
         withGroups?: boolean;
         /**
          * If true, displays only groups in the selector.
          * @default false
+         * 
+         * @category Configuration
          */
         isGroupsOnly?: boolean;
         /**
          * If true, includes guest users in the selector.
          * @default false
+         * 
+         * @category Configuration
          */
         withGuests?: boolean;
         /**
          * If true, displays only guest users in the selector.
          * @default false
+         * 
+         * @category Configuration
          */
         isGuestsOnly?: boolean;
         /**
          * If true, allows multiple users and/or groups to be selected.
          * @default false
+         * 
+         * @category State
          */
         isMultiSelect?: boolean;
         /**
          * The ID of the current user, to be excluded from the list.
          * @example "user-1234"
+         * 
+         * @category Filtering
          */
         currentUserId?: string;
         /**
          * An array of user or group IDs to exclude from the list.
          * @example ["user-1234", "group-5678"]
+         * 
+         * @category Filtering
          */
         excludeItems?: string[];
         /**
          * An array of user IDs that are already invited and should be disabled.
          * @example ["user-1234", "user-5678"]
+         * 
+         * @category Filtering
          */
         disableInvitedUsers?: string[];
         /**
          * If true, users with a 'disabled' status will not be displayed.
          * @default false
+         * 
+         * @category Filtering
          */
         disableDisabledUsers?: boolean;
         /**
          * The ID of the room to which the selector is related.
          * @example "room-1234"
+         * 
+         * @category Configuration
          */
         roomId?: string | number;
 
         /**
          * If true, the footer will always be visible, even if no users are selected.
          * @default false
+         * 
+         * @category State
          */
         alwaysShowFooter?: boolean;
         /**
          * If true, displays only the members of the current room.
          * @default false
+         * 
+         * @category Configuration
          */
         onlyRoomMembers?: boolean;
     }

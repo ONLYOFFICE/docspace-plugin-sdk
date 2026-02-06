@@ -55,15 +55,17 @@ export interface IBorderProp {
  * A container that lays out its contents in one direction.
  * Box provides general CSS capabilities like flexbox layout, paddings, background color, border, and animation.
  *
+ * ![Box Example](media://box-example.png)
+ *
  * @category Box
  *
  * @categoryDescription Layout
  *
- * Here is a description of the category Layout.
+ * Properties that control flexbox, grid, positioning, spacing, borders, and dimensions of the box.
  *
  * @categoryDescription Children
  *
- * Here is a description of the category Children.
+ * Properties that define the child components to be rendered within the box container.
  *
  * @example
  *

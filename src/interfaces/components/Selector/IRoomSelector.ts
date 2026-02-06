@@ -28,7 +28,12 @@ import {
     TSelectorSubmitButton
 } from "./IBaseSelector";
 
+
 /**
+ * Defines the properties for a room selector component.
+ * 
+ * @category Selector
+ * 
  * @example
  * ```typescript
  * // This example demonstrates how to create a room selector that allows users to
@@ -82,10 +87,6 @@ import {
  *   },
  * };
  * ```
- */
-
-/**
- * Defines the properties for a room selector component.
  */
 export type TRoomSelector = TSelectorHeader &
     TSelectorCancelButton &

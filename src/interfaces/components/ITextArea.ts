@@ -25,19 +25,19 @@ import { IMessage } from "../utils";
  *
  * @categoryDescription Content
  *
- * Here is a description of the category Content.
+ * Properties that define the textarea's value, placeholder, name, and displayed content.
  *
  * @categoryDescription Appearance
  *
- * Here is a description of the category Appearance.
+ * Properties that control the visual styling, dimensions, JSON formatting, and copy functionality.
  *
  * @categoryDescription State
  *
- * Here is a description of the category State.
+ * Properties that control the textarea's disabled, read-only, and error states.
  *
  * @categoryDescription Behavior
  *
- * Here is a description of the category Behavior.
+ * Callback functions for handling value changes and user interactions with the textarea.
  *
  * @example
  *

@@ -85,19 +85,19 @@ export const enum InputType {
  *
  * @categoryDescription State
  *
- * Here is a description of the category State.
+ * Properties that control the input's focus, validation, disabled, and read-only states.
  *
  * @categoryDescription Content
  *
- * Here is a description of the category Content.
+ * Properties that define the input's value, placeholder, name, and mask.
  *
  * @categoryDescription Appearance
  *
- * Here is a description of the category Appearance.
+ * Properties that control the visual styling, size, icons, and layout of the input field.
  *
  * @categoryDescription Behavior
  *
- * Here is a description of the category Behavior.
+ * Callback functions for handling user interactions like change, blur, focus, and icon clicks.
  *
  * @example
  *
@@ -212,7 +212,7 @@ export interface IInput {
   /**
    * Specifies whether to focus the input field when initially rendered.
    *
-   * @category sState
+   * @category State
    */
   isAutoFocused?: boolean;
 

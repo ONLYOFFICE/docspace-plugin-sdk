@@ -38,11 +38,11 @@ import { IMessage } from "../utils";
  *
  * @categoryDescription Content
  *
- * Here is a description of the category Content.
+ * Properties that define the option's display text and icon.
  *
  * @categoryDescription State
  *
- * Here is a description of the category State.
+ * Properties that control whether the option is disabled or selectable.
  */
 export interface IComboBoxItem {
   /**
@@ -138,15 +138,15 @@ export interface IComboBoxItem {
  *
  * @categoryDescription Options
  *
- * Here is a description of the category Options.
+ * Properties that define the available options and currently selected option in the combo box.
  *
  * @categoryDescription State
  *
- * Here is a description of the category State.
+ * Properties that control the combo box's disabled, opened, and visibility states.
  *
  * @categoryDescription Behavior
  *
- * Here is a description of the category Behavior.
+ * Callback functions for handling option selection and toggle interactions.
  */
 export interface IComboBox {
   /**

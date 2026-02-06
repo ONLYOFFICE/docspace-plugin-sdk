@@ -25,19 +25,19 @@ import { IMessage } from "../utils";
  *
  * @categoryDescription State
  *
- * Here is a description of the category State.
+ * Properties that control the toggle button's checked and disabled states.
  *
  * @categoryDescription Content
  *
- * Here is a description of the category Content.
+ * Properties that define the toggle button's label text.
  *
  * @categoryDescription Appearance
  *
- * Here is a description of the category Appearance.
+ * Properties that control the visual styling and CSS customization of the toggle button.
  *
  * @categoryDescription Behavior
  *
- * Here is a description of the category Behavior.
+ * Callback functions for handling toggle state changes and user interactions.
  *
  * @example
  *

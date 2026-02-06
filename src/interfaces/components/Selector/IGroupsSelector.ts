@@ -19,7 +19,42 @@
 import { TReturnMessage } from "../../utils";
 import { TSelectorBaseProps, TSelectorHeader, TSelectorLifecycleEvents } from "./IBaseSelector";
 
+
 /**
+ * Defines the parameters passed to the `onSubmit` callback for the group selector.
+ * 
+ * @category Selector
+ */
+type TOnSubmitParams = {
+    /**
+     * An array of IDs of the selected groups.
+     * 
+     * @category Content
+     */
+    selectedIds: (string | number)[];
+    /**
+     * The name of the file, if applicable.
+     * 
+     * @category Content
+     */
+    fileName?: string;
+    /**
+     * The checked state of the footer checkbox.
+     * 
+     * @category State
+     */
+    isFooterCheckboxChecked?: boolean;
+}
+
+/**
+ * Defines the properties for a group selector component.
+ * 
+ * @category Selector
+ * 
+ * @categoryDescription Behavior
+ * 
+ * Callback functions for handling group selection and submission.
+ * 
  * @example
  * ```typescript
  * // This example shows how to set up a group selector with a custom header and submit logic.
@@ -48,33 +83,13 @@ import { TSelectorBaseProps, TSelectorHeader, TSelectorLifecycleEvents } from ".
  * };
  * ```
  */
-
-/**
- * Defines the parameters passed to the `onSubmit` callback for the group selector.
- */
-type TOnSubmitParams = {
-    /**
-     * An array of IDs of the selected groups.
-     */
-    selectedIds: (string | number)[];
-    /**
-     * The name of the file, if applicable.
-     */
-    fileName?: string;
-    /**
-     * The checked state of the footer checkbox.
-     */
-    isFooterCheckboxChecked?: boolean;
-}
-
-/**
- * Defines the properties for a group selector component.
- */
 export type TGroupsSelector = TSelectorHeader &
     TSelectorBaseProps &
     TSelectorLifecycleEvents & {
         /**
          * A callback function that is triggered when the submit button is clicked.
+         * 
+         * @category Behavior
          */
         onSubmit: (params: TOnSubmitParams) => TReturnMessage;
     }

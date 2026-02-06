@@ -23,6 +23,8 @@
  *
  * @categoryDescription Appearance
  *
+ * Properties that control the skeleton's dimensions, border radius, and visual styling.
+ *
  * @example
  *
  * Circular avatar placeholder for loading states

@@ -25,15 +25,15 @@ import { IMessage } from "../utils";
  *
  * @categoryDescription State
  *
- * Here is a description of the category State.
+ * Properties that control the checkbox's checked, error, indeterminate, and disabled states.
  *
  * @categoryDescription Appearance
  *
- * Here is a description of the category Appearance.
+ * Properties that control the visual styling, truncation, and tab order of the checkbox.
  *
  * @categoryDescription Behavior
  *
- * Here is a description of the category Behavior.
+ * Callback functions for handling checkbox state changes and user interactions.
  *
  * @example
  *

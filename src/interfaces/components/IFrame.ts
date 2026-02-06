@@ -23,15 +23,15 @@
  *
  * @categoryDescription Content
  *
- * Here is a description of the category Content.
+ * Properties that define the frame's source URL, identifiers, and embedded content.
  *
  * @categoryDescription Appearance
  *
- * Here is a description of the category Appearance.
+ * Properties that control the visual styling, dimensions, and layout of the frame.
  *
  * @categoryDescription Behavior
  *
- * Here is a description of the category Behavior.
+ * Properties that control security, sandboxing, and interaction behavior of the frame.
  *
  * @example
  *

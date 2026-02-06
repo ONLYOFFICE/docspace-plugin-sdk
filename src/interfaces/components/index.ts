@@ -121,8 +121,22 @@ import {
   TRoomSelector,
   TGroupsSelector,
   TPeopleSelector,
-  TSelectorItem
-} from './Selector/ISelector';
+  TSelectorItem,
+  TSelectorItemFile,
+  TSelectorItemInput,
+  TSelectorItemNew,
+  TBreadCrumbItem,
+  TSelectorBreadCrumbs,
+  TSelectorPagination,
+  TSelectorHeader,
+  TSelectorCheckbox,
+  TSelectorCancelButton,
+  TSelectorBaseProps,
+  TSelectorLifecycleEvents,
+  TSelectorEmptyScreen,
+  TSelectorSearchCreate,
+  TSelectorSubmitButton
+} from './Selector';
 import { IFloatingOperationsButton, FloatingOperationType, IFloatingOperation } from "./IFloatingOperationsButton";
 
 export {
@@ -169,6 +183,20 @@ export {
   TGroupsSelector,
   TRoomSelector,
   TSelectorItem,
+  TSelectorItemFile,
+  TSelectorItemInput,
+  TSelectorItemNew,
+  TBreadCrumbItem,
+  TSelectorBreadCrumbs,
+  TSelectorPagination,
+  TSelectorHeader,
+  TSelectorCheckbox,
+  TSelectorCancelButton,
+  TSelectorBaseProps,
+  TSelectorLifecycleEvents,
+  TSelectorEmptyScreen,
+  TSelectorSearchCreate,
+  TSelectorSubmitButton,
   IFloatingOperationsButton,
   FloatingOperationType,
   IFloatingOperation,

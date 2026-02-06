@@ -16,19 +16,41 @@
  * @license
  */
 
+/**
+ * @module
+ * @mergeModuleWith Components
+ */
+
 import { SelectorType } from "../../../enums/Selector"
-import { TBaseSelector, TSelectorItem } from "./IBaseSelector";
+import {
+    TBaseSelector,
+    TSelectorItem,
+    TSelectorItemFile,
+    TSelectorItemInput,
+    TSelectorItemNew,
+    TBreadCrumbItem,
+    TSelectorBreadCrumbs,
+    TSelectorPagination,
+    TSelectorHeader,
+    TSelectorCheckbox,
+    TSelectorCancelButton,
+    TSelectorBaseProps,
+    TSelectorLifecycleEvents,
+    TSelectorEmptyScreen,
+    TSelectorSearchCreate,
+    TSelectorSubmitButton
+} from "./IBaseSelector";
 import { TFilesSelector } from "./IFilesSelector";
 import { TGroupsSelector } from "./IGroupsSelector";
 import { TPeopleSelector } from "./IPeopleSelector";
 import { TRoomSelector } from "./IRoomSelector";
 
+
 /**
- * A discriminated union representing all available selector components.
- * The `type` property determines which selector to render, and the `props` property
- * must match the corresponding selector's interface.
+ * @category Selector
  */
-type TSelector = {
+
+export type TSelector = {
     type: SelectorType.Base;
     props: TBaseSelector;
 } | {
@@ -46,10 +68,23 @@ type TSelector = {
 }
 
 export {
-    TSelector,
     TBaseSelector,
     TFilesSelector,
     TSelectorItem,
+    TSelectorItemFile,
+    TSelectorItemInput,
+    TSelectorItemNew,
+    TBreadCrumbItem,
+    TSelectorBreadCrumbs,
+    TSelectorPagination,
+    TSelectorHeader,
+    TSelectorCheckbox,
+    TSelectorCancelButton,
+    TSelectorBaseProps,
+    TSelectorLifecycleEvents,
+    TSelectorEmptyScreen,
+    TSelectorSearchCreate,
+    TSelectorSubmitButton,
     TGroupsSelector,
     TPeopleSelector,
     TRoomSelector

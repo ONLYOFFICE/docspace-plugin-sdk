@@ -23,11 +23,11 @@
  *
  * @categoryDescription Content
  *
- * Here is a description of the category Content.
+ * Properties that define the image source, alt text, name, and identifiers.
  *
  * @categoryDescription Appearance
  *
- * Here is a description of the category Appearance.
+ * Properties that control the visual dimensions, styling, and layout of the image.
  *
  * @example
  *

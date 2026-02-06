@@ -41,15 +41,15 @@ export const enum ButtonSize {
  *
  * @categoryDescription Appearance
  *
- * Here is a description of the category Appearance.
+ * Properties that control the visual appearance, size, and styling of the button.
  *
  * @categoryDescription Behavior
  *
- * Here is a description of the category Behavior.
+ * Callback functions and event handlers for button interactions.
  *
  * @categoryDescription State Management
  *
- * Here is a description of the category State Management.
+ * Properties that control the button's loading, disabled, and interactive states.
  *
  * @example
  *
@@ -89,6 +89,10 @@ export const enum ButtonSize {
  *   disableWhileRequestRunning: true
  * }
  * ```
+ */
+
+/**
+ * @category Button
  */
 export interface IButton {
   /**

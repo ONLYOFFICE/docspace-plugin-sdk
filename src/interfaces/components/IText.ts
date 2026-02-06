@@ -23,11 +23,11 @@
  *
  * @categoryDescription Content
  *
- * Here is a description of the category Content.
+ * Properties that define the text content, title, and displayed information.
  *
  * @categoryDescription Appearance
  *
- * Here is a description of the category Appearance.
+ * Properties that control typography, styling, alignment, and visual presentation of the text.
  *
  * @example
  *
