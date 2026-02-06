@@ -218,10 +218,18 @@ export interface IMessage {
   selectorProps?: TSelector;
 
   /**
-   * Defines the properties that display the floating operations button.
-   * This parameter is used only with Actions.showFloatingOperationsButton, Actions.updateFloatingOperationsButton.
+   * Defines the configuration for the floating operations button that displays progress of long-running operations.
+   * Used with Actions.addFloatingOperationsButton to create a new button or Actions.updateFloatingOperationsButton to update existing one.
+   * The button appears as a floating action button in the bottom-right corner. Multiple plugins can show operations simultaneously.
    */
   floatingOperationsButtonProps?: IFloatingOperationsButton;
+
+  /**
+   * Unique identifier for the floating operations button to remove.
+   * Used only with Actions.removeFloatingOperationsButton to close a specific operations panel.
+   * The ID should match the `id` property of the IFloatingOperationsButton that was previously added.
+   */
+  floatingOperationsButtonPropsId?: string;
 
   /**
    * Defines the properties that are used to send a message to a frame.

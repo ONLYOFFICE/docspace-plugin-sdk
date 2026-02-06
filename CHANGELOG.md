@@ -23,8 +23,9 @@
 - Add onGroupClick, isGroupAction props to IContextMenuItem
 - Add items prop to IContextMenuItem
 - Add selector components (Base, Files, Groups, People, Room), enums (SelectorType, RoomSearchArea, RoomsType) and actions (showSelector, updateSelector, closeSelector)
-- Add floating operations button component with progress tracking functionality and actions (showFloatingOperationsButton, updateFloatingOperationsButton, closeFloatingOperationsButton)
+- Add floating operations button component with progress tracking functionality and actions (addFloatingOperationsButton, updateFloatingOperationsButton, removeFloatingOperationsButton)
 - Added markdown documentation generation with TypeDoc
+
 
 ## 2.0.0
 
