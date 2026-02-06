@@ -55,7 +55,6 @@ export interface IBorderProp {
  * A container that lays out its contents in one direction.
  * Box provides general CSS capabilities like flexbox layout, paddings, background color, border, and animation.
  *
- * ![Box Example](media://box-example.png)
  *
  * @category Box
  *
