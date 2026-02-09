@@ -11,6 +11,7 @@
 - onLoad prop optional in IInfoPanelItem
 - Update template
 - onClick prop optional in IContextMenuItem
+- Switch from yarn to npm in npx create-docspace-plugin
 
 ## Added
 
