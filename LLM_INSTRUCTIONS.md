@@ -440,12 +440,7 @@ FilesExst.pdf
 **Breaking changes from 1.x:**
 
 1. `npx build-docspace-plugin` command replaces manual createZip.js
-2. Action names changed:
-   - `showFloatingOperationsButton` → `addFloatingOperationsButton`
-   - `closeFloatingOperationsButton` → `removeFloatingOperationsButton`
-3. Floating operations now support multiple plugins simultaneously
-4. `IFloatingOperationsButton` and `IFloatingOperation` require `id` property
-5. Build script must be: `"build": "webpack && npx build-docspace-plugin"`
+2. Build script must be: `"build": "webpack && npx build-docspace-plugin"`
 
 **Migration from 1.x to 2.0:**
 
