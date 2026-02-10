@@ -26,6 +26,9 @@
 - Add selector components (Base, Files, Groups, People, Room), enums (SelectorType, RoomSearchArea, RoomsType) and actions (showSelector, updateSelector, closeSelector)
 - Add floating operations button component with progress tracking functionality and actions (addFloatingOperationsButton, updateFloatingOperationsButton, removeFloatingOperationsButton)
 
+## Fixed
+
+- Fix onClick id type in IMainButtonItem
 
 ## 2.0.0
 
