@@ -1,0 +1,209 @@
+// @ts-check
+import { readFileSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
+
+const SIDEBAR_FILE = join(process.cwd(), "docs", "typedoc-sidebar.cjs");
+const PATH_PREFIX = "docspace/plugins-sdk/usage-sdk";
+
+/**
+ * Recursively flattens sidebar structure
+ * @param {any} items - Array of sidebar items
+ * @param {string[]} pathParts - Current path parts for grouping
+ * @returns {any[]} - Flattened array of items
+ */
+function flattenSidebar(items, pathParts = []) {
+  if (!Array.isArray(items)) return items;
+
+  const result = [];
+
+  for (const item of items) {
+    // Skip intermediate directory levels (interfaces, components, items, plugins, etc.)
+    if (
+      item.type === "category" &&
+      (item.label === "interfaces" ||
+        item.label === "components" ||
+        item.label === "items" ||
+        item.label === "plugins" ||
+        item.label === "settings" ||
+        item.label === "utils" ||
+        item.label === "enums" ||
+        item.label === "Interfaces" ||
+        item.label === "Enumerations" ||
+        item.label === "Type Aliases" ||
+        item.label === "Classes" ||
+        item.label === "Components" ||
+        item.label === "Items" ||
+        item.label === "Plugins" ||
+        item.label === "Settings" ||
+        item.label === "Utils" ||
+        item.label === "Enums" ||
+        item.label === "Properties")
+    ) {
+      // Flatten children directly
+      if (Array.isArray(item.items)) {
+        result.push(...flattenSidebar(item.items, pathParts));
+      }
+      continue;
+    }
+
+    // Process categories
+    if (item.type === "category") {
+      const newPathParts = [...pathParts, item.label];
+      
+      // Flatten children
+      const flattenedChildren = flattenSidebar(item.items || [], newPathParts);
+      
+      // Skip empty categories
+      if (flattenedChildren.length === 0 && !item.link) {
+        continue;
+      }
+      
+      // If category has only one child, replace with direct link
+      if (flattenedChildren.length === 1) {
+        const child = flattenedChildren[0];
+        
+        // If child is a doc with the same name as category, use direct link
+        if (child.type === "doc" && child.label === item.label) {
+          result.push({
+            type: "doc",
+            id: child.id,
+            label: item.label
+          });
+        }
+        // If category has only one child (any type), unwrap it and use child's label
+        else if (!item.link) {
+          result.push(child);
+        }
+        // If has link, keep category structure
+        else {
+          result.push({
+            ...item,
+            items: flattenedChildren
+          });
+        }
+      } 
+      // If category has children or link, keep it
+      else if (flattenedChildren.length > 0 || item.link) {
+        result.push({
+          ...item,
+          items: flattenedChildren
+        });
+      }
+    } else {
+      // Keep doc items as is
+      result.push(item);
+    }
+  }
+
+  return result;
+}
+
+/**
+ * Sorts items: categories first, then docs
+ * @param {any[]} items - Array of items to sort
+ * @returns {any[]} - Sorted items
+ */
+function sortItems(items) {
+  return items.sort((a, b) => {
+    // Categories first, docs second
+    if (a.type === "category" && b.type === "doc") return -1;
+    if (a.type === "doc" && b.type === "category") return 1;
+    
+    // Within same type, sort alphabetically by label
+    return (a.label || "").localeCompare(b.label || "");
+  });
+}
+
+/**
+ * Groups items by top-level categories (Components, Items, Plugins, etc.)
+ * @param {any[]} items - Flat array of items
+ * @returns {any[]} - Grouped items
+ */
+function groupByTopLevel(items) {
+  const groups = {
+    Components: [],
+    Items: [],
+    Plugins: [],
+    Settings: [],
+    Utils: [],
+    Enums: []
+  };
+
+  for (const item of items) {
+    let groupName = null;
+
+    // Determine group from item ID or link ID
+    const checkId = item.id || (item.link && item.link.id) || "";
+    
+    if (checkId.includes("/components/")) groupName = "Components";
+    else if (checkId.includes("/items/")) groupName = "Items";
+    else if (checkId.includes("/plugins/")) groupName = "Plugins";
+    else if (checkId.includes("/settings/")) groupName = "Settings";
+    else if (checkId.includes("/utils/")) groupName = "Utils";
+    else if (checkId.includes("/enums/")) groupName = "Enums";
+
+    if (groupName && groups[groupName]) {
+      groups[groupName].push(item);
+    }
+  }
+
+  const result = [];
+  for (const [groupName, groupItems] of Object.entries(groups)) {
+    if (groupItems.length > 0) {
+      // Sort items within each group: categories first, then docs
+      const sortedItems = sortItems(groupItems);
+      
+      result.push({
+        type: "category",
+        label: groupName,
+        items: sortedItems
+      });
+    }
+  }
+
+  return result;
+}
+
+try {
+  let content = readFileSync(SIDEBAR_FILE, "utf-8");
+
+  // Update IDs with path prefix
+  content = content.replace(
+    /id:\s*"([^"]+)"/g,
+    (_, id) => {
+      // Don't add prefix if already present
+      if (id.startsWith(PATH_PREFIX)) {
+        return `id: "${id}"`;
+      }
+      return `id: "${PATH_PREFIX}/${id}"`;
+    }
+  );
+
+  // Parse the sidebar
+  const sidebarMatch = content.match(/const typedocSidebar = ({[\s\S]+?});[\s\S]*module\.exports/);
+  
+  if (sidebarMatch) {
+    const sidebarObj = eval(`(${sidebarMatch[1]})`);
+    
+    // Flatten the structure
+    if (sidebarObj.items && Array.isArray(sidebarObj.items)) {
+      const flattened = flattenSidebar(sidebarObj.items);
+      sidebarObj.items = groupByTopLevel(flattened);
+    }
+    
+    // Reconstruct the file content
+    content = `// @ts-check
+/** @type {import("@docusaurus/plugin-content-docs").SidebarsConfig} */
+const typedocSidebar = ${JSON.stringify(sidebarObj, null, 2)};
+module.exports = typedocSidebar.items;
+`;
+  }
+
+  writeFileSync(SIDEBAR_FILE, content, "utf-8");
+
+  console.log(`✅ Sidebar flattened successfully!`);
+  console.log(`📍 Updated: ${SIDEBAR_FILE}`);
+} catch (error) {
+  console.error("Error flattening sidebar:", error);
+  process.exit(1);
+}
