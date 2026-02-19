@@ -31,7 +31,7 @@
   "scripts": {
     "build": "tsc",
     "prepublish": "tsc",
-    "docs": "ts-node tools/update-revision.mjs && typedoc && ts-node tools/update-sidebar.mjs"
+    "docs": "ts-node tools/update-revision.mjs && typedoc --options typedoc.config.mjs && ts-node tools/flatten-sidebar.mjs && ts-node tools/update-sidebar.mjs"
   },
   "devDependencies": {
     "@babel/core": "^7.18.10",
