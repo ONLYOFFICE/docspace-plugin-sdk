@@ -23,82 +23,239 @@ export enum Actions {
   /**
    * Calls a function to update the state of the item which action was passed.
    * It does not work if the "newProps" parameter is not passed to the message.
+   *
+   * @category Actions
+   * 
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   newProps: {...acceptButton, isDisabled: true},
+   *   actions: [Actions.showToast, Actions.updateStatus, Actions.updateProps],
+   *   toastProps,
+   * }
+   * ```
    */
   updateProps = "update-props",
 
   /**
    * Calls a function to update the state of the parent or child items which were passed.
    * It does not work if the "contextProps" parameter is not passed to the message.
+   * 
+   * @category Actions
+   * 
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   actions: [Actions.updateProps, Actions.updateContext],
+   *   newProps: {...nameInputProps, value},
+   *   contextProps: [
+   *     {
+   *       name: "accept-button",
+   *       props: {
+   *         ...acceptButtonProps,
+   *         isDisabled: !value,
+   *       },
+   *     },
+   *   ],
+   * }
+   * ```
    */
   updateContext = "update-context",
 
   /**
    * Calls a function to update the plugin status.
+   * 
+   * @category Actions
+   * 
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   newProps: {...acceptButton, isDisabled: true},
+   *   actions: [Actions.showToast, Actions.updateProps, Actions.updateStatus],
+   *   toastProps,
+   * }
+   * ```
    */
   updateStatus = "update-status",
 
   /**
    * Calls a function to update all the context menu items.
+   * @category Items
+   * 
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   actions: [Actions.updateContextMenuItems],
+   * }
+   * ```
    */
   updateContextMenuItems = "update-context-menu-items",
 
   /**
    * Calls a function to update all the info panel items.
+   * @category Items
+   * 
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   actions: [Actions.updateInfoPanelItems],
+   * }
+   * ```
    */
   updateInfoPanelItems = "update-info-panel-items",
 
   /**
    * Calls a function to update all the main button menu items.
+   * @category Items
+   * 
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   actions: [Actions.updateMainButtonItems],
+   * }
+   * ```
    */
   updateMainButtonItems = "update-main-button-items",
 
   /**
    * Calls a function to update all the profile menu items.
+   * @category Items
+   * 
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   actions: [Actions.updateProfileMenuItems],
+   * }
+   * ```
    */
   updateProfileMenuItems = "update-profile-menu-items",
 
   /**
    * Calls a function to update all the file items.
+   * @category Items
+   * 
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   actions: [Actions.updateFileItems],
+   * }
+   * ```
    */
   updateFileItems = "update-file-items",
 
   /**
    * Calls a function to update all the event listener items.
+   * @category Items
+   * 
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   actions: [Actions.updateEventListenerItems],
+   * }
+   * ```
    */
   updateEventListenerItems = "update-event-listener-items",
 
   /**
    * Calls a function to display a toast notification after the user actions.
    * It does not work if the "toastProps" parameter is not passed to the message.
+   * 
+   * @category Actions
+   * 
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   newProps: {...acceptButton, isDisabled: true},
+   *   actions: [Actions.showToast, Actions.updateProps, Actions.updateStatus],
+   *   toastProps,
+   * }
+   * ```
    */
   showToast = "show-toast",
 
   /**
    * Calls a function to open a modal window for creating certain item (file, folder, etc.).
    * It does not work if the "createDialogProps" parameter is not passed to the message.
+   * 
+   * @category Create Dialog
+   * 
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   actions: [Actions.showCreateDialogModal],
+   *   createDialogProps: {
+   *     title: "Create diagram",
+   *     startValue: "New diagram",
+   *     visible: true,
+   *     isCreateDialog: true,
+   *     extension: ".drawio",
+   *     onSave: async (e: any, value: string) => {
+   *       await drawIo.createNewFile(value)
+   *     },
+   *     onCancel: (e: any) => {
+   *       drawIo.setCurrentFolderId(null)
+   *     },
+   *     onClose: (e: any) => {
+   *       drawIo.setCurrentFolderId(null)
+   *     },
+   *   },
+   * }
+   * ```
    */
   showCreateDialogModal = "show-create-dialog-modal",
 
   /**
    * Calls a function to update a modal window for creating certain item (file, folder, etc.).
    * It does not work if the "createDialogProps" parameter is not passed to the message.
+   * 
+   * @category Create Dialog
+   * 
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   actions: [Actions.updateCreateDialogModal],
+   *   createDialogProps: {
+   *     title: "some title value",
+   *   },
+   * };
+   * ```
    */
   updateCreateDialogModal = "update-create-dialog-modal",
 
   /**
    * Calls a function to open a modal window.
    * It does not work if the "modalDialogProps" parameter is not passed to the message.
+   * 
+   * @category Modal Dialog
+   * 
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   actions: [Actions.showModal],
+   *   modalDialogProps: openFromUrlProps,
+   * }
+   * ```
    */
   showModal = "show-modal",
 
   /**
    * Calls a function to close a modal window.
+   * 
+   * @category Modal Dialog
+   * 
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   actions: [Actions.closeModal],
+   * }
+   * ```
    */
   closeModal = "close-modal",
 
   /**
    * Calls a function to send a message to a frame.
    * It does not work if the "postMessage" parameter is not passed to the message or the specified frame is not found.
+   * @category Actions
    */
   sendPostMessage = "send-post-message",
 
@@ -106,23 +263,76 @@ export enum Actions {
    * Calls a function to save the data that was transferred in the "settings" parameter
    * and returns it in the "setAdminPluginSettingsValue" method each time the plugin is requested.
    * It functions only when the "Save" button is clicked in the "Settings" block.
+   * 
+   * @category Actions
+   * 
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   actions: [Actions.sendPostMessage],
+   *   postMessage: {
+   *     frameId: this.frameId,
+   *     message: {
+   *       action: "export",
+   *       format: this.format,
+   *       xml: msg.xml,
+   *       spinKey: "export",
+   *     },
+   *   },
+   * }
+   * ```
    */
   saveSettings = "save-settings",
 
   /**
    * Calls a function to display a selector.
    * It does not work if the "selectorProps" parameter is not passed to the message.
+   * 
+   * @category Selector
+   * 
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   actions: [Actions.showSelector],
+   *   selectorProps: {
+   *     type: SelectorType.Base,
+   *     props: { ...selectorProps },
+   *   },
+   * }
+   * ```
    */
   showSelector = "show-selector",
 
   /**
    * Calls a function to update a selector.
    * It does not work if the "selectorProps" parameter is not passed to the message.
+   * 
+   * @category Selector
+   * 
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   actions: [Actions.updateSelector],
+   *   selectorProps: {
+   *     type: SelectorType.Base,
+   *     props: { ...selectorProps },
+   *   },
+   * }
+   * ```
    */
   updateSelector = "update-selector",
 
   /**
    * Calls a function to close a selector.
+   * 
+   * @category Selector
+   * 
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   actions: [Actions.closeSelector],
+   * }
+   * ```
    */
   closeSelector = "close-selector",
 
@@ -133,18 +343,62 @@ export enum Actions {
    * 
    * **Note:** Each floating operations is identified by its id. Calling this action again
    * will not replace the previous operations.
+   * 
+   * @category Floating Operations Button
+   * 
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   actions: [Actions.addFloatingOperationsButton],
+   *   floatingOperationsButtonProps: { ...floatingOperationsButtonProps },
+   * }
+   * ```
    */
   addFloatingOperationsButton = "add-floating-operations-button",
 
   /**
    * Calls a function to update operations in floating button.
    * It does not work if the "floatingOperationsButtonProps" parameter is not passed to the message.
+   * 
+   * @category Floating Operations Button
+   * 
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   actions: [Actions.updateFloatingOperationsButton],
+   *   floatingOperationsButtonProps: { ...floatingOperationsButtonProps },
+   * }
+   * ```
+   * 
+   * @remarks
+   * To update the status directly, you can use the "dispatchMessage" callback from the onLoad event.
+   * 
+   * @example
+   * ```typescript
+   * onLoad(dispatchMessage) {
+   *   const message: IMessage = {
+   *     actions: [Actions.updateFloatingOperationsButton],
+   *     floatingOperationsButtonProps: { ...floatingOperationsButtonProps },
+   *   }
+   *   dispatchMessage(message)
+   * }
+   * ```
    */
   updateFloatingOperationsButton = "update-floating-operations-button",
 
   /**
    * Calls a function to remove the floating operations.
    * It does not work if the "floatingOperationsButtonPropsId" parameter is not passed to the message.
+   * 
+   * @category Floating Operations Button
+   * 
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   actions: [Actions.removeFloatingOperationsButton],
+   *   floatingOperationsButtonPropsId: floatingOperationsButtonProps.id,
+   * }
+   * ```
    */
   removeFloatingOperationsButton = "remove-floating-operations-button"
 }
