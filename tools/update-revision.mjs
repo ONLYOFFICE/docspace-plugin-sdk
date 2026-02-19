@@ -21,23 +21,29 @@ import { execSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-const CONFIG_FILE = join(process.cwd(), "typedoc.json");
+const CONFIG_FILE = join(process.cwd(), "typedoc.config.mjs");
 
 try {
   const gitBranch = execSync("git rev-parse --abbrev-ref HEAD", {
     encoding: "utf-8",
   }).trim();
 
-  const config = JSON.parse(readFileSync(CONFIG_FILE, "utf-8"));
+  let configContent = readFileSync(CONFIG_FILE, "utf-8");
 
-  if (config.gitRevision === gitBranch) {
+  // Check if gitRevision is already set to the current branch
+  const currentRevisionMatch = configContent.match(/gitRevision:\s*["']([^"']+)["']/);
+  if (currentRevisionMatch && currentRevisionMatch[1] === gitBranch) {
     console.log(`Revision already set to: ${gitBranch}`);
     process.exit(0);
   }
 
-  config.gitRevision = gitBranch;
+  // Update gitRevision in the config file
+  configContent = configContent.replace(
+    /gitRevision:\s*["'][^"']*["']/,
+    `gitRevision: "${gitBranch}"`
+  );
 
-  writeFileSync(CONFIG_FILE, `${JSON.stringify(config, null, 2)}\n`, "utf-8");
+  writeFileSync(CONFIG_FILE, configContent, "utf-8");
 
   console.log(`Updated revision to: ${gitBranch}`);
 } catch (error) {

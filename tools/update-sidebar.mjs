@@ -22,29 +22,36 @@ import { join } from "node:path";
 
 const PATH_PREFIX = "docspace/plugins-sdk/usage-sdk";
 const SIDEBAR_FILE = join(process.cwd(), "docs", "typedoc-sidebar.cjs");
-const CONFIG_FILE = join(process.cwd(), "typedoc.json");
+const CONFIG_FILE = join(process.cwd(), "typedoc.config.mjs");
 const DEFAULT_BRANCH = "master";
 
 try {
-  let content = readFileSync(SIDEBAR_FILE, "utf-8");
-
-  content = content.replace(
+  // Update sidebar IDs with path prefix
+  let sidebarContent = readFileSync(SIDEBAR_FILE, "utf-8");
+  
+  sidebarContent = sidebarContent.replace(
     /id:\s*"([^"]+)"/g,
-    (_, id) => `id: "${PATH_PREFIX}/${id}"`
+    (_, id) => {
+      // Don't add prefix if already present
+      if (id.startsWith(PATH_PREFIX)) {
+        return `id: "${id}"`;
+      }
+      return `id: "${PATH_PREFIX}/${id}"`;
+    }
   );
+  
+  writeFileSync(SIDEBAR_FILE, sidebarContent, "utf-8");
+  console.log(`✅ Updated sidebar IDs with prefix: ${PATH_PREFIX}`);
 
-  writeFileSync(SIDEBAR_FILE, content, "utf-8");
-
-  console.log(`Updated sidebar with path prefix: ${PATH_PREFIX}`);
-
-  const config = JSON.parse(readFileSync(CONFIG_FILE, "utf-8"));
-
-  config.gitRevision = DEFAULT_BRANCH;
-
-  writeFileSync(CONFIG_FILE, `${JSON.stringify(config, null, 2)}\n`, "utf-8");
-
-  console.log(`Reverted revision to: ${DEFAULT_BRANCH}`);
+  // Revert git revision to default branch
+  let configContent = readFileSync(CONFIG_FILE, "utf-8");
+  configContent = configContent.replace(
+    /gitRevision:\s*["'][^"']*["']/,
+    `gitRevision: "${DEFAULT_BRANCH}"`
+  );
+  writeFileSync(CONFIG_FILE, configContent, "utf-8");
+  console.log(`✅ Reverted git revision to: ${DEFAULT_BRANCH}`);
 } catch (error) {
-  console.error("Error updating sidebar:", error);
+  console.error("❌ Error updating sidebar:", error);
   process.exit(1);
 }
