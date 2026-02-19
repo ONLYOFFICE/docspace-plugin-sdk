@@ -34,42 +34,35 @@ import { IMessage } from "../utils";
  * }
  * ```
  *
- * @category ComboBox
+
  *
- * @categoryDescription Content
- *
- * Properties that define the option's display text and icon.
- *
- * @categoryDescription State
- *
- * Properties that control whether the option is disabled or selectable.
  */
 export interface IComboBoxItem {
   /**
    * Unique identifier for the option
    *
-   * @category Options
+
    */
   key: string;
 
   /**
    * Display text for the option
    *
-   * @category Content
+
    */
   label: string;
 
   /**
    * Optional icon for the option
    *
-   * @category Content
+
    */
   icon?: string;
 
   /**
    * Specifies if the combo box option is disabled or not
    *
-   * @category State
+
    */
   disabled?: boolean;
 }
@@ -134,130 +127,119 @@ export interface IComboBoxItem {
  * }
  * ```
  *
- * @category ComboBox
+
  *
- * @categoryDescription Options
- *
- * Properties that define the available options and currently selected option in the combo box.
- *
- * @categoryDescription State
- *
- * Properties that control the combo box's disabled, opened, and visibility states.
- *
- * @categoryDescription Behavior
- *
- * Callback functions for handling option selection and toggle interactions.
  */
 export interface IComboBox {
   /**
    * Defines the combo box options
    *
-   * @category Options
+
    */
   options: IComboBoxItem[];
 
   /**
    * Defines the combo box selected option
    *
-   * @category State
+
    */
   selectedOption: IComboBoxItem;
 
   /**
    * Sets a function which is triggered whenever the combo box is selected
    *
-   * @category Behavior
+
    */
   onSelect?: (item: IComboBoxItem) => IMessage | void;
 
   /**
    * Specifies that the combo box is scaled by its parent
    *
-   * @category Appearance
+
    */
   scaled?: boolean;
 
   /**
    * Defines the position of the combo box in the X direction
    *
-   * @category Appearance
+
    */
   directionX?: "left" | "right";
 
   /**
    * Defines the position of the combo box in the Y direction
    *
-   * @category Appearance
+
    */
   directionY?: "bottom" | "top" | "both";
 
   /**
    * Defines the combo box display type
    *
-   * @category Appearance
+
    */
   displayType?: "default" | "toggle";
 
   /**
    * Specifies whether to display the combo box in the modern view
    *
-   * @category Appearance
+
    */
   modernView?: boolean;
 
   /**
    * Specifies if the combo box is disabled or not
    *
-   * @category State
+
    */
   isDisabled?: boolean;
 
   /**
    * Whether to show disabled combo box options
    *
-   * @category State
+
    */
   showDisabledItems?: boolean;
 
   /**
    * Specifies whether to open the combo box
    *
-   * @category State
+
    */
   opened?: boolean;
 
   /**
    * Specifies whether the combo box options are scaled by the combo box button
    *
-   * @category Appearance
+
    */
   scaledOptions?: boolean;
 
   /**
    * Sets a function which is triggered whenever the combo box is clicked when "displayType == toggle"
    *
-   * @category Behavior
+
    */
   onToggle?: () => IMessage | void;
 
   /**
    * Specifies whether to display the combo box without borders
    *
-   * @category Appearance
+
    */
   noBorder?: boolean;
 
   /**
    * Specifies whether the combo box contains a backdrop
    *
-   * @category Appearance
+
    */
   withBackdrop?: boolean;
 
   /**
    * Defines the maximum height of the dropdown list
    *
-   * @category Appearance
+
    */
   dropDownMaxHeight?: number;
 
@@ -265,7 +247,7 @@ export interface IComboBox {
    * Defines the CSS class for styling the component.
    * Can be used to override or extend the default component styles.
    *
-   * @category Appearance
+
    */
   className?: string;
 }

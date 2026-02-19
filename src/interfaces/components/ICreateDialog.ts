@@ -23,20 +23,6 @@ import { IComboBoxItem } from "./IComboBox";
  * Modal dialog for creating certain item (file, folder, etc.).
  * The user gets the full access to the functionality but cannot control the layout.
  *
- * @category CreateDialog
- *
- * @categoryDescription State
- *
- * Properties that control the dialog's visibility, button states, error states, and focus behavior.
- *
- * @categoryDescription Content
- *
- * Properties that define the dialog's title, input value, options, extension, and displayed text.
- *
- * @categoryDescription Behavior
- *
- * Callback functions for handling user interactions, validation, save, cancel, and error events.
- *
  * @example
  *
  * Document creation dialog with multiple format options
@@ -114,82 +100,83 @@ import { IComboBoxItem } from "./IComboBox";
  *   extension: "docx"
  * }
  * ```
+ *
  */
 export interface ICreateDialog {
   /**
    * Defines the modal dialog title.
    *
-   * @category Content
+
    */
   title: string;
 
   /**
    * Defines the modal dialog start value.
    *
-   * @category Content
+
    */
   startValue: string;
 
   /**
    * Specifies if the modal dialog is visible or not.
    *
-   * @category State
+
    */
   visible: boolean;
 
   /**
    * Specifies if the create button is disabled.
    *
-   * @category State
+
    */
   isCreateDisabled?: boolean;
 
   /**
    * Specifies if the modal dialog should be closed after the create action.
    *
-   * @category State
+
    */
   isCloseAfterCreate?: boolean;
 
   /**
    * Defines an array of the modal dialog options.
    *
-   * @category Content
+
    */
   options?: IComboBoxItem[];
 
   /**
    * Defines the selected modal dialog option.
    *
-   * @category Content
+
    */
   selectedOption?: IComboBoxItem;
 
   /**
    * Error text to display when validation fails or an error occurs.
    *
-   * @category State
+
    */
   errorText?: string;
 
   /**
    * Sets a function which is triggered whenever the modal dialog option is selected.
    *
-   * @category Behavior
+
    */
   onSelect?: (option: IComboBoxItem) => IMessage | void;
 
   /**
    * Sets a function which is triggered whenever the input value changes.
    *
-   * @category Behavior
+
    */
   onChange?: (value: string) => IMessage | void;
 
   /**
    * Sets a function which is triggered whenever the data in the modal dialog is saved.
    *
-   * @category Behavior
+
    */
   onSave?: (
     e: any,
@@ -199,42 +186,42 @@ export interface ICreateDialog {
   /**
    * Sets a function which is triggered whenever an action in the modal dialog is canceled.
    *
-   * @category Behavior
+
    */
   onCancel?: (e: any) => void;
 
   /**
    * Sets a function which is triggered whenever the modal dialog is closed.
    *
-   * @category Behavior
+
    */
   onClose?: (e: any) => void;
 
   /**
    * Sets a function which is triggered whenever an error occurs during the onSave operation.
    *
-   * @category Behavior
+
    */
   onError?: (e: any) => Promise<IMessage> | Promise<void> | IMessage | void;
 
   /**
    * Specifies if this modal dialog is for creating certain item (file, folder, etc.).
    *
-   * @category State
+
    */
   isCreateDialog: boolean;
 
   /**
    * Specifies if this modal dialog should automatically focus on the error input field when an error occurs during the onSave operation.
    *
-   * @category State
+
    */
   isAutoFocusOnError?: boolean;
 
   /**
    * Defines an extension of an item which will be created (file, folder, etc.).
    *
-   * @category Content
+
    */
   extension?: string;
 }

@@ -22,7 +22,7 @@ import { IMessage } from "../utils";
 /**
  * Describes the file properties.
  *
- * @category FileItem
+
  */
 
 export interface File {
@@ -169,7 +169,7 @@ export interface File {
 /**
  * Describes an item that will be embedded in the file list.
  *
- * @category FileItem
+
  */
 export interface IFileItem {
   /** The file extension. If several plugins have the same extension, the last plugin from this list is taken */

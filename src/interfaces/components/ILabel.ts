@@ -19,16 +19,6 @@
 /**
  * Field name in the form.
  *
- * @category Label
- *
- * @categoryDescription Content
- *
- * Properties that define the label's text, title, error state, and associated form field.
- *
- * @categoryDescription Appearance
- *
- * Properties that control the visual styling, display mode, truncation, and required indicator.
- *
  * @example
  *
  * Required field label with inline display
@@ -60,23 +50,24 @@
  *   display: "block"
  * }
  * ```
+ *
  */
 export interface ILabel {
   /** Defines the element text
    *
-   * @category Content
+
    */
   text: string;
 
   /** Specifies whether the field to which the label is attached is required
    *
-   * @category Appearance
+
    */
   isRequired?: boolean;
 
   /** Specifies whether the field to which the label is attached is incorrect
    *
-   * @category Content
+
    */
   error?: boolean;
 
@@ -85,25 +76,25 @@ export interface ILabel {
 
   /** Defines the label title
    *
-   * @category Content
+
    */
   title?: string;
 
   /** Specifies whether the word wrapping is disabled
    *
-   * @category Appearance
+
    */
   truncate?: boolean;
 
   /** Defines the field ID to which the label is attached
    *
-   * @category Appearance
+
    */
   htmlFor?: string;
 
   /** Specifies whether the "display" property is set
    *
-   * @category Appearance
+
    */
   display?: string;
 
@@ -111,7 +102,7 @@ export interface ILabel {
    * Defines the CSS class for styling the component.
    * Can be used to override or extend the default component styles.
    *
-   * @category Appearance
+
    */
   className?: string;
 }

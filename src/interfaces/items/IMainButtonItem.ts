@@ -22,7 +22,7 @@ import { IMessage } from "../utils";
 /**
  *Describes an item that will be embedded in the main button menu
  *
- * @category MainButtonItem
+
  *
  * @example
  *

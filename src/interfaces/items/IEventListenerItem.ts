@@ -22,7 +22,7 @@ import { IMessage } from "../utils";
 /**
  * Event listener item.
  *
- * @category EventListenerItem
+
  *
  * @example
  *

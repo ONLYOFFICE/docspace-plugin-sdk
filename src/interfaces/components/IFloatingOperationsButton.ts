@@ -24,20 +24,6 @@ import { IMessage, TReturnMessage } from "../utils";
  * Used to display progress of long-running operations (upload, conversion, backup, etc.)
  * The button appears as a floating action button in the bottom-right corner of DocSpace.
  * 
- * @category FloatingOperations
- * 
- * @categoryDescription Operations
- * 
- * Properties related to managing and displaying operation items in the floating button.
- * 
- * @categoryDescription State
- * 
- * Properties that control the current state and appearance of the floating operations button.
- * 
- * @categoryDescription Behavior
- * 
- * Callback functions and lifecycle events for handling user interactions and button lifecycle.
- * 
  * @example
  * 
  * Demonstrates a floating operations in button with simulated upload progress, 
@@ -175,6 +161,7 @@ import { IMessage, TReturnMessage } from "../utils";
  *   },
  * };
  * ```
+ * 
  */
 export interface IFloatingOperationsButton {
    /** 
@@ -188,7 +175,7 @@ export interface IFloatingOperationsButton {
     * Array of operations to display in the floating button.
     * Each operation shows as a row with icon, label, and progress indicator. 
     * Operations from other plugins are aggregated and displayed together.
-    * @category Operations
+
     */
    operations?: IFloatingOperation[];
 
@@ -197,7 +184,7 @@ export interface IFloatingOperationsButton {
     * When true, the button shows a green checkmark and "completed" status.
     * User can then dismiss the button or review completed operations.
     * 
-    * @category State
+
     */
    operationsCompleted?: boolean;
 
@@ -205,7 +192,7 @@ export interface IFloatingOperationsButton {
     * Flag indicating at least one operation has an error.
     * When true, the button shows a red warning indicator.
     * 
-    * @category State
+
     */
    operationsAlert?: boolean;
 
@@ -213,14 +200,14 @@ export interface IFloatingOperationsButton {
     * Controls the visibility of the cancel button. 
     * Cancel button is displayed only if the floating button contains only one operation 
     * 
-    * @category State
+
     */
    showCancelButton?: boolean;
 
    /** 
     * Callback executed when user clicks the cancel button in the floating button.
     * 
-    * @category Behavior
+
     */
    cancelOperation?: () => TReturnMessage;
 
@@ -228,7 +215,7 @@ export interface IFloatingOperationsButton {
     * Callback executed when user closes a specific operation from the operations list.
     * Receives the operation ID.
     * 
-    * @category Behavior
+
     */
    onCancelOperationFromList?: (operation: string) => TReturnMessage;
 
@@ -238,7 +225,7 @@ export interface IFloatingOperationsButton {
     * Use this to initialize progress tracking or update.
     * @param dispatchMessage - Function to send progress updates to DocSpace
     * 
-    * @category Behavior
+
     */
    onLoad?: (dispatchMessage: (message: IMessage) => void) => TReturnMessage;
 }
@@ -247,7 +234,7 @@ export interface IFloatingOperationsButton {
 /**
  * Determines the icon and visual representation of the operation.
  * 
- * @category FloatingOperations
+
  */
 export enum FloatingOperationType {
    /** File download operation */
@@ -282,19 +269,8 @@ export enum FloatingOperationType {
  * Represents a single operation in the floating operations button.
  * Each operation displays as a row with icon, label, and progress indicator.
  * 
- * @category FloatingOperations
+
  * 
- * @categoryDescription Content
- * 
- * Properties that define the operation's display content and identification.
- * 
- * @categoryDescription State
- * 
- * Properties that control the operation's current state and progress.
- * 
- * @categoryDescription Appearance
- * 
- * Properties that customize the visual representation of the operation.
  */
 export interface IFloatingOperation {
    /** 
@@ -306,7 +282,7 @@ export interface IFloatingOperation {
     * Text label displayed to the user describing the operation.
     * Example: "Uploading document.pdf" or "Converting 5 files"
     * 
-    * @category Content
+
     */
    label: string;
 
@@ -314,7 +290,7 @@ export interface IFloatingOperation {
     * Type of operation - determines the default icon and visual representation.
     * Use predefined types (Upload, Convert, etc.).
     * 
-    * @category Content
+
     */
    operation: FloatingOperationType;
 
@@ -322,7 +298,7 @@ export interface IFloatingOperation {
     * Error flag - if true, the operation is displayed with a warning/error state.
     * Shows red icon and allows user to see what went wrong.
     * 
-    * @category State
+
     * Shows red icon.
     */
    alert: boolean;
@@ -331,7 +307,7 @@ export interface IFloatingOperation {
     * Completion flag - if true, the operation is marked as completed.
     * Shows checkmark icon and allows user to dismiss the operation.
     * 
-    * @category State
+
     */
    completed: boolean;
 
@@ -339,7 +315,7 @@ export interface IFloatingOperation {
     * Progress percentage of the operation (0-100).
     * If undefined, displays an infinite loader animation instead of percentage.
     * 
-    * @category State
+
     */
    percent?: number;
 
@@ -348,7 +324,7 @@ export interface IFloatingOperation {
     * The icon image must be uploaded to the "assets" folder.
     * Only specify the filename here, e.g., "upload.svg" or "custom-icon.png".
     * 
-    * @category Appearance
+
     */
    icon?: string;
 }

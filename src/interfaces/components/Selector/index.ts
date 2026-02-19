@@ -47,7 +47,7 @@ import { TRoomSelector } from "./IRoomSelector";
 
 
 /**
- * @category Selector
+
  */
 
 export type TSelector = {

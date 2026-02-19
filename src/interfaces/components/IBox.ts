@@ -22,7 +22,7 @@ import { Component } from "./Component";
  *
  * Defines the border properties for a box element.
  *
- * @category Box
+
  *
  * @example
  *
@@ -53,19 +53,7 @@ export interface IBorderProp {
 
 /**
  * A container that lays out its contents in one direction.
- * Box provides general CSS capabilities like flexbox layout, paddings, background color, border, and animation.
- *
- *
- * @category Box
- *
- * @categoryDescription Layout
- *
- * Properties that control flexbox, grid, positioning, spacing, borders, and dimensions of the box.
- *
- * @categoryDescription Children
- *
- * Properties that define the child components to be rendered within the box container.
- *
+ * Box provides general CSS capabilities like flexbox layout, paddings, background color, border, and animation. *
  * @example
  *
  * Flexible input container with gradient background
@@ -103,13 +91,13 @@ export interface IBorderProp {
  *   flexWrap: "wrap",
  *   children: inputComponent
  * }
- * ```
- */
+ * ``` 
+*/
 export interface IBox {
   /**
    * Defines the border width of the element area
    *
-   * @category Layout
+
    */
   widthProp?: string;
 
@@ -117,7 +105,7 @@ export interface IBox {
    * Defines the padding area of all four sides of the element.
    * This is a shorthand for "padding-top", "padding-right", "padding-bottom", and "padding-left"
    *
-   * @category Layout
+
    */
   paddingProp?: string;
 
@@ -125,7 +113,7 @@ export interface IBox {
    * Specifies whether the element is treated as a block or inline element and also determines the layout
    * used for its children, such as flow layout, grid or flex
    *
-   * @category Layout
+
    */
   displayProp?: string;
 
@@ -133,7 +121,7 @@ export interface IBox {
    * Sets how the flex items are placed in the flex container defining the main axis (column or row)
    * and the direction (normal or reversed)
    *
-   * @category Layout
+
    */
   flexDirection?: string;
 
@@ -142,13 +130,13 @@ export interface IBox {
    * of items on the cross-axis. In grid layout, it controls the alignment of items on the block axis
    * within their grid area
    *
-   * @category Layout
+
    */
   alignItems?: string;
 
   /** Defines the element border. It sets the values of border width, border style, and border color
    *
-   * @category Layout
+
    */
   borderProp?: string | IBorderProp;
 
@@ -156,7 +144,7 @@ export interface IBox {
    * Defines the distribution of space between and around content items along the flexbox cross-axis
    * or the grid block axis
    *
-   * @category Layout
+
    */
   alignContent?: string;
 
@@ -164,14 +152,14 @@ export interface IBox {
    * Overrides a grid or flex item "alignItems" value. In grid, it aligns the item inside the grid area.
    * In flexbox, it aligns the item on the cross-axis
    *
-   * @category Layout
+
    */
   alignSelf?: string;
 
   /**
    * Defines all background style properties at once, such as color, image, origin and size, or repeat method
    *
-   * @category Layout
+
    */
   backgroundProp?: string;
 
@@ -179,7 +167,7 @@ export interface IBox {
    * Defines the initial main size of the flex item. It sets the size of the content box unless
    * otherwise set with "box-sizing"
    *
-   * @category Layout
+
    */
   flexBasis?: string;
 
@@ -187,7 +175,7 @@ export interface IBox {
    * Defines how the flex item will grow or shrink to fit the space available in its flex container.
    * It is a shorthand for "flex-grow", "flex-shrink", and "flex-basis"
    *
-   * @category Layout
+
    */
   flexProp?: string;
 
@@ -195,7 +183,7 @@ export interface IBox {
    * Defines whether flex items are forced onto one line or can wrap onto multiple lines.
    * If wrapping is allowed, it sets the direction that lines are stacked
    *
-   * @category Layout
+
    */
   flexWrap?: string;
 
@@ -205,14 +193,14 @@ export interface IBox {
    * by contributing a line, a span, or nothing (automatic) to its grid placement,
    * thereby specifying the edges of its grid area.
    *
-   * @category Layout
+
    */
   gridArea?: string;
 
   /**
    * Defines the border height of the element area
    *
-   * @category Layout
+
    */
   heightProp?: string;
 
@@ -220,7 +208,7 @@ export interface IBox {
    * Defines how the browser distributes space between and around content items along the main axis
    * of a flex container, and the inline axis of a grid container
    *
-   * @category Layout
+
    */
   justifyContent?: string;
 
@@ -228,14 +216,14 @@ export interface IBox {
    * Defines the default "justifySelf" for all items of the box, giving them all a default way
    * of justifying each box along the appropriate axis
    *
-   * @category Layout
+
    */
   justifyItems?: string;
 
   /**
    * Defines the way the box is justified inside its alignment container along the appropriate axis
    *
-   * @category Layout
+
    */
   justifySelf?: string;
 
@@ -243,21 +231,21 @@ export interface IBox {
    * Defines the margin area on all four sides of an element. It is a shorthand for "margin-top",
    * "margin-right", "margin-bottom", and "margin-left"
    *
-   * @category Layout
+
    */
   marginProp?: string;
 
   /**
    * Specifies what to do when the element content is too big to fit in its block formatting context
    *
-   * @category Layout
+
    */
   overflowProp?: string;
 
   /**
    * Defines the horizontal alignment of a block element or table-cell box
    *
-   * @category Layout
+
    */
   textAlign?: string;
 
@@ -265,21 +253,21 @@ export interface IBox {
    * Defines the CSS class for styling the component.
    * Can be used to override or extend the default component styles.
    *
-   * @category Appearance
+
    */
   className?: string;
 
   /**
    * Unique identifier.
    *
-   * @category Appearance
+
    */
   id?: string;
 
   /**
    * The child components to render within this box
    *
-   * @category Children
+
    */
   children?: Component[];
 }

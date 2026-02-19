@@ -21,31 +21,6 @@
  *
  * Here is a description of the module Items.
  *
- * @categoryDescription ContextMenuItem
- *
- * Here is a description of the category ContextMenuItem.
- *
- * @categoryDescription InfoPanelItem
- *
- * Here is a description of the category InfoPanelItem.
- *
- * @categoryDescription MainButtonItem
- *
- * Here is a description of the category MainButtonItem.
- *
- * @categoryDescription ProfileMenuItem
- *
- * Here is a description of the category ProfileMenuItem.
- *
- * @categoryDescription EventListenerItem
- *
- * Here is a description of the category EventListenerItem.
- *
- * @categoryDescription FileItem
- *
- * Here is a description of the category FileItem.
- *
- * @module Items
  */
 
 import { IFileItem, File } from "./IFileItem";

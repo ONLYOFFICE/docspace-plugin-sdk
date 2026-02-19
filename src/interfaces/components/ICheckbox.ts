@@ -21,20 +21,6 @@ import { IMessage } from "../utils";
 /**
  * Custom checkbox.
  *
- * @category Checkbox
- *
- * @categoryDescription State
- *
- * Properties that control the checkbox's checked, error, indeterminate, and disabled states.
- *
- * @categoryDescription Appearance
- *
- * Properties that control the visual styling, truncation, and tab order of the checkbox.
- *
- * @categoryDescription Behavior
- *
- * Callback functions for handling checkbox state changes and user interactions.
- *
  * @example
  *
  * Privacy policy checkbox with submit button state control
@@ -67,82 +53,83 @@ import { IMessage } from "../utils";
  *   title: "Privacy Policy Agreement"
  * }
  * ```
+ *
  */
 export interface ICheckbox {
   /**
    * Sets the checked state of the checkbox
    *
-   * @category State
+
    */
   isChecked: boolean;
 
   /**
    * Defines the checkbox label
    *
-   * @category Content
+
    */
   label?: string;
 
   /**
    * Sets a function which is triggered whenever the checkbox input is clicked
    *
-   * @category Behavior
+
    */
   onChange: () => IMessage | void;
 
   /**
    * Specifies if the word wrapping is disabled or not
    *
-   * @category Appearance
+
    */
   truncate?: boolean;
 
   /**
    * Defines the checkbox tab index
    *
-   * @category Appearance
+
    */
   tabIndex?: number;
 
   /**
    * Specifies whether a notification will be sent if an error occurs
    *
-   * @category State
+
    */
   hasError?: boolean;
 
   /**
    * Defines the HTML "name" property
    *
-   * @category Content
+
    */
   name?: string;
 
   /**
    * Defines the checkbox input value
    *
-   * @category State
+
    */
   value?: string;
 
   /**
    * Specifies whether the checkbox state will be displayed as a black rectangle in the checkbox when it is set to true
    *
-   * @category State
+
    */
   isIndeterminate?: boolean;
 
   /**
    * Specifies if the checkbox input is disabled
    *
-   * @category State
+
    */
   isDisabled?: boolean;
 
   /**
    * Defines the checkbox input title
    *
-   * @category Appearance
+
    */
   title?: string;
 
@@ -150,7 +137,7 @@ export interface ICheckbox {
    * Defines the CSS class for styling the component.
    * Can be used to override or extend the default component styles.
    *
-   * @category Appearance
+
    */
   className?: string;
 }

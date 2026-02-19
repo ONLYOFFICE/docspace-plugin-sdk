@@ -21,7 +21,7 @@ import { IMessage } from "../utils";
 /**
  * Defines button size options
  *
- * @category Button
+
  */
 export const enum ButtonSize {
   /** Extra small button size */
@@ -36,20 +36,6 @@ export const enum ButtonSize {
 
 /**
  * A component that is used for an action on a page.
- *
- * @category Button
- *
- * @categoryDescription Appearance
- *
- * Properties that control the visual appearance, size, and styling of the button.
- *
- * @categoryDescription Behavior
- *
- * Callback functions and event handlers for button interactions.
- *
- * @categoryDescription State Management
- *
- * Properties that control the button's loading, disabled, and interactive states.
  *
  * @example
  *
@@ -89,16 +75,12 @@ export const enum ButtonSize {
  *   disableWhileRequestRunning: true
  * }
  * ```
- */
-
-/**
- * @category Button
+ *
  */
 export interface IButton {
   /**
    * Defines the button text
    *
-   * @category Appearance
    */
   label: string;
 
@@ -106,49 +88,42 @@ export interface IButton {
    * Defines the button size. The normal size is equal to 36x40 px on the Desktop and Touchscreen devices.
    * Can be: "extraSmall", "small", "normal", "medium". The default value is "extraSmall"
    *
-   * @category Appearance
    */
   size: ButtonSize;
 
   /**
    * Sets a function which specifies an action initiated upon clicking the button
    *
-   * @category Behavior
    */
   onClick: () => Promise<IMessage> | IMessage | void;
 
   /**
    * Specifies if the button is primary or not. If the button is primary, it is colored blue
    *
-   * @category Appearance
    */
   primary?: boolean;
 
   /**
    * Specifies if the button width will be scaled to 100% or not
    *
-   * @category Appearance
    */
   scale?: boolean;
 
   /**
    * Specifies if the button will be displayed as a loader icon or not
    *
-   * @category State Management
    */
   isLoading?: boolean;
 
   /**
    * Specifies if the button is disabled or not. The disabled button is blurred
    *
-   * @category State Management
    */
   isDisabled?: boolean;
 
   /**
    * Specifies whether to set the "isLoading" state to the button after it is clicked until the action is completed
    *
-   * @category State Management
    */
   withLoadingAfterClick?: boolean;
 
@@ -156,7 +131,6 @@ export interface IButton {
    * Specifies whether to set the "isDisabled" state for the button when the "withLoadingAfterClick" parameter is set to true,
    * and it is clicked either on the page or in the dialog box
    *
-   * @category State Management
    */
   disableWhileRequestRunning?: boolean;
 
@@ -164,7 +138,6 @@ export interface IButton {
    * Defines the CSS class for styling the component.
    * Can be used to override or extend the default component styles.
    *
-   * @category Appearance
    */
   className?: string;
 }

@@ -34,7 +34,7 @@ import { IToggleButton } from "./IToggleButton";
 /**
  * Defines the box component.
  *
- * @category Box
+
  *
  * @example
  * ```typescript
@@ -74,7 +74,7 @@ type BoxGroup = {
 /**
  * Defines the button component.
  *
- * @category Button
+
  *
  * @example
  * ```typescript
@@ -107,7 +107,7 @@ type ButtonGroup = {
 /**
  * Defines the checkbox component.
  *
- * @category Checkbox
+
  *
  * @example
  * ```typescript
@@ -152,7 +152,7 @@ type CheckboxGroup = {
 /**
  * Defines the combo box component.
  *
- * @category ComboBox
+
  *
  * @example
  * ```typescript
@@ -192,7 +192,7 @@ type ComboBoxGroup = {
 /**
  * Defines the iframe component.
  *
- * @category Frame
+
  *
  * @example
  * ```typescript
@@ -231,7 +231,7 @@ type IFrameGroup = {
 /**
  * Defines the image component.
  *
- * @category Image
+
  *
  * @example
  * ```typescript
@@ -270,7 +270,7 @@ type ImageGroup = {
 /**
  * Defines the input component.
  *
- * @category Input
+
  *
  * @example
  * ```typescript
@@ -310,7 +310,7 @@ type InputGroup = {
 /**
  * Defines the label component.
  *
- * @category Label
+
  *
  * @example
  * ```typescript
@@ -346,7 +346,7 @@ type LabelGroup = {
 /**
  * Defines the skeleton component.
  *
- * @category Skeleton
+
  *
  * @example
  * ```typescript
@@ -377,7 +377,7 @@ type SkeletonGroup = {
 /**
  * Defines the text component.
  *
- * @category Text
+
  *
  * @example
  * ```typescript
@@ -414,7 +414,7 @@ type TextGroup = {
 /**
  * Defines the textarea component.
  *
- * @category TextArea
+
  *
  * @example
  * ```typescript
@@ -451,7 +451,7 @@ type TextAreaGroup = {
 /**
  * Defines the toggle button component.
  *
- * @category ToggleButton
+
  *
  * @example
  * ```typescript
@@ -488,7 +488,7 @@ type ToggleButtonGroup = {
  * A component that is used to add components into Box.
  * Only components that are embedded into DOM can be wrapped (toast, modal dialog, etc. cannot be wrapped).
  *
- * @category Component
+
  *
  * @example
  * ```typescript

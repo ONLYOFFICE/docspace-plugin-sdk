@@ -30,7 +30,7 @@ import { IMessage } from "../utils";
 /**
  * Describes an item that will be embedded in the context menu.
  *
- * @category ContextMenuItem
+
  *
  * @example
  *

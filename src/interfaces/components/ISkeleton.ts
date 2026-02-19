@@ -19,12 +19,6 @@
 /**
  * A component that is used to hide components during uploading.
  *
- * @category Skeleton
- *
- * @categoryDescription Appearance
- *
- * Properties that control the skeleton's dimensions, border radius, and visual styling.
- *
  * @example
  *
  * Circular avatar placeholder for loading states
@@ -60,23 +54,24 @@
  *   borderRadius: "4px"
  * }
  * ```
+ *
  */
 export interface ISkeleton {
   /** Defines the skeleton width
    *
-   * @category Appearance
+
    */
   width: string;
 
   /** Defines the skeleton height
    *
-   * @category Appearance
+
    */
   height: string;
 
   /** Defines the skeleton border radius
    *
-   * @category Appearance
+
    */
   borderRadius?: string;
 
@@ -84,7 +79,7 @@ export interface ISkeleton {
    * Defines the CSS class for styling the component.
    * Can be used to override or extend the default component styles.
    *
-   * @category Appearance
+
    */
   className?: string;
 }

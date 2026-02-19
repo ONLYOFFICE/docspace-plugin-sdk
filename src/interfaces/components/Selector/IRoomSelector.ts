@@ -32,7 +32,15 @@ import {
 /**
  * Defines the properties for a room selector component.
  * 
- * @category Selector
+ * This type combines multiple selector-related types:
+ * 
+ * @see {@link TSelectorHeader} - Header configuration properties
+ * @see {@link TSelectorCancelButton} - Cancel button properties
+ * @see {@link TSelectorBaseProps} - Common base properties (id, className)
+ * @see {@link TSelectorLifecycleEvents} - Lifecycle callbacks (onLoad, onClose)
+ * @see {@link TSelectorEmptyScreen} - Empty state messages
+ * @see {@link TSelectorSearchCreate} - Search and create functionality
+ * @see {@link TSelectorSubmitButton} - Submit button properties (partial)
  * 
  * @example
  * ```typescript

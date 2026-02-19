@@ -24,7 +24,7 @@ import { IMessage } from "../utils";
 /**
  * Describes the item submenu.
  *
- * @category InfoPanelItem
+
  */
 export interface IInfoPanelSubMenu {
   /** The tab display name */
@@ -40,7 +40,7 @@ export interface IInfoPanelSubMenu {
 /**
  * The info panel item that is displayed in the info panel.
  *
- * @category InfoPanelItem
+
  *
  * @example
  *

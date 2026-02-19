@@ -19,7 +19,7 @@
 /**
  * The supported toast types.
  *
- * @category Toast
+
  */
 export enum ToastType {
   /** Success toast with green color scheme */
@@ -33,22 +33,6 @@ export enum ToastType {
 }
 
 /**
- * Toast notification component for displaying temporary messages.
- *
- * @category Toast
- *
- * @categoryDescription Content
- *
- * Properties that define the toast's title and message content.
- *
- * @categoryDescription Appearance
- *
- * Properties that control the toast's type, color scheme, and visual presentation.
- *
- * @categoryDescription Behavior
- *
- * Properties that control the toast's dismissal behavior, timeout, and close button visibility.
- *
  * @example
  *
  * Auto-dismissing success notification
@@ -100,17 +84,16 @@ export enum ToastType {
  *   timeout: 4000
  * }
  * ```
+ *
  */
 export interface IToast {
   /** Defines the toast type, which determines the toast color and icon
    *
-   * @category Appearance
    */
   type: ToastType;
 
   /** Defines the toast title
    *
-   * @category Content
    */
   title: string;
 
@@ -118,7 +101,6 @@ export interface IToast {
    * Specifies whether the "Close" button will be displayed in the toast to close it (true).
    * Otherwise, the toast will disappear after clicking on any toast area (false).
    *
-   * @category Behavior
    */
   withCross?: boolean;
 
@@ -126,7 +108,6 @@ export interface IToast {
    * Defines the time (in milliseconds) for showing the toast.
    * Setting the value to 0 allows the toast to be displayed continuously until clicking on it.
    *
-   * @category Behavior
    */
   timeout?: number;
 }
