@@ -11,6 +11,7 @@
 - onLoad prop optional in IInfoPanelItem
 - Update template
 - onClick prop optional in IContextMenuItem
+- Switch from yarn to npm in npx create-docspace-plugin
 
 ## Added
 
@@ -27,6 +28,9 @@
 - Add markdown documentation generation with TypeDoc
 - Add LLM instructions for DocSpace Plugin SDK development
 
+## Fixed
+
+- Fix onClick id type in IMainButtonItem
 
 ## 2.0.0
 
