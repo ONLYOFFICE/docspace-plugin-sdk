@@ -1,6 +1,10 @@
 // @ts-check
-
-/** @type {import('typedoc').TypeDocOptions} */
+/**
+ * TypeDoc configuration
+ * Note: Some properties are provided by plugins (typedoc-plugin-markdown, typedoc-docusaurus-theme)
+ * and may not be present in the base TypeDocOptions type
+ * @type {Partial<import('typedoc').TypeDocOptions> & Record<string, any>}
+ */
 export default {
   entryPoints: [
     "src/interfaces/components/*.ts",
@@ -138,3 +142,4 @@ export default {
     }
   }
 };
+
