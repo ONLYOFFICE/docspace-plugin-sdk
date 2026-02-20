@@ -58,29 +58,13 @@ function flattenSidebar(items, pathParts = []) {
         continue;
       }
       
-      // If category has only one child, replace with direct link
+      // If category has only one child, unwrap it
       if (flattenedChildren.length === 1) {
         const child = flattenedChildren[0];
         
-        // If child is a doc with the same name as category, use direct link
-        if (child.type === "doc" && child.label === item.label) {
-          result.push({
-            type: "doc",
-            id: child.id,
-            label: item.label
-          });
-        }
-        // If category has only one child (any type), unwrap it and use child's label
-        else if (!item.link) {
-          result.push(child);
-        }
-        // If has link, keep category structure
-        else {
-          result.push({
-            ...item,
-            items: flattenedChildren
-          });
-        }
+        // Always unwrap single-child categories to avoid unnecessary nesting
+        // This handles cases like Selector -> SelectorType
+        result.push(child);
       } 
       // If category has children or link, keep it
       else if (flattenedChildren.length > 0 || item.link) {
