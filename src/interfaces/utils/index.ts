@@ -146,12 +146,14 @@ export interface IMessage {
   /**
    * Defines a collection of events that will be processed on the portal side.
    * The specified actions will be performed depending on the set of values.
+   * @category Properties
    */
   actions?: Actions[];
 
   /**
    * Defines the properties that update the state of the items which interact with the users.
    * This parameter is used only with Actions.updateProps.
+   * @category Properties
    */
   newProps?:
   | IInput
@@ -164,6 +166,7 @@ export interface IMessage {
   /**
    * Defines the properties that display a toast notification after the user actions.
    * This parameter is used only with Actions.showToast.
+   * @category Properties
    */
   toastProps?: IToast[];
 
@@ -172,6 +175,7 @@ export interface IMessage {
    * Contains an array of objects with:
    * - name: Defines the item name
    * - props: Defines the new properties for the parent or child item
+   * @category Properties
    */
   contextProps?: {
     name: string;
@@ -193,18 +197,21 @@ export interface IMessage {
   /**
    * Defines the properties that display the default dialog box for creating a file/folder managed by the plugin.
    * This parameter is used only with Actions.showCreateDialogModal.
+   * @category Properties
    */
   createDialogProps?: ICreateDialog;
 
   /**
    * Defines the properties that display the modal window.
    * This parameter is used only with Actions.showModal.
+   * @category Properties
    */
   modalDialogProps?: IModalDialog;
 
   /**
    * Defines the properties that display the selector.
    * This parameter is used only with Actions.showSelector.
+   * @category Properties
    */
   selectorProps?: TSelector;
 
@@ -212,6 +219,7 @@ export interface IMessage {
    * Defines the configuration for the floating operations button that displays progress of long-running operations.
    * Used with Actions.addFloatingOperationsButton to create a new button or Actions.updateFloatingOperationsButton to update existing one.
    * The button appears as a floating action button in the bottom-right corner. Multiple plugins can show operations simultaneously.
+   * @category Properties
    */
   floatingOperationsButtonProps?: IFloatingOperationsButton;
 
@@ -219,6 +227,7 @@ export interface IMessage {
    * Unique identifier for the floating operations button to remove.
    * Used only with Actions.removeFloatingOperationsButton to close a specific operations panel.
    * The ID should match the `id` property of the IFloatingOperationsButton that was previously added.
+   * @category Properties
    */
   floatingOperationsButtonPropsId?: string;
 
@@ -226,12 +235,14 @@ export interface IMessage {
    * Defines the properties that are used to send a message to a frame.
    * If the frame ID is not specified or the frame with such an ID does not exist, then nothing changes.
    * This parameter is used only with Actions.sendPostMessage.
+   * @category Properties
    */
   postMessage?: IPostMessage;
 
   /**
    * Defines a parameter that is used to save and transfer the administrator or owner plugin settings to all the portal users.
    * This parameter is used only with Actions.saveSettings.
+   * @category Properties
    */
   settings?: string;
 }
