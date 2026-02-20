@@ -162,20 +162,20 @@ export type TBaseSelector =
 /**
  * Represents a single item within a selector component.
  * 
-
+ * @see {@link TSelectorItemFile} - File item properties
+ * @see {@link TSelectorItemInput} - Input item properties
+ * @see {@link TSelectorItemNew} - New item properties
  * 
  */
 export type TSelectorItem = {
   /** 
    * The display text for the item. 
    * 
-
    */
   label: string;
   /** 
    * A unique identifier for the item. 
    * 
-
    */
   id?: string | number;
 } & Partial<TSelectorItemFile> &
@@ -185,7 +185,6 @@ export type TSelectorItem = {
 /**
  * Defines properties for an item that represents a file.
  * 
-
  */
 export type TSelectorItemFile = {
   /** 
@@ -281,6 +280,8 @@ export type TBreadCrumbItem = {
 
 /**
  * Defines the parameters passed to the `onSelect` callback.
+ * @inline
+ * 
  */
 type TOnSelectParams = {
   /** The ID of the selected item. */
@@ -298,25 +299,21 @@ export type TSelectorBreadCrumbs = {
   /** 
    * If true, displays the breadcrumb navigation. 
    * 
-
    */
   withBreadCrumbs?: boolean;
   /** 
    * If true, shows a loading indicator for the breadcrumbs. 
    * 
-
    */
   isBreadCrumbsLoading?: boolean;
   /** 
    * An array of breadcrumb items to display. 
    * 
-
    */
   breadCrumbs?: TBreadCrumbItem[];
   /** 
    * A callback function that is triggered when a breadcrumb item is selected. 
    * 
-
    */
   onSelectBreadCrumb?: (id: string | number) => TReturnMessage;
 };
@@ -324,37 +321,31 @@ export type TSelectorBreadCrumbs = {
 /**
  * Defines properties for pagination within a selector.
  * 
-
  */
 export type TSelectorPagination = {
   /** 
    * The list of items to display on the current page. 
    * 
-
    */
   items: TSelectorItem[];
   /** 
    * If true, indicates that more items are available on subsequent pages. 
    * 
-
    */
   hasNextPage?: boolean;
   /** 
    * If true, shows a loading indicator while the next page is being loaded. 
    * 
-
    */
   isNextPageLoading?: boolean;
   /** 
    * A callback function that is triggered to load the next page of items. 
    * 
-
    */
   onLoadNextPage?: () => TReturnMessage;
   /** 
    * The total number of items available. 
    * 
-
    */
   totalItems?: number;
 };
@@ -368,43 +359,36 @@ export type TSelectorHeader = {
   /** 
    * If true, displays the header. 
    * 
-
    */
   withHeader?: boolean;
   /** 
    * An object containing properties for the header. 
    * 
-
    */
   headerProps?: {
     /** 
      * The title text to display in the header. 
      * 
-
      */
     label: string;
     /** 
      * If true, displays a close button in the header. 
      * 
-
      */
     isCloseable?: boolean;
     /** 
      * A callback function that is triggered when the close button is clicked. 
      * 
-
      */
     onCloseClick?: () => TReturnMessage;
     /** 
      * If true, displays a back button in the header. 
      * 
-
      */
     withBackButton?: boolean;
     /** 
      * A callback function that is triggered when the back button is clicked. 
      * 
-
      */
     onBackClick?: () => TReturnMessage;
   };
@@ -428,7 +412,6 @@ export type TSelectorCheckbox = {
   /** 
    * The initial checked state of the footer checkbox. 
    * 
-
    */
   isChecked?: boolean;
 }
@@ -527,7 +510,9 @@ export type TSelectorSearchCreate = {
 
 /**
  * Defines the parameters passed to the `onSubmit` callback.
- */
+ * @inline
+ * 
+*/
 type TOnSubmitParams = {
   /** An array of IDs of the selected items. */
   selectedIds: (string | number)[];
@@ -540,7 +525,14 @@ type TOnSubmitParams = {
 /**
  * Defines properties for the submit button in the selector.
  * 
-
+ * ### TOnSubmitParams parameters
+ * 
+ * | Property | Type | Description |
+ * |----------|------|-------------|
+ * | `selectedIds` | `(string \| number)[]` | An array of IDs of the selected items. |
+ * | `fileName` | `"string"` | The name of the file, if applicable. |
+ * | `isFooterCheckboxChecked` | `"boolean"` | The checked state of the footer checkbox. |
+ * 
  */
 export type TSelectorSubmitButton = {
   /** 

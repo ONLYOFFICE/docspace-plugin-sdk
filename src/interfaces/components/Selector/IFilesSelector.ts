@@ -28,60 +28,20 @@ import {
   TSelectorSubmitButton
 } from "./IBaseSelector";
 
-/**
- * Represents information about a selected file.
- */
-type TSelectedFileInfo = {
-  /** The unique identifier of the file. */
-  id: string | number;
-  /** The title or name of the file. */
-  title: string;
-  /** The file extension (e.g., 'docx', 'pdf'). */
-  fileExst?: FilesExst | string;
-};
 
-/**
- * Defines the parameters passed to the `onSubmit` callback for the file selector.
- */
-type TOnSubmitParams = {
-  /** The ID of the selected item (file or folder). */
-  selectedItemId: string | number | undefined;
-  /** The title of the folder where the submission occurred. */
-  folderTitle: string;
-  /** The name of the file entered in the footer input. */
-  fileName: string;
-  /** The checked state of the footer checkbox. */
-  isChecked: boolean;
-  /** Detailed information about the selected file, if any. */
-  selectedFileInfo: TSelectedFileInfo | null;
-  /** The current breadcrumb trail at the time of submission. */
-  breadCrumbs?: TBreadCrumbItem[];
-};
-
-/**
- * Defines the parameters for the `getIsDisabled` callback function.
- */
-type TGetIsDisabledParams = {
-  /** The ID of the currently selected item. */
-  selectedItemId: string | number | undefined;
-  /** The type of the selected item ('rooms' or 'files'). */
-  selectedItemType?: "rooms" | "files";
-  /** The security level of the selected item. */
-  selectedItemSecurity?: FilesSecurity | Security;
-  /** Detailed information about the selected file. */
-  selectedFileInfo: TSelectedFileInfo | null;
-  /** If true, this is the initial load of the selector. */
-  isFirstLoad: boolean;
-  /** If true, the selected item is a folder that should be disabled. */
-  isDisabledFolder?: boolean;
-  /** If true, the selector is currently at the root level. */
-  isRoot: boolean;
-};
 
 /**
  * Defines the properties for a file and folder selector component.
  * 
  * This type combines multiple selector-related types:
+ * 
+ * ## TSelectedFileInfo
+ * 
+ * | Property | Type | Description |
+ * |----------|------|-------------|
+ * | `id` | `string \| number` | The unique identifier of the file |
+ * | `title` | `string` | The title or name of the file |
+ * | `fileExst` | `FilesExst \| string` | The file extension (e.g., 'docx', 'pdf') |
  * 
  * @see {@link TSelectorHeader} - Header configuration properties
  * @see {@link TSelectorBaseProps} - Common base properties (id, className)
@@ -89,31 +49,6 @@ type TGetIsDisabledParams = {
  * @see {@link TSelectorSearchCreate} - Search and create functionality
  * @see {@link TSelectorCancelButton} - Cancel button properties
  * @see {@link TSelectorSubmitButton} - Submit button properties (partial)
- * 
- * ## Callback Parameters
- * 
- * ### onSubmit callback parameters
- * 
- * | Property | Type | Description |
- * |----------|------|-------------|
- * | `selectedItemId` | `string \| number \| undefined` | The ID of the selected item (file or folder) |
- * | `folderTitle` | `string` | The title of the folder where the submission occurred |
- * | `fileName` | `string` | The name of the file entered in the footer input |
- * | `isChecked` | `boolean` | The checked state of the footer checkbox |
- * | `selectedFileInfo` | `object \| null` | Detailed information about the selected file (id, title, fileExst) |
- * | `breadCrumbs` | `TBreadCrumbItem[]` | The current breadcrumb trail at the time of submission |
- * 
- * ### getIsDisabled callback parameters
- * 
- * | Property | Type | Description |
- * |----------|------|-------------|
- * | `selectedItemId` | `string \| number \| undefined` | The ID of the currently selected item |
- * | `selectedItemType` | `"rooms" \| "files"` | The type of the selected item |
- * | `selectedItemSecurity` | `FilesSecurity \| Security` | The security level of the selected item |
- * | `selectedFileInfo` | `object \| null` | Detailed information about the selected file (id, title, fileExst) |
- * | `isFirstLoad` | `boolean` | If true, this is the initial load of the selector |
- * | `isDisabledFolder` | `boolean` | If true, the selected item is a folder that should be disabled |
- * | `isRoot` | `boolean` | If true, the selector is currently at the root level |
  * 
  * @example
  * ```typescript
@@ -204,3 +139,57 @@ export type TFilesSelector = TSelectorHeader &
     /** A callback function that is triggered when an item is selected. */
     onSelect?: (id: string | number | undefined) => TReturnMessage;
   }
+
+/**
+* 
+* Represents information about a selected file.
+*/
+type TSelectedFileInfo = {
+  /** The unique identifier of the file. */
+  id: string | number;
+  /** The title or name of the file. */
+  title: string;
+  /** The file extension (e.g., 'docx', 'pdf'). */
+  fileExst?: FilesExst | string;
+};
+
+
+/**
+ * Defines the parameters passed to the `onSubmit` callback for the file selector.
+ * @inline
+ */
+type TOnSubmitParams = {
+  /** The ID of the selected item (file or folder). */
+  selectedItemId: string | number | undefined;
+  /** The title of the folder where the submission occurred. */
+  folderTitle: string;
+  /** The name of the file entered in the footer input. */
+  fileName: string;
+  /** The checked state of the footer checkbox. */
+  isChecked: boolean;
+  /** Detailed information about the selected file, if any. */
+  selectedFileInfo: TSelectedFileInfo | null;
+  /** The current breadcrumb trail at the time of submission. */
+  breadCrumbs?: TBreadCrumbItem[];
+};
+
+/**
+ * Defines the parameters for the `getIsDisabled` callback function.
+ * @inline
+ */
+type TGetIsDisabledParams = {
+  /** The ID of the currently selected item. */
+  selectedItemId: string | number | undefined;
+  /** The type of the selected item ('rooms' or 'files'). */
+  selectedItemType?: "rooms" | "files";
+  /** The security level of the selected item. */
+  selectedItemSecurity?: FilesSecurity | Security;
+  /** Detailed information about the selected file. */
+  selectedFileInfo: TSelectedFileInfo | null;
+  /** If true, this is the initial load of the selector. */
+  isFirstLoad: boolean;
+  /** If true, the selected item is a folder that should be disabled. */
+  isDisabledFolder?: boolean;
+  /** If true, the selector is currently at the root level. */
+  isRoot: boolean;
+};
