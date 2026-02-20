@@ -16,10 +16,6 @@
  * @license
  */
 
-/**
- * @module
- * @mergeModuleWith Components
- */
 
 import { SelectorType } from "../../../enums/Selector"
 import {

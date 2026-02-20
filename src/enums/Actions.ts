@@ -80,7 +80,8 @@ export enum Actions {
 
   /**
    * Calls a function to update all the context menu items.
-   * @category Items
+   * 
+   * @category Actions
    * 
    * @example
    * ```typescript
@@ -93,7 +94,8 @@ export enum Actions {
 
   /**
    * Calls a function to update all the info panel items.
-   * @category Items
+   * 
+   * @category Actions
    * 
    * @example
    * ```typescript
@@ -106,7 +108,8 @@ export enum Actions {
 
   /**
    * Calls a function to update all the main button menu items.
-   * @category Items
+   * 
+   * @category Actions
    * 
    * @example
    * ```typescript
@@ -119,7 +122,8 @@ export enum Actions {
 
   /**
    * Calls a function to update all the profile menu items.
-   * @category Items
+   * 
+   * @category Actions
    * 
    * @example
    * ```typescript
@@ -132,7 +136,8 @@ export enum Actions {
 
   /**
    * Calls a function to update all the file items.
-   * @category Items
+   * 
+   * @category Actions
    * 
    * @example
    * ```typescript
@@ -145,7 +150,7 @@ export enum Actions {
 
   /**
    * Calls a function to update all the event listener items.
-   * @category Items
+   * @category Actions
    * 
    * @example
    * ```typescript
@@ -176,8 +181,8 @@ export enum Actions {
   /**
    * Calls a function to open a modal window for creating certain item (file, folder, etc.).
    * It does not work if the "createDialogProps" parameter is not passed to the message.
-   * 
-   * @category Create Dialog
+   *
+   *  @category Actions
    * 
    * @example
    * ```typescript
@@ -208,7 +213,7 @@ export enum Actions {
    * Calls a function to update a modal window for creating certain item (file, folder, etc.).
    * It does not work if the "createDialogProps" parameter is not passed to the message.
    * 
-   * @category Create Dialog
+   * @category Actions
    * 
    * @example
    * ```typescript
@@ -226,7 +231,7 @@ export enum Actions {
    * Calls a function to open a modal window.
    * It does not work if the "modalDialogProps" parameter is not passed to the message.
    * 
-   * @category Modal Dialog
+   * @category Actions
    * 
    * @example
    * ```typescript
@@ -241,7 +246,7 @@ export enum Actions {
   /**
    * Calls a function to close a modal window.
    * 
-   * @category Modal Dialog
+   * @category Actions
    * 
    * @example
    * ```typescript
@@ -288,7 +293,7 @@ export enum Actions {
    * Calls a function to display a selector.
    * It does not work if the "selectorProps" parameter is not passed to the message.
    * 
-   * @category Selector
+   * @category Actions
    * 
    * @example
    * ```typescript
@@ -307,7 +312,7 @@ export enum Actions {
    * Calls a function to update a selector.
    * It does not work if the "selectorProps" parameter is not passed to the message.
    * 
-   * @category Selector
+   * @category Actions
    * 
    * @example
    * ```typescript
@@ -325,7 +330,7 @@ export enum Actions {
   /**
    * Calls a function to close a selector.
    * 
-   * @category Selector
+   * @category Actions
    * 
    * @example
    * ```typescript
@@ -344,7 +349,7 @@ export enum Actions {
    * **Note:** Each floating operations is identified by its id. Calling this action again
    * will not replace the previous operations.
    * 
-   * @category Floating Operations Button
+   * @category Actions
    * 
    * @example
    * ```typescript
@@ -360,7 +365,7 @@ export enum Actions {
    * Calls a function to update operations in floating button.
    * It does not work if the "floatingOperationsButtonProps" parameter is not passed to the message.
    * 
-   * @category Floating Operations Button
+   * @category Actions
    * 
    * @example
    * ```typescript
@@ -390,7 +395,7 @@ export enum Actions {
    * Calls a function to remove the floating operations.
    * It does not work if the "floatingOperationsButtonPropsId" parameter is not passed to the message.
    * 
-   * @category Floating Operations Button
+   * @category Actions
    * 
    * @example
    * ```typescript
