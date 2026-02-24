@@ -118,40 +118,58 @@ import { IMessage } from "../utils";
  *
  * @example
  *
- * Bulk-tagging files
+ * Group action for multiple selected items
  *
  * ```typescript
- * const bulkTagging: IContextMenuItem = {
- *   key: "bulk-tagging-files",
- *   label: "Add tags to files",
- *   icon: "tag-icon.svg",
+ * const exportFiles: IContextMenuItem = {
+ *   key: "export-files",
+ *   label: "Export Selected",
+ *   icon: "export-icon.svg",
  *   isGroupAction: true,
- *   onGroupClick: async (ids) => {
- *     try {
- *       // A custom function to apply tags to multiple files
- *       await addTagsToFiles(ids, ["important", "review"]);
- *       return {
- *         actions: [Actions.showToast],
- *         toastProps: [{
- *           type: "success",
- *           title: "Files Tagged",
- *           message: `${ids.length} files were successfully tagged.`
- *         }]
- *       };
- *     } catch (error) {
- *       return {
- *         actions: [Actions.showToast],
- *         toastProps: [{
- *           type: "error",
- *           title: "Tagging Failed",
- *           message: "Could not tag selected files. Please try again."
- *         }]
- *       };
- *     }
+ *   fileType: [FilesType.file, FilesType.folder],
+ *   onGroupClick: async (items) => {
+ *     // The `items` array includes only selected files and folders.
+ *     Rooms are not included, as their `fileType` value does not include `room`.
+ *     const count = items.length;
+ * 
+ *     const filesIds = items
+ *                   .filter((item) => item.itemType === "file")
+ *                   .map((item) => item.id);
+ * 
+ *     const foldersIds = items
+ *                   .filter((item) => item.itemType === "folder")
+ *                   .map((item) => item.id);
+ * 
+ *     
+ *     // Process selected items
+ *     console.log(`Exporting ${count} items:`, items);
+ *     console.log(`Files IDs:`, filesIds);
+ *     console.log(`Folders IDs:`, foldersIds);
+ *     
+ *     return {
+ *       actions: [Actions.showToast],
+ *       toastProps: [{
+ *         type: "success",
+ *         title: "Export Started",
+ *         message: `Exporting ${count} items...`
+ *       }]
+ *     };
  *   }
  * };
  * ```
  */
+
+type GroupItem = {
+  /**
+   * The id of the selected entity (files/folders/rooms)
+   */
+  id: number | string;
+  /**
+   * The type of selected entity. 
+   * Can be used to recognize entities in a group of selected files/folders/rooms.
+   */
+  itemType: "file" | "folder" | "room";
+}
 
 export interface IContextMenuItem {
   /**
@@ -175,19 +193,32 @@ export interface IContextMenuItem {
   icon: string;
 
   /**
-   * A function that takes the file/folder/room id as an argument. This function can be asynchronous
+   * Callback invoked when the action is triggered for a single selected
+   * file, folder, or room.
    *
+   * @param id The identifier of the selected item.
+   *
+   * @remarks
+   * This callback is executed only for single selection.
+   * If `isGroupAction` is set to `true`, this callback will not be triggered.
    */
-  onClick?: (id: number) => Promise<IMessage> | Promise<void> | IMessage | void;
+  onClick?: (id: string | number) => Promise<IMessage> | Promise<void> | IMessage | void;
 
   /**
-   * A function that takes the file/folder/room ids as an argument. This function can be asynchronous
+   * Callback invoked when the action is triggered for multiple selected
+   * files, folders, or rooms.
    *
+   * @param items Receives the selected file, folder, or room items as an argument.
+   * 
+   * @remarks
+   * To make the action appear in the group actions menu, set `isGroupAction` to `true`.
+   * When `isGroupAction` is `true`, the action will not be shown for single selected items.
    */
-  onGroupClick?: (ids: number[]) => Promise<IMessage> | Promise<void> | IMessage | void;
+  onGroupClick?: (items: GroupItem[]) => Promise<IMessage> | Promise<void> | IMessage | void;
 
   /**
-   * Whether the current element can be a group action
+   * Indicates whether this item should be displayed in the group actions
+   * context menu when multiple files, folders, or rooms are selected.
    *
    */
   isGroupAction?: boolean;
