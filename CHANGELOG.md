@@ -28,7 +28,7 @@
 
 ## Fixed
 
-- Fix onClick id type in IMainButtonItem
+- Fix onClick id type in IMainButtonItem, IContextMenuItem
 
 ## 2.0.0
 
