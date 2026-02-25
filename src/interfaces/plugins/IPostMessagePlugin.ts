@@ -19,7 +19,10 @@
 import { IPostMessageCallbackMessage } from "../utils";
 
 /**
- * The plugin that is given the access to handle postMessage events from frames.
+ * The plugin that is given the access to handle postMessage events from iframe components.
+ * The plugin listens for window.postMessage events from embedded iframes
+ * and triggers portal-side actions (such as showing toasts, modals, or updating items)
+ * by calling the postMessageCallback with an {@link IPostMessageCallbackMessage}.
  *
  * @category PostMessagePlugin
  *
@@ -28,37 +31,77 @@ import { IPostMessageCallbackMessage } from "../utils";
  * PostMessage handler with toast notification
  *
  * ```typescript
- * const postMessagePlugin: IPostMessagePlugin = {
- *   postMessageCallback: (message) => {
- *     console.log("Received message from frame:", message.frameId, message.message);
- *     return {
+ * class MyPlugin implements IPlugin, IInfoPanelPlugin, IPostMessagePlugin {
+ *   postMessageCallback: (message: IPostMessageCallbackMessage) => void = () => {};
+ *
+ *   setPostMessageCallback = (callback: (message: IPostMessageCallbackMessage) => void): void => {
+ *     this.postMessageCallback = callback;
+ *   };
+ *
+ *   getPostMessageCallback = (): ((message: IPostMessageCallbackMessage) => void) => {
+ *     return this.postMessageCallback;
+ *   };
+ * }
+ *
+ * const plugin = new MyPlugin();
+ *
+ * window.parent.addEventListener("message", (event) => {
+ *   try {
+ *     const data = typeof event.data === "string" ? JSON.parse(event.data) : event.data;
+ *     if (data?.source !== "my-plugin") return;
+ *
+ *     plugin.postMessageCallback({
  *       actions: [Actions.showToast],
  *       toastProps: [{
- *         type: "success",
+ *         type: ToastType.success,
  *         title: "Message Received",
- *         message: `Received data from frame ${message.frameId}`
- *       }]
- *     };
- *   },
- *   setPostMessageCallback(callback) {
- *     this.postMessageCallback = callback;
- *   },
- *   getPostMessageCallback() {
- *     return this.postMessageCallback;
+ *       }],
+ *     });
+ *   } catch {
+ *     // ignore non-JSON messages
  *   }
- * };
+ * });
+ * ```
+ *
+ * @example
+ *
+ * PostMessage handler with modal dialog
+ *
+ * ```typescript
+ * window.parent.addEventListener("message", (event) => {
+ *   try {
+ *     const data = typeof event.data === "string" ? JSON.parse(event.data) : event.data;
+ *     if (data?.source !== "my-plugin") return;
+ *
+ *     plugin.postMessageCallback({
+ *       actions: [Actions.showModal],
+ *       modalDialogProps: {
+ *         dialogHeader: "Frame Response",
+ *         dialogBody: body,
+ *         displayType: ModalDisplayType.modal,
+ *       },
+ *     });
+ *   } catch {
+ *     // ignore non-JSON messages
+ *   }
+ * });
  * ```
  */
 export interface IPostMessagePlugin {
   /**
-   * A callback function that is invoked when a postMessage event is received from a frame.
-   * @param message - The post message data containing the frame ID and the message payload
+   * A callback function that is called by the plugin to trigger portal-side actions
+   * in response to postMessage events received from embedded iframes.
+   * The portal sets this callback via {@link setPostMessageCallback}.
+   * The plugin invokes it with an {@link IPostMessageCallbackMessage} containing the desired actions and their properties.
+   * @param message - The message containing actions and their associated properties to be processed on the portal side
    */
   postMessageCallback: (message: IPostMessageCallbackMessage) => void;
 
   /**
    * Sets the postMessage callback function.
-   * @param callback - The callback function to be invoked when a postMessage event is received
+   * This method is called by the portal to register the callback that the plugin
+   * will use to communicate actions back to the portal.
+   * @param callback - The callback function provided by the portal for the plugin to invoke
    */
   setPostMessageCallback(
     callback: IPostMessagePlugin["postMessageCallback"]
