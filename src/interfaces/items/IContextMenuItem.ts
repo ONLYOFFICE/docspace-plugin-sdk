@@ -41,7 +41,7 @@ import { IMessage } from "../utils";
  *   key: "analyze-file",
  *   label: "Analyze File",
  *   icon: "analysis-icon.svg",
- *   onClick: async (fileId) => {
+ *   onItemClick: async (fileId) => {
  *     try {
  *       const analysis = await analyzeFile(fileId);
  *       return {
@@ -75,7 +75,7 @@ import { IMessage } from "../utils";
  *   key: "share-file",
  *   label: "Share File",
  *   icon: "share-icon.svg",
- *   onClick: async (fileId) => {
+ *   onItemClick: async (fileId) => {
  *     try {
  *       const shareInfo = await generateShareLink(fileId);
  *       return {
@@ -196,13 +196,29 @@ export interface IContextMenuItem {
    * Callback invoked when the action is triggered for a single selected
    * file, folder, or room.
    *
-   * @param id The identifier of the selected item.
+   * @param id The identifier of the selected item (number only for backward compatibility).
    *
    * @remarks
    * This callback is executed only for single selection.
    * If `isGroupAction` is set to `true`, this callback will not be triggered.
+   * 
+   * @deprecated Use `onItemClick` instead to support both string and number IDs.
+   * This method will be removed in a future major version.
    */
-  onClick?: (id: string | number) => Promise<IMessage> | Promise<void> | IMessage | void;
+  onClick?: (id: number) => Promise<IMessage> | Promise<void> | IMessage | void;
+
+  /**
+   * Callback invoked when the action is triggered for a single selected
+   * file, folder, or room. Supports both string and number identifiers.
+   *
+   * @param id The identifier of the selected item (string or number).
+   *
+   * @remarks
+   * This callback is executed only for single selection.
+   * If `isGroupAction` is set to `true`, this callback will not be triggered.
+   * This is the preferred method over the deprecated `onClick`.
+   */
+  onItemClick?: (id: string | number) => Promise<IMessage> | Promise<void> | IMessage | void;
 
   /**
    * Callback invoked when the action is triggered for multiple selected
