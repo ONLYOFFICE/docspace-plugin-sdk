@@ -53,6 +53,10 @@
  *
  * Here is a description of the category SettingsPlugin.
  *
+ * @categoryDescription ArticlePlugin
+ *
+ * Here is a description of the category ArticlePlugin.
+ *
  * @module Plugins
  */
 
@@ -65,6 +69,7 @@ import { IApiPlugin } from "./IApiPlugin";
 import { ISettingsPlugin } from "./ISettingsPlugin";
 import { IContextMenuPlugin } from "./IContextMenuPlugin";
 import { IEventListenerPlugin } from "./IEventListenerPlugin";
+import { IArticlePlugin } from "./IArticlePlugin";
 
 export {
   IPlugin,
@@ -76,4 +81,5 @@ export {
   IMainButtonPlugin,
   IEventListenerPlugin,
   IFilePlugin,
+  IArticlePlugin,
 };
