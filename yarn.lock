@@ -304,14 +304,6 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@onlyoffice/docspace-plugin-sdk@file:onlyoffice-docspace-plugin-sdk-v2.1.0.tgz":
-  version "2.1.0"
-  resolved "file:onlyoffice-docspace-plugin-sdk-v2.1.0.tgz"
-  integrity sha512-wsZyk/za6Bn9n0Nps0A8lVRem9WrPgi7jLOuVLR5Dxw8aD8eYELSGkwaosg8JZdyluXeOVZr1+EQfDetUC6RgA==
-  dependencies:
-    inquirer "^9.1.0"
-    jszip "^3.10.1"
-
 "@shikijs/engine-oniguruma@^1.26.1":
   version "1.26.2"
   resolved "https://registry.npmjs.org/@shikijs/engine-oniguruma/-/engine-oniguruma-1.26.2.tgz"
