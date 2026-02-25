@@ -247,6 +247,13 @@ export interface IMessage {
    * This parameter is used only with Actions.saveSettings.
    */
   settings?: string;
+
+  /**
+   * Defines the path to navigate to.
+   * All other actions in the message will be called after the navigation is complete.
+   * This parameter is used only with Actions.navigate.
+   */
+  navigatePath?: string;
 }
 
 
@@ -277,7 +284,8 @@ export interface IPostMessageCallbackMessage {
    * Only the following actions are available:
    * updateContextMenuItems, updateInfoPanelItems, updateMainButtonItems,
    * updateProfileMenuItems, updateFileItems, updateEventListenerItems,
-   * showToast, showCreateDialogModal, showModal, showSelector, addFloatingOperationsButton.
+   * showToast, showCreateDialogModal, showModal, showSelector, addFloatingOperationsButton,
+   * navigate, openInfoPanel.
    */
   actions?: (
     | Actions.updateContextMenuItems
@@ -291,6 +299,8 @@ export interface IPostMessageCallbackMessage {
     | Actions.showModal
     | Actions.showSelector
     | Actions.addFloatingOperationsButton
+    | Actions.navigate
+    | Actions.openInfoPanel
   )[];
 
   /**
@@ -322,6 +332,13 @@ export interface IPostMessageCallbackMessage {
    * Used with Actions.addFloatingOperationsButton to create a new button.
    */
   floatingOperationsButtonProps?: IFloatingOperationsButton;
+
+  /**
+   * Defines the path to navigate to.
+   * All other actions in the message will be called after the navigation is complete.
+   * This parameter is used only with Actions.navigate.
+   */
+  navigatePath?: string;
 }
 
 export type TReturnPostMessage =
