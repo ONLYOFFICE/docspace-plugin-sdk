@@ -33,6 +33,7 @@ import { getMainButtonTemp } from "./helpers/mainButton.js";
 import { getProfileMenuTemp } from "./helpers/profileMenu.js";
 import { getEventListenerTemp } from "./helpers/eventListeners.js";
 import { getFileTemp } from "./helpers/file.js";
+import { getArticleTemp } from "./helpers/articleSlot.js";
 
 const CURR_DIR = process.cwd();
 
@@ -126,6 +127,7 @@ export default plugin;
         const withProfileMenu = scopes.includes("ProfileMenu");
         const withEventListener = scopes.includes("EventListener");
         const withFile = scopes.includes("File");
+        const withArticle = scopes.includes("Article");
 
         const { apiVars, apiMeth, IApiPlugin } = getApiTemp(withApi);
         const { settingsVars, settingsMeth, ISettingsPlugin, ISettings } =
@@ -162,6 +164,12 @@ export default plugin;
         } = getEventListenerTemp(withEventListener);
         const { IFilePlugin, IFileItem, fileVars, fileMeth } =
           getFileTemp(withFile);
+        const {
+          IArticlePlugin,
+          IArticleItem,
+          articleVars,
+          articleMeth,
+        } = getArticleTemp(withArticle);
 
         if (withApi) {
           pluginsImpIns += `, ${IApiPlugin}`;
@@ -203,6 +211,11 @@ export default plugin;
           pluginsIns += `, ${IFilePlugin}`;
         }
 
+        if (withArticle) {
+          pluginsImpIns += `, ${IArticlePlugin}, ${IArticleItem} `;
+          pluginsIns += `, ${IArticlePlugin}`;
+        }
+
         let nameIns = `${pluginName}`;
         let contentIns = `
   ${status}
@@ -214,6 +227,7 @@ export default plugin;
           ${profileMenuVars}
           ${eventListenerVars}
           ${fileVars}
+          ${articleVars}
           ${onLoadCallback}
           ${updateStatus}
           ${getStatus}
@@ -225,7 +239,8 @@ export default plugin;
           ${mainButtonMeth}
           ${profileMenuMeth}
           ${eventListenerMeth}
-          ${fileMeth}`;
+          ${fileMeth}
+          ${articleMeth}`;
 
         template = template
           .replaceAll("pluginsImpIns", pluginsImpIns)
