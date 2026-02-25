@@ -26,6 +26,7 @@ import {
   IMainButtonPlugin,
   IEventListenerPlugin,
   IFilePlugin,
+  IPostMessagePlugin,
 } from "./interfaces/plugins";
 
 import {
@@ -107,7 +108,12 @@ import {
   IFloatingOperation,
 } from "./interfaces/components";
 
-import { IPostMessage, IMessage } from "./interfaces/utils/index";
+import {
+  IPostMessage,
+  IPostMessageCallbackMessage,
+  IMessage,
+  TReturnPostMessage,
+} from "./interfaces/utils/index";
 
 export {
   IPlugin,
@@ -119,6 +125,7 @@ export {
   IMainButtonPlugin,
   IEventListenerPlugin,
   IFilePlugin,
+  IPostMessagePlugin,
   IContextMenuItem,
   IInfoPanelItem,
   IInfoPanelSubMenu,
@@ -175,6 +182,8 @@ export {
   IMessage,
   ISkeleton,
   IPostMessage,
+  IPostMessageCallbackMessage,
+  TReturnPostMessage,
   Devices,
   Security,
   SelectorType,
