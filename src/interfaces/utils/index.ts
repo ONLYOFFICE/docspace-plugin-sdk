@@ -350,7 +350,7 @@ export interface IPostMessageCallbackMessage {
    * Defines the info panel tab to open.
    * This parameter is used only with Actions.openInfoPanel.
    */
-  infoPanelTab?: "info_members" | "info_history" | "info_details" | "info_share" | "plugin";
+  infoPanelTab?: "info_members" | "info_history" | "info_details" | "info_share" | string;
 }
 
 export type TReturnPostMessage =
