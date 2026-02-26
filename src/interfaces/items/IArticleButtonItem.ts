@@ -18,21 +18,20 @@
 
 import { Devices, UsersType } from "../../enums";
 import { IBox } from "../components/IBox";
-import { TReturnMessage } from "../utils";
 
 /**
- * Describes an item that will be embedded in the article sidebar.
- * Article items are displayed as custom plugin components above the DevTools section.
+ * Describes a button item that will be embedded in the article sidebar.
+ * Article button items are displayed as custom plugin components above the DevTools section.
  * Maximum 5 items can be displayed at once.
  *
- * @category ArticleItem
+ * @category ArticleButtonItem
  *
  * @example
  *
- * Article item with custom component
+ * Article button item with custom component
  *
  * ```typescript
- * const notificationItem: IArticleItem = {
+ * const notificationItem: IArticleButtonItem = {
  *   key: "notifications-item",
  *   body: {
  *     component: Components.box,
@@ -56,10 +55,10 @@ import { TReturnMessage } from "../utils";
  *
  * @example
  *
- * Plugin settings access item with onLoad
+ * Plugin settings access button item with onLoad
  *
  * ```typescript
- * const settingsItem: IArticleItem = {
+ * const settingsItem: IArticleButtonItem = {
  *   key: "plugin-settings-item",
  *   body: {
  *     component: Components.skeleton,
@@ -82,39 +81,33 @@ import { TReturnMessage } from "../utils";
  * ```
  */
 
-export interface IArticleItem {
+export interface IArticleButtonItem {
   /**
    * The unique item identifier used by the service to recognize the item
    */
   key: string;
 
   /**
-   * The body of the article item. This is the main content that will be displayed.
+   * The body of the article button item. This is the main content that will be displayed.
    * Recommended size: 32x32 pixels to fit properly in the article sidebar.
    */
   body: IBox;
 
   /**
-   * A function that is executed when the article item is clicked.
-   * This function can be asynchronous. It will be executed when clicking on the item.
-   */
-  onClick?: () => TReturnMessage;
-
-  /**
-   * A function that is executed after the article item is loaded.
+   * A function that is executed after the article button item is loaded.
    * It returns a new body. If this functionality is not needed, the old body value is returned.
    */
   onLoad?: () => Promise<{ body: IBox }>;
 
   /**
-   * The types of users who will see the current item in the article.
+   * The types of users who will see the current button item in the article.
    * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
    * If this parameter is not specified, then the item will be displayed for all user types.
    */
   usersTypes?: UsersType[];
 
   /**
-   * The types of devices where the current item will be displayed.
+   * The types of devices where the current button item will be displayed.
    * At the moment the following device types are available: mobile, tablet, desktop.
    * If this parameter is not specified, then the item will be displayed on all device types.
    */

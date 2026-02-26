@@ -129,7 +129,7 @@ export default plugin;
         const withEventListener = scopes.includes("EventListener");
         const withFile = scopes.includes("File");
         const withPostMessage = scopes.includes("PostMessage");
-        const withArticle = scopes.includes("Article");
+        const withArticle = scopes.includes("ArticleButton");
 
         const { apiVars, apiMeth, IApiPlugin } = getApiTemp(withApi);
         const { settingsVars, settingsMeth, ISettingsPlugin, ISettings } =
@@ -173,10 +173,10 @@ export default plugin;
           postMessageMeth,
         } = getPostMessageTemp(withPostMessage);
         const {
-          IArticlePlugin,
-          IArticleItem,
-          articleVars,
-          articleMeth,
+          IArticleButtonPlugin,
+          IArticleButtonItem,
+          articleButtonVars,
+          articleButtonMeth,
         } = getArticleTemp(withArticle);
 
         if (withApi) {
@@ -225,8 +225,8 @@ export default plugin;
         }
 
         if (withArticle) {
-          pluginsImpIns += `, ${IArticlePlugin}, ${IArticleItem} `;
-          pluginsIns += `, ${IArticlePlugin}`;
+          pluginsImpIns += `, ${IArticleButtonPlugin}, ${IArticleButtonItem} `;
+          pluginsIns += `, ${IArticleButtonPlugin}`;
         }
 
         let nameIns = `${pluginName}`;
@@ -241,7 +241,7 @@ export default plugin;
           ${eventListenerVars}
           ${fileVars}
           ${postMessageVars}
-          ${articleVars}
+          ${articleButtonVars}
           ${onLoadCallback}
           ${updateStatus}
           ${getStatus}
@@ -255,7 +255,7 @@ export default plugin;
           ${eventListenerMeth}
           ${fileMeth}
           ${postMessageMeth}
-          ${articleMeth}`;
+          ${articleButtonMeth}`;
 
         template = template
           .replaceAll("pluginsImpIns", pluginsImpIns)

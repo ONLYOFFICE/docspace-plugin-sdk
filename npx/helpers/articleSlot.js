@@ -14,52 +14,52 @@
 * limitations under the License.
 */
 
-const IArticlePlugin = "IArticlePlugin";
-const IArticleItem = "IArticleItem";
+const IArticleButtonPlugin = "IArticleButtonPlugin";
+const IArticleButtonItem = "IArticleButtonItem";
 
-const articleItems = `
-  articleItems: Map<string, IArticleItem> = new Map();`;
+const articleButtonItems = `
+  articleButtonItems: Map<string, IArticleButtonItem> = new Map();`;
 
-const addArticleItem = `
-  addArticleItem = (item: IArticleItem): void => {
-    this.articleItems.set(item.key, item);
+const addArticleButtonItem = `
+  addArticleButtonItem = (item: IArticleButtonItem): void => {
+    this.articleButtonItems.set(item.key, item);
   };`;
 
-const getArticleItems = `
-  getArticleItems = (): Map<string, IArticleItem> => {
-    return this.articleItems;
+const getArticleButtonItems = `
+  getArticleButtonItems = (): Map<string, IArticleButtonItem> => {
+    return this.articleButtonItems;
   };`;
 
-const updateArticleItem = `
-  updateArticleItem = (item: IArticleItem): void => {
-    this.articleItems.set(item.key, item);
+const updateArticleButtonItem = `
+  updateArticleButtonItem = (item: IArticleButtonItem): void => {
+    this.articleButtonItems.set(item.key, item);
   };`;
 
 export const getArticleTemp = (withArticle) => {
   if (!withArticle)
     return {
-      IArticlePlugin,
-      IArticleItem,
+      IArticleButtonPlugin,
+      IArticleButtonItem,
 
-      articleVars: "",
-      articleMeth: "",
+      articleButtonVars: "",
+      articleButtonMeth: "",
     };
 
-  let articleVars = "";
-  let articleMeth = "";
+  let articleButtonVars = "";
+  let articleButtonMeth = "";
 
-  articleVars = `
-  ${articleItems}`;
+  articleButtonVars = `
+  ${articleButtonItems}`;
 
-  articleMeth = `
-        ${addArticleItem}
-        ${getArticleItems}
-        ${updateArticleItem}`;
+  articleButtonMeth = `
+        ${addArticleButtonItem}
+        ${getArticleButtonItems}
+        ${updateArticleButtonItem}`;
 
   return {
-    IArticlePlugin,
-    IArticleItem,
-    articleVars,
-    articleMeth,
+    IArticleButtonPlugin,
+    IArticleButtonItem,
+    articleButtonVars,
+    articleButtonMeth,
   };
 };

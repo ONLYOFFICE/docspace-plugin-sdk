@@ -45,9 +45,9 @@
  *
  * Here is a description of the category FileItem.
  *
- * @categoryDescription ArticleItem
+ * @categoryDescription ArticleButtonItem
  *
- * Here is a description of the category ArticleItem.
+ * Here is a description of the category ArticleButtonItem.
  *
  * @module Items
  */
@@ -58,7 +58,7 @@ import { IProfileMenuItem } from "./IProfileMenuItem";
 import { IInfoPanelItem, IInfoPanelSubMenu } from "./IInfoPanelItem";
 import { IContextMenuItem } from "./IContextMenuItem";
 import { IMainButtonItem } from "./IMainButtonItem";
-import { IArticleItem } from "./IArticleItem";
+import { IArticleButtonItem } from "./IArticleButtonItem";
 
 export {
   IContextMenuItem,
@@ -69,5 +69,5 @@ export {
   IEventListenerItem,
   IFileItem,
   File,
-  IArticleItem,
+  IArticleButtonItem,
 };

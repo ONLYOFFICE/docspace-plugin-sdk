@@ -27,7 +27,7 @@ import {
   IEventListenerPlugin,
   IFilePlugin,
   IPostMessagePlugin,
-  IArticlePlugin,
+  IArticleButtonPlugin,
 } from "./interfaces/plugins";
 
 import {
@@ -37,7 +37,7 @@ import {
   IMainButtonItem,
   IProfileMenuItem,
   IEventListenerItem,
-  IArticleItem,
+  IArticleButtonItem,
   IFileItem,
   File,
 } from "./interfaces/items";
@@ -127,10 +127,10 @@ export {
   IProfileMenuPlugin,
   IMainButtonPlugin,
   IEventListenerPlugin,
-  IArticleItem,
+  IArticleButtonItem,
   IFilePlugin,
   IPostMessagePlugin,
-  IArticlePlugin,
+  IArticleButtonPlugin,
   IContextMenuItem,
   IInfoPanelItem,
   IInfoPanelSubMenu,

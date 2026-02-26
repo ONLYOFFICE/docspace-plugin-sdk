@@ -74,7 +74,7 @@ const scopes = [
   { name: "Event listener", value: "EventListener" },
   { name: "File action", value: "File" },
   { name: "Post message", value: "PostMessage" },
-  { name: "Article", value: "Article" },
+  { name: "Article button", value: "ArticleButton" },
 ];
 
 const scopesQuestion = {

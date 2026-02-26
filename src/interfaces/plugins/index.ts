@@ -74,7 +74,7 @@ import { ISettingsPlugin } from "./ISettingsPlugin";
 import { IContextMenuPlugin } from "./IContextMenuPlugin";
 import { IEventListenerPlugin } from "./IEventListenerPlugin";
 import { IPostMessagePlugin } from "./IPostMessagePlugin";
-import { IArticlePlugin } from "./IArticlePlugin";
+import { IArticleButtonPlugin } from "./IArticleButtonPlugin";
 
 export {
   IPlugin,
@@ -87,5 +87,5 @@ export {
   IEventListenerPlugin,
   IFilePlugin,
   IPostMessagePlugin,
-  IArticlePlugin,
+  IArticleButtonPlugin,
 };
