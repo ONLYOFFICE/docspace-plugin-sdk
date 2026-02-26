@@ -58,6 +58,13 @@ import {
 import { TSelector } from "../components/Selector/ISelector";
 
 /**
+ * Defines the info panel tab to open.
+ *
+ * @category InfoPanelTab
+ */
+export type TInfoPanelTab = "info_members" | "info_history" | "info_details" | "info_share" | string;
+
+/**
  * The properties that are used to send a message to a frame.
  * If the frame ID is not specified or the frame with such an ID does not exist, then nothing changes.
  *
@@ -247,6 +254,19 @@ export interface IMessage {
    * This parameter is used only with Actions.saveSettings.
    */
   settings?: string;
+
+  /**
+   * Defines the path to navigate to.
+   * All actions listed after navigate will be called after the navigation is complete.
+   * This parameter is used only with Actions.navigate.
+   */
+  navigatePath?: string;
+
+  /**
+   * Defines the info panel tab to open.
+   * This parameter is used only with Actions.openInfoPanel.
+   */
+  infoPanelTab?: TInfoPanelTab;
 }
 
 
@@ -277,7 +297,8 @@ export interface IPostMessageCallbackMessage {
    * Only the following actions are available:
    * updateContextMenuItems, updateInfoPanelItems, updateMainButtonItems,
    * updateProfileMenuItems, updateFileItems, updateEventListenerItems,
-   * showToast, showCreateDialogModal, showModal, showSelector, addFloatingOperationsButton.
+   * showToast, showCreateDialogModal, showModal, showSelector, addFloatingOperationsButton,
+   * navigate, openInfoPanel.
    */
   actions?: (
     | Actions.updateContextMenuItems
@@ -291,6 +312,8 @@ export interface IPostMessageCallbackMessage {
     | Actions.showModal
     | Actions.showSelector
     | Actions.addFloatingOperationsButton
+    | Actions.navigate
+    | Actions.openInfoPanel
   )[];
 
   /**
@@ -322,6 +345,19 @@ export interface IPostMessageCallbackMessage {
    * Used with Actions.addFloatingOperationsButton to create a new button.
    */
   floatingOperationsButtonProps?: IFloatingOperationsButton;
+
+  /**
+   * Defines the path to navigate to.
+   * All actions listed after navigate will be called after the navigation is complete.
+   * This parameter is used only with Actions.navigate.
+   */
+  navigatePath?: string;
+
+  /**
+   * Defines the info panel tab to open.
+   * This parameter is used only with Actions.openInfoPanel.
+   */
+  infoPanelTab?: TInfoPanelTab;
 }
 
 export type TReturnPostMessage =

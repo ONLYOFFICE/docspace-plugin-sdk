@@ -113,6 +113,7 @@ import {
   IPostMessageCallbackMessage,
   IMessage,
   TReturnPostMessage,
+  TInfoPanelTab,
 } from "./interfaces/utils/index";
 
 export {
@@ -184,6 +185,7 @@ export {
   IPostMessage,
   IPostMessageCallbackMessage,
   TReturnPostMessage,
+  TInfoPanelTab,
   Devices,
   Security,
   SelectorType,

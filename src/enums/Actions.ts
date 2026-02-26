@@ -146,5 +146,17 @@ export enum Actions {
    * Calls a function to remove the floating operations.
    * It does not work if the "floatingOperationsButtonPropsId" parameter is not passed to the message.
    */
-  removeFloatingOperationsButton = "remove-floating-operations-button"
+  removeFloatingOperationsButton = "remove-floating-operations-button",
+
+  /**
+   * Calls a function to navigate to the specified path.
+   * All actions listed after navigate will be called after the navigation is complete.
+   * It does not work if the "navigatePath" parameter is not passed to the message.
+   */
+  navigate = "navigate",
+
+  /**
+   * Calls a function to open the plugin info panel.
+   */
+  openInfoPanel = "open-info-panel"
 }
