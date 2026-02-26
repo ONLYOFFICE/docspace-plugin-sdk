@@ -18,6 +18,7 @@
 
 import { Devices, UsersType } from "../../enums";
 import { IBox } from "../components/IBox";
+import { TReturnMessage } from "../utils";
 
 /**
  * Describes an item that will be embedded in the article sidebar.
@@ -89,8 +90,15 @@ export interface IArticleItem {
 
   /**
    * The body of the article item. This is the main content that will be displayed.
+   * Recommended size: 32x32 pixels to fit properly in the article sidebar.
    */
   body: IBox;
+
+  /**
+   * A function that is executed when the article item is clicked.
+   * This function can be asynchronous. It will be executed when clicking on the item.
+   */
+  onClick?: () => TReturnMessage;
 
   /**
    * A function that is executed after the article item is loaded.
