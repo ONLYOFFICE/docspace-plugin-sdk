@@ -58,6 +58,13 @@ import {
 import { TSelector } from "../components/Selector/ISelector";
 
 /**
+ * Defines the info panel tab to open.
+ *
+ * @category InfoPanelTab
+ */
+export type TInfoPanelTab = "info_members" | "info_history" | "info_details" | "info_share" | string;
+
+/**
  * The properties that are used to send a message to a frame.
  * If the frame ID is not specified or the frame with such an ID does not exist, then nothing changes.
  *
@@ -259,7 +266,7 @@ export interface IMessage {
    * Defines the info panel tab to open.
    * This parameter is used only with Actions.openInfoPanel.
    */
-  infoPanelTab?: "info_members" | "info_history" | "info_details" | "info_share" | string;
+  infoPanelTab?: TInfoPanelTab;
 }
 
 
@@ -350,7 +357,7 @@ export interface IPostMessageCallbackMessage {
    * Defines the info panel tab to open.
    * This parameter is used only with Actions.openInfoPanel.
    */
-  infoPanelTab?: "info_members" | "info_history" | "info_details" | "info_share" | string;
+  infoPanelTab?: TInfoPanelTab;
 }
 
 export type TReturnPostMessage =
