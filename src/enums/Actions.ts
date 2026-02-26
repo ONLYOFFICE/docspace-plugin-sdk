@@ -150,7 +150,7 @@ export enum Actions {
 
   /**
    * Calls a function to navigate to the specified path.
-   * All other actions in the message will be called after the navigation is complete.
+   * All actions listed after navigate will be called after the navigation is complete.
    * It does not work if the "navigatePath" parameter is not passed to the message.
    */
   navigate = "navigate",

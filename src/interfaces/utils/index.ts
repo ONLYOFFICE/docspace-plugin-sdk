@@ -250,10 +250,16 @@ export interface IMessage {
 
   /**
    * Defines the path to navigate to.
-   * All other actions in the message will be called after the navigation is complete.
+   * All actions listed after navigate will be called after the navigation is complete.
    * This parameter is used only with Actions.navigate.
    */
   navigatePath?: string;
+
+  /**
+   * Defines the info panel tab to open.
+   * This parameter is used only with Actions.openInfoPanel.
+   */
+  infoPanelTab?: "info_members" | "info_history" | "info_details" | "info_share" | "plugin";
 }
 
 
@@ -335,10 +341,16 @@ export interface IPostMessageCallbackMessage {
 
   /**
    * Defines the path to navigate to.
-   * All other actions in the message will be called after the navigation is complete.
+   * All actions listed after navigate will be called after the navigation is complete.
    * This parameter is used only with Actions.navigate.
    */
   navigatePath?: string;
+
+  /**
+   * Defines the info panel tab to open.
+   * This parameter is used only with Actions.openInfoPanel.
+   */
+  infoPanelTab?: "info_members" | "info_history" | "info_details" | "info_share" | "plugin";
 }
 
 export type TReturnPostMessage =
