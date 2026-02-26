@@ -33,6 +33,7 @@ import { getMainButtonTemp } from "./helpers/mainButton.js";
 import { getProfileMenuTemp } from "./helpers/profileMenu.js";
 import { getEventListenerTemp } from "./helpers/eventListeners.js";
 import { getFileTemp } from "./helpers/file.js";
+import { getPostMessageTemp } from "./helpers/postMessage.js";
 import { getArticleTemp } from "./helpers/articleSlot.js";
 
 const CURR_DIR = process.cwd();
@@ -127,6 +128,7 @@ export default plugin;
         const withProfileMenu = scopes.includes("ProfileMenu");
         const withEventListener = scopes.includes("EventListener");
         const withFile = scopes.includes("File");
+        const withPostMessage = scopes.includes("PostMessage");
         const withArticle = scopes.includes("Article");
 
         const { apiVars, apiMeth, IApiPlugin } = getApiTemp(withApi);
@@ -164,6 +166,12 @@ export default plugin;
         } = getEventListenerTemp(withEventListener);
         const { IFilePlugin, IFileItem, fileVars, fileMeth } =
           getFileTemp(withFile);
+        const {
+          IPostMessagePlugin,
+          IPostMessageCallbackMessage,
+          postMessageVars,
+          postMessageMeth,
+        } = getPostMessageTemp(withPostMessage);
         const {
           IArticlePlugin,
           IArticleItem,
@@ -211,6 +219,11 @@ export default plugin;
           pluginsIns += `, ${IFilePlugin}`;
         }
 
+        if (withPostMessage) {
+          pluginsImpIns += `, ${IPostMessagePlugin}, ${IPostMessageCallbackMessage} `;
+          pluginsIns += `, ${IPostMessagePlugin}`;
+        }
+
         if (withArticle) {
           pluginsImpIns += `, ${IArticlePlugin}, ${IArticleItem} `;
           pluginsIns += `, ${IArticlePlugin}`;
@@ -227,6 +240,7 @@ export default plugin;
           ${profileMenuVars}
           ${eventListenerVars}
           ${fileVars}
+          ${postMessageVars}
           ${articleVars}
           ${onLoadCallback}
           ${updateStatus}
@@ -240,6 +254,7 @@ export default plugin;
           ${profileMenuMeth}
           ${eventListenerMeth}
           ${fileMeth}
+          ${postMessageMeth}
           ${articleMeth}`;
 
         template = template

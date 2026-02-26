@@ -29,6 +29,10 @@
  *
  * Here is a description of the category PostMessage.
  *
+ * @categoryDescription PostMessageCallbackMessage
+ *
+ * Here is a description of the category PostMessageCallbackMessage.
+ *
  * @module Utils
  */
 
@@ -245,5 +249,85 @@ export interface IMessage {
   settings?: string;
 }
 
+
+/**
+ * A message which is returned from the postMessage callback.
+ * It is similar to {@link IMessage} but with a reduced set of available actions.
+ *
+ * @category PostMessageCallbackMessage
+ *
+ * @example
+ *
+ * Handling a postMessage callback with a toast notification
+ *
+ * ```typescript
+ * const postMessageResponse: IPostMessageCallbackMessage = {
+ *   actions: [Actions.showToast],
+ *   toastProps: [{
+ *     type: "success",
+ *     title: "Message Received",
+ *     message: "Frame message processed successfully"
+ *   }]
+ * };
+ * ```
+ */
+export interface IPostMessageCallbackMessage {
+  /**
+   * Defines a collection of events that will be processed on the portal side.
+   * Only the following actions are available:
+   * updateContextMenuItems, updateInfoPanelItems, updateMainButtonItems,
+   * updateProfileMenuItems, updateFileItems, updateEventListenerItems,
+   * showToast, showCreateDialogModal, showModal, showSelector, addFloatingOperationsButton.
+   */
+  actions?: (
+    | Actions.updateContextMenuItems
+    | Actions.updateInfoPanelItems
+    | Actions.updateMainButtonItems
+    | Actions.updateProfileMenuItems
+    | Actions.updateFileItems
+    | Actions.updateEventListenerItems
+    | Actions.showToast
+    | Actions.showCreateDialogModal
+    | Actions.showModal
+    | Actions.showSelector
+    | Actions.addFloatingOperationsButton
+  )[];
+
+  /**
+   * Defines the properties that display a toast notification after the user actions.
+   * This parameter is used only with Actions.showToast.
+   */
+  toastProps?: IToast[];
+
+  /**
+   * Defines the properties that display the default dialog box for creating a file/folder managed by the plugin.
+   * This parameter is used only with Actions.showCreateDialogModal.
+   */
+  createDialogProps?: ICreateDialog;
+
+  /**
+   * Defines the properties that display the modal window.
+   * This parameter is used only with Actions.showModal.
+   */
+  modalDialogProps?: IModalDialog;
+
+  /**
+   * Defines the properties that display the selector.
+   * This parameter is used only with Actions.showSelector.
+   */
+  selectorProps?: TSelector;
+
+  /**
+   * Defines the configuration for the floating operations button that displays progress of long-running operations.
+   * Used with Actions.addFloatingOperationsButton to create a new button.
+   */
+  floatingOperationsButtonProps?: IFloatingOperationsButton;
+}
+
+export type TReturnPostMessage =
+  | Promise<IPostMessageCallbackMessage>
+  | Promise<void>
+  | void
+  | IPostMessageCallbackMessage;
 
 export type TReturnMessage = Promise<IMessage> | Promise<void> | void | IMessage;
