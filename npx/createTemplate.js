@@ -34,6 +34,7 @@ import { getProfileMenuTemp } from "./helpers/profileMenu.js";
 import { getEventListenerTemp } from "./helpers/eventListeners.js";
 import { getFileTemp } from "./helpers/file.js";
 import { getPostMessageTemp } from "./helpers/postMessage.js";
+import { getArticleTemp } from "./helpers/articleSlot.js";
 
 const CURR_DIR = process.cwd();
 
@@ -128,6 +129,7 @@ export default plugin;
         const withEventListener = scopes.includes("EventListener");
         const withFile = scopes.includes("File");
         const withPostMessage = scopes.includes("PostMessage");
+        const withArticle = scopes.includes("ArticleButton");
 
         const { apiVars, apiMeth, IApiPlugin } = getApiTemp(withApi);
         const { settingsVars, settingsMeth, ISettingsPlugin, ISettings } =
@@ -170,6 +172,12 @@ export default plugin;
           postMessageVars,
           postMessageMeth,
         } = getPostMessageTemp(withPostMessage);
+        const {
+          IArticleButtonPlugin,
+          IArticleButtonItem,
+          articleButtonVars,
+          articleButtonMeth,
+        } = getArticleTemp(withArticle);
 
         if (withApi) {
           pluginsImpIns += `, ${IApiPlugin}`;
@@ -216,6 +224,11 @@ export default plugin;
           pluginsIns += `, ${IPostMessagePlugin}`;
         }
 
+        if (withArticle) {
+          pluginsImpIns += `, ${IArticleButtonPlugin}, ${IArticleButtonItem} `;
+          pluginsIns += `, ${IArticleButtonPlugin}`;
+        }
+
         let nameIns = `${pluginName}`;
         let contentIns = `
   ${status}
@@ -228,6 +241,7 @@ export default plugin;
           ${eventListenerVars}
           ${fileVars}
           ${postMessageVars}
+          ${articleButtonVars}
           ${onLoadCallback}
           ${updateStatus}
           ${getStatus}
@@ -240,7 +254,8 @@ export default plugin;
           ${profileMenuMeth}
           ${eventListenerMeth}
           ${fileMeth}
-          ${postMessageMeth}`;
+          ${postMessageMeth}
+          ${articleButtonMeth}`;
 
         template = template
           .replaceAll("pluginsImpIns", pluginsImpIns)
