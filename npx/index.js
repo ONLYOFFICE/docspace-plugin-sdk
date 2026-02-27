@@ -67,7 +67,19 @@ inquirer.prompt(QUESTIONS).then((answers) => {
   ).then(() => {
     console.log("Installing dependencies...");
     process.chdir(name);
-    cp.exec(`yarn`);
-    cp.exec(`yarn format`);
+    cp.exec(`npm install`, (error) => {
+      if (error) {
+        console.error(`Error installing dependencies: ${error.message}`);
+        return;
+      }
+      console.log("Dependencies installed successfully.");
+      cp.exec(`npm run format`, (formatError) => {
+        if (formatError) {
+          console.error(`Error formatting code: ${formatError.message}`);
+        } else {
+          console.log("Code formatted successfully.");
+        }
+      });
+    });
   });
 });

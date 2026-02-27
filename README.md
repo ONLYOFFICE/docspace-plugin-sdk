@@ -43,7 +43,7 @@ To ensure the new npx command works correctly, you need to update the globally i
 
 ## Building a plugin
 
-To build a plugin, you need the *yarn* package manager to be installed. After that, follow the instructions below:
+To build a plugin, you need *Node.js* and *npm* to be installed. After that, follow the instructions below:
 
 1. Open the terminal and go to the plugin root folder:
 
@@ -54,13 +54,13 @@ cd PDF-Converter
 2. Install all the necessary dependencies (if this was not done previously when creating the plugin template):
 
 ```
-yarn install
+npm install
 ```
 
 3. Collect an archive for uploading to the portal:
 
 ```
-yarn build
+npm run build
 ```
 
 This command generates the obfuscated code from the entire project and collects it into the *plugin.js* file using the *webpack* npm package.
