@@ -12,9 +12,12 @@
 - Update template
 - onClick prop optional in IContextMenuItem
 - Switch from yarn to npm in npx create-docspace-plugin
+- **DEPRECATED** onClick in IContextMenuItem now deprecated in favor of onItemClick
+- Switch from yarn to npm in npx create-docspace-plugin
 
 ## Added
 
+- Add `onItemClick` callback to IContextMenuItem to support both string and number identifiers
 - Add PluginLocale enum to Plugins enums
 - Add language, setLanguage, getLanguage prop to IPlugin
 - Add isHeaderVisible prop to IInfoPanelItem
@@ -26,6 +29,9 @@
 - Add selector components (Base, Files, Groups, People, Room), enums (SelectorType, RoomSearchArea, RoomsType) and actions (showSelector, updateSelector, closeSelector)
 - Add floating operations button component with progress tracking functionality and actions (addFloatingOperationsButton, updateFloatingOperationsButton, removeFloatingOperationsButton)
 
+## Fixed
+
+- Fix onClick id type in IMainButtonItem, IContextMenuItem
 
 ## 2.0.0
 

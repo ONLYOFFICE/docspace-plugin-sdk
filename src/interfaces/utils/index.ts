@@ -29,6 +29,10 @@
  *
  * Here is a description of the category PostMessage.
  *
+ * @categoryDescription PostMessageCallbackMessage
+ *
+ * Here is a description of the category PostMessageCallbackMessage.
+ *
  * @module Utils
  */
 
@@ -52,6 +56,13 @@ import {
   IToggleButton,
 } from "../components";
 import { TSelector } from "../components/Selector/ISelector";
+
+/**
+ * Defines the info panel tab to open.
+ *
+ * @category InfoPanelTab
+ */
+export type TInfoPanelTab = "info_members" | "info_history" | "info_details" | "info_share" | string;
 
 /**
  * The properties that are used to send a message to a frame.
@@ -243,7 +254,116 @@ export interface IMessage {
    * This parameter is used only with Actions.saveSettings.
    */
   settings?: string;
+
+  /**
+   * Defines the path to navigate to.
+   * All actions listed after navigate will be called after the navigation is complete.
+   * This parameter is used only with Actions.navigate.
+   */
+  navigatePath?: string;
+
+  /**
+   * Defines the info panel tab to open.
+   * This parameter is used only with Actions.openInfoPanel.
+   */
+  infoPanelTab?: TInfoPanelTab;
 }
 
+
+/**
+ * A message which is returned from the postMessage callback.
+ * It is similar to {@link IMessage} but with a reduced set of available actions.
+ *
+ * @category PostMessageCallbackMessage
+ *
+ * @example
+ *
+ * Handling a postMessage callback with a toast notification
+ *
+ * ```typescript
+ * const postMessageResponse: IPostMessageCallbackMessage = {
+ *   actions: [Actions.showToast],
+ *   toastProps: [{
+ *     type: "success",
+ *     title: "Message Received",
+ *     message: "Frame message processed successfully"
+ *   }]
+ * };
+ * ```
+ */
+export interface IPostMessageCallbackMessage {
+  /**
+   * Defines a collection of events that will be processed on the portal side.
+   * Only the following actions are available:
+   * updateContextMenuItems, updateInfoPanelItems, updateMainButtonItems,
+   * updateProfileMenuItems, updateFileItems, updateEventListenerItems,
+   * showToast, showCreateDialogModal, showModal, showSelector, addFloatingOperationsButton,
+   * navigate, openInfoPanel.
+   */
+  actions?: (
+    | Actions.updateContextMenuItems
+    | Actions.updateInfoPanelItems
+    | Actions.updateMainButtonItems
+    | Actions.updateProfileMenuItems
+    | Actions.updateFileItems
+    | Actions.updateEventListenerItems
+    | Actions.showToast
+    | Actions.showCreateDialogModal
+    | Actions.showModal
+    | Actions.showSelector
+    | Actions.addFloatingOperationsButton
+    | Actions.navigate
+    | Actions.openInfoPanel
+  )[];
+
+  /**
+   * Defines the properties that display a toast notification after the user actions.
+   * This parameter is used only with Actions.showToast.
+   */
+  toastProps?: IToast[];
+
+  /**
+   * Defines the properties that display the default dialog box for creating a file/folder managed by the plugin.
+   * This parameter is used only with Actions.showCreateDialogModal.
+   */
+  createDialogProps?: ICreateDialog;
+
+  /**
+   * Defines the properties that display the modal window.
+   * This parameter is used only with Actions.showModal.
+   */
+  modalDialogProps?: IModalDialog;
+
+  /**
+   * Defines the properties that display the selector.
+   * This parameter is used only with Actions.showSelector.
+   */
+  selectorProps?: TSelector;
+
+  /**
+   * Defines the configuration for the floating operations button that displays progress of long-running operations.
+   * Used with Actions.addFloatingOperationsButton to create a new button.
+   */
+  floatingOperationsButtonProps?: IFloatingOperationsButton;
+
+  /**
+   * Defines the path to navigate to.
+   * All actions listed after navigate will be called after the navigation is complete.
+   * This parameter is used only with Actions.navigate.
+   */
+  navigatePath?: string;
+
+  /**
+   * Defines the info panel tab to open.
+   * This parameter is used only with Actions.openInfoPanel.
+   */
+  infoPanelTab?: TInfoPanelTab;
+}
+
+export type TReturnPostMessage =
+  | Promise<IPostMessageCallbackMessage>
+  | Promise<void>
+  | void
+  | IPostMessageCallbackMessage;
 
 export type TReturnMessage = Promise<IMessage> | Promise<void> | void | IMessage;
