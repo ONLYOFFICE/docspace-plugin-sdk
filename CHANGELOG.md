@@ -31,6 +31,7 @@
 - Add IPostMessagePlugin, IPostMessageCallbackMessage util
 - Add actions navigate, openInfoPanel
 - Add IArticleButtonPlugin, IArticleButtonItem
+- Add IconButton component
 
 ## Fixed
 
