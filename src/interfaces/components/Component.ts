@@ -30,6 +30,7 @@ import { ISkeleton } from "./ISkeleton";
 import { IText } from "./IText";
 import { ITextArea } from "./ITextArea";
 import { IToggleButton } from "./IToggleButton";
+import { IIconButton } from "./IIconButton";
 
 /**
  * Defines the box component.
@@ -485,6 +486,43 @@ type ToggleButtonGroup = {
 };
 
 /**
+ * Defines the icon button component.
+ *
+ * @category IconButton
+ *
+ * @example
+ * ```typescript
+ * import { IIconButton, Components, Component, Actions } from "@onlyoffice/docspace-plugin-sdk";
+ *
+ * const iconButton: IIconButton = {
+ *   iconName: "settings.svg",
+ *   size: 32,
+ *   color: "#333333",
+ *   hoverColor: "accent",
+ *   onClick: () => {
+ *     console.log("Settings clicked");
+ *   },
+ *   title: "Open settings",
+ *   isDisabled: false
+ * };
+ *
+ * const iconButtonGroup: Component = {
+ *   component: Components.iconButton,
+ *   props: iconButton,
+ *   contextName: "settingsButton"
+ * };
+ * ```
+ */
+type IconButtonGroup = {
+  /** Defines the "iconButton" component type */
+  component: Components.iconButton;
+  /** Defines the icon button component properties */
+  props: IIconButton;
+  /** Defines the icon button component context name that updates the component via React context */
+  contextName?: string;
+};
+
+/**
  * A component that is used to add components into Box.
  * Only components that are embedded into DOM can be wrapped (toast, modal dialog, etc. cannot be wrapped).
  *
@@ -560,7 +598,8 @@ type Component =
   | SkeletonGroup
   | TextGroup
   | TextAreaGroup
-  | ToggleButtonGroup;
+  | ToggleButtonGroup
+  | IconButtonGroup;
 
 export {
   Component,
@@ -576,4 +615,5 @@ export {
   TextGroup,
   TextAreaGroup,
   ToggleButtonGroup,
+  IconButtonGroup,
 };
