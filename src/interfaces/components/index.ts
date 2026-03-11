@@ -119,7 +119,7 @@ import { IToggleButton } from "./IToggleButton";
 import { IToast, ToastType } from "./IToast";
 import { IButton, ButtonSize } from "./IButton";
 import { ISkeleton } from "./ISkeleton";
-import { IIconButton, IconSize } from "./IIconButton";
+import { IIconButton } from "./IIconButton";
 import {
   TSelector,
   TBaseSelector,
@@ -170,7 +170,6 @@ export {
   ICreateDialog,
   ISkeleton,
   IIconButton,
-  IconSize,
   TSelector,
   TBaseSelector,
   TFilesSelector,

@@ -16,22 +16,9 @@
  * @license
  */
 
-import { IMessage } from "../utils";
-import { BoxGroup, Component, IFrameGroup } from './Component'
+import { TReturnMessage } from "../utils";
+import { IBox } from './IBox'
 
-/**
- * Defines icon size options
- *
- * @category IconButton
- */
-export const enum IconSize {
-  /** Base icon size (15px) */
-  base = "base",
-  /** Middle icon size (15px) */
-  middle = "middle",
-  /** Large icon size (15px) */
-  large = "large",
-}
 
 /**
  * A component that displays an interactive icon button with hover and click states.
@@ -56,8 +43,7 @@ export const enum IconSize {
  *
  * ```typescript
  * const deleteButton: IIconButton = {
- *   iconName: "/assets/delete.svg",
- *   iconHoverName: "/assets/delete-hover.svg",
+ *   iconName: delete.svg",
  *   size: 20,
  *   color: "#333333",
  *   hoverColor: "#FF0000",
@@ -90,20 +76,25 @@ export const enum IconSize {
  *
  * @example
  *
- * Icon button with custom content (iframe)
+ * Icon button with custom content (iframe with external URL)
  *
  * ```typescript
  * const iframeButton: IIconButton = {
- *   iconName: "/assets/embed.svg",
+ *   iconName: "embed.svg",
  *   size: 24,
  *   customContent: {
- *     component: Components.iFrame,
- *     props: {
- *       src: "https://example.com/widget",
- *       width: "300px",
- *       height: "200px",
- *       sandbox: "allow-scripts allow-same-origin"
- *     }
+ *       widthProp: "24px",
+ *       heightProp: "24px",
+ *       children: [
+ *         {
+ *           component: Components.iFrame,
+ *           props: {
+ *             src: "https://example.com/widget",
+ *             width: "24px",
+ *             height: "24px"
+ *           }
+ *         }
+ *       ]
  *   },
  *   onClick: () => {
  *     console.log("Iframe button clicked");
@@ -113,50 +104,77 @@ export const enum IconSize {
  *
  * @example
  *
- * Icon button with custom content (div with components)
+ * Icon button with custom content (iframe with dynamic content via ID)
  *
  * ```typescript
- * const customButton: IIconButton = {
- *   iconName: "/assets/info.svg",
- *   size: 24,
+ * // Define the icon button with iframe ID
+ * const customIframeButton: IIconButton = {
+ *   iconName: "circle.svg",
+ *   size: 32,
  *   customContent: {
- *     component: Components.box,
- *     props: {
- *       widthProp: "250px",
- *       paddingProp: "12px",
- *       backgroundProp: "#ffffff",
- *       borderProp: "1px solid #eceef1",
+ *       widthProp: "32px",
+ *       heightProp: "32px",
+ *       overflowProp: "hidden",
  *       children: [
  *         {
- *           component: Components.text,
+ *           component: Components.iFrame,
  *           props: {
- *             text: "Custom tooltip content",
- *             fontSize: "14px"
+ *             id: "custom-icon-iframe",
+ *             width: "32px",
+ *             height: "32px"
  *           }
  *         }
  *       ]
- *     }
  *   }
+ * };
+ *
+ * // Fill iframe with custom content by ID
+ * function fillIframeById(id: string, callback: (iframe: HTMLIFrameElement) => void) {
+ *   const iframe = window.parent.document.getElementById(id) as HTMLIFrameElement;
+ *   if (!iframe) {
+ *     setTimeout(() => fillIframeById(id, callback), 200);
+ *     return;
+ *   }
+ *   callback(iframe);
  * }
+ *
+ * fillIframeById("custom-icon-iframe", (iframe) => {
+ *   const doc = iframe.contentWindow!.document;
+ *   
+ *   // Add styles
+ *   const style = doc.createElement("style");
+ *   style.textContent = `
+ *     body { margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; height: 100%; }
+ *   `;
+ *   doc.head.appendChild(style);
+ *   
+ *   // Create custom element
+ *   const circle = doc.createElement("div");
+ *   circle.style.width = "24px";
+ *   circle.style.height = "24px";
+ *   circle.style.borderRadius = "50%";
+ *   circle.style.background = "linear-gradient(135deg, #667eea 0%, #764ba2 100%)";
+ *   doc.body.appendChild(circle);
+ * });
  * ```
  */
 export interface IIconButton {
   /**
-   * Icon name or path to the icon file
+   * Icon name with extension
    *
    * @category Appearance
    */
   iconName?: string;
 
   /**
-   * Icon name or path for hover state
+   * Icon name with extension for hover state
    *
    * @category Appearance
    */
   iconHoverName?: string;
 
   /**
-   * Icon name or path for click state
+   * Icon name with extension for click state
    *
    * @category Appearance
    */
@@ -184,11 +202,11 @@ export interface IIconButton {
   clickColor?: "accent" | string;
 
   /**
-   * Button height and width value. Can be a number (pixels) or IconSize enum value
+   * Button height and width value. Can be a number (pixels)
    *
    * @category Appearance
    */
-  size?: number | IconSize;
+  size?: number;
 
   /**
    * Determines if icon fill is needed
@@ -223,7 +241,7 @@ export interface IIconButton {
    *
    * @category Behavior
    */
-  onClick?: () => Promise<IMessage> | IMessage | void;
+  onClick?: () => TReturnMessage;
 
   /**
    * Sets component id
@@ -262,35 +280,10 @@ export interface IIconButton {
   className?: string;
 
   /**
-   * Custom content to display when the icon button is interacted with.
-   * Can be an iframe (IFrame) or a custom div container (IBox) with nested components.
-   * This allows embedding external content or creating custom tooltips/popovers.
+   * Custom content to display instead of the default icon.
+   * Accepts IBox props to create custom visual elements using components like iframe, text, or nested boxes.
    *
    * @category Behavior
-   *
-   * @example
-   * ```typescript
-   * // Iframe example
-   * customContent: {
-   *   component: Components.iFrame,
-   *   props: {
-   *     src: "https://example.com/widget",
-   *     width: "400px",
-   *     height: "300px"
-   *   }
-   * }
-   *
-   * // Custom div with components
-   * customContent: {
-   *   component: Components.box,
-   *   props: {
-   *     paddingProp: "16px",
-   *     children: [
-   *       { component: Components.text, props: { text: "Info" } }
-   *     ]
-   *   }
-   * }
-   * ```
    */
-  customContent?: BoxGroup;
+  iconNode?: IBox;
 }
