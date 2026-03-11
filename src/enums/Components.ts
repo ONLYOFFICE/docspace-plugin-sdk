@@ -55,4 +55,7 @@ export enum Components {
 
   /** Loading placeholder component */
   skeleton = "skeleton",
+
+  /** Icon button component with hover and click states */
+  iconButton = "iconButton",
 }
