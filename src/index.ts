@@ -108,6 +108,9 @@ import {
   IFloatingOperationsButton,
   FloatingOperationType,
   IFloatingOperation,
+  IIconButton,
+  IconButtonGroup,
+  IconSize,
 } from "./interfaces/components";
 
 import {
@@ -205,4 +208,7 @@ export {
   IFloatingOperationsButton,
   FloatingOperationType,
   IFloatingOperation,
+  IconButtonGroup,
+  IconSize,
+  IIconButton,
 };

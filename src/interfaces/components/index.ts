@@ -81,6 +81,10 @@
  *
  * Here is a description of the category ToggleButton.
  *
+ * @categoryDescription IconButton
+ *
+ * Here is a description of the category IconButton.
+ *
  * @module Components
  */
 
@@ -107,6 +111,7 @@ import {
   TextGroup,
   TextAreaGroup,
   ToggleButtonGroup,
+  IconButtonGroup,
 } from "./Component";
 import { IInput, InputSize, InputType, InputAutocomplete } from "./IInput";
 import { ICheckbox } from "./ICheckbox";
@@ -114,6 +119,7 @@ import { IToggleButton } from "./IToggleButton";
 import { IToast, ToastType } from "./IToast";
 import { IButton, ButtonSize } from "./IButton";
 import { ISkeleton } from "./ISkeleton";
+import { IIconButton, IconSize } from "./IIconButton";
 import {
   TSelector,
   TBaseSelector,
@@ -151,6 +157,7 @@ export {
   TextGroup,
   TextAreaGroup,
   ToggleButtonGroup,
+  IconButtonGroup,
   ILabel,
   IText,
   ITextArea,
@@ -162,6 +169,8 @@ export {
   IComboBoxItem,
   ICreateDialog,
   ISkeleton,
+  IIconButton,
+  IconSize,
   TSelector,
   TBaseSelector,
   TFilesSelector,
