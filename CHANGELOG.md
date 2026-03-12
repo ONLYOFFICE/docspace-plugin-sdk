@@ -13,7 +13,6 @@
 - onClick prop optional in IContextMenuItem
 - Switch from yarn to npm in npx create-docspace-plugin
 - **DEPRECATED** onClick in IContextMenuItem now deprecated in favor of onItemClick
-- Switch from yarn to npm in npx create-docspace-plugin
 
 ## Added
 
