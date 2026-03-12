@@ -33,9 +33,9 @@ import { IMessage } from "../utils";
  *   key: "export-pdf",
  *   label: "Export to PDF",
  *   icon: "pdf-icon.svg",
- *   onClick: async (fileIds) => {
+ *   onItemClick: async (folderId) => {
  *     try {
- *       const result = await exportFiles(fileIds, "pdf");
+ *       const result = await exportFiles(folderId, "pdf");
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
@@ -67,9 +67,9 @@ import { IMessage } from "../utils";
  *   key: "backup-files",
  *   label: "Backup Files",
  *   icon: "backup-icon.svg",
- *   onClick: async (fileIds) => {
+ *   onItemClick: async (folderId) => {
  *     try {
- *       const backup = await createBackup(fileIds);
+ *       const backup = await createBackup(folderId);
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
@@ -114,11 +114,24 @@ export interface IMainButtonItem {
   icon: string;
 
   /**
-   * A function that takes the file/folder/room id as an argument.
+   * A function that takes the folder/room id as an argument.
    * This function can be asynchronous.
    *
+   * @deprecated Use `onItemClick` instead to support both string and number IDs.
+   * This method will be removed in a future major version.
    */
-  onClick?: (id: number | string) => Promise<IMessage> | Promise<void> | IMessage | void;
+  onClick?: (id: number) => Promise<IMessage> | Promise<void> | IMessage | void;
+
+  /**
+   * Callback invoked when the main button action is triggered.
+   * Supports both string and number identifiers.
+   *
+   * @param id The identifier of the current folder/room (string or number).
+   *
+   * @remarks
+   * This is the preferred method over the deprecated `onClick`.
+   */
+  onItemClick?: (id: number | string) => Promise<IMessage> | Promise<void> | IMessage | void;
 
   /**
    * The types of users who will see the current item in the main button menu.
