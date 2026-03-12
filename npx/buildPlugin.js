@@ -139,15 +139,6 @@ async function buildPlugin() {
     console.log(`🔢 Version: ${docspace.version}`);
     console.log(`🎯 Min DocSpace version: ${docspace.minDocSpaceVersion}`);
     console.log("");
-    console.log("⚠️  IMPORTANT: Plugin Caching");
-    console.log("   DocSpace caches plugins based on their version number.");
-    console.log("   If you upload a plugin with the same version, the old cached");
-    console.log("   version may be used instead of your new changes.");
-    console.log("");
-    console.log("   💡 To see your changes, either:");
-    console.log("      • Increment the version in package.json");
-    console.log("");
-  
   } catch (error) {
     console.error("❌ Error generating plugin zip:", error);
     process.exit(1);
