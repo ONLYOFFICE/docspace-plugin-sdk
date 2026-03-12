@@ -13,10 +13,12 @@
 - onClick prop optional in IContextMenuItem
 - Switch from yarn to npm in npx create-docspace-plugin
 - **DEPRECATED** onClick in IContextMenuItem now deprecated in favor of onItemClick
+- **DEPRECATED** onClick in IMainButtonItem now deprecated in favor of onItemClick
 
 ## Added
 
 - Add `onItemClick` callback to IContextMenuItem to support both string and number identifiers
+- Add `onItemClick` callback to IMainButtonItem to support both string and number identifiers
 - Add PluginLocale enum to Plugins enums
 - Add language, setLanguage, getLanguage prop to IPlugin
 - Add isHeaderVisible prop to IInfoPanelItem
