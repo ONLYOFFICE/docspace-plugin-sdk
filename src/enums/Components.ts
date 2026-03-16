@@ -58,4 +58,7 @@ export enum Components {
 
   /** Icon button component with hover and click states */
   iconButton = "iconButton",
+
+  /** Hyperlink component */
+  link = "link",
 }
