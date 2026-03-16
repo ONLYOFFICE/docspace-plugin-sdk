@@ -33,6 +33,7 @@
 - Add actions navigate, openInfoPanel
 - Add IArticleButtonPlugin, IArticleButtonItem
 - Add IconButton component
+- Add ILink component
 
 ## Fixed
 
