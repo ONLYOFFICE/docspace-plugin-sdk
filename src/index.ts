@@ -110,6 +110,10 @@ import {
   IFloatingOperation,
   IIconButton,
   IconButtonGroup,
+  LinkGroup,
+  ILink,
+  LinkType,
+  LinkTarget,
 } from "./interfaces/components";
 
 import {
@@ -163,6 +167,8 @@ export {
   TextGroup,
   TextAreaGroup,
   ToggleButtonGroup,
+  IconButtonGroup,
+  LinkGroup,
   UsersType,
   IBox,
   IBorderProp,
@@ -181,6 +187,10 @@ export {
   ITextArea,
   IFrame,
   IImage,
+  ILink,
+  LinkType,
+  LinkTarget,
+  IIconButton,
   IModalDialog,
   ModalDisplayType,
   IComboBox,
@@ -207,6 +217,4 @@ export {
   IFloatingOperationsButton,
   FloatingOperationType,
   IFloatingOperation,
-  IconButtonGroup,
-  IIconButton,
 };

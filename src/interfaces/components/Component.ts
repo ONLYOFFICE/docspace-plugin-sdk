@@ -31,6 +31,7 @@ import { IText } from "./IText";
 import { ITextArea } from "./ITextArea";
 import { IToggleButton } from "./IToggleButton";
 import { IIconButton } from "./IIconButton";
+import { ILink } from "./ILink";
 
 /**
  * Defines the box component.
@@ -523,6 +524,41 @@ type IconButtonGroup = {
 };
 
 /**
+ * Defines the link component.
+ *
+ * @category Link
+ *
+ * @example
+ * ```typescript
+ * import { ILink, Components, Component, LinkType, LinkTarget } from "@onlyoffice/docspace-plugin-sdk";
+ *
+ * const link: ILink = {
+ *   href: "https://example.com",
+ *   text: "Visit Example",
+ *   type: LinkType.page,
+ *   target: LinkTarget.blank,
+ *   color: "accent",
+ *   fontSize: "14px",
+ *   isBold: false
+ * };
+ *
+ * const linkGroup: Component = {
+ *   component: Components.link,
+ *   props: link,
+ *   contextName: "exampleLink"
+ * };
+ * ```
+ */
+type LinkGroup = {
+  /** Defines the "link" component type */
+  component: Components.link;
+  /** Defines the link component properties */
+  props: ILink;
+  /** Defines the link component context name that updates the component via React context */
+  contextName?: string;
+};
+
+/**
  * A component that is used to add components into Box.
  * Only components that are embedded into DOM can be wrapped (toast, modal dialog, etc. cannot be wrapped).
  *
@@ -599,7 +635,8 @@ type Component =
   | TextGroup
   | TextAreaGroup
   | ToggleButtonGroup
-  | IconButtonGroup;
+  | IconButtonGroup
+  | LinkGroup;
 
 export {
   Component,
@@ -616,4 +653,5 @@ export {
   TextAreaGroup,
   ToggleButtonGroup,
   IconButtonGroup,
+  LinkGroup,
 };
