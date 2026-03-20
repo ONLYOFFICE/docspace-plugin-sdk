@@ -28,7 +28,7 @@ import {
   IFilePlugin,
   IPostMessagePlugin,
   IArticleButtonPlugin,
-} from "./interfaces/plugins";
+} from "./interfaces/plugins"
 
 import {
   IContextMenuItem,
@@ -40,9 +40,9 @@ import {
   IArticleButtonItem,
   IFileItem,
   File,
-} from "./interfaces/items";
+} from "./interfaces/items"
 
-import { ISettings } from "./interfaces/settings";
+import { ISettings } from "./interfaces/settings"
 
 import {
   Actions,
@@ -59,7 +59,7 @@ import {
   SelectorType,
   RoomSearchArea,
   RoomsType,
-} from "./enums";
+} from "./enums"
 
 import {
   IBox,
@@ -110,8 +110,12 @@ import {
   IFloatingOperation,
   IIconButton,
   IconButtonGroup,
+  LinkGroup,
+  ILink,
+  LinkType,
+  LinkTarget,
   IMediaViewer,
-} from "./interfaces/components";
+} from "./interfaces/components"
 
 import {
   IPostMessage,
@@ -119,7 +123,7 @@ import {
   IMessage,
   TReturnPostMessage,
   TInfoPanelTab,
-} from "./interfaces/utils/index";
+} from "./interfaces/utils/index"
 
 export {
   IPlugin,
@@ -164,6 +168,8 @@ export {
   TextGroup,
   TextAreaGroup,
   ToggleButtonGroup,
+  IconButtonGroup,
+  LinkGroup,
   UsersType,
   IBox,
   IBorderProp,
@@ -182,6 +188,10 @@ export {
   ITextArea,
   IFrame,
   IImage,
+  ILink,
+  LinkType,
+  LinkTarget,
+  IIconButton,
   IModalDialog,
   ModalDisplayType,
   IComboBox,
@@ -208,7 +218,5 @@ export {
   IFloatingOperationsButton,
   FloatingOperationType,
   IFloatingOperation,
-  IconButtonGroup,
-  IIconButton,
   IMediaViewer,
-};
+}
