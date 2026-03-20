@@ -54,6 +54,7 @@ import {
   ITextArea,
   IToast,
   IToggleButton,
+  IMediaViewer,
 } from "../components";
 import { TSelector } from "../components/Selector/ISelector";
 
@@ -267,6 +268,12 @@ export interface IMessage {
    * This parameter is used only with Actions.openInfoPanel.
    */
   infoPanelTab?: TInfoPanelTab;
+
+  /**
+   * Defines the properties for the media viewer.
+   * This parameter is used only with Actions.showMediaViewer and Actions.updateMediaViewer.
+   */
+  mediaViewerProps?: IMediaViewer;
 }
 
 

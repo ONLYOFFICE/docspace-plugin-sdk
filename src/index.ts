@@ -110,6 +110,7 @@ import {
   IFloatingOperation,
   IIconButton,
   IconButtonGroup,
+  IMediaViewer,
 } from "./interfaces/components";
 
 import {
@@ -209,4 +210,5 @@ export {
   IFloatingOperation,
   IconButtonGroup,
   IIconButton,
+  IMediaViewer,
 };

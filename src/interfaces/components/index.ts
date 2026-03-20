@@ -130,6 +130,7 @@ import {
   TSelectorItem
 } from './Selector/ISelector';
 import { IFloatingOperationsButton, FloatingOperationType, IFloatingOperation } from "./IFloatingOperationsButton";
+import { IMediaViewer } from "./IMediaViewer";
 
 export {
   IBox,
@@ -180,4 +181,5 @@ export {
   IFloatingOperationsButton,
   FloatingOperationType,
   IFloatingOperation,
+  IMediaViewer,
 };
