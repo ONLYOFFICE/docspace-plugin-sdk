@@ -131,7 +131,7 @@ export enum Actions {
    * Multiple plugins can show operations simultaneously - they will be aggregated.
    * It does not work if the "floatingOperationsButtonProps" parameter is not passed to the message.
    * 
-   * **Note:** Each floating operations is identified by its id. Calling this action again
+   * **Note:** Each floating operations is identified by its id. Calling this  action again
    * will not replace the previous operations.
    */
   addFloatingOperationsButton = "add-floating-operations-button",
@@ -158,5 +158,21 @@ export enum Actions {
   /**
    * Calls a function to open the plugin info panel.
    */
-  openInfoPanel = "open-info-panel"
+  openInfoPanel = "open-info-panel",
+
+  /**
+   * Calls a function to open the plugin media viewer.
+   */
+  showMediaViewer = "show-media-viewer",
+
+  /**
+   * Calls a function to update the plugin media viewer.
+   */
+  updateMediaViewer = "update-media-viewer",
+
+  /**
+   * Calls a function to close the plugin media viewer.
+   */
+  closeMediaViewer = "close-media-viewer"
+
 }

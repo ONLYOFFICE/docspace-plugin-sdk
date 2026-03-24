@@ -28,7 +28,7 @@ import {
   IFilePlugin,
   IPostMessagePlugin,
   IArticleButtonPlugin,
-} from "./interfaces/plugins";
+} from "./interfaces/plugins"
 
 import {
   IContextMenuItem,
@@ -40,9 +40,9 @@ import {
   IArticleButtonItem,
   IFileItem,
   File,
-} from "./interfaces/items";
+} from "./interfaces/items"
 
-import { ISettings } from "./interfaces/settings";
+import { ISettings } from "./interfaces/settings"
 
 import {
   Actions,
@@ -59,7 +59,7 @@ import {
   SelectorType,
   RoomSearchArea,
   RoomsType,
-} from "./enums";
+} from "./enums"
 
 import {
   IBox,
@@ -114,7 +114,8 @@ import {
   ILink,
   LinkType,
   LinkTarget,
-} from "./interfaces/components";
+  IMediaViewer,
+} from "./interfaces/components"
 
 import {
   IPostMessage,
@@ -122,7 +123,7 @@ import {
   IMessage,
   TReturnPostMessage,
   TInfoPanelTab,
-} from "./interfaces/utils/index";
+} from "./interfaces/utils/index"
 
 export {
   IPlugin,
@@ -217,4 +218,5 @@ export {
   IFloatingOperationsButton,
   FloatingOperationType,
   IFloatingOperation,
-};
+  IMediaViewer,
+}
