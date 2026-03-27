@@ -18,64 +18,64 @@
 
 import { IBox } from "./IBox";
 import { TReturnMessage } from "../utils";
-import { FilesExst, FilesSecurity, Devices, UsersType } from '../../enums'
+import { FilesExst, FilesSecurity, Devices, UsersType } from "../../enums";
 
 /**
  * Filter configuration for media viewer playlist.
  * Defines which files should be included in the playlist.
- * 
+ *
  * @category MediaViewer
  */
 export interface IMediaViewerPlaylistFilter {
-   /**
-   * Allowed file extensions (e.g., [FilesExst.doc, ".drawio", ".md"]).
-   * If not specified, all extensions are allowed.
-   */
-   filesExsts?: (FilesExst | string)[];
+	/**
+	 * Allowed file extensions (e.g., [FilesExst.doc, ".drawio", ".md"]).
+	 * If not specified, all extensions are allowed.
+	 */
+	filesExsts?: (FilesExst | string)[];
 
-   /**
-    * Required security permissions for files.
-    * If not specified, all security permissions are allowed.
-    */
-   filesSecurity?: FilesSecurity[];
+	/**
+	 * Required security permissions for files.
+	 * If not specified, all security permissions are allowed.
+	 */
+	filesSecurity?: FilesSecurity[];
 
-  /**
-   * The types of users who will see the media viewer.
-   * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
-   * If this parameter is not specified, then the media viewer will be displayed for all user types.
-   */
-  usersTypes?: UsersType[];
+	/**
+	 * The types of users who will see the media viewer.
+	 * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
+	 * If this parameter is not specified, then the media viewer will be displayed for all user types.
+	 */
+	usersTypes?: UsersType[];
 
-  /**
-   * The types of devices where the media viewer will be displayed.
-   * At the moment the following device types are available: mobile, tablet, desktop.
-   * If this parameter is not specified, then the media viewer will be displayed in any device types.
-   */
-  devices?: Devices[];
+	/**
+	 * The types of devices where the media viewer will be displayed.
+	 * At the moment the following device types are available: mobile, tablet, desktop.
+	 * If this parameter is not specified, then the media viewer will be displayed in any device types.
+	 */
+	devices?: Devices[];
 }
 
 /**
  * Navigation callbacks for media viewer.
  * Called when user navigates through the playlist.
- * 
+ *
  * @category MediaViewer
  */
 export interface IMediaViewerNavigation {
-  /**
-   * Called when navigating to next file.
-   */
-  onNext?: () => TReturnMessage;
+	/**
+	 * Called when navigating to next file.
+	 */
+	onNext?: () => TReturnMessage;
 
-  /**
-   * Called when navigating to previous file.
-   */
-  onPrevious?: () => TReturnMessage;
+	/**
+	 * Called when navigating to previous file.
+	 */
+	onPrevious?: () => TReturnMessage;
 
-  /**
-   * Called when file changes.
-   * @param data - Object containing fileId of the new file
-   */
-  onFileChange?: (data: { fileId: number | string }) => TReturnMessage;
+	/**
+	 * Called when file changes.
+	 * @param data - Object containing fileId of the new file
+	 */
+	onFileChange?: (data: { fileId: number | string }) => TReturnMessage;
 }
 
 /**
@@ -172,42 +172,47 @@ export interface IMediaViewerNavigation {
  * ```
  */
 export interface IMediaViewer {
-  /**
-   * The custom content to render inside the media viewer.
-   * This should be a Box component that contains your custom UI elements.
-   */
-  content: IBox;
+	/**
+	 * The ID of the file to display in the media viewer.
+	 * If not specified, the first file in the playlist will be displayed.
+	 */
+	fileId?: number | string;
+	/**
+	 * The custom content to render inside the media viewer.
+	 * This should be a Box component that contains your custom UI elements.
+	 */
+	content: IBox;
 
-  /**
-   * Optional title to display in the media viewer header.
-   * If not provided, the default file name will be used.
-   */
-  title?: string;
+	/**
+	 * Optional title to display in the media viewer header.
+	 * If not provided, the default file name will be used.
+	 */
+	title?: string;
 
-  /**
-   * Callback function that is called when the media viewer should be closed.
-   * This is triggered when the user clicks the close button, background, or presses ESC.
-   * Can return a TReturnMessage with Actions.closeMediaViewer to close the viewer.
-   * 
-   */
-  onClose?: () => TReturnMessage;
+	/**
+	 * Callback function that is called when the media viewer should be closed.
+	 * This is triggered when the user clicks the close button, background, or presses ESC.
+	 * Can return a TReturnMessage with Actions.closeMediaViewer to close the viewer.
+	 *
+	 */
+	onClose?: () => TReturnMessage;
 
-  /**
-   * Filter configuration for playlist.
-   * Only applies when enablePlaylist is true.
-   */
-  playlistFilter?: IMediaViewerPlaylistFilter;
+	/**
+	 * Filter configuration for playlist.
+	 * Only applies when enablePlaylist is true.
+	 */
+	playlistFilter?: IMediaViewerPlaylistFilter;
 
-  /**
-   * Navigation callbacks.
-   * Only applies when enablePlaylist is true.
-   */
-  navigation?: IMediaViewerNavigation;
+	/**
+	 * Navigation callbacks.
+	 * Only applies when enablePlaylist is true.
+	 */
+	navigation?: IMediaViewerNavigation;
 
-  /**
-   * A function that is executed when the plugin viewer is mounted.
-   * It is called once when the viewer is first displayed.
-   * @param data - Object containing fileId of the current file
-   */
-  onLoad?: (data: { fileId: number | string }) => TReturnMessage
+	/**
+	 * A function that is executed when the plugin viewer is mounted.
+	 * It is called once when the viewer is first displayed.
+	 * @param data - Object containing fileId of the current file
+	 */
+	onLoad?: (data: { fileId: number | string }) => TReturnMessage;
 }

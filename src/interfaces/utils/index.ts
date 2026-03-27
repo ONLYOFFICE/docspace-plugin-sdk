@@ -38,23 +38,23 @@
 
 import { Actions } from "../../enums";
 import {
-  IBox,
-  IButton,
-  ICheckbox,
-  IComboBox,
-  ICreateDialog,
-  IFloatingOperationsButton,
-  IFrame,
-  IImage,
-  IInput,
-  ILabel,
-  IModalDialog,
-  ISkeleton,
-  IText,
-  ITextArea,
-  IToast,
-  IToggleButton,
-  IMediaViewer,
+	IBox,
+	IButton,
+	ICheckbox,
+	IComboBox,
+	ICreateDialog,
+	IFloatingOperationsButton,
+	IFrame,
+	IImage,
+	IInput,
+	ILabel,
+	IModalDialog,
+	ISkeleton,
+	IText,
+	ITextArea,
+	IToast,
+	IToggleButton,
+	IMediaViewer
 } from "../components";
 import { TSelector } from "../components/Selector/ISelector";
 
@@ -63,7 +63,12 @@ import { TSelector } from "../components/Selector/ISelector";
  *
  * @category InfoPanelTab
  */
-export type TInfoPanelTab = "info_members" | "info_history" | "info_details" | "info_share" | string;
+export type TInfoPanelTab =
+	| "info_members"
+	| "info_history"
+	| "info_details"
+	| "info_share"
+	| string;
 
 /**
  * The properties that are used to send a message to a frame.
@@ -87,11 +92,11 @@ export type TInfoPanelTab = "info_members" | "info_history" | "info_details" | "
  * ```
  */
 export interface IPostMessage {
-  /** Defines the frame ID */
-  frameId: string;
+	/** Defines the frame ID */
+	frameId: string;
 
-  /** Defines a message that will be sent to a frame */
-  message: { [key: string]: any };
+	/** Defines a message that will be sent to a frame */
+	message: { [key: string]: any };
 }
 
 /**
@@ -164,118 +169,111 @@ export interface IPostMessage {
  * ```
  */
 export interface IMessage {
-  /**
-   * Defines a collection of events that will be processed on the portal side.
-   * The specified actions will be performed depending on the set of values.
-   */
-  actions?: Actions[];
+	/**
+	 * Defines a collection of events that will be processed on the portal side.
+	 * The specified actions will be performed depending on the set of values.
+	 */
+	actions?: Actions[];
 
-  /**
-   * Defines the properties that update the state of the items which interact with the users.
-   * This parameter is used only with Actions.updateProps.
-   */
-  newProps?:
-  | IInput
-  | ICheckbox
-  | IToggleButton
-  | IButton
-  | ITextArea
-  | IComboBox;
+	/**
+	 * Defines the properties that update the state of the items which interact with the users.
+	 * This parameter is used only with Actions.updateProps.
+	 */
+	newProps?: IInput | ICheckbox | IToggleButton | IButton | ITextArea | IComboBox;
 
-  /**
-   * Defines the properties that display a toast notification after the user actions.
-   * This parameter is used only with Actions.showToast.
-   */
-  toastProps?: IToast[];
+	/**
+	 * Defines the properties that display a toast notification after the user actions.
+	 * This parameter is used only with Actions.showToast.
+	 */
+	toastProps?: IToast[];
 
-  /**
-   * Defines the properties that update the state of the parent or child item after the event was executed.
-   * Contains an array of objects with:
-   * - name: Defines the item name
-   * - props: Defines the new properties for the parent or child item
-   */
-  contextProps?: {
-    name: string;
-    props:
-    | IBox
-    | IButton
-    | ICheckbox
-    | IComboBox
-    | IFrame
-    | IImage
-    | IInput
-    | ILabel
-    | ISkeleton
-    | IText
-    | ITextArea
-    | IToggleButton;
-  }[];
+	/**
+	 * Defines the properties that update the state of the parent or child item after the event was executed.
+	 * Contains an array of objects with:
+	 * - name: Defines the item name
+	 * - props: Defines the new properties for the parent or child item
+	 */
+	contextProps?: {
+		name: string;
+		props:
+			| IBox
+			| IButton
+			| ICheckbox
+			| IComboBox
+			| IFrame
+			| IImage
+			| IInput
+			| ILabel
+			| ISkeleton
+			| IText
+			| ITextArea
+			| IToggleButton;
+	}[];
 
-  /**
-   * Defines the properties that display the default dialog box for creating a file/folder managed by the plugin.
-   * This parameter is used only with Actions.showCreateDialogModal.
-   */
-  createDialogProps?: ICreateDialog;
+	/**
+	 * Defines the properties that display the default dialog box for creating a file/folder managed by the plugin.
+	 * This parameter is used only with Actions.showCreateDialogModal.
+	 */
+	createDialogProps?: ICreateDialog;
 
-  /**
-   * Defines the properties that display the modal window.
-   * This parameter is used only with Actions.showModal.
-   */
-  modalDialogProps?: IModalDialog;
+	/**
+	 * Defines the properties that display the modal window.
+	 * This parameter is used only with Actions.showModal.
+	 */
+	modalDialogProps?: IModalDialog;
 
-  /**
-   * Defines the properties that display the selector.
-   * This parameter is used only with Actions.showSelector.
-   */
-  selectorProps?: TSelector;
+	/**
+	 * Defines the properties that display the selector.
+	 * This parameter is used only with Actions.showSelector.
+	 */
+	selectorProps?: TSelector;
 
-  /**
-   * Defines the configuration for the floating operations button that displays progress of long-running operations.
-   * Used with Actions.addFloatingOperationsButton to create a new button or Actions.updateFloatingOperationsButton to update existing one.
-   * The button appears as a floating action button in the bottom-right corner. Multiple plugins can show operations simultaneously.
-   */
-  floatingOperationsButtonProps?: IFloatingOperationsButton;
+	/**
+	 * Defines the configuration for the floating operations button that displays progress of long-running operations.
+	 * Used with Actions.addFloatingOperationsButton to create a new button or Actions.updateFloatingOperationsButton to update existing one.
+	 * The button appears as a floating action button in the bottom-right corner. Multiple plugins can show operations simultaneously.
+	 */
+	floatingOperationsButtonProps?: IFloatingOperationsButton;
 
-  /**
-   * Unique identifier for the floating operations button to remove.
-   * Used only with Actions.removeFloatingOperationsButton to close a specific operations panel.
-   * The ID should match the `id` property of the IFloatingOperationsButton that was previously added.
-   */
-  floatingOperationsButtonPropsId?: string;
+	/**
+	 * Unique identifier for the floating operations button to remove.
+	 * Used only with Actions.removeFloatingOperationsButton to close a specific operations panel.
+	 * The ID should match the `id` property of the IFloatingOperationsButton that was previously added.
+	 */
+	floatingOperationsButtonPropsId?: string;
 
-  /**
-   * Defines the properties that are used to send a message to a frame.
-   * If the frame ID is not specified or the frame with such an ID does not exist, then nothing changes.
-   * This parameter is used only with Actions.sendPostMessage.
-   */
-  postMessage?: IPostMessage;
+	/**
+	 * Defines the properties that are used to send a message to a frame.
+	 * If the frame ID is not specified or the frame with such an ID does not exist, then nothing changes.
+	 * This parameter is used only with Actions.sendPostMessage.
+	 */
+	postMessage?: IPostMessage;
 
-  /**
-   * Defines a parameter that is used to save and transfer the administrator or owner plugin settings to all the portal users.
-   * This parameter is used only with Actions.saveSettings.
-   */
-  settings?: string;
+	/**
+	 * Defines a parameter that is used to save and transfer the administrator or owner plugin settings to all the portal users.
+	 * This parameter is used only with Actions.saveSettings.
+	 */
+	settings?: string;
 
-  /**
-   * Defines the path to navigate to.
-   * All actions listed after navigate will be called after the navigation is complete.
-   * This parameter is used only with Actions.navigate.
-   */
-  navigatePath?: string;
+	/**
+	 * Defines the path to navigate to.
+	 * All actions listed after navigate will be called after the navigation is complete.
+	 * This parameter is used only with Actions.navigate.
+	 */
+	navigatePath?: string;
 
-  /**
-   * Defines the info panel tab to open.
-   * This parameter is used only with Actions.openInfoPanel.
-   */
-  infoPanelTab?: TInfoPanelTab;
+	/**
+	 * Defines the info panel tab to open.
+	 * This parameter is used only with Actions.openInfoPanel.
+	 */
+	infoPanelTab?: TInfoPanelTab;
 
-  /**
-   * Defines the properties for the media viewer.
-   * This parameter is used only with Actions.showMediaViewer and Actions.updateMediaViewer.
-   */
-  mediaViewerProps?: IMediaViewer;
+	/**
+	 * Defines the properties for the media viewer.
+	 * This parameter is used only with Actions.showMediaViewer and Actions.updateMediaViewer.
+	 */
+	mediaViewerProps?: IMediaViewer;
 }
-
 
 /**
  * A message which is returned from the postMessage callback.
@@ -299,78 +297,89 @@ export interface IMessage {
  * ```
  */
 export interface IPostMessageCallbackMessage {
-  /**
-   * Defines a collection of events that will be processed on the portal side.
-   * Only the following actions are available:
-   * updateContextMenuItems, updateInfoPanelItems, updateMainButtonItems,
-   * updateProfileMenuItems, updateFileItems, updateEventListenerItems,
-   * showToast, showCreateDialogModal, showModal, showSelector, addFloatingOperationsButton,
-   * navigate, openInfoPanel.
-   */
-  actions?: (
-    | Actions.updateContextMenuItems
-    | Actions.updateInfoPanelItems
-    | Actions.updateMainButtonItems
-    | Actions.updateProfileMenuItems
-    | Actions.updateFileItems
-    | Actions.updateEventListenerItems
-    | Actions.showToast
-    | Actions.showCreateDialogModal
-    | Actions.showModal
-    | Actions.showSelector
-    | Actions.addFloatingOperationsButton
-    | Actions.navigate
-    | Actions.openInfoPanel
-  )[];
+	/**
+	 * Defines a collection of events that will be processed on the portal side.
+	 * Only the following actions are available:
+	 * updateContextMenuItems, updateInfoPanelItems, updateMainButtonItems,
+	 * updateProfileMenuItems, updateFileItems, updateEventListenerItems,
+	 * showToast, showCreateDialogModal, showModal, showSelector, addFloatingOperationsButton,
+	 * navigate, openInfoPanel.
+	 */
+	actions?: (
+		| Actions.updateContextMenuItems
+		| Actions.updateInfoPanelItems
+		| Actions.updateMainButtonItems
+		| Actions.updateProfileMenuItems
+		| Actions.updateFileItems
+		| Actions.updateEventListenerItems
+		| Actions.showToast
+		| Actions.showCreateDialogModal
+		| Actions.showModal
+		| Actions.showSelector
+		| Actions.showMediaViewer
+		| Actions.addFloatingOperationsButton
+		| Actions.navigate
+		| Actions.openInfoPanel
+		| Actions.closeModal
+		| Actions.closeMediaViewer
+		| Actions.removeFloatingOperationsButton
+	)[];
 
-  /**
-   * Defines the properties that display a toast notification after the user actions.
-   * This parameter is used only with Actions.showToast.
-   */
-  toastProps?: IToast[];
+	/**
+	 * Defines the properties that display a toast notification after the user actions.
+	 * This parameter is used only with Actions.showToast.
+	 */
+	toastProps?: IToast[];
 
-  /**
-   * Defines the properties that display the default dialog box for creating a file/folder managed by the plugin.
-   * This parameter is used only with Actions.showCreateDialogModal.
-   */
-  createDialogProps?: ICreateDialog;
+	/**
+	 * Defines the properties that display the default dialog box for creating a file/folder managed by the plugin.
+	 * This parameter is used only with Actions.showCreateDialogModal.
+	 */
+	createDialogProps?: ICreateDialog;
 
-  /**
-   * Defines the properties that display the modal window.
-   * This parameter is used only with Actions.showModal.
-   */
-  modalDialogProps?: IModalDialog;
+	/**
+	 * Defines the properties that display the modal window.
+	 * This parameter is used only with Actions.showModal.
+	 */
+	modalDialogProps?: IModalDialog;
 
-  /**
-   * Defines the properties that display the selector.
-   * This parameter is used only with Actions.showSelector.
-   */
-  selectorProps?: TSelector;
+	/**
+	 * Defines the properties that display the selector.
+	 * This parameter is used only with Actions.showSelector.
+	 */
+	selectorProps?: TSelector;
 
-  /**
-   * Defines the configuration for the floating operations button that displays progress of long-running operations.
-   * Used with Actions.addFloatingOperationsButton to create a new button.
-   */
-  floatingOperationsButtonProps?: IFloatingOperationsButton;
+	/**
+	 * Defines the configuration for the floating operations button that displays progress of long-running operations.
+	 * Used with Actions.addFloatingOperationsButton to create a new button.
+	 */
+	floatingOperationsButtonProps?: IFloatingOperationsButton;
 
-  /**
-   * Defines the path to navigate to.
-   * All actions listed after navigate will be called after the navigation is complete.
-   * This parameter is used only with Actions.navigate.
-   */
-  navigatePath?: string;
+	/**
+	 * Unique identifier for the floating operations button to remove.
+	 * Used with Actions.removeFloatingOperationsButton to close a specific operations panel.
+	 * The ID should match the `id` property of the IFloatingOperationsButton that was previously added.
+	 */
+	floatingOperationsButtonPropsId?: IFloatingOperationsButton["id"];
 
-  /**
-   * Defines the info panel tab to open.
-   * This parameter is used only with Actions.openInfoPanel.
-   */
-  infoPanelTab?: TInfoPanelTab;
+	/**
+	 * Defines the path to navigate to.
+	 * All actions listed after navigate will be called after the navigation is complete.
+	 * This parameter is used only with Actions.navigate.
+	 */
+	navigatePath?: string;
+
+	/**
+	 * Defines the info panel tab to open.
+	 * This parameter is used only with Actions.openInfoPanel.
+	 */
+	infoPanelTab?: TInfoPanelTab;
 }
 
 export type TReturnPostMessage =
-  | Promise<IPostMessageCallbackMessage>
-  | Promise<void>
-  | void
-  | IPostMessageCallbackMessage;
+	| Promise<IPostMessageCallbackMessage>
+	| Promise<void>
+	| void
+	| IPostMessageCallbackMessage;
 
 export type TReturnMessage = Promise<IMessage> | Promise<void> | void | IMessage;
