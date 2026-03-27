@@ -44,6 +44,7 @@
 - Add ILink component
 - Add IMediaViewer component, actions (showMediaViewer, updateMediaViewer,
   closeMediaViewer)
+- Add placement prop to IContextMenuItem
 
 ## Fixed
 
