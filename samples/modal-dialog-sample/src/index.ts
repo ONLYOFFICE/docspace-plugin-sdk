@@ -16,15 +16,16 @@
 
 import {
 	Actions,
+	ButtonSize,
 	Components,
+	IBox,
 	IMessage,
 	IModalDialog,
 	IPlugin,
 	IProfileMenuItem,
 	IProfileMenuPlugin,
 	ModalDisplayType,
-	PluginStatus,
-	ToastType,
+	PluginStatus
 } from "@onlyoffice/docspace-plugin-sdk";
 
 /**
@@ -55,87 +56,6 @@ import {
  * - `onClose`          — called when × is clicked; returns `closeModal`.
  * - `withFooterBorder` — visual separator between body and footer.
  */
-
-// ─── Dialog footer — "Close" button ──────────────────────────────────────────
-
-const footerBox = {
-	children: [
-		{
-			component: Components.button,
-			props: {
-				label: "Close",
-				size: "normal",
-				primary: false,
-				scale: true,
-				testId: "modal-dialog-sample-close-btn",
-				onClick: (): IMessage => ({
-					actions: [Actions.closeModal],
-				}),
-			},
-		},
-	],
-};
-
-// ─── Dialog body ──────────────────────────────────────────────────────────────
-
-const bodyBox = {
-	children: [
-		{
-			component: Components.text,
-			props: {
-				text: "This plugin demonstrates IModalDialog. It opens a modal dialog from a profile-menu item.",
-				fontSize: "14px",
-				lineHeight: "20px",
-			},
-		},
-		{
-			component: Components.text,
-			props: {
-				text: 'Click "Close" or the × button to dismiss the dialog.',
-				fontSize: "13px",
-				lineHeight: "20px",
-				color: "#6d7b8d",
-			},
-		},
-	],
-};
-
-// ─── Modal dialog props (module-level constant) ────────────────────────────────
-
-const aboutDialog: IModalDialog = {
-	displayType: ModalDisplayType.modal,
-	dialogHeader: "About Modal Dialog Sample",
-
-	/** Placeholder body — replaced by onLoad before the dialog is shown. */
-	dialogBody: { children: [] },
-
-	withFooterBorder: true,
-
-	onClose: (): IMessage => ({
-		actions: [Actions.closeModal],
-	}),
-
-	onLoad: async () => ({
-		newDialogHeader: "About Modal Dialog Sample",
-		newDialogBody: bodyBox,
-		newDialogFooter: footerBox,
-	}),
-};
-
-// ─── Profile menu item ────────────────────────────────────────────────────────
-
-const aboutItem: IProfileMenuItem = {
-	key: "modal-dialog-sample-about",
-	label: "Sample: About Plugin",
-	icon: "docspace-icon.svg",
-	onClick: (): IMessage => ({
-		actions: [Actions.showModal],
-		modalDialogProps: aboutDialog,
-	}),
-};
-
-// ─── Plugin class ─────────────────────────────────────────────────────────────
-
 class ModalDialogPlugin implements IPlugin, IProfileMenuPlugin {
 	// ── IPlugin ──────────────────────────────────────────────────────────────────
 
@@ -163,13 +83,89 @@ class ModalDialogPlugin implements IPlugin, IProfileMenuPlugin {
 		this.profileMenuItems.set(item.key, item);
 	};
 
-	getProfileMenuItems = (): Map<string, IProfileMenuItem> =>
-		this.profileMenuItems;
+	getProfileMenuItems = (): Map<string, IProfileMenuItem> => this.profileMenuItems;
 
 	updateProfileMenuItem = (item: IProfileMenuItem): void => {
 		this.profileMenuItems.set(item.key, item);
 	};
 }
+
+// ─── Dialog footer — "Close" button ──────────────────────────────────────────
+
+const footerBox: IBox = {
+	children: [
+		{
+			component: Components.button,
+			props: {
+				label: "Close",
+				size: ButtonSize.normal,
+				primary: false,
+				scale: true,
+				onClick: (): IMessage => ({
+					actions: [Actions.closeModal]
+				})
+			}
+		}
+	]
+};
+
+// ─── Dialog body ──────────────────────────────────────────────────────────────
+
+const bodyBox: IBox = {
+	children: [
+		{
+			component: Components.text,
+			props: {
+				text: "This plugin demonstrates IModalDialog. It opens a modal dialog from a profile-menu item.",
+				fontSize: "14px",
+				lineHeight: "20px"
+			}
+		},
+		{
+			component: Components.text,
+			props: {
+				text: 'Click "Close" or the \u00d7 button to dismiss the dialog.',
+				fontSize: "13px",
+				lineHeight: "20px",
+				color: "#6d7b8d"
+			}
+		}
+	]
+};
+
+// ─── Modal dialog props (module-level constant) ────────────────────────────────
+
+const aboutDialog: IModalDialog = {
+	displayType: ModalDisplayType.modal,
+	dialogHeader: "About Modal Dialog Sample",
+
+	/** Placeholder body — replaced by onLoad before the dialog is shown. */
+	dialogBody: { children: [] },
+
+	withFooterBorder: true,
+
+	onClose: (): IMessage => ({
+		actions: [Actions.closeModal]
+	}),
+
+	onLoad: async () => ({
+		newDialogHeader: "About Modal Dialog Sample",
+		newDialogBody: bodyBox,
+		newDialogFooter: footerBox
+	})
+};
+
+// ─── Profile menu item ────────────────────────────────────────────────────────
+
+const aboutItem: IProfileMenuItem = {
+	key: "modal-dialog-sample-about",
+	label: "Sample: About Plugin",
+	icon: "docspace-icon.svg",
+	onClick: (): IMessage => ({
+		actions: [Actions.showModal],
+		modalDialogProps: aboutDialog
+	})
+};
 
 // ─── Registration ─────────────────────────────────────────────────────────────
 
