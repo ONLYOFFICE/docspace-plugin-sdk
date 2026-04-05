@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PostMessage Frame</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.5;
+        color: #333;
+        background: #f7f9fb;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 24px;
+        gap: 16px;
+      }
+
+      p {
+        max-width: 360px;
+        text-align: center;
+        color: #6d7b8d;
+      }
+
+      button {
+        padding: 8px 20px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #fff;
+        background: #4781d1;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: background 0.15s ease;
+      }
+
+      button:hover {
+        background: #3a6bbf;
+      }
+
+      button:active {
+        background: #2f5aa8;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      Click the button below to send a postMessage event to the DocSpace portal.
+      The plugin will intercept the message and display a toast notification.
+    </p>
+
+    <button id="send-btn" type="button">Send Message to Portal</button>
+
+    <script>
+      document.getElementById("send-btn").addEventListener("click", function () {
+        window.parent.postMessage(
+          { source: "post-message-plugin", text: "Hello from the iframe!" },
+          "*"
+        );
+      });
+    </script>
+  </body>
+</html>
