@@ -29,8 +29,8 @@ import {
  *
  * Two items demonstrating the core profile menu API:
  *
- * 1. "Sample: Account Info" — fires a success toast when clicked.
- * 2. "Sample: Quick Help"   — fires an info toast when clicked.
+ * 1. "Sample: Account Info" - fires a success toast when clicked.
+ * 2. "Sample: Quick Help"   - fires an info toast when clicked.
  */
 class ProfileMenuSample implements IPlugin, IProfileMenuPlugin {
 	// ─── IPlugin ────────────────────────────────────────────────────────────────
@@ -80,10 +80,10 @@ class ProfileMenuSample implements IPlugin, IProfileMenuPlugin {
  * Clicking it shows a success toast simulating account info retrieval.
  *
  * Key API features demonstrated:
- * - `key` — unique identifier used by the plugin system.
- * - `label` — text shown in the profile dropdown menu.
- * - `icon` — 16×16 px icon served from the plugin assets folder.
- * - `onClick` — async handler returning an IMessage with showToast action.
+ * - `key` - unique identifier used by the plugin system.
+ * - `label` - text shown in the profile dropdown menu.
+ * - `icon` - 16x16 px icon served from the plugin assets folder.
+ * - `onClick` - async handler returning an IMessage with showToast action.
  */
 const accountInfoItem: IProfileMenuItem = {
 	key: "profile-menu-sample-account-info",

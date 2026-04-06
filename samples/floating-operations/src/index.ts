@@ -30,7 +30,7 @@ import {
 /**
  * Floating Operations Plugin
  *
- * Demonstrates IFloatingOperationsButton — a floating action button that
+ * Demonstrates IFloatingOperationsButton - a floating action button that
  * tracks the progress of long-running operations (uploads, conversions, etc.).
  *
  * Flow
@@ -39,12 +39,12 @@ import {
  * 2. Clicking the item on a file triggers `addFloatingOperationsButton`, which
  *    shows the floating button with one Upload operation.
  * 3. `onLoad` is called immediately and starts a progress interval:
- *    progress increments by 10 % every 200 ms (10 steps ≈ 2 s total).
+ *    progress increments by 10% every 200 ms (10 steps ~2 s total).
  *    Each tick calls `dispatchMessage` with `updateFloatingOperationsButton`.
  * 4. When progress reaches 100 %, the interval is cleared, `operationsCompleted`
  *    is set to `true`, and the button reflects the completed state.
  * 5. While an upload is in progress, clicking the context-menu item again is a
- *    no-op — the plugin guards against double-starts.
+ *    no-op - the plugin guards against double-starts.
  * 6. The cancel button (visible because `showCancelButton: true` and there is
  *    exactly one operation) calls `cancelOperation`, which clears the interval
  *    and returns `removeFloatingOperationsButton`.
@@ -54,13 +54,13 @@ import {
  *
  * Key IFloatingOperationsButton features demonstrated
  * ────────────────────────────────────────────────────
- * - `id`                        — unique button identifier.
- * - `operations`                — array of IFloatingOperation items.
- * - `operationsCompleted`       — signals all operations are done.
- * - `showCancelButton`          — shows the × cancel button (single-op only).
- * - `cancelOperation`           — removes the entire button.
- * - `onCancelOperationFromList` — removes one operation from the list.
- * - `onLoad`                    — starts the progress timer via dispatchMessage.
+ * - `id`                        - unique button identifier.
+ * - `operations`                - array of IFloatingOperation items.
+ * - `operationsCompleted`       - signals all operations are done.
+ * - `showCancelButton`          - shows the "x" cancel button (single-op only).
+ * - `cancelOperation`           - removes the entire button.
+ * - `onCancelOperationFromList` - removes one operation from the list.
+ * - `onLoad`                    - starts the progress timer via dispatchMessage.
  */
 class FloatingOperationsPlugin implements IPlugin, IContextMenuPlugin {
 	// ─── IPlugin ────────────────────────────────────────────────────────────────
@@ -129,7 +129,7 @@ const uploadButton: IFloatingOperationsButton = {
 	showCancelButton: true,
 
 	/**
-	 * Called when the user clicks the global cancel (×) button.
+	 * Called when the user clicks the global cancel ("x") button.
 	 * Clears the progress interval and removes the floating button entirely.
 	 */
 	cancelOperation: (): IMessage => {
@@ -164,7 +164,7 @@ const uploadButton: IFloatingOperationsButton = {
 
 	/**
 	 * Starts the progress timer.
-	 * Increments by 10 % every 200 ms — 10 steps ≈ 2 seconds total.
+	 * Increments by 10% every 200 ms - 10 steps ~2 seconds total.
 	 */
 	onLoad: (dispatchMessage: (message: IMessage) => void): void => {
 		let progress = 0;

@@ -30,11 +30,11 @@ import {
  *
  * Two items demonstrating the core file item API:
  *
- * 1. ".pdf"  handler — overrides the click action for every PDF file.
+ * 1. ".pdf"  handler - overrides the click action for every PDF file.
  *             Shows a success toast with the file title.
  *             Sets a custom type label ("Sample: PDF") and row/tile icons.
  *
- * 2. ".xlsx" handler — same pattern for spreadsheet files.
+ * 2. ".xlsx" handler - same pattern for spreadsheet files.
  *             Custom type label "Sample: Spreadsheet".
  */
 class FileItemSample implements IPlugin, IFilePlugin {
@@ -85,11 +85,11 @@ class FileItemSample implements IPlugin, IFilePlugin {
  * Shows a success toast with the file title and ID.
  *
  * Key API features demonstrated:
- * - `extension`     — the file extension to intercept.
- * - `onClick`       — receives the `File` object; returns an IMessage.
- * - `fileTypeName`  — custom label shown in the "Type" column.
- * - `fileRowIcon`   — 32 × 32 px icon for the table (row) view.
- * - `fileTileIcon`  — 96 × 96 px icon for the tile view.
+ * - `extension`     - the file extension to intercept.
+ * - `onClick`       - receives the `File` object; returns an IMessage.
+ * - `fileTypeName`  - custom label shown in the "Type" column.
+ * - `fileRowIcon`   - 32 x 32 px icon for the table (row) view.
+ * - `fileTileIcon`  - 96 x 96 px icon for the tile view.
  */
 const pdfItem: IFileItem = {
 	extension: ".pdf",

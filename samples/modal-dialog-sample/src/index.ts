@@ -33,8 +33,8 @@ import {
  *
  * Demonstrates how a plugin opens an IModalDialog from a profile-menu item.
  *
- * The dialog props are defined as a module-level constant — no factory
- * function is used — showing that IModalDialog can be fully declared once.
+ * The dialog props are defined as a module-level constant - no factory
+ * function is used - showing that IModalDialog can be fully declared once.
  *
  * Flow
  * ────
@@ -44,17 +44,17 @@ import {
  * 3. DocSpace renders the PluginDialog using those props.
  *    `onLoad` is called immediately and returns the dialog body/footer.
  * 4. The footer "Close" button returns `Actions.closeModal`; so does
- *    the built-in × button via `onClose`.
+ *    the built-in "x" button via `onClose`.
  *
  * Key IModalDialog features demonstrated
  * ───────────────────────────────────────
- * - `displayType`      — center-screen modal (`ModalDisplayType.modal`).
- * - `dialogHeader`     — static header string.
- * - `dialogBody`       — placeholder box (overwritten by `onLoad`).
- * - `dialogFooter`     — box with a "Close" button (set by `onLoad`).
- * - `onLoad`           — returns the real body and footer content.
- * - `onClose`          — called when × is clicked; returns `closeModal`.
- * - `withFooterBorder` — visual separator between body and footer.
+ * - `displayType`      - center-screen modal (`ModalDisplayType.modal`).
+ * - `dialogHeader`     - static header string.
+ * - `dialogBody`       - placeholder box (overwritten by `onLoad`).
+ * - `dialogFooter`     - box with a "Close" button (set by `onLoad`).
+ * - `onLoad`           - returns the real body and footer content.
+ * - `onClose`          - called when "x" is clicked; returns `closeModal`.
+ * - `withFooterBorder` - visual separator between body and footer.
  */
 class ModalDialogPlugin implements IPlugin, IProfileMenuPlugin {
 	// ── IPlugin ──────────────────────────────────────────────────────────────────
@@ -90,7 +90,7 @@ class ModalDialogPlugin implements IPlugin, IProfileMenuPlugin {
 	};
 }
 
-// ─── Dialog footer — "Close" button ──────────────────────────────────────────
+// ─── Dialog footer - "Close" button ──────────────────────────────────────────
 
 const footerBox: IBox = {
 	children: [
@@ -139,7 +139,7 @@ const aboutDialog: IModalDialog = {
 	displayType: ModalDisplayType.modal,
 	dialogHeader: "About Modal Dialog Sample",
 
-	/** Placeholder body — replaced by onLoad before the dialog is shown. */
+	/** Placeholder body - replaced by onLoad before the dialog is shown. */
 	dialogBody: { children: [] },
 
 	withFooterBorder: true,
