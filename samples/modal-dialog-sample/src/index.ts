@@ -124,7 +124,7 @@ const bodyBox: IBox = {
 		{
 			component: Components.text,
 			props: {
-				text: 'Click "Close" or the \u00d7 button to dismiss the dialog.',
+				text: 'Click "Close" or the X button to dismiss the dialog.',
 				fontSize: "13px",
 				lineHeight: "20px",
 				color: "#6d7b8d"
