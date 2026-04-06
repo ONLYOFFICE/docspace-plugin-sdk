@@ -1,0 +1,12 @@
+{
+  "settings": {
+    "description": "Locale-Beispiel-Plugin konfigurieren. Geben Sie unten Ihren API-Token ein.",
+    "apiToken": "API-Token",
+    "saveButton": "Speichern",
+    "tokenSaved": "Einstellungen gespeichert"
+  },
+  "contextMenuItem": {
+    "label": "Locale-Beispiel: Aktion",
+    "subLabel": "Locale-Beispiel: Unteraktion"
+  }
+}

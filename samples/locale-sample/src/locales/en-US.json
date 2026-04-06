@@ -1,0 +1,12 @@
+{
+  "settings": {
+    "description": "Configure the locale-sample plugin. Enter your API token below.",
+    "apiToken": "API Token",
+    "saveButton": "Save",
+    "tokenSaved": "Settings saved"
+  },
+  "contextMenuItem": {
+    "label": "Locale Sample: action",
+    "subLabel": "Locale Sample: sub-action"
+  }
+}

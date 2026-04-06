@@ -1,0 +1,12 @@
+{
+  "settings": {
+    "description": "Lokal nümunəsi plagini konfiqurasiya edin. Aşağıda API tokeninizi daxil edin.",
+    "apiToken": "API Tokeni",
+    "saveButton": "Saxla",
+    "tokenSaved": "Parametrlər saxlanıldı"
+  },
+  "contextMenuItem": {
+    "label": "Lokal nümunəsi: əməliyyat",
+    "subLabel": "Lokal nümunəsi: alt əməliyyat"
+  }
+}
