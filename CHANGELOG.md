@@ -45,6 +45,7 @@
 - Add IMediaViewer component, actions (showMediaViewer, updateMediaViewer,
   closeMediaViewer)
 - Add placement prop to IContextMenuItem
+- Add IArticleNavigationPlugin, IArticleNavigationItem, Section enum
 
 ## Fixed
 
