@@ -27,10 +27,20 @@ import {
 
 import { IMessage } from "../utils";
 
+type GroupItem = {
+	/**
+	 * The id of the selected entity (files/folders/rooms)
+	 */
+	id: number | string;
+	/**
+	 * The type of selected entity.
+	 * Can be used to recognize entities in a group of selected files/folders/rooms.
+	 */
+	itemType: "file" | "folder" | "room";
+};
+
 /**
  * Describes an item that will be embedded in the context menu.
- *
-
  *
  * @example
  *
@@ -98,7 +108,7 @@ import { IMessage } from "../utils";
  *     }
  *   }
  * };
- *```
+ * ```
  *
  * @example
  *
@@ -128,8 +138,6 @@ import { IMessage } from "../utils";
  *   isGroupAction: true,
  *   fileType: [FilesType.file, FilesType.folder],
  *   onGroupClick: async (items) => {
- *     // The `items` array includes only selected files and folders.
- *     Rooms are not included, as their `fileType` value does not include `room`.
  *     const count = items.length;
  *
  *     const filesIds = items
@@ -139,12 +147,6 @@ import { IMessage } from "../utils";
  *     const foldersIds = items
  *                   .filter((item) => item.itemType === "folder")
  *                   .map((item) => item.id);
- *
- *
- *     // Process selected items
- *     console.log(`Exporting ${count} items:`, items);
- *     console.log(`Files IDs:`, filesIds);
- *     console.log(`Folders IDs:`, foldersIds);
  *
  *     return {
  *       actions: [Actions.showToast],
@@ -158,19 +160,6 @@ import { IMessage } from "../utils";
  * };
  * ```
  */
-
-type GroupItem = {
-	/**
-	 * The id of the selected entity (files/folders/rooms)
-	 */
-	id: number | string;
-	/**
-	 * The type of selected entity.
-	 * Can be used to recognize entities in a group of selected files/folders/rooms.
-	 */
-	itemType: "file" | "folder" | "room";
-};
-
 export interface IContextMenuItem {
 	/**
 	 * The unique item identifier used by the service to recognize the item

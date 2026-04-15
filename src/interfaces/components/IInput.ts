@@ -144,8 +144,50 @@ export const enum InputType {
 /**
  * Input field for single-line strings.
  *
-
+ * @example
  *
+ * Search input with icon and hover effects
+ *
+ * ```typescript
+ * const searchInput: IInput = {
+ *   value: "",
+ *   onChange: (value) => {
+ *     return {
+ *       actions: [Actions.updateProps],
+ *       newProps: { value }
+ *     };
+ *   },
+ *   placeholder: "Search documents...",
+ *   size: InputSize.middle,
+ *   iconName: "search",
+ *   iconSize: 16,
+ *   iconColor: "#666666",
+ *   hoverColor: "#333333",
+ *   isIconFill: true,
+ * };
+ * ```
+ *
+ * @example
+ *
+ * Password input with validation
+ *
+ * ```typescript
+ * const passwordInput: IInput = {
+ *   value: "",
+ *   onChange: (value) => {
+ *     return {
+ *       actions: [Actions.updateProps],
+ *       newProps: { value, hasError: value.length < 8 }
+ *     };
+ *   },
+ *   placeholder: "Enter password...",
+ *   type: InputType.password,
+ *   size: InputSize.big,
+ *   isAutoFocused: true,
+ *   hasError: false,
+ *   maxLength: "32",
+ * };
+ * ```
  */
 export interface IInput {
   /**

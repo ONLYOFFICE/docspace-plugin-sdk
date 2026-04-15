@@ -46,8 +46,6 @@ export enum LinkTarget {
 /**
  * Defines the link component properties.
  *
- * @category Link
- *
  * @example
  * ```typescript
  * import { ILink, LinkType, LinkTarget } from "@onlyoffice/docspace-plugin-sdk";

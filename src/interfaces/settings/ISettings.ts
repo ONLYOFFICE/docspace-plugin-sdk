@@ -21,8 +21,6 @@ import { ButtonGroup, IBox } from "../components";
 /**
  * Defines the administrator or owner settings block that is embedded in the modal window with the plugin description.
  *
- * @module Settings
- *
  * @example
  *
  * Theme customization settings with color picker

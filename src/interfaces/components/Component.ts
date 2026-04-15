@@ -489,8 +489,6 @@ type ToggleButtonGroup = {
 /**
  * Defines the icon button component.
  *
- * @category IconButton
- *
  * @example
  * ```typescript
  * import { IIconButton, Components, Component, Actions } from "@onlyoffice/docspace-plugin-sdk";
@@ -525,8 +523,6 @@ type IconButtonGroup = {
 
 /**
  * Defines the link component.
- *
- * @category Link
  *
  * @example
  * ```typescript

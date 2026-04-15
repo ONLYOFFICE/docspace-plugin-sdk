@@ -55,7 +55,6 @@ export interface File {
  * Describes an item that will be embedded in the file list.
  * The file item can be displayed as a file or a folder.
  *
- *
  * @example
  *
  * 3D model viewer with format validation
@@ -164,12 +163,6 @@ export interface File {
  *   }
  * }
  * ```
- */
-
-/**
- * Describes an item that will be embedded in the file list.
- *
-
  */
 export interface IFileItem {
   /** The file extension. If several plugins have the same extension, the last plugin from this list is taken */
