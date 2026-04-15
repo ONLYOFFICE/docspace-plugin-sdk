@@ -17,12 +17,12 @@
  */
 
 import {
-  Devices,
-  FilesExst,
-  FilesType,
-  FilesSecurity,
-  Security,
-  UsersType,
+	Devices,
+	FilesExst,
+	FilesType,
+	FilesSecurity,
+	Security,
+	UsersType
 } from "../../enums";
 
 import { IMessage } from "../utils";
@@ -41,7 +41,7 @@ import { IMessage } from "../utils";
  *   key: "analyze-file",
  *   label: "Analyze File",
  *   icon: "analysis-icon.svg",
- *   onClick: async (fileId) => {
+ *   onItemClick: async (fileId) => {
  *     try {
  *       const analysis = await analyzeFile(fileId);
  *       return {
@@ -75,7 +75,7 @@ import { IMessage } from "../utils";
  *   key: "share-file",
  *   label: "Share File",
  *   icon: "share-icon.svg",
- *   onClick: async (fileId) => {
+ *   onItemClick: async (fileId) => {
  *     try {
  *       const shareInfo = await generateShareLink(fileId);
  *       return {
@@ -118,139 +118,200 @@ import { IMessage } from "../utils";
  *
  * @example
  *
- * Bulk-tagging files
+ * Group action for multiple selected items
  *
  * ```typescript
- * const bulkTagging: IContextMenuItem = {
- *   key: "bulk-tagging-files",
- *   label: "Add tags to files",
- *   icon: "tag-icon.svg",
+ * const exportFiles: IContextMenuItem = {
+ *   key: "export-files",
+ *   label: "Export Selected",
+ *   icon: "export-icon.svg",
  *   isGroupAction: true,
- *   onGroupClick: async (ids) => {
- *     try {
- *       // A custom function to apply tags to multiple files
- *       await addTagsToFiles(ids, ["important", "review"]);
- *       return {
- *         actions: [Actions.showToast],
- *         toastProps: [{
- *           type: "success",
- *           title: "Files Tagged",
- *           message: `${ids.length} files were successfully tagged.`
- *         }]
- *       };
- *     } catch (error) {
- *       return {
- *         actions: [Actions.showToast],
- *         toastProps: [{
- *           type: "error",
- *           title: "Tagging Failed",
- *           message: "Could not tag selected files. Please try again."
- *         }]
- *       };
- *     }
+ *   fileType: [FilesType.file, FilesType.folder],
+ *   onGroupClick: async (items) => {
+ *     // The `items` array includes only selected files and folders.
+ *     Rooms are not included, as their `fileType` value does not include `room`.
+ *     const count = items.length;
+ *
+ *     const filesIds = items
+ *                   .filter((item) => item.itemType === "file")
+ *                   .map((item) => item.id);
+ *
+ *     const foldersIds = items
+ *                   .filter((item) => item.itemType === "folder")
+ *                   .map((item) => item.id);
+ *
+ *
+ *     // Process selected items
+ *     console.log(`Exporting ${count} items:`, items);
+ *     console.log(`Files IDs:`, filesIds);
+ *     console.log(`Folders IDs:`, foldersIds);
+ *
+ *     return {
+ *       actions: [Actions.showToast],
+ *       toastProps: [{
+ *         type: "success",
+ *         title: "Export Started",
+ *         message: `Exporting ${count} items...`
+ *       }]
+ *     };
  *   }
  * };
  * ```
  */
 
+type GroupItem = {
+	/**
+	 * The id of the selected entity (files/folders/rooms)
+	 */
+	id: number | string;
+	/**
+	 * The type of selected entity.
+	 * Can be used to recognize entities in a group of selected files/folders/rooms.
+	 */
+	itemType: "file" | "folder" | "room";
+};
+
 export interface IContextMenuItem {
-  /**
-   * The unique item identifier used by the service to recognize the item
-   *
-   */
-  key: string;
+	/**
+	 * The unique item identifier used by the service to recognize the item
+	 *
+	 */
+	key: string;
 
-  /**
-   * The item display name
-   *
-   */
-  label: string;
+	/**
+	 * The item display name
+	 *
+	 */
+	label: string;
 
-  /**
-   * The item display icon. The icon image must be uploaded to the "assets" folder.
-   * Only the image name with the extension must be specified in this field. The required icon size is 16x16 px.
-   * Otherwise, it will be compressed to this size.
-   *
-   */
-  icon: string;
+	/**
+	 * The item display icon. The icon image must be uploaded to the "assets" folder.
+	 * Only the image name with the extension must be specified in this field. The required icon size is 16x16 px.
+	 * Otherwise, it will be compressed to this size.
+	 *
+	 */
+	icon: string;
 
-  /**
-   * A function that takes the file/folder/room id as an argument. This function can be asynchronous
-   *
-   */
-  onClick?: (id: number) => Promise<IMessage> | Promise<void> | IMessage | void;
+	/**
+	 * Callback invoked when the action is triggered for a single selected
+	 * file, folder, or room.
+	 *
+	 * @param id The identifier of the selected item (number only for backward compatibility).
+	 *
+	 * @remarks
+	 * This callback is executed only for single selection.
+	 * If `isGroupAction` is set to `true`, this callback will not be triggered.
+	 *
+	 * @deprecated Use `onItemClick` instead to support both string and number IDs.
+	 * This method will be removed in a future major version.
+	 */
+	onClick?: (id: number) => Promise<IMessage> | Promise<void> | IMessage | void;
 
-  /**
-   * A function that takes the file/folder/room ids as an argument. This function can be asynchronous
-   *
-   */
-  onGroupClick?: (ids: number[]) => Promise<IMessage> | Promise<void> | IMessage | void;
+	/**
+	 * Callback invoked when the action is triggered for a single selected
+	 * file, folder, or room. Supports both string and number identifiers.
+	 *
+	 * @param id The identifier of the selected item (string or number).
+	 *
+	 * @remarks
+	 * This callback is executed only for single selection.
+	 * If `isGroupAction` is set to `true`, this callback will not be triggered.
+	 * This is the preferred method over the deprecated `onClick`.
+	 */
+	onItemClick?: (
+		id: string | number
+	) => Promise<IMessage> | Promise<void> | IMessage | void;
 
-  /**
-   * Whether the current element can be a group action
-   *
-   */
-  isGroupAction?: boolean;
+	/**
+	 * Callback invoked when the action is triggered for multiple selected
+	 * files, folders, or rooms.
+	 *
+	 * @param items Receives the selected file, folder, or room items as an argument.
+	 *
+	 * @remarks
+	 * To make the action appear in the group actions menu, set `isGroupAction` to `true`.
+	 * When `isGroupAction` is `true`, the action will not be shown for single selected items.
+	 */
+	onGroupClick?: (
+		items: GroupItem[]
+	) => Promise<IMessage> | Promise<void> | IMessage | void;
 
-  /**
-   * Whether to add the action state to the item in the file list when the onClick event is triggered
-   *
-   */
-  withActiveItem?: boolean;
+	/**
+	 * Indicates whether this item should be displayed in the group actions
+	 * context menu when multiple files, folders, or rooms are selected.
+	 *
+	 */
+	isGroupAction?: boolean;
 
-  /**
-   * The extensions of files where the current item will be displayed in the context menu.
-   * It only works if the FilesType.Files is specified in the fileType parameter.
-   * If this parameter is not specified, then the current context menu item will be displayed in any file extension.
-   *
-   */
-  fileExt?: (FilesExst | string)[];
+	/**
+	 * Whether to add the action state to the item in the file list when the onClick event is triggered
+	 *
+	 */
+	withActiveItem?: boolean;
 
-  /**
-   * The types of files where the current item will be displayed in the context menu.
-   * Presently the following file types are available: room, file, folder, image, video.
-   * If this parameter is not specified, then the current context menu item will be displayed in any file type.
-   *
-   */
-  fileType?: FilesType[];
+	/**
+	 * The extensions of files where the current item will be displayed in the context menu.
+	 * It only works if the FilesType.Files is specified in the fileType parameter.
+	 * If this parameter is not specified, then the current context menu item will be displayed in any file extension.
+	 *
+	 */
+	fileExt?: (FilesExst | string)[];
 
-  /**
-   * Specifies elements as submenus.
-   * If specified, onClick on the parent will not work.
-   * If none of the child elements are displayed, for example due to security or itemSecurity, the parent will also be hidden.
-   * Max level of the menu is 2.
-   */
-  items?: IContextMenuItem[];
+	/**
+	 * The types of files where the current item will be displayed in the context menu.
+	 * Presently the following file types are available: room, file, folder, image, video.
+	 * If this parameter is not specified, then the current context menu item will be displayed in any file type.
+	 *
+	 */
+	fileType?: FilesType[];
 
-  /**
-   * The types of users who will see the current item in the context menu.
-   * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
-   * If this parameter is not specified, then the current context menu item will be displayed for all user types.
-   *
-   */
-  usersTypes?: UsersType[];
+	/**
+	 * Specifies elements as submenus.
+	 * If specified, onClick on the parent will not work.
+	 * If none of the child elements are displayed, for example due to security or itemSecurity, the parent will also be hidden.
+	 * Max level of the menu is 2.
+	 */
+	items?: Omit<IContextMenuItem, "items" | "placement">[];
 
-  /**
-   * The types of devices where the current item will be displayed in the context menu.
-   * At the moment the following device types are available: mobile, tablet, desktop.
-   * If this parameter is not specified, then the current context menu item will be displayed in any device types.
-   *
-   */
-  devices?: Devices[];
+	/**
+	 * The types of users who will see the current item in the context menu.
+	 * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
+	 * If this parameter is not specified, then the current context menu item will be displayed for all user types.
+	 *
+	 */
+	usersTypes?: UsersType[];
 
-  /**
-   * The security parameters of the parent folder or room that will be checked.
-   * If all the parameters are true, the current item will be displayed in the context menu.
-   * If this parameter is undefined, it will be ignored.
-   *
-   */
-  security?: Security[];
+	/**
+	 * The types of devices where the current item will be displayed in the context menu.
+	 * At the moment the following device types are available: mobile, tablet, desktop.
+	 * If this parameter is not specified, then the current context menu item will be displayed in any device types.
+	 *
+	 */
+	devices?: Devices[];
 
-  /**
-   * The security parameters of the file or folder or room that will be checked.
-   * If all the parameters are true, the current item will be displayed in the context menu.
-   * If this parameter is undefined, it will be ignored.
-   *
-   */
-  itemSecurity?: (FilesSecurity | Security)[];
+	/**
+	 * The security parameters of the parent folder or room that will be checked.
+	 * If all the parameters are true, the current item will be displayed in the context menu.
+	 * If this parameter is undefined, it will be ignored.
+	 *
+	 */
+	security?: Security[];
+
+	/**
+	 * The security parameters of the file or folder or room that will be checked.
+	 * If all the parameters are true, the current item will be displayed in the context menu.
+	 * If this parameter is undefined, it will be ignored.
+	 *
+	 */
+	itemSecurity?: (FilesSecurity | Security)[];
+
+	/**
+	 * Defines where the item appears in the context menu (top block only).
+	 * - `top` — inserted at the very beginning of the menu, before all other items in the top block.
+	 * - `topLast` — inserted at the end of the top block, just before the first separator.
+	 * - If not specified, the item is placed inside the "More Options" submenu (default behavior).
+	 *
+	 * Only applies to root-level items. Nested items (`items[]`) ignore this property.
+	 */
+	placement?: "top" | "topLast";
 }

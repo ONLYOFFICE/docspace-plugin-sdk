@@ -5,32 +5,52 @@
 ## Changed
 
 - Remove type: "module" from package.json
-- Update webpack config in template (add "..." to minimizer array to save default minimizers)
+- Update webpack config in template (add "..." to minimizer array to save default
+  minimizers)
 - Convert const enums to regular enums
-- Add Promise<void> return type to plugin methods 'onClick' (IFileItem, IInfoPanelItem, IMainButtonItem, IProfileMenuItem)
+- Add Promise<void> return type to plugin methods 'onClick' (IFileItem, IInfoPanelItem,
+  IMainButtonItem, IProfileMenuItem)
 - onLoad prop optional in IInfoPanelItem
 - Update template
 - onClick prop optional in IContextMenuItem
 - Switch from yarn to npm in npx create-docspace-plugin
+- **DEPRECATED** onClick in IContextMenuItem now deprecated in favor of onItemClick
+- **DEPRECATED** onClick in IMainButtonItem now deprecated in favor of onItemClick
 
 ## Added
 
+- Add `onItemClick` callback to IContextMenuItem to support both string and number
+  identifiers
+- Add `onItemClick` callback to IMainButtonItem to support both string and number
+  identifiers
 - Add PluginLocale enum to Plugins enums
 - Add language, setLanguage, getLanguage prop to IPlugin
 - Add isHeaderVisible prop to IInfoPanelItem
 - Add Support CSS files
-- Add prop className to components (IBox, IButton, ICheckbox, IComboBox, IFrame, IImage, IInput, ILabel, ISkeleton, IText, ITextArea, IToggleButton)
+- Add prop className to components (IBox, IButton, ICheckbox, IComboBox, IFrame, IImage,
+  IInput, ILabel, ISkeleton, IText, ITextArea, IToggleButton)
 - Add prop id to component IBox
 - Add onGroupClick, isGroupAction props to IContextMenuItem
 - Add items prop to IContextMenuItem
-- Add selector components (Base, Files, Groups, People, Room), enums (SelectorType, RoomSearchArea, RoomsType) and actions (showSelector, updateSelector, closeSelector)
-- Add floating operations button component with progress tracking functionality and actions (addFloatingOperationsButton, updateFloatingOperationsButton, removeFloatingOperationsButton)
+- Add selector components (Base, Files, Groups, People, Room), enums (SelectorType,
+  RoomSearchArea, RoomsType) and actions (showSelector, updateSelector, closeSelector)
+- Add floating operations button component with progress tracking functionality and
+  actions (addFloatingOperationsButton, updateFloatingOperationsButton,
+  removeFloatingOperationsButton)
+- Add IPostMessagePlugin, IPostMessageCallbackMessage util
+- Add actions navigate, openInfoPanel
+- Add IArticleButtonPlugin, IArticleButtonItem
+- Add IconButton component
+- Add ILink component
+- Add IMediaViewer component, actions (showMediaViewer, updateMediaViewer,
+  closeMediaViewer)
+- Add placement prop to IContextMenuItem
 - Add markdown documentation generation with TypeDoc
 - Add LLM instructions for DocSpace Plugin SDK development
 
 ## Fixed
 
-- Fix onClick id type in IMainButtonItem
+- Fix onClick id type in IMainButtonItem, IContextMenuItem
 
 ## 2.0.0
 
@@ -43,7 +63,8 @@
 - Add fileSecurity, security props to IFileItem
 - Add withoutBodyPadding and withoutHeaderMargin properties to IModalDialog
 - Add updateCreateDialogModal action
-- Add isAutoFocusOnError, errorText, onError, onChange, isCloseAfterCreate, isCreateDisabled properties to ICreateDialog
+- Add isAutoFocusOnError, errorText, onError, onChange, isCloseAfterCreate,
+  isCreateDisabled properties to ICreateDialog
 - Add itemSecurity to IContextMenuItem
 
 ## 1.1.1

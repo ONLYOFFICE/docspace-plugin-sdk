@@ -5,3 +5,5 @@ node_modules
 /docs/
 .yarn/*
 .yarnrc.yml
+package.tgz
+install-state.gz

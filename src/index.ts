@@ -26,7 +26,9 @@ import {
   IMainButtonPlugin,
   IEventListenerPlugin,
   IFilePlugin,
-} from "./interfaces/plugins";
+  IPostMessagePlugin,
+  IArticleButtonPlugin,
+} from "./interfaces/plugins"
 
 import {
   IContextMenuItem,
@@ -35,11 +37,12 @@ import {
   IMainButtonItem,
   IProfileMenuItem,
   IEventListenerItem,
+  IArticleButtonItem,
   IFileItem,
   File,
-} from "./interfaces/items";
+} from "./interfaces/items"
 
-import { ISettings } from "./interfaces/settings";
+import { ISettings } from "./interfaces/settings"
 
 import {
   Actions,
@@ -56,7 +59,7 @@ import {
   SelectorType,
   RoomSearchArea,
   RoomsType,
-} from "./enums";
+} from "./enums"
 
 import {
   IBox,
@@ -105,9 +108,22 @@ import {
   IFloatingOperationsButton,
   FloatingOperationType,
   IFloatingOperation,
-} from "./interfaces/components";
+  IIconButton,
+  IconButtonGroup,
+  LinkGroup,
+  ILink,
+  LinkType,
+  LinkTarget,
+  IMediaViewer,
+} from "./interfaces/components"
 
-import { IPostMessage, IMessage } from "./interfaces/utils/index";
+import {
+  IPostMessage,
+  IPostMessageCallbackMessage,
+  IMessage,
+  TReturnPostMessage,
+  TInfoPanelTab,
+} from "./interfaces/utils/index"
 
 export {
   IPlugin,
@@ -118,7 +134,10 @@ export {
   IProfileMenuPlugin,
   IMainButtonPlugin,
   IEventListenerPlugin,
+  IArticleButtonItem,
   IFilePlugin,
+  IPostMessagePlugin,
+  IArticleButtonPlugin,
   IContextMenuItem,
   IInfoPanelItem,
   IInfoPanelSubMenu,
@@ -149,6 +168,8 @@ export {
   TextGroup,
   TextAreaGroup,
   ToggleButtonGroup,
+  IconButtonGroup,
+  LinkGroup,
   UsersType,
   IBox,
   IBorderProp,
@@ -167,6 +188,10 @@ export {
   ITextArea,
   IFrame,
   IImage,
+  ILink,
+  LinkType,
+  LinkTarget,
+  IIconButton,
   IModalDialog,
   ModalDisplayType,
   IComboBox,
@@ -175,6 +200,9 @@ export {
   IMessage,
   ISkeleton,
   IPostMessage,
+  IPostMessageCallbackMessage,
+  TReturnPostMessage,
+  TInfoPanelTab,
   Devices,
   Security,
   SelectorType,
@@ -190,4 +218,5 @@ export {
   IFloatingOperationsButton,
   FloatingOperationType,
   IFloatingOperation,
-};
+  IMediaViewer,
+}

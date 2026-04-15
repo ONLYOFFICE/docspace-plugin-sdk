@@ -21,6 +21,47 @@
  *
  * Here is a description of the module Plugins.
  *
+ * @categoryDescription APIPlugin
+ *
+ * Here is a description of the category APIPlugin.
+ *
+ * @categoryDescription ContextMenuPlugin
+ *
+ * Here is a description of the category ContextMenuPlugin.
+ *
+ * @categoryDescription EventListenerPlugin
+ *
+ * Here is a description of the category EventListenerPlugin.
+ *
+ * @categoryDescription FilePlugin
+ *
+ * Here is a description of the category FilePlugin.
+ *
+ * @categoryDescription InfoPanelPlugin
+ *
+ * Here is a description of the category InfoPanelPlugin.
+ *
+ * @categoryDescription MainButtonPlugin
+ *
+ * Here is a description of the category MainButtonPlugin.
+ *
+ * @categoryDescription ProfileMenuPlugin
+ *
+ * Here is a description of the category ProfileMenuPlugin.
+ *
+ * @categoryDescription SettingsPlugin
+ *
+ * Here is a description of the category SettingsPlugin.
+ *
+ * @categoryDescription PostMessagePlugin
+ *
+ * Here is a description of the category PostMessagePlugin.
+ *
+ * @categoryDescription ArticlePlugin
+ *
+ * Here is a description of the category ArticlePlugin.
+ *
+ * @module Plugins
  */
 
 import { IFilePlugin } from "./IFilePlugin";
@@ -32,6 +73,8 @@ import { IApiPlugin } from "./IApiPlugin";
 import { ISettingsPlugin } from "./ISettingsPlugin";
 import { IContextMenuPlugin } from "./IContextMenuPlugin";
 import { IEventListenerPlugin } from "./IEventListenerPlugin";
+import { IPostMessagePlugin } from "./IPostMessagePlugin";
+import { IArticleButtonPlugin } from "./IArticleButtonPlugin";
 
 export {
   IPlugin,
@@ -43,4 +86,6 @@ export {
   IMainButtonPlugin,
   IEventListenerPlugin,
   IFilePlugin,
+  IPostMessagePlugin,
+  IArticleButtonPlugin,
 };

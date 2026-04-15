@@ -21,6 +21,35 @@
  *
  * Here is a description of the module Items.
  *
+ * @categoryDescription ContextMenuItem
+ *
+ * Here is a description of the category ContextMenuItem.
+ *
+ * @categoryDescription InfoPanelItem
+ *
+ * Here is a description of the category InfoPanelItem.
+ *
+ * @categoryDescription MainButtonItem
+ *
+ * Here is a description of the category MainButtonItem.
+ *
+ * @categoryDescription ProfileMenuItem
+ *
+ * Here is a description of the category ProfileMenuItem.
+ *
+ * @categoryDescription EventListenerItem
+ *
+ * Here is a description of the category EventListenerItem.
+ *
+ * @categoryDescription FileItem
+ *
+ * Here is a description of the category FileItem.
+ *
+ * @categoryDescription ArticleButtonItem
+ *
+ * Here is a description of the category ArticleButtonItem.
+ *
+ * @module Items
  */
 
 import { IFileItem, File } from "./IFileItem";
@@ -29,14 +58,16 @@ import { IProfileMenuItem } from "./IProfileMenuItem";
 import { IInfoPanelItem, IInfoPanelSubMenu } from "./IInfoPanelItem";
 import { IContextMenuItem } from "./IContextMenuItem";
 import { IMainButtonItem } from "./IMainButtonItem";
+import { IArticleButtonItem } from "./IArticleButtonItem";
 
 export {
-  IContextMenuItem,
-  IInfoPanelItem,
-  IInfoPanelSubMenu,
-  IMainButtonItem,
-  IProfileMenuItem,
-  IEventListenerItem,
-  IFileItem,
-  File,
+	IContextMenuItem,
+	IInfoPanelItem,
+	IInfoPanelSubMenu,
+	IMainButtonItem,
+	IProfileMenuItem,
+	IEventListenerItem,
+	IFileItem,
+	File,
+	IArticleButtonItem
 };
