@@ -37,7 +37,8 @@ function flattenSidebar(items, pathParts = []) {
         item.label === "Settings" ||
         item.label === "Utils" ||
         item.label === "Enums" ||
-        item.label === "Properties")
+        item.label === "Properties" ||
+        item.label === "Other")
     ) {
       // Flatten children directly
       if (Array.isArray(item.items)) {
@@ -123,7 +124,7 @@ function groupByTopLevel(items) {
     else if (checkId.includes("/items/")) groupName = "Items";
     else if (checkId.includes("/plugins/")) groupName = "Plugins";
     else if (checkId.includes("/settings/")) groupName = "Settings";
-    else if (checkId.includes("/utils/")) groupName = "Utils";
+    else if (checkId.includes("/utils/") || checkId.includes("/Utils/")) groupName = "Utils";
     else if (checkId.includes("/enums/")) groupName = "Enums";
 
     if (groupName && groups[groupName]) {
