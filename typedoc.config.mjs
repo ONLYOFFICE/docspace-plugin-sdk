@@ -9,7 +9,7 @@ export default {
 	entryPoints: [
 		"src/interfaces/components/*.ts",
 		"src/interfaces/components/Selector/index.ts",
-		// "src/interfaces/items/*.ts",
+		"src/interfaces/items/*.ts",
 		"src/interfaces/plugins/*.ts",
 		"src/interfaces/settings/*.ts",
 		"src/interfaces/utils/index.ts",
@@ -30,8 +30,7 @@ export default {
 	],
 	out: "docs",
 	entryFileName: "index.md",
-	outputFileStrategy: "members",
-	membersWithOwnFile: ["Interface", "Class", "Enum", "TypeAlias"],
+	outputFileStrategy: "modules",
 	name: "@onlyoffice/docspace-plugin-sdk",
 	includeVersion: true,
 	excludeReferences: true,
@@ -127,10 +126,6 @@ export default {
 			// Extract the last part of the path (e.g., "interfaces/components/Component" -> "Component")
 			const parts = args.name.split("/");
 			return parts[parts.length - 1];
-		},
-		member: (args) => {
-			// Keep the default format for members
-			return `${args.keyword ? args.keyword + " " : ""}${args.kind}: ${args.name}`;
 		}
 	}
 };
