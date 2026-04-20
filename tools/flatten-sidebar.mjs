@@ -144,9 +144,9 @@ function groupByTopLevel(items) {
 		Components: `${PATH_PREFIX}/interfaces/components/index`,
 		Items: `${PATH_PREFIX}/interfaces/items/index`,
 		Plugins: `${PATH_PREFIX}/interfaces/plugins/index`,
+		Enums: `${PATH_PREFIX}/enums/index`,
 		Settings: `${PATH_PREFIX}/interfaces/settings/index`,
-		Utils: null, // single file — link directly to the doc below
-		Enums: `${PATH_PREFIX}/enums/index`
+		Utils: null // single file — link directly to the doc below
 	};
 
 	const result = [];
@@ -155,6 +155,12 @@ function groupByTopLevel(items) {
 
 		const sortedItems = sortItems(groupItems);
 		const indexId = INDEX_IDS[groupName];
+
+		// Single-item group: push the item directly without a category wrapper
+		if (sortedItems.length === 1) {
+			result.push(sortedItems[0]);
+			continue;
+		}
 
 		// Utils is a single file; point the category link directly to it
 		const utilsDocId = groupItems[0]?.id ?? null;

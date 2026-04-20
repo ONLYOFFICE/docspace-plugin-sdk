@@ -31,7 +31,8 @@
 	"scripts": {
 		"build": "tsc",
 		"prepublish": "tsc",
-		"docs": "ts-node tools/update-revision.mjs && typedoc --options typedoc.config.mjs && node tools/generate-index-pages.mjs && ts-node tools/flatten-sidebar.mjs && ts-node tools/update-sidebar.mjs"
+		"docs": "ts-node tools/update-revision.mjs && typedoc --options typedoc.config.mjs && node tools/generate-index-pages.mjs && ts-node tools/flatten-sidebar.mjs && ts-node tools/update-sidebar.mjs",
+		"docs:sync": "npm run docs && node tools/sync-docs.mjs"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.18.10",
