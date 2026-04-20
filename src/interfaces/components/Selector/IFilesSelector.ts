@@ -33,10 +33,10 @@ import {
 
 /**
  * Defines the properties for a file and folder selector component.
- * 
+ *
  * This type combines multiple selector-related types:
- * 
- * ## TSelectedFileInfo
+ *
+ * #### TSelectedFileInfo
  * 
  * | Property | Type | Description |
  * |----------|------|-------------|

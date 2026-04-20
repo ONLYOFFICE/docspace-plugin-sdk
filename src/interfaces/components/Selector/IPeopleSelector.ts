@@ -29,9 +29,9 @@ import {
 
 /**
  * Defines the properties for a user and group selector component.
- * 
+ *
  * This type combines multiple selector-related types:
- * 
+ *
  * @see {@link TSelectorHeader} - Header configuration properties
  * @see {@link TSelectorCancelButton} - Cancel button properties
  * @see {@link TSelectorSubmitButton} - Submit button properties

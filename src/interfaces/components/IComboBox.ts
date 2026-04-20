@@ -19,56 +19,9 @@
 import { IMessage } from "../utils";
 
 /**
- * Custom combo box option.
- *
- * @example
- *
- * Basic language option with icon
- *
- * ```typescript
- * const languageOption: IComboBoxItem = {
- *   key: "en-US",
- *   label: "English (US)",
- *   icon: "language-en.svg",
- *   disabled: false
- * }
- * ```
- *
-
- *
- */
-export interface IComboBoxItem {
-  /**
-   * Unique identifier for the option
-   *
-
-   */
-  key: string;
-
-  /**
-   * Display text for the option
-   *
-
-   */
-  label: string;
-
-  /**
-   * Optional icon for the option
-   *
-
-   */
-  icon?: string;
-
-  /**
-   * Specifies if the combo box option is disabled or not
-   *
-
-   */
-  disabled?: boolean;
-}
-
-/**
  * Custom combo box input.
+ *
+ * <plugin-image src="combobox.png" />
  *
  * @example
  *
@@ -126,9 +79,6 @@ export interface IComboBoxItem {
  *   modernView: true
  * }
  * ```
- *
-
- *
  */
 export interface IComboBox {
   /**
@@ -250,4 +200,52 @@ export interface IComboBox {
 
    */
   className?: string;
+}
+
+/**
+ * Custom combo box option.
+ *
+ * @example
+ *
+ * Basic language option with icon
+ *
+ * ```typescript
+ * const languageOption: IComboBoxItem = {
+ *   key: "en-US",
+ *   label: "English (US)",
+ *   icon: "language-en.svg",
+ *   disabled: false
+ * }
+ * ```
+ *
+ *
+ */
+export interface IComboBoxItem {
+  /**
+   * Unique identifier for the option
+   *
+
+   */
+  key: string;
+
+  /**
+   * Display text for the option
+   *
+
+   */
+  label: string;
+
+  /**
+   * Optional icon for the option
+   *
+
+   */
+  icon?: string;
+
+  /**
+   * Specifies if the combo box option is disabled or not
+   *
+
+   */
+  disabled?: boolean;
 }

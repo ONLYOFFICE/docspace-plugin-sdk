@@ -19,23 +19,9 @@
 import { IMessage } from "../utils";
 
 /**
- * Defines button size options
- *
-
- */
-export const enum ButtonSize {
-  /** Extra small button size */
-  extraSmall = "extra-small",
-  /** Small button size */
-  small = "small",
-  /** Normal button size */
-  normal = "normal",
-  /** Medium button size */
-  medium = "medium",
-}
-
-/**
  * A component that is used for an action on a page.
+ *
+ * <plugin-image src="button.png" />
  *
  * @example
  *
@@ -75,69 +61,84 @@ export const enum ButtonSize {
  *   disableWhileRequestRunning: true
  * }
  * ```
- *
  */
 export interface IButton {
-  /**
-   * Defines the button text
-   *
-   */
-  label: string;
+	/**
+	 * Defines the button text
+	 *
+	 */
+	label: string;
 
-  /**
-   * Defines the button size. The normal size is equal to 36x40 px on the Desktop and Touchscreen devices.
-   * Can be: "extraSmall", "small", "normal", "medium". The default value is "extraSmall"
-   *
-   */
-  size: ButtonSize;
+	/**
+	 * Defines the button size. The normal size is equal to 36x40 px on the Desktop and Touchscreen devices.
+	 * Can be: "extraSmall", "small", "normal", "medium". The default value is "extraSmall"
+	 *
+	 */
+	size: ButtonSize;
 
-  /**
-   * Sets a function which specifies an action initiated upon clicking the button
-   *
-   */
-  onClick: () => Promise<IMessage> | IMessage | void;
+	/**
+	 * Sets a function which specifies an action initiated upon clicking the button
+	 *
+	 */
+	onClick: () => Promise<IMessage> | IMessage | void;
 
-  /**
-   * Specifies if the button is primary or not. If the button is primary, it is colored blue
-   *
-   */
-  primary?: boolean;
+	/**
+	 * Specifies if the button is primary or not. If the button is primary, it is colored blue
+	 *
+	 */
+	primary?: boolean;
 
-  /**
-   * Specifies if the button width will be scaled to 100% or not
-   *
-   */
-  scale?: boolean;
+	/**
+	 * Specifies if the button width will be scaled to 100% or not
+	 *
+	 */
+	scale?: boolean;
 
-  /**
-   * Specifies if the button will be displayed as a loader icon or not
-   *
-   */
-  isLoading?: boolean;
+	/**
+	 * Specifies if the button will be displayed as a loader icon or not
+	 *
+	 */
+	isLoading?: boolean;
 
-  /**
-   * Specifies if the button is disabled or not. The disabled button is blurred
-   *
-   */
-  isDisabled?: boolean;
+	/**
+	 * Specifies if the button is disabled or not. The disabled button is blurred
+	 *
+	 */
+	isDisabled?: boolean;
 
-  /**
-   * Specifies whether to set the "isLoading" state to the button after it is clicked until the action is completed
-   *
-   */
-  withLoadingAfterClick?: boolean;
+	/**
+	 * Specifies whether to set the "isLoading" state to the button after it is clicked until the action is completed
+	 *
+	 */
+	withLoadingAfterClick?: boolean;
 
-  /**
-   * Specifies whether to set the "isDisabled" state for the button when the "withLoadingAfterClick" parameter is set to true,
-   * and it is clicked either on the page or in the dialog box
-   *
-   */
-  disableWhileRequestRunning?: boolean;
+	/**
+	 * Specifies whether to set the "isDisabled" state for the button when the "withLoadingAfterClick" parameter is set to true,
+	 * and it is clicked either on the page or in the dialog box
+	 *
+	 */
+	disableWhileRequestRunning?: boolean;
 
-  /**
-   * Defines the CSS class for styling the component.
-   * Can be used to override or extend the default component styles.
-   *
-   */
-  className?: string;
+	/**
+	 * Defines the CSS class for styling the component.
+	 * Can be used to override or extend the default component styles.
+	 *
+	 */
+	className?: string;
+}
+
+/**
+ * Defines button size options
+ *
+
+ */
+export const enum ButtonSize {
+	/** Extra small button size */
+	extraSmall = "extra-small",
+	/** Small button size */
+	small = "small",
+	/** Normal button size */
+	normal = "normal",
+	/** Medium button size */
+	medium = "medium"
 }

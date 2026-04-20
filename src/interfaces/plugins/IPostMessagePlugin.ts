@@ -24,8 +24,6 @@ import { IPostMessageCallbackMessage } from "../utils";
  * and triggers portal-side actions (such as showing toasts, modals, or updating items)
  * by calling the postMessageCallback with an {@link IPostMessageCallbackMessage}.
  *
- * @category PostMessagePlugin
- *
  * @example
  *
  * PostMessage handler with toast notification

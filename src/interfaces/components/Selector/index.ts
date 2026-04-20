@@ -16,72 +16,79 @@
  * @license
  */
 
-
-import { SelectorType } from "../../../enums/Selector"
-import {
-    TBaseSelector,
-    TSelectorItem,
-    TSelectorItemFile,
-    TSelectorItemInput,
-    TSelectorItemNew,
-    TBreadCrumbItem,
-    TSelectorBreadCrumbs,
-    TSelectorPagination,
-    TSelectorHeader,
-    TSelectorCheckbox,
-    TSelectorCancelButton,
-    TSelectorBaseProps,
-    TSelectorLifecycleEvents,
-    TSelectorEmptyScreen,
-    TSelectorSearchCreate,
-    TSelectorSubmitButton
-} from "./IBaseSelector";
-import { TFilesSelector } from "./IFilesSelector";
-import { TGroupsSelector } from "./IGroupsSelector";
-import { TPeopleSelector } from "./IPeopleSelector";
-import { TRoomSelector } from "./IRoomSelector";
-
+import { SelectorType } from "../../../enums/Selector";
+import type { TBaseSelector } from "./IBaseSelector";
+import type { TFilesSelector } from "./IFilesSelector";
+import type { TGroupsSelector } from "./IGroupsSelector";
+import type { TPeopleSelector } from "./IPeopleSelector";
+import type { TRoomSelector } from "./IRoomSelector";
 
 /**
-
+ * Provides selector components for choosing files, rooms, users, and groups within DocSpace.
+ *
+ * Set `type` to the desired {@link SelectorType} value and `props` to the matching
+ * selector props interface ({@link TBaseSelector}, {@link TFilesSelector},
+ * {@link TGroupsSelector}, {@link TPeopleSelector}, or {@link TRoomSelector}).
+ *
+ * @example
+ * ```typescript
+ * import { TSelector, TBaseSelector, SelectorType, Actions, ToastType } from "@onlyoffice/docspace-plugin-sdk";
+ *
+ * const selector: TSelector = {
+ *   type: SelectorType.Base,
+ *   props: {
+ *     submitButtonLabel: "Select",
+ *     items: [{ id: "item-1", label: "First Item" }],
+ *     onSubmit: ({ selectedIds }) => ({
+ *       actions: [Actions.closeSelector, Actions.showToast],
+ *       toastProps: [{ type: ToastType.success, title: `Selected ${selectedIds.length} items` }],
+ *     }),
+ *   },
+ * };
+ * ```
  */
-
-export type TSelector = {
-    type: SelectorType.Base;
-    props: TBaseSelector;
-} | {
-    type: SelectorType.Files;
-    props: TFilesSelector;
-} | {
-    type: SelectorType.Groups;
-    props: TGroupsSelector;
-} | {
-    type: SelectorType.People;
-    props: TPeopleSelector;
-} | {
-    type: SelectorType.Room;
-    props: TRoomSelector;
-}
+export type TSelector =
+	| {
+			type: SelectorType.Base;
+			props: TBaseSelector;
+	  }
+	| {
+			type: SelectorType.Files;
+			props: TFilesSelector;
+	  }
+	| {
+			type: SelectorType.Groups;
+			props: TGroupsSelector;
+	  }
+	| {
+			type: SelectorType.People;
+			props: TPeopleSelector;
+	  }
+	| {
+			type: SelectorType.Room;
+			props: TRoomSelector;
+	  };
 
 export {
-    TBaseSelector,
-    TFilesSelector,
-    TSelectorItem,
-    TSelectorItemFile,
-    TSelectorItemInput,
-    TSelectorItemNew,
-    TBreadCrumbItem,
-    TSelectorBreadCrumbs,
-    TSelectorPagination,
-    TSelectorHeader,
-    TSelectorCheckbox,
-    TSelectorCancelButton,
-    TSelectorBaseProps,
-    TSelectorLifecycleEvents,
-    TSelectorEmptyScreen,
-    TSelectorSearchCreate,
-    TSelectorSubmitButton,
-    TGroupsSelector,
-    TPeopleSelector,
-    TRoomSelector
-};
+	TBaseSelector,
+	TSelectorItem,
+	TSelectorItemFile,
+	TSelectorItemInput,
+	TSelectorItemNew,
+	TBreadCrumbItem,
+	TSelectorBreadCrumbs,
+	TSelectorPagination,
+	TSelectorHeader,
+	TSelectorCheckbox,
+	TSelectorCancelButton,
+	TSelectorBaseProps,
+	TSelectorLifecycleEvents,
+	TSelectorEmptyScreen,
+	TSelectorSearchCreate,
+	TSelectorSubmitButton
+} from "./IBaseSelector";
+
+export { TFilesSelector } from "./IFilesSelector";
+export { TGroupsSelector } from "./IGroupsSelector";
+export { TPeopleSelector } from "./IPeopleSelector";
+export { TRoomSelector } from "./IRoomSelector";

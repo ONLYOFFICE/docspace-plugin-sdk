@@ -19,48 +19,24 @@
 import { TReturnMessage } from "../../utils";
 import { TSelectorBaseProps, TSelectorHeader, TSelectorLifecycleEvents } from "./IBaseSelector";
 
-
-/**
- * Defines the parameters passed to the `onSubmit` callback for the group selector.
- * @inline
- * 
- */
-type TOnSubmitParams = {
-    /**
-     * An array of IDs of the selected groups.
-     * 
-     */
-    selectedIds: (string | number)[];
-    /**
-     * The name of the file, if applicable.
-     * 
-     */
-    fileName?: string;
-    /**
-     * The checked state of the footer checkbox.
-     * 
-     */
-    isFooterCheckboxChecked?: boolean;
-}
-
 /**
  * Defines the properties for a group selector component.
- * 
+ *
  * This type combines multiple selector-related types:
- * 
- * ### onSubmit parameters
- * 
+ *
+ * #### onSubmit parameters
+ *
  * | Property | Type | Description |
  * |----------|------|-------------|
  * | `selectedIds` | `(string \| number)[]` | An array of IDs of the selected groups |
  * | `fileName` | `string` | The name of the file, if applicable |
  * | `isFooterCheckboxChecked` | `boolean` | The checked state of the footer checkbox |
- * 
+ *
  * @see {@link TSelectorHeader} - Header configuration properties
  * @see {@link TSelectorBaseProps} - Common base properties (id, className)
  * @see {@link TSelectorLifecycleEvents} - Lifecycle callbacks (onLoad, onClose)
- * 
- * 
+ *
+ *
  * @example
  * ```typescript
  * // This example shows how to set up a group selector with a custom header and submit logic.
@@ -88,15 +64,38 @@ type TOnSubmitParams = {
  *   },
  * };
  * ```
- * 
+ *
  */
 export type TGroupsSelector = TSelectorHeader &
     TSelectorBaseProps &
     TSelectorLifecycleEvents & {
         /**
          * A callback function that is triggered when the submit button is clicked.
-         * 
+         *
 
          */
         onSubmit: (params: TOnSubmitParams) => TReturnMessage;
     }
+
+/**
+ * Defines the parameters passed to the `onSubmit` callback for the group selector.
+ * @inline
+ *
+ */
+type TOnSubmitParams = {
+    /**
+     * An array of IDs of the selected groups.
+     *
+     */
+    selectedIds: (string | number)[];
+    /**
+     * The name of the file, if applicable.
+     *
+     */
+    fileName?: string;
+    /**
+     * The checked state of the footer checkbox.
+     *
+     */
+    isFooterCheckboxChecked?: boolean;
+}

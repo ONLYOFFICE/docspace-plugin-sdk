@@ -21,9 +21,9 @@ import { TReturnMessage } from "../../utils";
 
 /**
  * Defines the base properties for all selector components.
- * 
+ *
  * This type combines multiple selector-related types:
- * 
+ *
  * @see {@link TSelectorBreadCrumbs} - Breadcrumb navigation properties
  * @see {@link TSelectorPagination} - Pagination and item loading properties
  * @see {@link TSelectorHeader} - Header configuration properties
@@ -161,11 +161,10 @@ export type TBaseSelector =
 
 /**
  * Represents a single item within a selector component.
- * 
+ *
  * @see {@link TSelectorItemFile} - File item properties
  * @see {@link TSelectorItemInput} - Input item properties
  * @see {@link TSelectorItemNew} - New item properties
- * 
  */
 export type TSelectorItem = {
   /** 
@@ -184,7 +183,6 @@ export type TSelectorItem = {
 
 /**
  * Defines properties for an item that represents a file.
- * 
  */
 export type TSelectorItemFile = {
   /** 
@@ -211,7 +209,6 @@ export type TSelectorItemFile = {
 
 /**
  * Defines properties for an item that functions as an input field.
- * 
  */
 export type TSelectorItemInput = {
   /** 
@@ -239,7 +236,6 @@ export type TSelectorItemInput = {
 
 /**
  * Defines properties for an item that allows creating a new entity.
- * 
  */
 export type TSelectorItemNew = {
   /** 
@@ -256,7 +252,7 @@ export type TSelectorItemNew = {
 
 /**
  * Represents a single item in a breadcrumb trail.
- * 
+ *
  */
 export type TBreadCrumbItem = {
   /** 
@@ -292,8 +288,7 @@ type TOnSelectParams = {
 
 /**
  * Defines properties for configuring breadcrumbs in a selector.
- * 
-
+ *
  */
 export type TSelectorBreadCrumbs = {
   /** 
@@ -320,7 +315,7 @@ export type TSelectorBreadCrumbs = {
 
 /**
  * Defines properties for pagination within a selector.
- * 
+ *
  */
 export type TSelectorPagination = {
   /** 
@@ -352,8 +347,7 @@ export type TSelectorPagination = {
 
 /**
  * Defines properties for the selector's header.
- * 
-
+ *
  */
 export type TSelectorHeader = {
   /** 
@@ -396,7 +390,7 @@ export type TSelectorHeader = {
 
 /**
  * Defines properties for a checkbox in the selector's footer.
- * 
+ *
  */
 export type TSelectorCheckbox = {
   /** 
@@ -418,7 +412,7 @@ export type TSelectorCheckbox = {
 
 /**
  * Defines properties for the cancel button in the selector.
- * 
+ *
  */
 export type TSelectorCancelButton = {
   /** 
@@ -442,7 +436,7 @@ export type TSelectorCancelButton = {
 
 /**
  * Common base properties shared across all selector types.
- * 
+ *
  */
 export type TSelectorBaseProps = {
   /** 
@@ -459,7 +453,7 @@ export type TSelectorBaseProps = {
 
 /**
  * Lifecycle callback properties for selectors.
- * 
+ *
  */
 export type TSelectorLifecycleEvents = {
   /** 
@@ -476,7 +470,7 @@ export type TSelectorLifecycleEvents = {
 
 /**
  * Empty screen message properties for selectors.
- * 
+ *
  */
 export type TSelectorEmptyScreen = {
   /** 
@@ -493,7 +487,7 @@ export type TSelectorEmptyScreen = {
 
 /**
  * Search and create functionality properties for selectors.
- * 
+ *
  */
 export type TSelectorSearchCreate = {
   /** 
@@ -524,8 +518,8 @@ type TOnSubmitParams = {
 
 /**
  * Defines properties for the submit button in the selector.
- * 
- * ### TOnSubmitParams parameters
+ *
+ * #### TOnSubmitParams parameters
  * 
  * | Property | Type | Description |
  * |----------|------|-------------|

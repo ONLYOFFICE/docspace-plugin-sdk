@@ -21,6 +21,8 @@ import { IMessage } from "../utils";
 /**
  * Custom checkbox.
  *
+ * <plugin-image src="checkbox.png" />
+ *
  * @example
  *
  * Privacy policy checkbox with submit button state control
@@ -53,7 +55,6 @@ import { IMessage } from "../utils";
  *   title: "Privacy Policy Agreement"
  * }
  * ```
- *
  */
 export interface ICheckbox {
   /**

@@ -19,6 +19,8 @@
 /**
  * Plain text.
  *
+ * <plugin-image src="text.png" />
+ *
  * @example
  *
  * Bold centered heading with custom typography
@@ -69,89 +71,89 @@
  *
  */
 export interface IText {
-  /** Defines the text
+	/** Defines the text
    *
 
    */
-  text: string;
+	text: string;
 
-  /** Defines the text title
+	/** Defines the text title
    *
 
    */
-  title?: string;
+	title?: string;
 
-  /** Defines the text font size
+	/** Defines the text font size
    *
 
    */
-  fontSize?: string;
+	fontSize?: string;
 
-  /** Defines the text font weight
+	/** Defines the text font weight
    *
 
    */
-  fontWeight?: string | number;
+	fontWeight?: string | number;
 
-  /** Specifies whether the word wrapping is set
+	/** Specifies whether the word wrapping is set
    *
 
    */
-  truncate?: boolean;
+	truncate?: boolean;
 
-  /** Specifies whether the text font weight is set to bold
+	/** Specifies whether the text font weight is set to bold
    *
 
    */
-  isBold?: boolean;
+	isBold?: boolean;
 
-  /** Specifies whether the text style is set to italic
+	/** Specifies whether the text style is set to italic
    *
 
    */
-  isItalic?: boolean;
+	isItalic?: boolean;
 
-  /** Specifies whether the "display: inline-block" property is set
+	/** Specifies whether the "display: inline-block" property is set
    *
 
    */
-  isInline?: boolean;
+	isInline?: boolean;
 
-  /** Specifies whether the "text-align" property is set
+	/** Specifies whether the "text-align" property is set
    *
 
    */
-  textAlign?: string;
+	textAlign?: string;
 
-  /** Specifies whether the text selection is disabled
+	/** Specifies whether the text selection is disabled
    *
 
    */
-  noSelect?: boolean;
+	noSelect?: boolean;
 
-  /** Specifies whether the "display" property is set
+	/** Specifies whether the "display" property is set
    *
 
    */
-  display?: string;
+	display?: string;
 
-  /** Defines the text line height
+	/** Defines the text line height
    *
 
    */
-  lineHeight?: string;
+	lineHeight?: string;
 
-  /** Defines the text color
+	/** Defines the text color
    *
 
    */
-  color?: string;
+	color?: string;
 
-  /**
+	/**
    * Defines the CSS class for styling the component.
    * Can be used to override or extend the default component styles.
    *
 
    */
-  className?: string;
+	className?: string;
 }

@@ -22,8 +22,6 @@ import { TReturnMessage } from "../utils";
 /**
  * A component that displays an interactive icon button with hover and click states.
  *
- * @category IconButton
- *
  * @categoryDescription Appearance
  *
  * Controls the visual presentation of the icon button including size, colors, and icon states.

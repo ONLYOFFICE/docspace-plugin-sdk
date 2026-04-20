@@ -17,23 +17,8 @@
  */
 
 /**
+ * Utility types for plugin messaging, return values, and panel navigation.
  * @packageDocumentation
- *
- * Here is a description of the module Utils.
- *
- * @categoryDescription Message
- *
- * Here is a description of the category Message.
- *
- * @categoryDescription PostMessage
- *
- * Here is a description of the category PostMessage.
- *
- * @categoryDescription PostMessageCallbackMessage
- *
- * Here is a description of the category PostMessageCallbackMessage.
- *
- * @module Utils
  */
 
 import { Actions } from "../../enums";
@@ -60,8 +45,6 @@ import { TSelector } from "../components/Selector";
 
 /**
  * Defines the info panel tab to open.
- *
- * @category InfoPanelTab
  */
 export type TInfoPanelTab =
 	| "info_members"
@@ -292,8 +275,6 @@ export interface IMessage {
 /**
  * A message which is returned from the postMessage callback.
  * It is similar to {@link IMessage} but with a reduced set of available actions.
- *
- * @category PostMessageCallbackMessage
  *
  * @example
  *

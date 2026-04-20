@@ -16,44 +16,18 @@
  * @license
  */
 
+/**
+ * @module interfaces/components/IBox
+ */
+
 import { Component } from "./Component";
 
 /**
- *
- * Defines the border properties for a box element.
- *
-
- *
- * @example
- *
- * Border properties with custom styling
- *
- * ```typescript
- * const borderProps: IBorderProp = {
- *   color: "blue",
- *   radius: "10px",
- *   style: "solid",
- *   width: "2px"
- * }
- * ```
- */
-export interface IBorderProp {
-  /** Defines the border color of the element area */
-  color: string;
-
-  /** Defines the border radius of the element area */
-  radius: string;
-
-  /** Defines the border style of the element area */
-  style: string;
-
-  /** Defines the border width of the element area */
-  width: string;
-}
-
-/**
  * A container that lays out its contents in one direction.
- * Box provides general CSS capabilities like flexbox layout, paddings, background color, border, and animation. *
+ * Box provides general CSS capabilities like flexbox layout, paddings, background color, border, and animation.
+ *
+ * <plugin-image src="box.png" />
+ *
  * @example
  *
  * Flexible input container with gradient background
@@ -91,8 +65,8 @@ export interface IBorderProp {
  *   flexWrap: "wrap",
  *   children: inputComponent
  * }
- * ``` 
-*/
+ * ```
+ */
 export interface IBox {
   /**
    * Defines the border width of the element area
@@ -270,4 +244,36 @@ export interface IBox {
 
    */
   children?: Component[];
+}
+
+/**
+ *
+ * Defines the border properties for a box element.
+ *
+ *
+ * @example
+ *
+ * Border properties with custom styling
+ *
+ * ```typescript
+ * const borderProps: IBorderProp = {
+ *   color: "blue",
+ *   radius: "10px",
+ *   style: "solid",
+ *   width: "2px"
+ * }
+ * ```
+ */
+export interface IBorderProp {
+  /** Defines the border color of the element area */
+  color: string;
+
+  /** Defines the border radius of the element area */
+  radius: string;
+
+  /** Defines the border style of the element area */
+  style: string;
+
+  /** Defines the border width of the element area */
+  width: string;
 }

@@ -21,67 +21,8 @@ import { TReturnMessage } from "../utils";
 import { FilesExst, FilesSecurity, Devices, UsersType } from "../../enums";
 
 /**
- * Filter configuration for media viewer playlist.
- * Defines which files should be included in the playlist.
- *
- * @category MediaViewer
- */
-export interface IMediaViewerPlaylistFilter {
-	/**
-	 * Allowed file extensions (e.g., [FilesExst.doc, ".drawio", ".md"]).
-	 * If not specified, all extensions are allowed.
-	 */
-	filesExsts?: (FilesExst | string)[];
-
-	/**
-	 * Required security permissions for files.
-	 * If not specified, all security permissions are allowed.
-	 */
-	filesSecurity?: FilesSecurity[];
-
-	/**
-	 * The types of users who will see the media viewer.
-	 * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
-	 * If this parameter is not specified, then the media viewer will be displayed for all user types.
-	 */
-	usersTypes?: UsersType[];
-
-	/**
-	 * The types of devices where the media viewer will be displayed.
-	 * At the moment the following device types are available: mobile, tablet, desktop.
-	 * If this parameter is not specified, then the media viewer will be displayed in any device types.
-	 */
-	devices?: Devices[];
-}
-
-/**
- * Navigation callbacks for media viewer.
- * Called when user navigates through the playlist.
- *
- * @category MediaViewer
- */
-export interface IMediaViewerNavigation {
-	/**
-	 * Called when navigating to next file.
-	 */
-	onNext?: () => TReturnMessage;
-
-	/**
-	 * Called when navigating to previous file.
-	 */
-	onPrevious?: () => TReturnMessage;
-
-	/**
-	 * Called when file changes.
-	 * @param data - Object containing fileId of the new file
-	 */
-	onFileChange?: (data: { fileId: number | string }) => TReturnMessage;
-}
-
-/**
  * Properties for the Media Viewer component that allows plugins to display custom content.
  *
- * @category MediaViewer
  *
  * @example
  *
@@ -215,4 +156,60 @@ export interface IMediaViewer {
 	 * @param data - Object containing fileId of the current file
 	 */
 	onLoad?: (data: { fileId: number | string }) => TReturnMessage;
+}
+
+/**
+ * Filter configuration for media viewer playlist.
+ * Defines which files should be included in the playlist.
+ *
+ */
+export interface IMediaViewerPlaylistFilter {
+	/**
+	 * Allowed file extensions (e.g., [FilesExst.doc, ".drawio", ".md"]).
+	 * If not specified, all extensions are allowed.
+	 */
+	filesExsts?: (FilesExst | string)[];
+
+	/**
+	 * Required security permissions for files.
+	 * If not specified, all security permissions are allowed.
+	 */
+	filesSecurity?: FilesSecurity[];
+
+	/**
+	 * The types of users who will see the media viewer.
+	 * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
+	 * If this parameter is not specified, then the media viewer will be displayed for all user types.
+	 */
+	usersTypes?: UsersType[];
+
+	/**
+	 * The types of devices where the media viewer will be displayed.
+	 * At the moment the following device types are available: mobile, tablet, desktop.
+	 * If this parameter is not specified, then the media viewer will be displayed in any device types.
+	 */
+	devices?: Devices[];
+}
+
+/**
+ * Navigation callbacks for media viewer.
+ * Called when user navigates through the playlist.
+ *
+ */
+export interface IMediaViewerNavigation {
+	/**
+	 * Called when navigating to next file.
+	 */
+	onNext?: () => TReturnMessage;
+
+	/**
+	 * Called when navigating to previous file.
+	 */
+	onPrevious?: () => TReturnMessage;
+
+	/**
+	 * Called when file changes.
+	 * @param data - Object containing fileId of the new file
+	 */
+	onFileChange?: (data: { fileId: number | string }) => TReturnMessage;
 }

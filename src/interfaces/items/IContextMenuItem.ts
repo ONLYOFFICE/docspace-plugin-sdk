@@ -42,6 +42,8 @@ type GroupItem = {
 /**
  * Describes an item that will be embedded in the context menu.
  *
+ * <plugin-image src="context-menu-plugin.png" width="400px"/>
+ *
  * @example
  *
  * File analysis with progress reporting
@@ -160,6 +162,7 @@ type GroupItem = {
  * };
  * ```
  */
+
 export interface IContextMenuItem {
 	/**
 	 * The unique item identifier used by the service to recognize the item

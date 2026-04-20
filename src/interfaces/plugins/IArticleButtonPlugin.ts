@@ -23,8 +23,6 @@ import { IArticleButtonItem } from "../items/IArticleButtonItem";
  * Article button items appear as custom plugin components above the DevTools section.
  * Maximum 5 items can be displayed across all plugins.
  *
- * @category ArticleButtonPlugin
- *
  * @example
  *
  * Plugin with article button items

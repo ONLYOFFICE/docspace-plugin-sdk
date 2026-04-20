@@ -20,40 +20,10 @@ import { Devices, FilesSecurity, Security, UsersType } from "../../enums";
 import { IMessage } from "../utils";
 
 /**
- * Describes the file properties.
- *
-
- */
-
-export interface File {
-  /** The folder ID where the current file is located */
-  folderId: number;
-
-  /** The file extension */
-  fileExst: string;
-
-  /** The file ID */
-  id: number;
-
-  /** The root folder type of the current file */
-  rootFolderType: number;
-
-  /** The root folder ID of the current file */
-  rootFolderId: number;
-
-  /** The file title */
-  title: string;
-
-  /** The URL to open the current file in the viewer */
-  viewUrl: string;
-
-  /** The absolute URL where the source viewed or edited document is stored */
-  webUrl: string;
-}
-
-/**
  * Describes an item that will be embedded in the file list.
  * The file item can be displayed as a file or a folder.
+ *
+ * <plugin-image src="file-icon.png" />
  *
  * @example
  *
@@ -165,41 +135,72 @@ export interface File {
  * ```
  */
 export interface IFileItem {
-  /** The file extension. If several plugins have the same extension, the last plugin from this list is taken */
-  extension: string;
+	/** The file extension. If several plugins have the same extension, the last plugin from this list is taken */
+	extension: string;
 
-  /**
-   * A function that takes the File object with the file data as an argument.
-   * This function can be asynchronous. It will be executed when the user clicks on a file with the required extension.
-   */
-  onClick: (item: File) => Promise<IMessage> | Promise<void> | IMessage | void;
+	/**
+	 * A function that takes the File object with the file data as an argument.
+	 * This function can be asynchronous. It will be executed when the user clicks on a file with the required extension.
+	 */
+	onClick: (item: File) => Promise<IMessage> | Promise<void> | IMessage | void;
 
-  /**
-   * The types of users who have the access to the current item.
-   * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
-   * If this parameter is not specified, then the current item will be available for all user types.
-   */
-  usersType?: UsersType[];
+	/**
+	 * The types of users who have the access to the current item.
+	 * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
+	 * If this parameter is not specified, then the current item will be available for all user types.
+	 */
+	usersType?: UsersType[];
 
-  /**
-   * The types of devices where the current item will be available.
-   * At the moment the following device types are available: mobile, tablet, desktop.
-   * If this parameter is not specified, then the current item will be available in any device types.
-   */
-  devices?: Devices[];
+	/**
+	 * The types of devices where the current item will be available.
+	 * At the moment the following device types are available: mobile, tablet, desktop.
+	 * If this parameter is not specified, then the current item will be available in any device types.
+	 */
+	devices?: Devices[];
 
-  /** A file type which is displayed in the list (for example, Document/Folder) */
-  fileTypeName?: string;
+	/** A file type which is displayed in the list (for example, Document/Folder) */
+	fileTypeName?: string;
 
-  /** A file icon which is displayed in the table format. The preferred icon size is 32x32 px */
-  fileRowIcon?: string;
+	/** A file icon which is displayed in the table format. The preferred icon size is 32x32 px */
+	fileRowIcon?: string;
 
-  /** A file icon which is displayed in the tile format. The preferred icon size is 96x96 px */
-  fileTileIcon?: string;
+	/** A file icon which is displayed in the tile format. The preferred icon size is 96x96 px */
+	fileTileIcon?: string;
 
-  /** The security parameters of the file that will be checked. */
-  fileSecurity?: FilesSecurity[];
+	/** The security parameters of the file that will be checked. */
+	fileSecurity?: FilesSecurity[];
 
-  /** The security parameters of the parent folder or room that will be checked. */
-  security?: Security[];
+	/** The security parameters of the parent folder or room that will be checked. */
+	security?: Security[];
+}
+
+/**
+ * Describes the file properties.
+ *
+
+ */
+export interface File {
+	/** The folder ID where the current file is located */
+	folderId: number;
+
+	/** The file extension */
+	fileExst: string;
+
+	/** The file ID */
+	id: number;
+
+	/** The root folder type of the current file */
+	rootFolderType: number;
+
+	/** The root folder ID of the current file */
+	rootFolderId: number;
+
+	/** The file title */
+	title: string;
+
+	/** The URL to open the current file in the viewer */
+	viewUrl: string;
+
+	/** The absolute URL where the source viewed or edited document is stored */
+	webUrl: string;
 }

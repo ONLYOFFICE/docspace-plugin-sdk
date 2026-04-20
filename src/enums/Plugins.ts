@@ -17,6 +17,11 @@
  */
 
 /**
+ * Enumerations for plugin status and supported locales.
+ * @packageDocumentation
+ */
+
+/**
  * Defines the supported plugin statuses.
  */
 export enum PluginStatus {

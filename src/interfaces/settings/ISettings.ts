@@ -21,6 +21,8 @@ import { ButtonGroup, IBox } from "../components";
 /**
  * Defines the administrator or owner settings block that is embedded in the modal window with the plugin description.
  *
+ * <plugin-image src="settings-block.png" width="400px"/>
+ *
  * @example
  *
  * Theme customization settings with color picker
@@ -186,18 +188,18 @@ import { ButtonGroup, IBox } from "../components";
  * ```
  */
 export interface ISettings {
-  /** Defines the administrator or owner settings */
-  settings: IBox;
+	/** Defines the administrator or owner settings */
+	settings: IBox;
 
-  /** Defines the button to save the settings */
-  saveButton: ButtonGroup;
+	/** Defines the button to save the settings */
+	saveButton: ButtonGroup;
 
-  /** Specifies if the settings block will be displayed as a loader icon or not */
-  isLoading?: boolean;
+	/** Specifies if the settings block will be displayed as a loader icon or not */
+	isLoading?: boolean;
 
-  /**
-   * Defines a function that is triggered whenever the settings block is loaded.
-   * Returns a promise with the updated settings box and optional save button.
-   */
-  onLoad?: () => Promise<{ settings: IBox; saveButton?: ButtonGroup }>;
+	/**
+	 * Defines a function that is triggered whenever the settings block is loaded.
+	 * Returns a promise with the updated settings box and optional save button.
+	 */
+	onLoad?: () => Promise<{ settings: IBox; saveButton?: ButtonGroup }>;
 }

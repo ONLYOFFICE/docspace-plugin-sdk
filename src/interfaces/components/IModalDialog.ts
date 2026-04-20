@@ -20,21 +20,11 @@ import { IMessage } from "../utils";
 import { IBox } from "./IBox";
 
 /**
- * The supported modal dialog types.
- *
-
- */
-export const enum ModalDisplayType {
-  /** Modal dialog displayed in the center of the screen */
-  modal = "modal",
-  /** Modal dialog displayed as a side panel */
-  aside = "aside",
-}
-
-/**
  * Modal dialog.
  *
-* @example
+ * <plugin-image src="modal-dialog.png" />
+ *
+ * @example
  *
  * Interactive document preview modal with dynamic content loading
  *
@@ -184,11 +174,6 @@ export const enum ModalDisplayType {
  * }
  * ```
  *
- */
-
-/**
-
- * 
  * @remarks
  * **Important:** `dialogBody` and `dialogFooter` are rendered in separate contexts.
  * Components in `dialogFooter` cannot update components in `dialogBody` using
@@ -296,4 +281,16 @@ export interface IModalDialog {
      */
     newDialogFooter?: IBox;
   }>;
+}
+
+/**
+ * The supported modal dialog types.
+ *
+
+ */
+export const enum ModalDisplayType {
+  /** Modal dialog displayed in the center of the screen */
+  modal = "modal",
+  /** Modal dialog displayed as a side panel */
+  aside = "aside",
 }

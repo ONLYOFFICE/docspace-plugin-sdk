@@ -22,7 +22,7 @@ import { ISettings } from "../settings/ISettings";
  * The plugin that manages settings for the administrator or owner.
  * The plugin that can interact with the settings panel.
  *
-
+ * <plugin-image src="settings-block.png" width="400px"/>
  *
  * @example
  *
@@ -157,15 +157,15 @@ import { ISettings } from "../settings/ISettings";
  * ```
  */
 export interface ISettingsPlugin {
-  /** The administrator or owner settings block that is embedded in the modal window with the plugin description */
-  adminPluginSettings: ISettings | null;
+	/** The administrator or owner settings block that is embedded in the modal window with the plugin description */
+	adminPluginSettings: ISettings | null;
 
-  /** Update the administrator or owner plugin settings */
-  setAdminPluginSettings(settings: ISettings | null): void;
+	/** Update the administrator or owner plugin settings */
+	setAdminPluginSettings(settings: ISettings | null): void;
 
-  /** Transfer the administrator or owner plugin settings to all the portal users. It functions on the DocSpace side */
-  setAdminPluginSettingsValue(settings: string | null): void;
+	/** Transfer the administrator or owner plugin settings to all the portal users. It functions on the DocSpace side */
+	setAdminPluginSettingsValue(settings: string | null): void;
 
-  /** Get the administrator or owner plugin settings */
-  getAdminPluginSettings(): ISettings | null;
+	/** Get the administrator or owner plugin settings */
+	getAdminPluginSettings(): ISettings | null;
 }
