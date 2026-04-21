@@ -35,21 +35,6 @@ export enum Actions {
 	 * ```
 	 */
 	updateProps = "update-props",
-	/**
-	 * Calls a function to update the state of the item which action was passed.
-	 * It does not work if the "newProps" parameter is not passed to the message.
-	 *	 *
-	 * @example
-	 * ```typescript
-	 * const message: IMessage = {
-	 *   newProps: {...acceptButton, isDisabled: true},
-	 *   actions: [Actions.showToast, Actions.updateStatus, Actions.updateProps],
-	 *   toastProps,
-	 * }
-	 * ```
-	 * @category Actions
-	 */
-	updateProps = "update-props",
 
 	/**
 	 * Calls a function to update the state of the parent or child items which were passed.
