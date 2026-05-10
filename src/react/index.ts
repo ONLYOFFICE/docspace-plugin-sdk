@@ -113,6 +113,17 @@ export interface InfoPanelItem {
 	filesExsts?: (FilesExst | string)[];
 }
 
+export interface ContextMenuItem {
+	key: string;
+	label: string;
+	icon?: string;
+	onClick(runtime: PluginRuntime, files: TCurrentFile[]): void | Promise<void>;
+	isGroupAction?: boolean;
+	filesType?: FilesType[];
+	filesExsts?: (FilesExst | string)[];
+	placement?: "top" | "topLast";
+}
+
 // ─── PluginDefinition ─────────────────────────────────────────────────────────
 
 export interface PluginDefinition {
@@ -120,6 +131,7 @@ export interface PluginDefinition {
 	version?: string;
 
 	infoPanelItems?: InfoPanelItem[];
+	contextMenuItems?: ContextMenuItem[];
 	settings?: {
 		component: React.ComponentType;
 		onSave?: () => Promise<void>;
