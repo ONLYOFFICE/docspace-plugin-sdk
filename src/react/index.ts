@@ -65,9 +65,15 @@ export interface FloatingOperation {
 	progress?: number;
 }
 
+export interface ModalDialogContent {
+	header?: React.ReactNode;
+	body: React.ReactNode;
+	footer?: React.ReactNode;
+}
+
 export interface PluginActions {
 	showToast(props: ToastProps): void;
-	showModal(component: React.ReactNode): void;
+	showModal(content: ModalDialogContent): void;
 	closeModal(): void;
 	navigate(path: string): void;
 	openInfoPanel(): void;
@@ -114,7 +120,10 @@ export interface PluginDefinition {
 	version?: string;
 
 	infoPanelItems?: InfoPanelItem[];
-	settings?: { component: React.ComponentType };
+	settings?: {
+		component: React.ComponentType;
+		onSave?: () => Promise<void>;
+	};
 
 	onInit?(): Promise<void>;
 	onDestroy?(): void;
@@ -128,7 +137,8 @@ export function definePlugin(plugin: PluginDefinition): PluginDefinition {
 			component: withPluginRuntime(item.component) as React.ComponentType
 		})),
 		settings: plugin.settings && {
-			component: withPluginRuntime(plugin.settings.component) as React.ComponentType
+			component: withPluginRuntime(plugin.settings.component) as React.ComponentType,
+			onSave: plugin.settings.onSave,
 		}
 	};
 }
