@@ -1,5 +1,39 @@
 # Change Log
 
+## 3.0.0
+
+## Added
+
+- Add `@onlyoffice/docspace-plugin-sdk/react` subpath with full React 18+ support
+- Add `useCurrentFile` hook — returns metadata of the currently selected file, folder or room
+- Add `useCurrentUser` hook — returns the authenticated user's profile
+- Add `usePluginActions` hook — provides `showToast`, `showModal`, `showSelector`, `navigate`
+  and all other portal-side actions
+- Add `usePluginAPI` hook — typed proxy for `GET`/`POST`/`PUT`/`DELETE` portal API calls
+- Add `usePluginSettings` hook — load, save settings and control the Save button state
+- Add `usePluginRuntime` hook — low-level access to the full `PluginRuntime` context
+- Add `withPluginRuntime` HOC — used internally by the client to inject runtime into plugin components
+- Add `component` prop to `IInfoPanelItem` — accepts a React component as an alternative to `body`
+- Add `settingsComponent` prop to `ISettings` — accepts a React component as an alternative to `settings`
+- Add `dialogBodyComponent` prop to `IModalDialog` — accepts a React component as an alternative to `dialogBody`
+- Add `runtime: "module"` field support in `build-docspace-plugin` — emitted to `config.json` so
+  the portal loads the bundle as an ES module
+
+## Changed
+
+- Template: replaced Webpack 5 + ts-loader with **Vite 6** + `@vitejs/plugin-react`
+- Template: upgraded TypeScript from 4.x to **5.6**, target changed from `es5` to `ES2017`
+- Template: `moduleResolution` changed from `node` to `bundler`
+- Template: added `jsx: react-jsx` (automatic JSX runtime, no manual `React` import needed)
+- Template: added `react` and `react-dom ^18` as dependencies
+- Template: React and SDK marked as `external` in Vite config — provided by the host at runtime,
+  not bundled into `plugin.js`
+- Template: CSS output renamed to `plugin.css` via `assetFileNames` in Vite rollup options
+- Template: added `"runtime": "module"` field to `package.json`
+- Template: upgraded prettier from 2.x to **3.x**
+- Template: removed `window.Plugins` registration from generated `src/index.ts` — not needed
+  for ES module plugins
+
 ## #.#.#
 
 ## Changed
