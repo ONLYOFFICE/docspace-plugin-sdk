@@ -16,6 +16,8 @@
  * @license
  */
 
+import type { ComponentType } from "react";
+
 import { IMessage } from "../utils";
 import { IBox } from "./IBox";
 
@@ -24,7 +26,7 @@ import { IBox } from "./IBox";
  *
  * @category ModalDialog
  */
-export const enum ModalDisplayType {
+export enum ModalDisplayType {
   /** Modal dialog displayed in the center of the screen */
   modal = "modal",
   /** Modal dialog displayed as a side panel */
@@ -203,7 +205,7 @@ export interface IModalDialog {
    *
    * @category Appearance
    */
-  displayType: ModalDisplayType;
+  displayType?: ModalDisplayType;
 
   /** Defines the modal dialog header
    *
@@ -211,13 +213,26 @@ export interface IModalDialog {
    */
   dialogHeader?: string;
 
-  /** Defines the modal dialog body
+  /**
+   * Defines the modal dialog body rendered via the IBox component tree.
+   * Use either `dialogBody` or `dialogBodyComponent`, not both.
    *
    * @category Content
    */
-  dialogBody: IBox;
+  dialogBody?: IBox;
 
-  /** Defines the modal dialog footer
+  /**
+   * A React component rendered as the modal dialog body.
+   * Use either `dialogBodyComponent` or `dialogBody`, not both.
+   * The component can use `usePluginActions` and other hooks
+   * from `@onlyoffice/docspace-plugin-sdk/react`.
+   *
+   * @category Content
+   */
+  dialogBodyComponent?: ComponentType;
+
+  /**
+   * Defines the modal dialog footer rendered via the IBox component tree.
    *
    * @category Content
    */
@@ -279,14 +294,14 @@ export interface IModalDialog {
    *
    * @category Behavior
    */
-  onClose: () => Promise<IMessage> | IMessage | Promise<void> | void;
+  onClose?: () => Promise<IMessage> | IMessage | Promise<void> | void;
 
   /**
    * Sets a function which is triggered whenever the modal dialog is loaded.
    *
    * @category Behavior
    */
-  onLoad: () => Promise<{
+  onLoad?: () => Promise<{
     /**
      * Defines a new modal dialog header.
      */

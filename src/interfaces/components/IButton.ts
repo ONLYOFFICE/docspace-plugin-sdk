@@ -23,7 +23,7 @@ import { IMessage } from "../utils";
  *
  * @category Button
  */
-export const enum ButtonSize {
+export enum ButtonSize {
   /** Extra small button size */
   extraSmall = "extra-small",
   /** Small button size */
@@ -111,7 +111,7 @@ export interface IButton {
    *
    * @category Behavior
    */
-  onClick: () => Promise<IMessage> | IMessage | void;
+  onClick: () => Promise<IMessage | void> | IMessage | void;
 
   /**
    * Specifies if the button is primary or not. If the button is primary, it is colored blue

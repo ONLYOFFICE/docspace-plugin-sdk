@@ -16,6 +16,8 @@
  * @license
  */
 
+import type { ComponentType } from "react";
+
 import { Devices, UsersType } from "../../enums";
 import { FilesExst, FilesType } from "../../enums/Files";
 import { IBox } from "../components";
@@ -136,10 +138,18 @@ export interface IInfoPanelItem {
   subMenu: IInfoPanelSubMenu;
 
   /**
-   * The tab UI of the info panel
-   *
+   * The tab UI of the info panel rendered via the IBox component tree.
+   * Use either `body` or `component`, not both.
    */
-  body: IBox;
+  body?: IBox;
+
+  /**
+   * A React component rendered as the tab UI of the info panel.
+   * Use either `component` or `body`, not both.
+   * The component can use `usePluginActions`, `useCurrentFile` and other hooks
+   * from `@onlyoffice/docspace-plugin-sdk/react`.
+   */
+  component?: ComponentType;
 
   /**
    * The property that controls whether the header is visible in the info panel.

@@ -16,6 +16,8 @@
  * @license
  */
 
+import type { ComponentType } from "react";
+
 import { ButtonGroup, IBox } from "../components";
 
 /**
@@ -188,11 +190,22 @@ import { ButtonGroup, IBox } from "../components";
  * ```
  */
 export interface ISettings {
-  /** Defines the administrator or owner settings */
-  settings: IBox;
+  /**
+   * Defines the administrator or owner settings rendered via the IBox component tree.
+   * Use either `settings` or `settingsComponent`, not both.
+   */
+  settings?: IBox;
+
+  /**
+   * A React component rendered as the settings UI.
+   * Use either `settingsComponent` or `settings`, not both.
+   * The component can use `usePluginActions` and other hooks
+   * from `@onlyoffice/docspace-plugin-sdk/react`.
+   */
+  settingsComponent?: ComponentType;
 
   /** Defines the button to save the settings */
-  saveButton: ButtonGroup;
+  saveButton?: ButtonGroup;
 
   /** Specifies if the settings block will be displayed as a loader icon or not */
   isLoading?: boolean;

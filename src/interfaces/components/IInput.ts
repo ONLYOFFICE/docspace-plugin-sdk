@@ -23,7 +23,7 @@ import { IMessage } from "../utils";
  *
  * @category Input
  */
-export const enum InputSize {
+export enum InputSize {
   /**
    * Base size of the input field.
    */
@@ -51,7 +51,7 @@ export const enum InputSize {
  *
  * @category Input
  */
-export const enum InputAutocomplete {
+export enum InputAutocomplete {
   /**
    * Autocomplete is enabled.
    */
@@ -67,7 +67,7 @@ export const enum InputAutocomplete {
  *
  * @category Input
  */
-export const enum InputType {
+export enum InputType {
   /**
    * Text input type.
    */
