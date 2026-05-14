@@ -106,14 +106,6 @@ class NameIns implements PluginsIns {
 
 const plugin = new NameIns();
 
-declare global {
-  interface Window {
-    Plugins: any;
-  }
-}
-
-window.Plugins.NameIns = plugin || {};
-
 export default plugin;
 `;
 
