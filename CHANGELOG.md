@@ -21,11 +21,11 @@
 
 ## Changed
 
-- Template: replaced Webpack 5 + ts-loader with **Vite 6** + `@vitejs/plugin-react`
+- Template: replaced Webpack 5 + ts-loader with **Vite 8** + `@vitejs/plugin-react`
 - Template: upgraded TypeScript from 4.x to **5.6**, target changed from `es5` to `ES2017`
 - Template: `moduleResolution` changed from `node` to `bundler`
 - Template: added `jsx: react-jsx` (automatic JSX runtime, no manual `React` import needed)
-- Template: added `react` and `react-dom ^18` as dependencies
+- Template: added `react` and `react-dom ^19` as dependencies
 - Template: React and SDK marked as `external` in Vite config — provided by the host at runtime,
   not bundled into `plugin.js`
 - Template: CSS output renamed to `plugin.css` via `assetFileNames` in Vite rollup options
