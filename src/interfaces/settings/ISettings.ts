@@ -27,165 +27,89 @@ import { ButtonGroup, IBox } from "../components";
  *
  * @example
  *
- * Theme customization settings with color picker
+ * API key settings panel
  *
- * ```typescript
- * const themeSettings: ISettings = {
- *   settings: {
- *     type: "box",
- *     children: [
- *       {
- *         type: "colorPicker",
- *         id: "primary-color",
- *         label: "Primary Color",
- *         value: "#007BFF",
- *         onChange: (color) => updateThemeColor(color)
+ * ```tsx
+ * import { useEffect, useState } from "react";
+ * import { usePluginSettings } from "@onlyoffice/docspace-plugin-sdk/react";
+ * import { Components, ButtonSize } from "@onlyoffice/docspace-plugin-sdk";
+ *
+ * type Config = { apiKey: string };
+ *
+ * function ApiKeySettings() {
+ *   const settings = usePluginSettings();
+ *   const [apiKey, setApiKey] = useState("");
+ *
+ *   useEffect(() => {
+ *     settings.load<Config>().then((saved) => {
+ *       if (saved) setApiKey(saved.apiKey);
+ *     });
+ *   }, []);
+ *
+ *   useEffect(() => {
+ *     settings.setSaveButton({
+ *       component: Components.button,
+ *       props: {
+ *         label: "Save",
+ *         size: ButtonSize.small,
+ *         isDisabled: !apiKey.trim(),
+ *         onClick: async () => { await settings.save({ apiKey }); },
  *       },
- *       {
- *         type: "toggle",
- *         id: "dark-mode",
- *         label: "Dark Mode",
- *         value: false,
- *         onChange: (enabled) => toggleDarkMode(enabled)
- *       }
- *     ]
- *   },
- *   saveButton: {
- *     type: "button",
- *     label: "Save Theme",
- *     onClick: async () => {
- *       try {
- *         await saveThemeSettings();
- *         return {
- *           actions: [Actions.showToast],
- *           toastProps: [{
- *             type: "success",
- *             title: "Theme Updated",
- *             message: "Theme settings saved | Changes applied | Refresh to see updates"
- *           }]
- *         };
- *       } catch (error) {
- *         return {
- *           actions: [Actions.showToast],
- *           toastProps: [{
- *             type: "error",
- *             title: "Save Failed",
- *             message: "Unable to save theme | Check your changes"
- *           }]
- *         };
- *       }
- *     }
- *   },
- *   isLoading: false,
- *   onLoad: async () => {
- *     const savedSettings = await loadThemeSettings();
- *     return {
- *       settings: {
- *         type: "box",
- *         children: [
- *           {
- *             type: "colorPicker",
- *             id: "primary-color",
- *             label: "Primary Color",
- *             value: savedSettings.primaryColor
- *           },
- *           {
- *             type: "toggle",
- *             id: "dark-mode",
- *             label: "Dark Mode",
- *             value: savedSettings.darkMode
- *           }
- *         ]
- *       }
- *     };
- *   }
+ *     });
+ *   }, [apiKey]);
+ *
+ *   return <input type="password" value={apiKey} onChange={(e) => setApiKey(e.target.value)} />;
+ * }
+ *
+ * const apiKeySettings: ISettings = {
+ *   settingsComponent: ApiKeySettings,
  * };
  * ```
  *
  * @example
  *
- * Language configuration settings with validation
+ * Settings panel with multiple fields
  *
- * ```typescript
- * const languageSettings: ISettings = {
- *   settings: {
- *     type: "box",
- *     children: [
- *       {
- *         type: "select",
- *         id: "default-language",
- *         label: "Default Language",
- *         options: [
- *           { value: "en", label: "English" },
- *           { value: "es", label: "Spanish" },
- *           { value: "fr", label: "French" }
- *         ],
- *         value: "en",
- *         onChange: (lang) => updateDefaultLanguage(lang)
+ * ```tsx
+ * import { useEffect, useState } from "react";
+ * import { usePluginSettings } from "@onlyoffice/docspace-plugin-sdk/react";
+ * import { Components, ButtonSize } from "@onlyoffice/docspace-plugin-sdk";
+ *
+ * type Config = { apiUrl: string; apiKey: string };
+ *
+ * function ConnectionSettings() {
+ *   const settings = usePluginSettings();
+ *   const [apiUrl, setApiUrl] = useState("");
+ *   const [apiKey, setApiKey] = useState("");
+ *
+ *   useEffect(() => {
+ *     settings.load<Config>().then((saved) => {
+ *       if (saved) { setApiUrl(saved.apiUrl); setApiKey(saved.apiKey); }
+ *     });
+ *   }, []);
+ *
+ *   useEffect(() => {
+ *     settings.setSaveButton({
+ *       component: Components.button,
+ *       props: {
+ *         label: "Save",
+ *         size: ButtonSize.small,
+ *         isDisabled: !apiUrl.trim() || !apiKey.trim(),
+ *         onClick: async () => { await settings.save({ apiUrl, apiKey }); },
  *       },
- *       {
- *         type: "toggle",
- *         id: "auto-detect",
- *         label: "Auto-detect User Language",
- *         value: true,
- *         onChange: (enabled) => toggleAutoDetect(enabled)
- *       }
- *     ]
- *   },
- *   saveButton: {
- *     type: "button",
- *     label: "Save Language Settings",
- *     onClick: async () => {
- *       try {
- *         await saveLanguageSettings();
- *         return {
- *           actions: [Actions.showToast],
- *           toastProps: [{
- *             type: "success",
- *             title: "Language Updated",
- *             message: "Language settings saved | Changes applied | Refresh to see updates"
- *           }]
- *         };
- *       } catch (error) {
- *         return {
- *           actions: [Actions.showToast],
- *           toastProps: [{
- *             type: "error",
- *             title: "Save Failed",
- *             message: "Unable to save language settings | Check your changes"
- *           }]
- *         };
- *       }
- *     }
- *   },
- *   isLoading: false,
- *   onLoad: async () => {
- *     const savedSettings = await loadLanguageSettings();
- *     return {
- *       settings: {
- *         type: "box",
- *         children: [
- *           {
- *             type: "select",
- *             id: "default-language",
- *             label: "Default Language",
- *             options: [
- *               { value: "en", label: "English" },
- *               { value: "es", label: "Spanish" },
- *               { value: "fr", label: "French" }
- *             ],
- *             value: savedSettings.defaultLanguage
- *           },
- *           {
- *             type: "toggle",
- *             id: "auto-detect",
- *             label: "Auto-detect User Language",
- *             value: savedSettings.autoDetect
- *           }
- *         ]
- *       }
- *     };
- *   }
+ *     });
+ *   }, [apiUrl, apiKey]);
+ *
+ *   return (
+ *     <div>
+ *       <input placeholder="API URL" value={apiUrl} onChange={(e) => setApiUrl(e.target.value)} />
+ *       <input type="password" placeholder="API Key" value={apiKey} onChange={(e) => setApiKey(e.target.value)} />
+ *     </div>
+ *   );
+ * }
+ *
+ * const connectionSettings: ISettings = {
+ *   settingsComponent: ConnectionSettings,
  * };
  * ```
  */

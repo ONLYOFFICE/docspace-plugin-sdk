@@ -46,82 +46,73 @@ export interface IInfoPanelSubMenu {
  *
  * @example
  *
- * AI-powered document analysis with error handling
+ * AI-powered document analysis panel
  *
- * ```typescript
+ * ```tsx
+ * import { useCurrentFile, usePluginActions } from "@onlyoffice/docspace-plugin-sdk/react";
+ *
+ * function AnalysisPanel() {
+ *   const file = useCurrentFile();
+ *   const actions = usePluginActions();
+ *   const [result, setResult] = React.useState<string | null>(null);
+ *
+ *   React.useEffect(() => {
+ *     if (!file) return;
+ *     analyzeDocument(file.id).then(setResult).catch(() => setResult("Error"));
+ *   }, [file?.id]);
+ *
+ *   const handleExport = async () => {
+ *     await exportAnalysis(file!.id, result!);
+ *     actions.showToast({ type: "success", title: "Exported" });
+ *   };
+ *
+ *   return (
+ *     <div>
+ *       <p>{result ?? "Analyzing..."}</p>
+ *       <button onClick={handleExport}>Export</button>
+ *     </div>
+ *   );
+ * }
+ *
  * const documentAnalysis: IInfoPanelItem = {
  *   key: "ai-analysis",
- *   title: "AI Analysis",
- *   icon: "ai-icon.svg",
- *   onClick: async (id) => {
- *     try {
- *       const analysis = await analyzeDocument(id);
- *       await exportAnalysis(id, analysis);
- *
- *       return {
- *         actions: [Actions.showToast],
- *         toastProps: [{
- *           type: "success",
- *           title: "Document Analysis Complete",
- *           message: "Analysis completed | Report generated | Export finished"
- *         }]
- *       };
- *     } catch (error) {
- *       return {
- *         actions: [Actions.showToast],
- *         toastProps: [{
- *           type: "error",
- *           title: "Analysis failed",
- *           message: "Unable to analyze document | Check file format"
- *         }]
- *       };
- *     }
- *   }
- * }
+ *   subMenu: { name: "AI Analysis" },
+ *   component: AnalysisPanel,
+ * };
  * ```
  *
  * @example
  *
  * Image metadata viewer with file type restrictions
  *
- * ```typescript
+ * ```tsx
+ * import { useCurrentFile } from "@onlyoffice/docspace-plugin-sdk/react";
+ *
+ * function ImageMetadataPanel() {
+ *   const file = useCurrentFile();
+ *   const [metadata, setMetadata] = React.useState<Record<string, string> | null>(null);
+ *
+ *   React.useEffect(() => {
+ *     if (!file) return;
+ *     getImageMetadata(file.id).then(setMetadata);
+ *   }, [file?.id]);
+ *
+ *   return (
+ *     <div>
+ *       {metadata
+ *         ? Object.entries(metadata).map(([k, v]) => <p key={k}>{k}: {v}</p>)
+ *         : <p>Loading...</p>}
+ *     </div>
+ *   );
+ * }
+ *
  * const imageMetadata: IInfoPanelItem = {
  *   key: "image-metadata",
- *   title: "Image Info",
- *   icon: "image-info.svg",
- *   onClick: async (id) => {
- *     try {
- *       const metadata = await getImageMetadata(id);
- *       await copyToClipboard(metadata);
- *
- *       return {
- *         actions: [Actions.showToast],
- *         toastProps: [{
- *           type: "success",
- *           title: "Image Information",
- *           message: "Metadata retrieved | Details copied | Ready to use"
- *         }]
- *       };
- *     } catch (error) {
- *       return {
- *         actions: [Actions.showToast],
- *         toastProps: [{
- *           type: "error",
- *           title: "Failed to load metadata",
- *           message: "Unable to read image info | Check file access"
- *         }]
- *       };
- *     }
- *   },
+ *   subMenu: { name: "Image Info" },
+ *   component: ImageMetadataPanel,
  *   filesType: [FilesType.Files],
- *   filesExsts: [
- *     FilesExst.jpeg,
- *     FilesExst.jpg,
- *     FilesExst.png,
- *     FilesExst.gif,
- *     FilesExst.bmp
- *   ]
- * }
+ *   filesExsts: [FilesExst.jpeg, FilesExst.jpg, FilesExst.png, FilesExst.gif, FilesExst.bmp],
+ * };
  * ```
  */
 export interface IInfoPanelItem {

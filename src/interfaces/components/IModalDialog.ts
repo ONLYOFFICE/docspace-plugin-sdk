@@ -52,152 +52,80 @@ export enum ModalDisplayType {
  *
  * @example
  *
- * Interactive document preview modal with dynamic content loading
+ * Document preview modal with React component
  *
- * ```typescript
- * const filePreviewModal: IModalDialog = {
+ * ```tsx
+ * import { useEffect, useState } from "react";
+ * import { usePluginActions, useCurrentFile } from "@onlyoffice/docspace-plugin-sdk/react";
+ *
+ * function PreviewBody() {
+ *   const file = useCurrentFile();
+ *   const { closeModal, showToast } = usePluginActions();
+ *   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+ *
+ *   useEffect(() => {
+ *     if (!file) return;
+ *     fetchPreviewUrl(file.id).then(setPreviewUrl);
+ *   }, [file?.id]);
+ *
+ *   return (
+ *     <div>
+ *       {previewUrl
+ *         ? <iframe src={previewUrl} width="100%" height="500px" />
+ *         : <p>Loading preview...</p>}
+ *       <button onClick={closeModal}>Close</button>
+ *     </div>
+ *   );
+ * }
+ *
+ * const previewModal: IModalDialog = {
  *   displayType: ModalDisplayType.modal,
  *   dialogHeader: "Document Preview",
- *   dialogBody: {
- *     children: [
- *       {
- *         component: "iframe",
- *         props: {
- *           src: "https://example.com/preview/doc.pdf",
- *           width: "100%",
- *           height: "600px"
- *         }
- *       }
- *     ]
- *   },
- *   dialogFooter: {
- *     children: [
- *       {
- *         component: "button",
- *         props: {
- *           label: "Download",
- *           onClick: () => {
- *             return {
- *               actions: [Actions.downloadFile],
- *               fileUrl: "https://example.com/download/doc.pdf"
- *             };
- *           }
- *         }
- *       }
- *     ]
- *   },
+ *   dialogBodyComponent: PreviewBody,
  *   autoMaxWidth: true,
  *   autoMaxHeight: true,
- *   withFooterBorder: true,
- *   fullScreen: false,
- *   eventListeners: [
- *     {
- *       name: "documentLoaded",
- *       onAction: async () => {
- *         return {
- *           actions: [Actions.showToast],
- *           toastProps: [{
- *             title: "Success",
- *             type: "success",
- *             message: "Document loaded successfully"
- *           }]
- *         };
- *       }
- *     }
- *   ],
- *   onClose: () => {
- *     return {
- *       actions: [Actions.updateProps],
- *       newProps: {
- *         visible: false
- *       }
- *     };
- *   },
- *   onLoad: async () => {
- *     const documentDetails = await fetchDocumentDetails();
- *     return {
- *       newDialogHeader: `Preview: ${documentDetails.name}`,
- *       newDialogBody: {
- *         children: [
- *           {
- *             component: "iframe",
- *             props: {
- *               src: documentDetails.previewUrl,
- *               width: "100%",
- *               height: "600px"
- *             }
- *           }
- *         ]
- *       },
- *       newDialogFooter: {
- *         children: [
- *           {
- *             component: "button",
- *             props: {
- *               label: "Download",
- *               onClick: () => ({
- *                 actions: [Actions.downloadFile],
- *                 fileUrl: documentDetails.downloadUrl
- *               })
- *             }
- *           }
- *         ]
- *       }
- *     };
- *   }
- * }
+ * };
  * ```
  *
  * @example
  *
  * Side panel settings dialog with API key configuration
  *
- * ```typescript
+ * ```tsx
+ * import { useEffect, useState } from "react";
+ * import { usePluginActions, usePluginSettings } from "@onlyoffice/docspace-plugin-sdk/react";
+ *
+ * function SettingsPanelBody() {
+ *   const { closeModal, showToast } = usePluginActions();
+ *   const settings = usePluginSettings();
+ *   const [apiKey, setApiKey] = useState("");
+ *
+ *   useEffect(() => {
+ *     settings.load<{ apiKey: string }>().then((saved) => {
+ *       if (saved) setApiKey(saved.apiKey);
+ *     });
+ *   }, []);
+ *
+ *   const handleSave = async () => {
+ *     await settings.save({ apiKey });
+ *     showToast({ type: "success", title: "Saved" });
+ *     closeModal();
+ *   };
+ *
+ *   return (
+ *     <div>
+ *       <input type="password" value={apiKey} onChange={(e) => setApiKey(e.target.value)} />
+ *       <button onClick={handleSave}>Save</button>
+ *     </div>
+ *   );
+ * }
+ *
  * const settingsPanel: IModalDialog = {
  *   displayType: ModalDisplayType.aside,
  *   dialogHeader: "Plugin Settings",
- *   dialogBody: {
- *     children: [
- *       {
- *         component: "input",
- *         props: {
- *           label: "API Key",
- *           type: "password",
- *           value: "",
- *           onChange: (value) => ({
- *             actions: [Actions.updateProps],
- *             newProps: { value }
- *           })
- *         }
- *       }
- *     ]
- *   },
- *   autoMaxWidth: false,
+ *   dialogBodyComponent: SettingsPanelBody,
  *   autoMaxHeight: true,
- *   withFooterBorder: true,
- *   fullScreen: false,
- *   onClose: () => ({
- *     actions: [Actions.updateProps],
- *     newProps: { visible: false }
- *   }),
- *   onLoad: async () => {
- *     const settings = await loadSettings();
- *     return {
- *       newDialogBody: {
- *         children: [
- *           {
- *             component: "input",
- *             props: {
- *               label: "API Key",
- *               type: "password",
- *               value: settings.apiKey
- *             }
- *           }
- *         ]
- *       }
- *     };
- *   }
- * }
+ * };
  * ```
  */
 export interface IModalDialog {
