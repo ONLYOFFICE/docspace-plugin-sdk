@@ -140,6 +140,8 @@ export interface IInfoPanelItem {
   /**
    * The tab UI of the info panel rendered via the IBox component tree.
    * Use either `body` or `component`, not both.
+   *
+   * @deprecated Use `component` instead — accepts a React component and supports hooks from `@onlyoffice/docspace-plugin-sdk/react`.
    */
   body?: IBox;
 
@@ -161,6 +163,8 @@ export interface IInfoPanelItem {
   /**
    * A function that is executed after opening a tab.
    * It returns a new body. If this functionality is not needed, the old body value is returned.
+   *
+   * @deprecated Use a React component via `component` with `useEffect` for data loading instead.
    */
   onLoad?: () => Promise<{ body: IBox }>;
 

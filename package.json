@@ -1,6 +1,6 @@
 {
   "name": "@onlyoffice/docspace-plugin-sdk",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "minDocSpaceVersion": "3.5.0",
   "description": "Simple plugin system for onlyoffice docspace",
   "license": "Apache-2.0",
@@ -43,7 +43,7 @@
     "prepublish": "tsc && tsc -p tsconfig.react.json"
   },
   "peerDependencies": {
-    "react": ">=18.0.0"
+    "react": ">=19.0.0"
   },
   "peerDependenciesMeta": {
     "react": {
@@ -52,7 +52,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.18.10",
-    "@types/react": "^18.0.0",
+    "@types/react": "^19.0.0",
     "typedoc": "^0.27.5",
     "typescript": "^5.6.0"
   },

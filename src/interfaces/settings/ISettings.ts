@@ -193,6 +193,8 @@ export interface ISettings {
   /**
    * Defines the administrator or owner settings rendered via the IBox component tree.
    * Use either `settings` or `settingsComponent`, not both.
+   *
+   * @deprecated Use `settingsComponent` instead — accepts a React component and supports hooks from `@onlyoffice/docspace-plugin-sdk/react`.
    */
   settings?: IBox;
 
@@ -213,6 +215,8 @@ export interface ISettings {
   /**
    * Defines a function that is triggered whenever the settings block is loaded.
    * Returns a promise with the updated settings box and optional save button.
+   *
+   * @deprecated Use a React component via `settingsComponent` with `useEffect` for data loading instead.
    */
   onLoad?: () => Promise<{ settings: IBox; saveButton?: ButtonGroup }>;
 }

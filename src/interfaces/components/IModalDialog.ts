@@ -218,6 +218,7 @@ export interface IModalDialog {
    * Use either `dialogBody` or `dialogBodyComponent`, not both.
    *
    * @category Content
+   * @deprecated Use `dialogBodyComponent` instead — accepts a React component and supports hooks from `@onlyoffice/docspace-plugin-sdk/react`.
    */
   dialogBody?: IBox;
 
@@ -235,6 +236,7 @@ export interface IModalDialog {
    * Defines the modal dialog footer rendered via the IBox component tree.
    *
    * @category Content
+   * @deprecated Use `dialogBodyComponent` to render footer content within the component instead.
    */
   dialogFooter?: IBox;
 
@@ -300,6 +302,7 @@ export interface IModalDialog {
    * Sets a function which is triggered whenever the modal dialog is loaded.
    *
    * @category Behavior
+   * @deprecated Use a React component via `dialogBodyComponent` with `useEffect` for data loading instead.
    */
   onLoad?: () => Promise<{
     /**
