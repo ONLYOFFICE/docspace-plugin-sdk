@@ -89,41 +89,45 @@ export enum ModalDisplayType {
  *
  * @example
  *
- * Side panel settings dialog with API key configuration
+ * Side panel that lists files in the current user's folder via API
  *
  * ```tsx
  * import { useEffect, useState } from "react";
- * import { usePluginActions, usePluginSettings } from "@onlyoffice/docspace-plugin-sdk/react";
+ * import { usePluginAPI, usePluginActions } from "@onlyoffice/docspace-plugin-sdk/react";
  *
- * function SettingsPanelBody() {
+ * type FileEntry = { id: number; title: string; fileExst?: string };
+ *
+ * function FilesListPanel() {
+ *   const api = usePluginAPI();
  *   const { closeModal, showToast } = usePluginActions();
- *   const settings = usePluginSettings();
- *   const [apiKey, setApiKey] = useState("");
+ *   const [files, setFiles] = useState<FileEntry[]>([]);
  *
  *   useEffect(() => {
- *     settings.load<{ apiKey: string }>().then((saved) => {
- *       if (saved) setApiKey(saved.apiKey);
+ *     api.get<{ response: { files: FileEntry[] } }>("/files/@my").then((res) => {
+ *       setFiles(res.response.files);
  *     });
  *   }, []);
  *
- *   const handleSave = async () => {
- *     await settings.save({ apiKey });
- *     showToast({ type: "success", title: "Saved" });
+ *   const handleSelect = (file: FileEntry) => {
+ *     showToast({ type: "success", title: `Selected: ${file.title}` });
  *     closeModal();
  *   };
  *
  *   return (
- *     <div>
- *       <input type="password" value={apiKey} onChange={(e) => setApiKey(e.target.value)} />
- *       <button onClick={handleSave}>Save</button>
- *     </div>
+ *     <ul>
+ *       {files.map((f) => (
+ *         <li key={f.id} onClick={() => handleSelect(f)} style={{ cursor: "pointer" }}>
+ *           {f.title}{f.fileExst ? `.${f.fileExst}` : ""}
+ *         </li>
+ *       ))}
+ *     </ul>
  *   );
  * }
  *
- * const settingsPanel: IModalDialog = {
+ * const filesPanel: IModalDialog = {
  *   displayType: ModalDisplayType.aside,
- *   dialogHeader: "Plugin Settings",
- *   dialogBodyComponent: SettingsPanelBody,
+ *   dialogHeader: "My Files",
+ *   dialogBodyComponent: FilesListPanel,
  *   autoMaxHeight: true,
  * };
  * ```

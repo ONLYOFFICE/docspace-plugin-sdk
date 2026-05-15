@@ -66,52 +66,6 @@ import { ButtonGroup, IBox } from "../components";
  * };
  * ```
  *
- * @example
- *
- * Settings panel with multiple fields
- *
- * ```tsx
- * import { useEffect, useState } from "react";
- * import { usePluginSettings } from "@onlyoffice/docspace-plugin-sdk/react";
- * import { Components, ButtonSize } from "@onlyoffice/docspace-plugin-sdk";
- *
- * type Config = { apiUrl: string; apiKey: string };
- *
- * function ConnectionSettings() {
- *   const settings = usePluginSettings();
- *   const [apiUrl, setApiUrl] = useState("");
- *   const [apiKey, setApiKey] = useState("");
- *
- *   useEffect(() => {
- *     settings.load<Config>().then((saved) => {
- *       if (saved) { setApiUrl(saved.apiUrl); setApiKey(saved.apiKey); }
- *     });
- *   }, []);
- *
- *   useEffect(() => {
- *     settings.setSaveButton({
- *       component: Components.button,
- *       props: {
- *         label: "Save",
- *         size: ButtonSize.small,
- *         isDisabled: !apiUrl.trim() || !apiKey.trim(),
- *         onClick: async () => { await settings.save({ apiUrl, apiKey }); },
- *       },
- *     });
- *   }, [apiUrl, apiKey]);
- *
- *   return (
- *     <div>
- *       <input placeholder="API URL" value={apiUrl} onChange={(e) => setApiUrl(e.target.value)} />
- *       <input type="password" placeholder="API Key" value={apiKey} onChange={(e) => setApiKey(e.target.value)} />
- *     </div>
- *   );
- * }
- *
- * const connectionSettings: ISettings = {
- *   settingsComponent: ConnectionSettings,
- * };
- * ```
  */
 export interface ISettings {
   /**
