@@ -314,4 +314,11 @@ export interface IContextMenuItem {
 	 * Only applies to root-level items. Nested items (`items[]`) ignore this property.
 	 */
 	placement?: "top" | "topLast";
+
+	/**
+	 * The identifiers of specific files, folders, or rooms where this item will be displayed in the context menu.
+	 * If specified, the item is shown only for entities whose ID is included in this list.
+	 * If this parameter is not specified, the item will be displayed for all entities (subject to other filters).
+	 */
+	itemId?: (number | string)[];
 }
