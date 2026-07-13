@@ -45,6 +45,7 @@
 - Add IMediaViewer component, actions (showMediaViewer, updateMediaViewer,
   closeMediaViewer)
 - Add placement prop to IContextMenuItem
+- Add `itemId` prop to IContextMenuItem
 - Add plugin samples
 
 ## Fixed
