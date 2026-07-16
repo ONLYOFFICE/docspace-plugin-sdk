@@ -1,5 +1,5 @@
 /**
- * (c) Copyright Ascensio System SIA 2025
+ * (c) Copyright Ascensio System SIA 2026
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,8 @@ import { ISkeleton } from "./ISkeleton";
 import { IText } from "./IText";
 import { ITextArea } from "./ITextArea";
 import { IToggleButton } from "./IToggleButton";
+import { IIconButton } from "./IIconButton";
+import { ILink } from "./ILink";
 
 /**
  * Defines the box component.
@@ -485,6 +487,78 @@ type ToggleButtonGroup = {
 };
 
 /**
+ * Defines the icon button component.
+ *
+ * @category IconButton
+ *
+ * @example
+ * ```typescript
+ * import { IIconButton, Components, Component, Actions } from "@onlyoffice/docspace-plugin-sdk";
+ *
+ * const iconButton: IIconButton = {
+ *   iconName: "settings.svg",
+ *   size: 32,
+ *   color: "#333333",
+ *   hoverColor: "accent",
+ *   onClick: () => {
+ *     console.log("Settings clicked");
+ *   },
+ *   title: "Open settings",
+ *   isDisabled: false
+ * };
+ *
+ * const iconButtonGroup: Component = {
+ *   component: Components.iconButton,
+ *   props: iconButton,
+ *   contextName: "settingsButton"
+ * };
+ * ```
+ */
+type IconButtonGroup = {
+  /** Defines the "iconButton" component type */
+  component: Components.iconButton;
+  /** Defines the icon button component properties */
+  props: IIconButton;
+  /** Defines the icon button component context name that updates the component via React context */
+  contextName?: string;
+};
+
+/**
+ * Defines the link component.
+ *
+ * @category Link
+ *
+ * @example
+ * ```typescript
+ * import { ILink, Components, Component, LinkType, LinkTarget } from "@onlyoffice/docspace-plugin-sdk";
+ *
+ * const link: ILink = {
+ *   href: "https://example.com",
+ *   text: "Visit Example",
+ *   type: LinkType.page,
+ *   target: LinkTarget.blank,
+ *   color: "accent",
+ *   fontSize: "14px",
+ *   isBold: false
+ * };
+ *
+ * const linkGroup: Component = {
+ *   component: Components.link,
+ *   props: link,
+ *   contextName: "exampleLink"
+ * };
+ * ```
+ */
+type LinkGroup = {
+  /** Defines the "link" component type */
+  component: Components.link;
+  /** Defines the link component properties */
+  props: ILink;
+  /** Defines the link component context name that updates the component via React context */
+  contextName?: string;
+};
+
+/**
  * A component that is used to add components into Box.
  * Only components that are embedded into DOM can be wrapped (toast, modal dialog, etc. cannot be wrapped).
  *
@@ -560,7 +634,9 @@ type Component =
   | SkeletonGroup
   | TextGroup
   | TextAreaGroup
-  | ToggleButtonGroup;
+  | ToggleButtonGroup
+  | IconButtonGroup
+  | LinkGroup;
 
 export {
   Component,
@@ -576,4 +652,6 @@ export {
   TextGroup,
   TextAreaGroup,
   ToggleButtonGroup,
+  IconButtonGroup,
+  LinkGroup,
 };

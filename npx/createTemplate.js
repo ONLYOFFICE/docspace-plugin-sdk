@@ -1,5 +1,5 @@
 /*
-* (c) Copyright Ascensio System SIA 2025
+* (c) Copyright Ascensio System SIA 2026
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -33,6 +33,8 @@ import { getMainButtonTemp } from "./helpers/mainButton.js";
 import { getProfileMenuTemp } from "./helpers/profileMenu.js";
 import { getEventListenerTemp } from "./helpers/eventListeners.js";
 import { getFileTemp } from "./helpers/file.js";
+import { getPostMessageTemp } from "./helpers/postMessage.js";
+import { getArticleTemp } from "./helpers/articleSlot.js";
 
 const CURR_DIR = process.cwd();
 
@@ -80,10 +82,12 @@ function createTemplate(
         const newJson = JSON.parse(contents);
 
         newJson.name = name;
+        newJson.nameLocale = {};
         newJson.version = version || "";
         newJson.scopes = scopes || [];
         newJson.author = author || "";
         newJson.description = description || "";
+        newJson.descriptionLocale = {};
         newJson.pluginName = pluginName || "";
         newJson.license = license || "";
         newJson.logo = logo || "";
@@ -124,6 +128,8 @@ export default plugin;
         const withProfileMenu = scopes.includes("ProfileMenu");
         const withEventListener = scopes.includes("EventListener");
         const withFile = scopes.includes("File");
+        const withPostMessage = scopes.includes("PostMessage");
+        const withArticle = scopes.includes("ArticleButton");
 
         const { apiVars, apiMeth, IApiPlugin } = getApiTemp(withApi);
         const { settingsVars, settingsMeth, ISettingsPlugin, ISettings } =
@@ -160,6 +166,18 @@ export default plugin;
         } = getEventListenerTemp(withEventListener);
         const { IFilePlugin, IFileItem, fileVars, fileMeth } =
           getFileTemp(withFile);
+        const {
+          IPostMessagePlugin,
+          IPostMessageCallbackMessage,
+          postMessageVars,
+          postMessageMeth,
+        } = getPostMessageTemp(withPostMessage);
+        const {
+          IArticleButtonPlugin,
+          IArticleButtonItem,
+          articleButtonVars,
+          articleButtonMeth,
+        } = getArticleTemp(withArticle);
 
         if (withApi) {
           pluginsImpIns += `, ${IApiPlugin}`;
@@ -201,6 +219,16 @@ export default plugin;
           pluginsIns += `, ${IFilePlugin}`;
         }
 
+        if (withPostMessage) {
+          pluginsImpIns += `, ${IPostMessagePlugin}, ${IPostMessageCallbackMessage} `;
+          pluginsIns += `, ${IPostMessagePlugin}`;
+        }
+
+        if (withArticle) {
+          pluginsImpIns += `, ${IArticleButtonPlugin}, ${IArticleButtonItem} `;
+          pluginsIns += `, ${IArticleButtonPlugin}`;
+        }
+
         let nameIns = `${pluginName}`;
         let contentIns = `
   ${status}
@@ -212,6 +240,8 @@ export default plugin;
           ${profileMenuVars}
           ${eventListenerVars}
           ${fileVars}
+          ${postMessageVars}
+          ${articleButtonVars}
           ${onLoadCallback}
           ${updateStatus}
           ${getStatus}
@@ -223,7 +253,9 @@ export default plugin;
           ${mainButtonMeth}
           ${profileMenuMeth}
           ${eventListenerMeth}
-          ${fileMeth}`;
+          ${fileMeth}
+          ${postMessageMeth}
+          ${articleButtonMeth}`;
 
         template = template
           .replaceAll("pluginsImpIns", pluginsImpIns)
@@ -238,17 +270,6 @@ export default plugin;
         fs.writeFileSync(`${srcDir}/index.ts`, template, "utf8");
 
         break;
-
-      case "createZip.js":
-        const newCreateZip = contents.replaceAll(
-          "PluginNameReplace",
-          `${pluginName}`
-        );
-
-        fs.writeFileSync(writePath, newCreateZip, "utf8");
-
-        break;
-
       default:
         fs.writeFileSync(writePath, contents, "utf8");
     }

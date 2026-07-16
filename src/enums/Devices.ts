@@ -1,5 +1,5 @@
 /**
- * (c) Copyright Ascensio System SIA 2025
+ * (c) Copyright Ascensio System SIA 2026
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
 /**
  * Defines the supported device types.
  */
-export const enum Devices {
+export enum Devices {
   /** Smartphones and small-screen mobile devices */
   mobile = "mobile",
 

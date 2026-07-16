@@ -1,5 +1,5 @@
 /**
- * (c) Copyright Ascensio System SIA 2025
+ * (c) Copyright Ascensio System SIA 2026
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,6 +53,14 @@
  *
  * Here is a description of the category SettingsPlugin.
  *
+ * @categoryDescription PostMessagePlugin
+ *
+ * Here is a description of the category PostMessagePlugin.
+ *
+ * @categoryDescription ArticlePlugin
+ *
+ * Here is a description of the category ArticlePlugin.
+ *
  * @module Plugins
  */
 
@@ -65,6 +73,8 @@ import { IApiPlugin } from "./IApiPlugin";
 import { ISettingsPlugin } from "./ISettingsPlugin";
 import { IContextMenuPlugin } from "./IContextMenuPlugin";
 import { IEventListenerPlugin } from "./IEventListenerPlugin";
+import { IPostMessagePlugin } from "./IPostMessagePlugin";
+import { IArticleButtonPlugin } from "./IArticleButtonPlugin";
 
 export {
   IPlugin,
@@ -76,4 +86,6 @@ export {
   IMainButtonPlugin,
   IEventListenerPlugin,
   IFilePlugin,
+  IPostMessagePlugin,
+  IArticleButtonPlugin,
 };

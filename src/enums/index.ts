@@ -1,5 +1,5 @@
 /**
- * (c) Copyright Ascensio System SIA 2025
+ * (c) Copyright Ascensio System SIA 2026
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,22 +27,28 @@
 
 import { Actions } from "./Actions";
 import { Events } from "./Events";
-import { PluginStatus } from "./Plugins";
+import { PluginStatus, PluginLocale } from "./Plugins";
 import { FilesExst, FilesType, FilesSecurity } from "./Files";
 import { UsersType } from "./UsersType";
 import { Components } from "./Components";
 import { Devices } from "./Devices";
 import { Security } from "./Security";
+import { SelectorType } from "./Selector";
+import { RoomSearchArea, RoomsType } from "./Rooms";
 
 export {
-  Actions,
-  Components,
-  Events,
-  FilesExst,
-  FilesType,
-  FilesSecurity,
-  PluginStatus,
-  UsersType,
-  Devices,
-  Security,
+	Actions,
+	Components,
+	Events,
+	FilesExst,
+	FilesType,
+	FilesSecurity,
+	PluginStatus,
+	UsersType,
+	Devices,
+	Security,
+	PluginLocale,
+	SelectorType,
+	RoomSearchArea,
+	RoomsType
 };

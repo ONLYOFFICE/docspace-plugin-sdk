@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /*
- * (c) Copyright Ascensio System SIA 2025
+ * (c) Copyright Ascensio System SIA 2026
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -67,7 +67,19 @@ inquirer.prompt(QUESTIONS).then((answers) => {
   ).then(() => {
     console.log("Installing dependencies...");
     process.chdir(name);
-    cp.exec(`yarn`);
-    cp.exec(`yarn format`);
+    cp.exec(`npm install`, (error) => {
+      if (error) {
+        console.error(`Error installing dependencies: ${error.message}`);
+        return;
+      }
+      console.log("Dependencies installed successfully.");
+      cp.exec(`npm run format`, (formatError) => {
+        if (formatError) {
+          console.error(`Error formatting code: ${formatError.message}`);
+        } else {
+          console.log("Code formatted successfully.");
+        }
+      });
+    });
   });
 });

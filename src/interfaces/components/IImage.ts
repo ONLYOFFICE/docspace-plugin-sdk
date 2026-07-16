@@ -1,5 +1,5 @@
 /**
- * (c) Copyright Ascensio System SIA 2025
+ * (c) Copyright Ascensio System SIA 2026
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -109,4 +109,12 @@ export interface IImage {
    * @category Appearance
    */
   style?: { [key: string]: string };
+
+  /**
+   * Defines the CSS class for styling the component.
+   * Can be used to override or extend the default component styles.
+   *
+   * @category Appearance
+   */
+  className?: string;
 }

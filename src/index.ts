@@ -1,5 +1,5 @@
 /**
- * (c) Copyright Ascensio System SIA 2025
+ * (c) Copyright Ascensio System SIA 2026
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,9 @@ import {
   IMainButtonPlugin,
   IEventListenerPlugin,
   IFilePlugin,
-} from "./interfaces/plugins";
+  IPostMessagePlugin,
+  IArticleButtonPlugin,
+} from "./interfaces/plugins"
 
 import {
   IContextMenuItem,
@@ -35,11 +37,12 @@ import {
   IMainButtonItem,
   IProfileMenuItem,
   IEventListenerItem,
+  IArticleButtonItem,
   IFileItem,
   File,
-} from "./interfaces/items";
+} from "./interfaces/items"
 
-import { ISettings } from "./interfaces/settings";
+import { ISettings } from "./interfaces/settings"
 
 import {
   Actions,
@@ -52,7 +55,11 @@ import {
   UsersType,
   Devices,
   Security,
-} from "./enums";
+  PluginLocale,
+  SelectorType,
+  RoomSearchArea,
+  RoomsType,
+} from "./enums"
 
 import {
   IBox,
@@ -91,9 +98,32 @@ import {
   IComboBoxItem,
   ICreateDialog,
   ISkeleton,
-} from "./interfaces/components";
+  TSelector,
+  TBaseSelector,
+  TFilesSelector,
+  TGroupsSelector,
+  TPeopleSelector,
+  TRoomSelector,
+  TSelectorItem,
+  IFloatingOperationsButton,
+  FloatingOperationType,
+  IFloatingOperation,
+  IIconButton,
+  IconButtonGroup,
+  LinkGroup,
+  ILink,
+  LinkType,
+  LinkTarget,
+  IMediaViewer,
+} from "./interfaces/components"
 
-import { IPostMessage, IMessage } from "./interfaces/utils/index";
+import {
+  IPostMessage,
+  IPostMessageCallbackMessage,
+  IMessage,
+  TReturnPostMessage,
+  TInfoPanelTab,
+} from "./interfaces/utils/index"
 
 export {
   IPlugin,
@@ -104,7 +134,10 @@ export {
   IProfileMenuPlugin,
   IMainButtonPlugin,
   IEventListenerPlugin,
+  IArticleButtonItem,
   IFilePlugin,
+  IPostMessagePlugin,
+  IArticleButtonPlugin,
   IContextMenuItem,
   IInfoPanelItem,
   IInfoPanelSubMenu,
@@ -121,6 +154,7 @@ export {
   FilesType,
   FilesSecurity,
   PluginStatus,
+  PluginLocale,
   Component,
   BoxGroup,
   ButtonGroup,
@@ -134,6 +168,8 @@ export {
   TextGroup,
   TextAreaGroup,
   ToggleButtonGroup,
+  IconButtonGroup,
+  LinkGroup,
   UsersType,
   IBox,
   IBorderProp,
@@ -152,6 +188,10 @@ export {
   ITextArea,
   IFrame,
   IImage,
+  ILink,
+  LinkType,
+  LinkTarget,
+  IIconButton,
   IModalDialog,
   ModalDisplayType,
   IComboBox,
@@ -160,6 +200,23 @@ export {
   IMessage,
   ISkeleton,
   IPostMessage,
+  IPostMessageCallbackMessage,
+  TReturnPostMessage,
+  TInfoPanelTab,
   Devices,
   Security,
-};
+  SelectorType,
+  TSelector,
+  TBaseSelector,
+  TFilesSelector,
+  TGroupsSelector,
+  TPeopleSelector,
+  TRoomSelector,
+  TSelectorItem,
+  RoomSearchArea,
+  RoomsType,
+  IFloatingOperationsButton,
+  FloatingOperationType,
+  IFloatingOperation,
+  IMediaViewer,
+}

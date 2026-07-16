@@ -1,5 +1,5 @@
 /*
- * (c) Copyright Ascensio System SIA 2025
+ * (c) Copyright Ascensio System SIA 2026
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  *
  */
 
-import { PluginStatus } from "../../enums";
+import { PluginLocale, PluginStatus } from "../../enums";
 
 /**
  * The default plugin.
@@ -97,6 +97,15 @@ import { PluginStatus } from "../../enums";
 export interface IPlugin {
   /** The plugin status (active or hide) */
   status: PluginStatus;
+
+  /** The plugin language */
+  language?: PluginLocale;
+
+  /** The method is called on the portal side when the portal language is changed. */
+  setLanguage?: (language: PluginLocale) => void;
+
+  /** The method is called on the portal side to get the plugin language. */
+  getLanguage?: () => PluginLocale;
 
   /** Callback which will be executed when uploading the plugin to the portal */
   onLoadCallback: () => Promise<void>;

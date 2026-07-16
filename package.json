@@ -1,6 +1,6 @@
 {
   "name": "@onlyoffice/docspace-plugin-sdk",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "minDocSpaceVersion": "3.5.0",
   "description": "Simple plugin system for onlyoffice docspace",
   "license": "Apache-2.0",
@@ -28,7 +28,6 @@
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "type": "module",
   "scripts": {
     "build": "tsc",
     "prepublish": "tsc"
@@ -41,5 +40,12 @@
   "dependencies": {
     "inquirer": "^9.1.0",
     "jszip": "^3.10.1"
-  }
+  },
+  "overrides": {
+    "external-editor": {
+      "tmp": "^0.2.4"
+    },
+    "lodash": "^4.17.23"
+  },
+  "packageManager": "yarn@4.6.0+sha224.acd0786f07ffc6c933940eb65fc1d627131ddf5455bddcc295dc90fd"
 }

@@ -1,5 +1,5 @@
 /**
- * (c) Copyright Ascensio System SIA 2025
+ * (c) Copyright Ascensio System SIA 2026
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
 /**
  * A collection of events that will be processed on the portal side.
  */
-export const enum Actions {
+export enum Actions {
   /**
    * Calls a function to update the state of the item which action was passed.
    * It does not work if the "newProps" parameter is not passed to the message.
@@ -108,4 +108,71 @@ export const enum Actions {
    * It functions only when the "Save" button is clicked in the "Settings" block.
    */
   saveSettings = "save-settings",
+
+  /**
+   * Calls a function to display a selector.
+   * It does not work if the "selectorProps" parameter is not passed to the message.
+   */
+  showSelector = "show-selector",
+
+  /**
+   * Calls a function to update a selector.
+   * It does not work if the "selectorProps" parameter is not passed to the message.
+   */
+  updateSelector = "update-selector",
+
+  /**
+   * Calls a function to close a selector.
+   */
+  closeSelector = "close-selector",
+
+  /**
+   * Calls a function to add operations in floating button.
+   * Multiple plugins can show operations simultaneously - they will be aggregated.
+   * It does not work if the "floatingOperationsButtonProps" parameter is not passed to the message.
+   * 
+   * **Note:** Each floating operations is identified by its id. Calling this  action again
+   * will not replace the previous operations.
+   */
+  addFloatingOperationsButton = "add-floating-operations-button",
+
+  /**
+   * Calls a function to update operations in floating button.
+   * It does not work if the "floatingOperationsButtonProps" parameter is not passed to the message.
+   */
+  updateFloatingOperationsButton = "update-floating-operations-button",
+
+  /**
+   * Calls a function to remove the floating operations.
+   * It does not work if the "floatingOperationsButtonPropsId" parameter is not passed to the message.
+   */
+  removeFloatingOperationsButton = "remove-floating-operations-button",
+
+  /**
+   * Calls a function to navigate to the specified path.
+   * All actions listed after navigate will be called after the navigation is complete.
+   * It does not work if the "navigatePath" parameter is not passed to the message.
+   */
+  navigate = "navigate",
+
+  /**
+   * Calls a function to open the plugin info panel.
+   */
+  openInfoPanel = "open-info-panel",
+
+  /**
+   * Calls a function to open the plugin media viewer.
+   */
+  showMediaViewer = "show-media-viewer",
+
+  /**
+   * Calls a function to update the plugin media viewer.
+   */
+  updateMediaViewer = "update-media-viewer",
+
+  /**
+   * Calls a function to close the plugin media viewer.
+   */
+  closeMediaViewer = "close-media-viewer"
+
 }

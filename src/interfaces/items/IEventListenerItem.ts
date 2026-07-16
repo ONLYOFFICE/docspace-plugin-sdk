@@ -1,5 +1,5 @@
 /**
- * (c) Copyright Ascensio System SIA 2025
+ * (c) Copyright Ascensio System SIA 2026
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -129,7 +129,7 @@ export interface IEventListenerItem {
    * After the event is executed, only updating the items or displaying toast is possible, other actions are blocked.
    *
    */
-  eventHandler: () => Promise<IMessage> | IMessage | void;
+  eventHandler: () => Promise<IMessage> |  Promise<void> | IMessage | void;
 
   /**
    * The types of users who have the access to the current item.

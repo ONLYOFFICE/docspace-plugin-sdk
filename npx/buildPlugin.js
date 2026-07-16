@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /*
- * (c) Copyright Ascensio System SIA 2025
+ * (c) Copyright Ascensio System SIA 2026
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -86,9 +86,11 @@ async function buildPlugin() {
   // Create config.json for the plugin
   const docspace = {
     name: jsonDataObj.name.toLowerCase(),
+    nameLocale: jsonDataObj.nameLocale || {},
     version: jsonDataObj.version || DEFAULT_PLUGIN_VERSION,
     minDocSpaceVersion: sdkInfo.minDocSpaceVersion || "",
     description: jsonDataObj.description || "",
+    descriptionLocale: jsonDataObj.descriptionLocale || {},
     license: jsonDataObj.license || "",
     author: jsonDataObj.author || "",
     pluginName: jsonDataObj.pluginName || "",
@@ -101,6 +103,21 @@ async function buildPlugin() {
   // Add files to zip
   zip.file("plugin.js", jsData);
   zip.file("config.json", JSON.stringify(docspace, null, 2));
+
+  // Add plugin.css
+  let pluginCssPath = path.join(currentDir, "dist", "plugin.css");
+
+  if (fs.existsSync(pluginCssPath)) {
+    const cssData = fs.readFileSync(pluginCssPath, "utf-8");
+
+    // Skip empty CSS
+    if (cssData.trim().length > 0) {
+      zip.file("plugin.css", cssData);
+      console.log(`🎨 Added plugin.css to plugin`);
+    } else {
+      console.log(`⏭️  Skipped empty plugin.css`);
+    }
+  }
 
   // Add assets if they exist
   const assetsPath = path.join(currentDir, "assets");
@@ -127,6 +144,7 @@ async function buildPlugin() {
     console.log(`📦 Plugin name: ${docspace.name}`);
     console.log(`🔢 Version: ${docspace.version}`);
     console.log(`🎯 Min DocSpace version: ${docspace.minDocSpaceVersion}`);
+    console.log("");
   } catch (error) {
     console.error("❌ Error generating plugin zip:", error);
     process.exit(1);

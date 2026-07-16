@@ -1,5 +1,5 @@
 /**
- * (c) Copyright Ascensio System SIA 2025
+ * (c) Copyright Ascensio System SIA 2026
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
 /**
  * Defines the supported user types.
  */
-export const enum UsersType {
+export enum UsersType {
   /** System owner with full administrative rights and control over the entire DocSpace instance */
   owner = "Owner",
 

@@ -1,5 +1,5 @@
 /**
- * (c) Copyright Ascensio System SIA 2025
+ * (c) Copyright Ascensio System SIA 2026
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
  *
  * @category Toast
  */
-export const enum ToastType {
+export enum ToastType {
   /** Success toast with green color scheme */
   success = "success",
   /** Error toast with red color scheme */

@@ -1,5 +1,5 @@
 /**
- * (c) Copyright Ascensio System SIA 2025
+ * (c) Copyright Ascensio System SIA 2026
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -173,7 +173,7 @@ export interface IFileItem {
    * A function that takes the File object with the file data as an argument.
    * This function can be asynchronous. It will be executed when the user clicks on a file with the required extension.
    */
-  onClick: (item: File) => Promise<IMessage> | IMessage | void;
+  onClick: (item: File) => Promise<IMessage> | Promise<void> | IMessage | void;
 
   /**
    * The types of users who have the access to the current item.

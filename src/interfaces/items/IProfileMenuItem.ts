@@ -1,5 +1,5 @@
 /**
- * (c) Copyright Ascensio System SIA 2025
+ * (c) Copyright Ascensio System SIA 2026
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -110,7 +110,7 @@ export interface IProfileMenuItem {
    * A function that takes the file/folder/room id as an argument.
    * This function can be asynchronous.
    */
-  onClick: () => Promise<IMessage> | IMessage | void;
+  onClick: () => Promise<IMessage> | Promise<void> | IMessage | void;
 
   /**
    * The types of users who will see the current item in the profile menu.

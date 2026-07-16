@@ -1,0 +1,80 @@
+/**
+ * (c) Copyright Ascensio System SIA 2026
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * @license
+ */
+
+import { TReturnMessage } from "../../utils";
+import { TSelectorBaseProps, TSelectorHeader, TSelectorLifecycleEvents } from "./IBaseSelector";
+
+/**
+ * @example
+ * ```typescript
+ * // This example shows how to set up a group selector with a custom header and submit logic.
+ *
+ * const groupsSelectorProps: TGroupsSelector = {
+ *   // Defines the text and visibility of the header.
+ *   withHeader: true,
+ *   headerProps: {
+ *     label: "Select Groups",
+ *   },
+ *
+ *   // A callback function that is executed when the user clicks the submit button.
+ *   onSubmit: (payload) => {
+ *     // The `payload` object contains the `selectedIds` of the chosen groups.
+ *     console.log("Selected groups:", payload.selectedIds);
+ *
+ *     // After submission, close the selector and display a toast notification.
+ *     return {
+ *       actions: [Actions.closeSelector, Actions.showToast],
+ *       toastProps: [{
+ *         type: ToastType.success,
+ *         title: "Groups selected successfully",
+ *       }],
+ *     };
+ *   },
+ * };
+ * ```
+ */
+
+/**
+ * Defines the parameters passed to the `onSubmit` callback for the group selector.
+ */
+type TOnSubmitParams = {
+    /**
+     * An array of IDs of the selected groups.
+     */
+    selectedIds: (string | number)[];
+    /**
+     * The name of the file, if applicable.
+     */
+    fileName?: string;
+    /**
+     * The checked state of the footer checkbox.
+     */
+    isFooterCheckboxChecked?: boolean;
+}
+
+/**
+ * Defines the properties for a group selector component.
+ */
+export type TGroupsSelector = TSelectorHeader &
+    TSelectorBaseProps &
+    TSelectorLifecycleEvents & {
+        /**
+         * A callback function that is triggered when the submit button is clicked.
+         */
+        onSubmit: (params: TOnSubmitParams) => TReturnMessage;
+    }

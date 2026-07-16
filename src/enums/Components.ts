@@ -1,5 +1,5 @@
 /**
- * (c) Copyright Ascensio System SIA 2025
+ * (c) Copyright Ascensio System SIA 2026
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
 /**
  * Defines the available UI component.
  */
-export const enum Components {
+export enum Components {
   /** Container component for grouping other elements */
   box = "box",
 
@@ -55,4 +55,10 @@ export const enum Components {
 
   /** Loading placeholder component */
   skeleton = "skeleton",
+
+  /** Icon button component with hover and click states */
+  iconButton = "iconButton",
+
+  /** Hyperlink component */
+  link = "link",
 }

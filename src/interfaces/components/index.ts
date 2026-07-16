@@ -1,5 +1,5 @@
 /**
- * (c) Copyright Ascensio System SIA 2025
+ * (c) Copyright Ascensio System SIA 2026
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -74,12 +74,19 @@
  * Here is a description of the category TextArea.
  *
  * @categoryDescription Toast
- *
  * Here is a description of the category Toast.
  *
  * @categoryDescription ToggleButton
  *
  * Here is a description of the category ToggleButton.
+ *
+ * @categoryDescription IconButton
+ *
+ * Here is a description of the category IconButton.
+ *
+ * @categoryDescription Link
+ *
+ * Here is a description of the category Link.
  *
  * @module Components
  */
@@ -107,6 +114,8 @@ import {
   TextGroup,
   TextAreaGroup,
   ToggleButtonGroup,
+  IconButtonGroup,
+  LinkGroup,
 } from "./Component";
 import { IInput, InputSize, InputType, InputAutocomplete } from "./IInput";
 import { ICheckbox } from "./ICheckbox";
@@ -114,6 +123,19 @@ import { IToggleButton } from "./IToggleButton";
 import { IToast, ToastType } from "./IToast";
 import { IButton, ButtonSize } from "./IButton";
 import { ISkeleton } from "./ISkeleton";
+import { IIconButton } from "./IIconButton";
+import { ILink, LinkType, LinkTarget } from "./ILink";
+import {
+  TSelector,
+  TBaseSelector,
+  TFilesSelector,
+  TRoomSelector,
+  TGroupsSelector,
+  TPeopleSelector,
+  TSelectorItem
+} from './Selector/ISelector';
+import { IFloatingOperationsButton, FloatingOperationType, IFloatingOperation } from "./IFloatingOperationsButton";
+import { IMediaViewer } from "./IMediaViewer";
 
 export {
   IBox,
@@ -141,6 +163,7 @@ export {
   TextGroup,
   TextAreaGroup,
   ToggleButtonGroup,
+  IconButtonGroup,
   ILabel,
   IText,
   ITextArea,
@@ -152,4 +175,20 @@ export {
   IComboBoxItem,
   ICreateDialog,
   ISkeleton,
+  IIconButton,
+  ILink,
+  LinkType,
+  LinkTarget,
+  LinkGroup,
+  TSelector,
+  TBaseSelector,
+  TFilesSelector,
+  TPeopleSelector,
+  TGroupsSelector,
+  TRoomSelector,
+  TSelectorItem,
+  IFloatingOperationsButton,
+  FloatingOperationType,
+  IFloatingOperation,
+  IMediaViewer,
 };
