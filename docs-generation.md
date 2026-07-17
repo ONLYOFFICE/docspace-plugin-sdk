@@ -73,7 +73,7 @@ docs/
 
 ```bash
 npm run docs        # generate the Markdown docs into docs/
-npm run docs:sync   # generate + copy the result to the external docs site
+npm run docs:sync   # generate + copy into a local docs-site checkout for preview
 ```
 
 `npm run docs` executes a **five-step pipeline** (see the `scripts` block in
@@ -100,18 +100,21 @@ npm run docs:sync   # generate + copy the result to the external docs site
 
 After step 5, `docs/` is the finished, publishable output.
 
-### Publishing
+### Syncing to a local docs-site checkout
 
 `npm run docs:sync` runs the full `docs` pipeline, then **`tools/sync-docs.mjs`** copies `docs/` into
-the external documentation repository checked out **next to** this repo:
+a **local checkout** of the documentation-site repository placed **next to** this repo:
 
 ```
 ../api.onlyoffice.com/site/docspace/plugins-sdk/usage-sdk/coding-plugin
 ```
 
-It wipes the destination, copies everything, removes the top-level `index.md` (the site supplies
-its own landing page), and writes a `_category_.json`. This requires `../api.onlyoffice.com` to
-exist as a sibling directory.
+This is a pure filesystem copy for **local preview**, not a deploy. It wipes the destination, copies
+everything over, removes the top-level `index.md` (the site supplies its own landing page), and
+writes a `_category_.json`. It requires `../api.onlyoffice.com` to exist as a sibling directory.
+
+The script does **not** push or publish anything. To actually publish, commit and push the changes
+in the `api.onlyoffice.com` repository yourself (its own build/deploy takes it from there).
 
 > **`tools/fix-titles.mjs`** is a standalone helper (not wired into any script). It normalises any
 > `# some/path/Title` heading down to `# Title` in a separate docs checkout. Run it manually only
@@ -339,6 +342,6 @@ Tags used in this project:
 | [`tools/constants/sections.mjs`](tools/constants/sections.mjs) | Section metadata for step 3 |
 | [`tools/flatten-sidebar.mjs`](tools/flatten-sidebar.mjs) | Step 4 — flatten & regroup sidebar |
 | [`tools/update-sidebar.mjs`](tools/update-sidebar.mjs) | Step 5 — prefix sidebar IDs, revert `gitRevision` |
-| [`tools/sync-docs.mjs`](tools/sync-docs.mjs) | `docs:sync` — copy output to the external site |
+| [`tools/sync-docs.mjs`](tools/sync-docs.mjs) | `docs:sync` — copy output into a local docs-site checkout for preview |
 | [`tools/fix-titles.mjs`](tools/fix-titles.mjs) | Standalone helper — normalise path-style titles |
 | `docs/` | Generated output (do not edit by hand) |
