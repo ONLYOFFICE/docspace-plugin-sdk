@@ -109,8 +109,14 @@ async function buildPlugin() {
 
   if (fs.existsSync(pluginCssPath)) {
     const cssData = fs.readFileSync(pluginCssPath, "utf-8");
-    zip.file("plugin.css", cssData);
-    console.log(`🎨 Added plugin.css to plugin`);
+
+    // Skip empty CSS
+    if (cssData.trim().length > 0) {
+      zip.file("plugin.css", cssData);
+      console.log(`🎨 Added plugin.css to plugin`);
+    } else {
+      console.log(`⏭️  Skipped empty plugin.css`);
+    }
   }
 
   // Add assets if they exist
