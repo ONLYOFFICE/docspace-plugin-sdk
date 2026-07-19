@@ -71,9 +71,8 @@ import { IMessage } from "../utils";
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           title: "Validation Error",
- *           type: "error",
- *           message: "Password must be at least 8 characters long"
+ *           title: "Password must be at least 8 characters long",
+ *           type: ToastType.error
  *         }]
  *       };
  *     }

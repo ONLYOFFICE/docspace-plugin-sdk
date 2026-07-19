@@ -24,9 +24,17 @@ import { IMessage, TReturnMessage } from "../utils";
  * Used to display progress of long-running operations (upload, conversion, backup, etc.)
  * The button appears as a floating action button in the bottom-right corner of DocSpace.
  *
+ * To display the button, return an [`IMessage`](../utils.md#imessage) with
+ * [`Actions.addFloatingOperationsButton`](../../enums/Actions.md#addfloatingoperationsbutton) in `actions`
+ * and pass the configuration in `floatingOperationsButtonProps`.
+ * Use [`Actions.updateFloatingOperationsButton`](../../enums/Actions.md#updatefloatingoperationsbutton)
+ * to update the progress and
+ * [`Actions.removeFloatingOperationsButton`](../../enums/Actions.md#removefloatingoperationsbutton)
+ * (with `floatingOperationsButtonPropsId`) to remove the button.
+ *
  * @example
  *
- * Demonstrates a floating operations in button with simulated upload progress,
+ * Demonstrates a floating operations button with simulated upload progress,
  * allowing users to cancel the process or remove individual operations while
  * preventing a new upload until the current one finishes.
  *
@@ -168,7 +176,7 @@ export interface IFloatingOperationsButton {
     * Unique identifier for floating operations.
     * Used to track and update operations from the same plugin.
     * When Actions.addFloatingOperationsButton is called again with the same identifier,
-    * operations in the button will not be replaced as long as there are operations in the button.
+    * the existing operations are preserved rather than replaced.
     * Use Actions.updateFloatingOperationsButton to update the state.
    */
    id: string;
@@ -300,10 +308,7 @@ export interface IFloatingOperation {
 
    /**
     * Error flag - if true, the operation is displayed with a warning/error state.
-    * Shows red icon and allows user to see what went wrong.
-    *
-
-    * Shows red icon.
+    * Shows a red icon and allows the user to see what went wrong.
     */
    alert: boolean;
 

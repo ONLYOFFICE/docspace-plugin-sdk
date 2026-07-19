@@ -54,7 +54,7 @@ import { ILink } from "./ILink";
  *   ButtonSize,
  *   Components,
  *   Component,
- *   Actions
+ *   Actions,
  *   IToast,
  *   ToastType,
  * } from "@onlyoffice/docspace-plugin-sdk";
@@ -166,7 +166,7 @@ type BoxGroup = {
  *
  * @example
  * ```typescript
- * import { IButton, Components, Components, ButtonSize } from "@onlyoffice/docspace-plugin-sdk";
+ * import { IButton, Components, Component, ButtonSize } from "@onlyoffice/docspace-plugin-sdk";
  *
  * const button: IButton = {
  *   size: ButtonSize.normal,
@@ -408,7 +408,6 @@ type InputGroup = {
  *   text: "Plugin Settings",
  *   isRequired: true,
  *   error: false,
- *   isInline: false,
  *   title: "Configure plugin settings",
  *   htmlFor: "settings-form",
  *   display: "block",

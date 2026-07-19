@@ -30,6 +30,12 @@ import type { TRoomSelector } from "./IRoomSelector";
  * selector props interface ({@link TBaseSelector}, {@link TFilesSelector},
  * {@link TGroupsSelector}, {@link TPeopleSelector}, or {@link TRoomSelector}).
  *
+ * To display a selector, return an [`IMessage`](../utils.md#imessage) with
+ * [`Actions.showSelector`](../../enums/Actions.md#showselector) in `actions`
+ * and pass the configuration in `selectorProps`.
+ * Use [`Actions.updateSelector`](../../enums/Actions.md#updateselector) and
+ * [`Actions.closeSelector`](../../enums/Actions.md#closeselector) to update or close it.
+ *
  * @example
  * ```typescript
  * import { TSelector, TBaseSelector, SelectorType, Actions, ToastType } from "@onlyoffice/docspace-plugin-sdk";

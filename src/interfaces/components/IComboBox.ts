@@ -59,9 +59,8 @@ import { IMessage } from "../utils";
  *         selectedOption: item
  *       },
  *       toastProps: [{
- *         title: "Language Changed",
- *         type: "success",
- *         message: `Interface language changed to ${item.label}`
+ *         title: `Interface language changed to ${item.label}`,
+ *         type: ToastType.success
  *       }]
  *     };
  *   },

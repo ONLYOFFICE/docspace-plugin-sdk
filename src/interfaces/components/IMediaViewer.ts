@@ -23,6 +23,12 @@ import { FilesExst, FilesSecurity, Devices, UsersType } from "../../enums";
 /**
  * Properties for the Media Viewer component that allows plugins to display custom content.
  *
+ * To open the viewer, return an [`IMessage`](../utils.md#imessage) with
+ * [`Actions.showMediaViewer`](../../enums/Actions.md#showmediaviewer) in `actions`
+ * and pass the configuration in `mediaViewerProps`.
+ * Use [`Actions.updateMediaViewer`](../../enums/Actions.md#updatemediaviewer) and
+ * [`Actions.closeMediaViewer`](../../enums/Actions.md#closemediaviewer) to update or close it.
+ *
  *
  * @example
  *
@@ -32,25 +38,22 @@ import { FilesExst, FilesSecurity, Devices, UsersType } from "../../enums";
  * const mediaViewerProps: IMediaViewer = {
  *   title: "Custom Video Player",
  *   content: {
- *     component: "box",
- *     props: {
- *       widthProp: "100%",
- *       heightProp: "100%",
- *       displayProp: "flex",
- *       children: [
- *         {
- *           component: "iframe",
- *           props: {
- *             id: "video-player-frame",
- *             src: "https://player.example.com/video/12345",
- *             width: "100%",
- *             height: "100%",
- *             frameBorder: "0",
- *             allowFullScreen: true
- *           }
+ *     widthProp: "100%",
+ *     heightProp: "100%",
+ *     displayProp: "flex",
+ *     children: [
+ *       {
+ *         component: Components.iFrame,
+ *         props: {
+ *           id: "video-player-frame",
+ *           src: "https://player.example.com/video/12345",
+ *           width: "100%",
+ *           height: "100%",
+ *           sandbox: "allow-scripts allow-same-origin",
+ *           style: { border: "none" }
  *         }
- *       ]
- *     }
+ *       }
+ *     ]
  *   },
  *   onClose: () => {
  *     return {
@@ -72,26 +75,23 @@ import { FilesExst, FilesSecurity, Devices, UsersType } from "../../enums";
  * const mediaViewerProps: IMediaViewer = {
  *   title: "Image with Annotations",
  *   content: {
- *     component: "box",
- *     props: {
- *       widthProp: "100%",
- *       heightProp: "100%",
- *       children: [
- *         {
- *           component: "iframe",
- *           props: {
- *             id: "annotation-viewer",
- *             src: "https://annotator.example.com/image/67890",
- *             width: "100%",
- *             height: "100%"
- *           }
+ *     widthProp: "100%",
+ *     heightProp: "100%",
+ *     children: [
+ *       {
+ *         component: Components.iFrame,
+ *         props: {
+ *           id: "annotation-viewer",
+ *           src: "https://annotator.example.com/image/67890",
+ *           width: "100%",
+ *           height: "100%"
  *         }
- *       ]
- *     }
+ *       }
+ *     ]
  *   },
  *   playlistFilter: {
- *     filesExsts: [FilesExst.jpg, FilesExst.png, ".svg"],
- *     filesSecurity: [FilesSecurity.read],
+ *     filesExsts: [".jpg", ".png", FilesExst.svg],
+ *     filesSecurity: [FilesSecurity.Read],
  *     usersTypes: [UsersType.user, UsersType.collaborator],
  *     devices: [Devices.desktop, Devices.tablet]
  *   },

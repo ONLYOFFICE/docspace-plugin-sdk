@@ -23,6 +23,12 @@ import { IComboBoxItem } from "./IComboBox";
  * Modal dialog for creating certain item (file, folder, etc.).
  * The user gets the full access to the functionality but cannot control the layout.
  *
+ * To display the dialog, return an [`IMessage`](../utils.md#imessage) with
+ * [`Actions.showCreateDialogModal`](../../enums/Actions.md#showcreatedialogmodal) in `actions`
+ * and pass the dialog configuration in `createDialogProps`.
+ * Use [`Actions.updateCreateDialogModal`](../../enums/Actions.md#updatecreatedialogmodal)
+ * to update an open dialog.
+ *
  * @example
  *
  * Document creation dialog with multiple format options
@@ -74,18 +80,16 @@ import { IComboBoxItem } from "./IComboBox";
  *           visible: false
  *         },
  *         toastProps: [{
- *           title: "Success",
- *           type: "success",
- *           message: `Document "${value}" created successfully`
+ *           title: `Document "${value}" created successfully`,
+ *           type: ToastType.success
  *         }]
  *       };
  *     } catch (error) {
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           title: "Error",
- *           type: "error",
- *           message: "Failed to create document. Please try again."
+ *           title: "Failed to create document. Please try again.",
+ *           type: ToastType.error
  *         }]
  *       };
  *     }

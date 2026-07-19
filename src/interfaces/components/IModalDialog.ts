@@ -22,6 +22,11 @@ import { IBox } from "./IBox";
 /**
  * Modal dialog.
  *
+ * To display the dialog, return an [`IMessage`](../utils.md#imessage) with
+ * [`Actions.showModal`](../../enums/Actions.md#showmodal) in `actions`
+ * and pass the dialog configuration in `modalDialogProps`.
+ * Use [`Actions.closeModal`](../../enums/Actions.md#closemodal) to close it.
+ *
  * <plugin-image src="modal-dialog.png" />
  *
  * @example
@@ -29,13 +34,22 @@ import { IBox } from "./IBox";
  * Interactive document preview modal with dynamic content loading
  *
  * ```typescript
+ * import {
+ *   IModalDialog,
+ *   ModalDisplayType,
+ *   Components,
+ *   ButtonSize,
+ *   Actions,
+ *   ToastType,
+ * } from "@onlyoffice/docspace-plugin-sdk";
+ *
  * const filePreviewModal: IModalDialog = {
  *   displayType: ModalDisplayType.modal,
  *   dialogHeader: "Document Preview",
  *   dialogBody: {
  *     children: [
  *       {
- *         component: "iframe",
+ *         component: Components.iFrame,
  *         props: {
  *           src: "https://example.com/preview/doc.pdf",
  *           width: "100%",
@@ -47,13 +61,13 @@ import { IBox } from "./IBox";
  *   dialogFooter: {
  *     children: [
  *       {
- *         component: "button",
+ *         component: Components.button,
  *         props: {
- *           label: "Download",
+ *           label: "Close",
+ *           size: ButtonSize.normal,
  *           onClick: () => {
  *             return {
- *               actions: [Actions.downloadFile],
- *               fileUrl: "https://example.com/download/doc.pdf"
+ *               actions: [Actions.closeModal]
  *             };
  *           }
  *         }
@@ -71,9 +85,8 @@ import { IBox } from "./IBox";
  *         return {
  *           actions: [Actions.showToast],
  *           toastProps: [{
- *             title: "Success",
- *             type: "success",
- *             message: "Document loaded successfully"
+ *             type: ToastType.success,
+ *             title: "Document loaded successfully"
  *           }]
  *         };
  *       }
@@ -81,10 +94,7 @@ import { IBox } from "./IBox";
  *   ],
  *   onClose: () => {
  *     return {
- *       actions: [Actions.updateProps],
- *       newProps: {
- *         visible: false
- *       }
+ *       actions: [Actions.closeModal]
  *     };
  *   },
  *   onLoad: async () => {
@@ -94,25 +104,11 @@ import { IBox } from "./IBox";
  *       newDialogBody: {
  *         children: [
  *           {
- *             component: "iframe",
+ *             component: Components.iFrame,
  *             props: {
  *               src: documentDetails.previewUrl,
  *               width: "100%",
  *               height: "600px"
- *             }
- *           }
- *         ]
- *       },
- *       newDialogFooter: {
- *         children: [
- *           {
- *             component: "button",
- *             props: {
- *               label: "Download",
- *               onClick: () => ({
- *                 actions: [Actions.downloadFile],
- *                 fileUrl: documentDetails.downloadUrl
- *               })
  *             }
  *           }
  *         ]
@@ -127,22 +123,28 @@ import { IBox } from "./IBox";
  * Side panel settings dialog with API key configuration
  *
  * ```typescript
+ * const apiKeyInput: IInput = {
+ *   value: "",
+ *   type: InputType.password,
+ *   placeholder: "Enter your API key",
+ *   onChange: (value) => ({
+ *     actions: [Actions.updateProps],
+ *     newProps: { ...apiKeyInput, value }
+ *   })
+ * };
+ *
  * const settingsPanel: IModalDialog = {
  *   displayType: ModalDisplayType.aside,
  *   dialogHeader: "Plugin Settings",
  *   dialogBody: {
  *     children: [
  *       {
- *         component: "input",
- *         props: {
- *           label: "API Key",
- *           type: "password",
- *           value: "",
- *           onChange: (value) => ({
- *             actions: [Actions.updateProps],
- *             newProps: { value }
- *           })
- *         }
+ *         component: Components.label,
+ *         props: { text: "API Key" }
+ *       },
+ *       {
+ *         component: Components.input,
+ *         props: apiKeyInput
  *       }
  *     ]
  *   },
@@ -151,8 +153,7 @@ import { IBox } from "./IBox";
  *   withFooterBorder: true,
  *   fullScreen: false,
  *   onClose: () => ({
- *     actions: [Actions.updateProps],
- *     newProps: { visible: false }
+ *     actions: [Actions.closeModal]
  *   }),
  *   onLoad: async () => {
  *     const settings = await loadSettings();
@@ -160,12 +161,12 @@ import { IBox } from "./IBox";
  *       newDialogBody: {
  *         children: [
  *           {
- *             component: "input",
- *             props: {
- *               label: "API Key",
- *               type: "password",
- *               value: settings.apiKey
- *             }
+ *             component: Components.label,
+ *             props: { text: "API Key" }
+ *           },
+ *           {
+ *             component: Components.input,
+ *             props: { ...apiKeyInput, value: settings.apiKey }
  *           }
  *         ]
  *       }

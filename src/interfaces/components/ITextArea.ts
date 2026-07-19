@@ -52,9 +52,8 @@ import { IMessage } from "../utils";
  *           hasError: true
  *         },
  *         toastProps: [{
- *           title: "Invalid JSON",
- *           type: "error",
- *           message: "Please check your JSON syntax"
+ *           title: "Please check your JSON syntax",
+ *           type: ToastType.error
  *         }]
  *       };
  *     }

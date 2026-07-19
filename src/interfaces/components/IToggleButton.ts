@@ -62,7 +62,7 @@ import { IMessage } from "../utils";
  *         isChecked: false
  *       },
  *       toastProps: [{
- *         type: "info",
+ *         type: ToastType.info,
  *         title: "Notifications disabled",
  *         timeout: 3000
  *       }]

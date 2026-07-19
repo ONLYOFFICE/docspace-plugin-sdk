@@ -37,18 +37,16 @@ import { IMessage } from "../utils";
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           title: "Success",
- *           type: "success",
- *           message: "Changes saved successfully"
+ *           title: "Changes saved successfully",
+ *           type: ToastType.success
  *         }]
  *       };
  *     } catch (error) {
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           title: "Error",
- *           type: "error",
- *           message: "Failed to save changes"
+ *           title: "Failed to save changes",
+ *           type: ToastType.error
  *         }]
  *       };
  *     }

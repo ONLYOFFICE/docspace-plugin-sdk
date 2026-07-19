@@ -19,6 +19,10 @@
 /**
  * A brief notification that appears on the screen.
  *
+ * To display a toast, return an [`IMessage`](../utils.md#imessage) with
+ * [`Actions.showToast`](../../enums/Actions.md#showtoast) in `actions`
+ * and pass the toast configuration in the `toastProps` array.
+ *
  * <plugin-image src="toast.png" />
  *
  * @example

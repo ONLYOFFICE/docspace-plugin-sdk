@@ -69,7 +69,7 @@ import { Component } from "./Component";
  */
 export interface IBox {
   /**
-   * Defines the border width of the element area
+   * Defines the width of the element area
    *
 
    */
@@ -172,7 +172,7 @@ export interface IBox {
   gridArea?: string;
 
   /**
-   * Defines the border height of the element area
+   * Defines the height of the element area
    *
 
    */

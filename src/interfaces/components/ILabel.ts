@@ -30,7 +30,6 @@
  *   text: "Email Address",
  *   isRequired: true,
  *   error: false,
- *   isInline: true,
  *   title: "Enter your email address",
  *   htmlFor: "email-input",
  *   display: "flex"

@@ -28,7 +28,7 @@ import { IText } from './IText'
  *
  * const link: ILink = {
  *   href: "https://example.com",
- *   children: "Visit Example",
+ *   text: "Visit Example",
  *   type: LinkType.page,
  *   target: LinkTarget.blank,
  *   isBold: false,

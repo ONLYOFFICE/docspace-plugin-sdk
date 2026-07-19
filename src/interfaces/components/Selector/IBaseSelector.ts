@@ -524,8 +524,8 @@ type TOnSubmitParams = {
  * | Property | Type | Description |
  * |----------|------|-------------|
  * | `selectedIds` | `(string \| number)[]` | An array of IDs of the selected items. |
- * | `fileName` | `"string"` | The name of the file, if applicable. |
- * | `isFooterCheckboxChecked` | `"boolean"` | The checked state of the footer checkbox. |
+ * | `fileName` | `string` | The name of the file, if applicable. |
+ * | `isFooterCheckboxChecked` | `boolean` | The checked state of the footer checkbox. |
  * 
  */
 export type TSelectorSubmitButton = {
