@@ -1,11 +1,5 @@
 // @ts-check
-import {
-	readFileSync,
-	writeFileSync,
-	readdirSync,
-	existsSync,
-	mkdirSync
-} from "node:fs";
+import { readFileSync, writeFileSync, readdirSync, existsSync } from "node:fs";
 import { join, basename } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SECTIONS } from "./constants/sections.mjs";
@@ -13,7 +7,6 @@ import { SECTIONS } from "./constants/sections.mjs";
 const __filename = fileURLToPath(import.meta.url);
 const ROOT = join(__filename, "../..");
 const DOCS_DIR = join(ROOT, "docs");
-const SRC_DIR = join(ROOT, "src");
 
 /**
  * Returns the first sentence of a text. Unlike a plain indexOf("."), it does not
@@ -584,7 +577,7 @@ function fixInPageAnchors(filePath) {
 			return `](#${h1Slug})`;
 		}
 		console.warn(
-			`⚠️  Unresolved in-page anchor #${anchor} in ${basename(filePath)}`
+			`[warn] Unresolved in-page anchor #${anchor} in ${basename(filePath)}`
 		);
 		return full;
 	});
