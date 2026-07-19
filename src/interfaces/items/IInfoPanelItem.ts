@@ -46,34 +46,50 @@ export interface IInfoPanelSubMenu {
  * AI-powered document analysis with error handling
  *
  * ```typescript
+ * import {
+ *   IInfoPanelItem,
+ *   Components,
+ *   Actions,
+ *   ToastType,
+ *   FilesType,
+ * } from "@onlyoffice/docspace-plugin-sdk";
+ *
  * const documentAnalysis: IInfoPanelItem = {
  *   key: "ai-analysis",
- *   title: "AI Analysis",
- *   icon: "ai-icon.svg",
- *   onClick: async (id) => {
- *     try {
- *       const analysis = await analyzeDocument(id);
- *       await exportAnalysis(id, analysis);
+ *   subMenu: {
+ *     name: "AI Analysis",
+ *     onClick: async (id) => {
+ *       try {
+ *         const analysis = await analyzeDocument(id);
+ *         await exportAnalysis(id, analysis);
  *
- *       return {
- *         actions: [Actions.showToast],
- *         toastProps: [{
- *           type: "success",
- *           title: "Document Analysis Complete",
- *           message: "Analysis completed | Report generated | Export finished"
- *         }]
- *       };
- *     } catch (error) {
- *       return {
- *         actions: [Actions.showToast],
- *         toastProps: [{
- *           type: "error",
- *           title: "Analysis failed",
- *           message: "Unable to analyze document | Check file format"
- *         }]
- *       };
+ *         return {
+ *           actions: [Actions.showToast],
+ *           toastProps: [{
+ *             type: ToastType.success,
+ *             title: "Document analysis complete"
+ *           }]
+ *         };
+ *       } catch (error) {
+ *         return {
+ *           actions: [Actions.showToast],
+ *           toastProps: [{
+ *             type: ToastType.error,
+ *             title: "Unable to analyze the document"
+ *           }]
+ *         };
+ *       }
  *     }
- *   }
+ *   },
+ *   body: {
+ *     children: [
+ *       {
+ *         component: Components.text,
+ *         props: { text: "Open the tab to generate an AI summary of the document" }
+ *       }
+ *     ]
+ *   },
+ *   filesType: [FilesType.file]
  * }
  * ```
  *
@@ -84,40 +100,34 @@ export interface IInfoPanelSubMenu {
  * ```typescript
  * const imageMetadata: IInfoPanelItem = {
  *   key: "image-metadata",
- *   title: "Image Info",
- *   icon: "image-info.svg",
- *   onClick: async (id) => {
- *     try {
- *       const metadata = await getImageMetadata(id);
- *       await copyToClipboard(metadata);
- *
- *       return {
- *         actions: [Actions.showToast],
- *         toastProps: [{
- *           type: "success",
- *           title: "Image Information",
- *           message: "Metadata retrieved | Details copied | Ready to use"
- *         }]
- *       };
- *     } catch (error) {
- *       return {
- *         actions: [Actions.showToast],
- *         toastProps: [{
- *           type: "error",
- *           title: "Failed to load metadata",
- *           message: "Unable to read image info | Check file access"
- *         }]
- *       };
- *     }
+ *   subMenu: {
+ *     name: "Image Info"
  *   },
- *   filesType: [FilesType.Files],
- *   filesExsts: [
- *     FilesExst.jpeg,
- *     FilesExst.jpg,
- *     FilesExst.png,
- *     FilesExst.gif,
- *     FilesExst.bmp
- *   ]
+ *   body: {
+ *     children: [
+ *       {
+ *         component: Components.text,
+ *         props: { text: "Loading image metadata..." }
+ *       }
+ *     ]
+ *   },
+ *   onLoad: async () => {
+ *     const metadata = await getImageMetadata();
+ *     return {
+ *       body: {
+ *         children: [
+ *           {
+ *             component: Components.text,
+ *             props: { text: metadata.summary }
+ *           }
+ *         ]
+ *       }
+ *     };
+ *   },
+ *   isHeaderVisible: true,
+ *   filesType: [FilesType.image],
+ *   filesExsts: [".jpeg", ".jpg", ".png", ".gif", ".bmp"],
+ *   devices: [Devices.desktop, Devices.tablet]
  * }
  * ```
  */
@@ -163,7 +173,7 @@ export interface IInfoPanelItem {
 
 	/**
 	 * The extensions of files where the current item will be displayed in the info panel.
-	 * It only works if the FilesType.Files is specified in the fileType parameter.
+	 * It only works if the FilesType.file is specified in the filesType parameter.
 	 * If this parameter is not specified, then the current info panel item will be displayed in any file extension.
 	 *
 	 */

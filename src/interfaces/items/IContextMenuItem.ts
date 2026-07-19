@@ -42,6 +42,9 @@ type GroupItem = {
 /**
  * Describes an item that will be embedded in the context menu.
  *
+ * Items are registered by a plugin implementing
+ * [`IContextMenuPlugin`](../plugins/IContextMenuPlugin.md).
+ *
  * <plugin-image src="context-menu-plugin.png" width="400px"/>
  *
  * @example
@@ -59,18 +62,16 @@ type GroupItem = {
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "success",
- *           title: "File Analysis Complete",
- *           message: "Analysis completed successfully | Report generated | Ready to view"
+ *           type: ToastType.success,
+ *           title: "Analysis completed successfully | Report generated | Ready to view"
  *         }]
  *       };
  *     } catch (error) {
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "error",
- *           title: "Analysis Failed",
- *           message: "Unable to analyze file | Check file access"
+ *           type: ToastType.error,
+ *           title: "Unable to analyze file | Check file access"
  *         }]
  *       };
  *     }
@@ -93,18 +94,16 @@ type GroupItem = {
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "success",
- *           title: "Share Link Generated",
- *           message: "Link generated successfully | Ready to share | Copied to clipboard"
+ *           type: ToastType.success,
+ *           title: "Link generated successfully | Ready to share | Copied to clipboard"
  *         }]
  *       };
  *     } catch (error) {
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "error",
- *           title: "Share Failed",
- *           message: "Unable to generate share link | Check permissions"
+ *           type: ToastType.error,
+ *           title: "Unable to generate share link | Check permissions"
  *         }]
  *       };
  *     }
@@ -153,9 +152,8 @@ type GroupItem = {
  *     return {
  *       actions: [Actions.showToast],
  *       toastProps: [{
- *         type: "success",
- *         title: "Export Started",
- *         message: `Exporting ${count} items...`
+ *         type: ToastType.success,
+ *         title: `Exporting ${count} items...`
  *       }]
  *     };
  *   }
@@ -243,7 +241,7 @@ export interface IContextMenuItem {
 
 	/**
 	 * The extensions of files where the current item will be displayed in the context menu.
-	 * It only works if the FilesType.Files is specified in the fileType parameter.
+	 * It only works if FilesType.file is specified in the fileType parameter.
 	 * If this parameter is not specified, then the current context menu item will be displayed in any file extension.
 	 *
 	 */

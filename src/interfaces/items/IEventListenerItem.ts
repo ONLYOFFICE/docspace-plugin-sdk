@@ -20,7 +20,10 @@ import { Devices, Events, UsersType } from "../../enums";
 import { IMessage } from "../utils";
 
 /**
- * Event listener item.
+ * Describes an event listener that reacts to portal events.
+ *
+ * Items are registered by a plugin implementing
+ * [`IEventListenerPlugin`](../plugins/IEventListenerPlugin.md).
  *
 
  *
@@ -38,18 +41,16 @@ import { IMessage } from "../utils";
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "success",
- *           title: "Room Categorized Successfully",
- *           message: "Room categorized successfully | Category: New Category | Status: Success"
+ *           type: ToastType.success,
+ *           title: "Room categorized successfully | Category: New Category | Status: Success"
  *         }]
  *       };
  *     } catch (error) {
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "warning",
- *           title: "Room Categorization Skipped",
- *           message: "Error occurred during categorization | Status: Failed"
+ *           type: ToastType.warning,
+ *           title: "Error occurred during categorization | Status: Failed"
  *         }]
  *       };
  *     }
@@ -99,9 +100,8 @@ import { IMessage } from "../utils";
  *     return {
  *       actions: [Actions.showToast],
  *       toastProps: [{
- *         type: "info",
- *         title: "Column Layout Updated",
- *         message: "Column layout updated successfully | New layout applied"
+ *         type: ToastType.info,
+ *         title: "Column layout updated successfully | New layout applied"
  *       }]
  *     };
  *   },

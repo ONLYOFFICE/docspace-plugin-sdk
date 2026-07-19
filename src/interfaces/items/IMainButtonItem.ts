@@ -22,6 +22,9 @@ import { IMessage } from "../utils";
 /**
  * Describes an item that will be embedded in the More item of the main button menu. It is available only inside a room (folder) and is not available for the room list.
  *
+ * Items are registered by a plugin implementing
+ * [`IMainButtonPlugin`](../plugins/IMainButtonPlugin.md).
+ *
  * <plugin-image src="main-button-plugin.png" width="400px" />
  *
  * @example
@@ -39,18 +42,16 @@ import { IMessage } from "../utils";
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "success",
- *           title: "Export Complete",
- *           message: "Files exported to PDF | Processing complete | Ready to download"
+ *           type: ToastType.success,
+ *           title: "Files exported to PDF | Processing complete | Ready to download"
  *         }]
  *       };
  *     } catch (error) {
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "error",
- *           title: "Export Failed",
- *           message: "Unable to export files | Check file permissions"
+ *           type: ToastType.error,
+ *           title: "Unable to export files | Check file permissions"
  *         }]
  *       };
  *     }
@@ -73,18 +74,16 @@ import { IMessage } from "../utils";
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "success",
- *           title: "Backup Complete",
- *           message: "Backup created successfully | Files archived | Ready for storage"
+ *           type: ToastType.success,
+ *           title: "Backup created successfully | Files archived | Ready for storage"
  *         }]
  *       };
  *     } catch (error) {
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "error",
- *           title: "Backup Failed",
- *           message: "Unable to create backup | Check storage space"
+ *           type: ToastType.error,
+ *           title: "Unable to create backup | Check storage space"
  *         }]
  *       };
  *     }

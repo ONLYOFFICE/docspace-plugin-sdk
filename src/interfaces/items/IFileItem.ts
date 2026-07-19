@@ -30,28 +30,30 @@ import { IMessage } from "../utils";
  * 3D model viewer with format validation
  *
  * ```typescript
+ * import { IFileItem, Actions, ToastType, Devices } from "@onlyoffice/docspace-plugin-sdk";
+ *
  * const modelViewer: IFileItem = {
- *   key: "3d-model",
- *   extensions: [".obj", ".stl", ".fbx"],
+ *   extension: ".obj",
+ *   fileTypeName: "3D Model",
+ *   fileRowIcon: "3d-model-32.svg",
+ *   fileTileIcon: "3d-model-96.svg",
+ *   devices: [Devices.desktop],
  *   onClick: async (file) => {
  *     try {
- *       const modelData = await load3DModel(file.id);
- *       await downloadModel(file.id);
+ *       await load3DModel(file.id);
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "success",
- *           title: "3D Model Info",
- *           message: "Model loaded successfully | Rendering started | Processing complete"
+ *           type: ToastType.success,
+ *           title: "3D model loaded successfully"
  *         }]
  *       };
  *     } catch (error) {
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "error",
- *           title: "Failed to load 3D model",
- *           message: "Unable to process 3D model | Check file format"
+ *           type: ToastType.error,
+ *           title: "Unable to process the 3D model"
  *         }]
  *       };
  *     }
@@ -65,8 +67,9 @@ import { IMessage } from "../utils";
  *
  * ```typescript
  * const markdownPreview: IFileItem = {
- *   key: "markdown",
- *   extensions: [".md", ".markdown"],
+ *   extension: ".md",
+ *   fileTypeName: "Markdown",
+ *   fileRowIcon: "markdown-32.svg",
  *   onClick: async (file) => {
  *     try {
  *       const content = await fetchMarkdownContent(file.id);
@@ -74,18 +77,16 @@ import { IMessage } from "../utils";
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "success",
- *           title: "Markdown File Processed",
- *           message: "File processed successfully | Content saved | Ready to view"
+ *           type: ToastType.success,
+ *           title: "Markdown file processed"
  *         }]
  *       };
  *     } catch (error) {
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "error",
- *           title: "Failed to process markdown",
- *           message: "Unable to process markdown file | Check file format"
+ *           type: ToastType.error,
+ *           title: "Unable to process the markdown file"
  *         }]
  *       };
  *     }
@@ -95,38 +96,32 @@ import { IMessage } from "../utils";
  *
  * @example
  *
- * Interactive audio player with metadata support
+ * Audio player with access restrictions
  *
  * ```typescript
  * const audioPlayer: IFileItem = {
- *   key: "audio-player",
- *   extensions: [".mp3", ".wav", ".ogg"],
+ *   extension: ".mp3",
+ *   fileTypeName: "Audio",
+ *   fileRowIcon: "audio-32.svg",
+ *   fileTileIcon: "audio-96.svg",
+ *   usersType: [UsersType.docSpaceAdmin, UsersType.roomAdmin, UsersType.user],
+ *   fileSecurity: [FilesSecurity.Read, FilesSecurity.Download],
  *   onClick: async (file) => {
  *     try {
- *       const audioMetadata = await getAudioMetadata(file.id);
- *       await playAudio(file.id);
+ *       await playAudio(file.viewUrl);
  *       return {
- *         actions: [Actions.showToast, Actions.updateContext],
+ *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "success",
- *           title: "Audio Playback",
- *           message: "Audio file loaded | Playback started | Ready to stream"
- *         }],
- *         contextProps: [{
- *           name: "audio-player",
- *           props: {
- *             isPlaying: true,
- *             currentTime: 0
- *           }
+ *           type: ToastType.success,
+ *           title: `Playing ${file.title}`
  *         }]
  *       };
  *     } catch (error) {
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "error",
- *           title: "Failed to play audio file",
- *           message: "Unable to play audio file | Check file format"
+ *           type: ToastType.error,
+ *           title: "Unable to play the audio file"
  *         }]
  *       };
  *     }
