@@ -25,96 +25,51 @@ import { IMainButtonItem } from "../items";
  *
  * @example
  *
- * PDF export functionality with progress feedback
+ * The plugin class implements `IMainButtonPlugin` and registers an "Export to PDF"
+ * action in the constructor. DocSpace calls `getMainButtonItems` to embed the items
+ * into the **More** section of the main button menu inside a room.
  *
  * ```typescript
- * const exportPlugin: IMainButtonPlugin = {
- *   mainButtonItems: new Map([
- *     ["export-pdf", {
+ * import {
+ *   type IMainButtonItem,
+ *   type IMainButtonPlugin,
+ *   Actions,
+ *   ToastType,
+ * } from "@onlyoffice/docspace-plugin-sdk";
+ *
+ * class Plugin implements IMainButtonPlugin {
+ *   mainButtonItems: Map<string, IMainButtonItem> = new Map();
+ *
+ *   constructor() {
+ *     this.addMainButtonItem({
  *       key: "export-pdf",
  *       label: "Export to PDF",
  *       icon: "pdf-icon.svg",
- *       onClick: async () => {
- *         try {
- *           await exportToPdf();
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "success",
- *               title: "Export Complete",
- *               message: "PDF created | File saved | Ready to download"
- *             }]
- *           };
- *         } catch (error) {
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "error",
- *               title: "Export Failed",
- *               message: "Unable to export | Check document status"
- *             }]
- *           };
- *         }
+ *       onItemClick: async (id) => {
+ *         await exportToPdf(id);
+ *         return {
+ *           actions: [Actions.showToast],
+ *           toastProps: [{
+ *             type: ToastType.success,
+ *             title: "PDF created"
+ *           }]
+ *         };
  *       }
- *     }]
- *   ]),
- *   addMainButtonItem(item) {
- *     this.mainButtonItems.set(item.key, item);
- *   },
- *   getMainButtonItems() {
- *     return this.mainButtonItems;
- *   },
- *   updateMainButtonItem(item) {
- *     this.mainButtonItems.set(item.key, item);
+ *     });
  *   }
- * };
- * ```
  *
- * @example
- *
- * Batch document processor with status notifications
- *
- * ```typescript
- * const batchPlugin: IMainButtonPlugin = {
- *   mainButtonItems: new Map([
- *     ["batch-process", {
- *       key: "batch-process",
- *       label: "Batch Process",
- *       icon: "batch-icon.svg",
- *       onClick: async () => {
- *         try {
- *           await processBatch();
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "success",
- *               title: "Batch Complete",
- *               message: "Files processed | Results saved | View summary"
- *             }]
- *           };
- *         } catch (error) {
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "error",
- *               title: "Batch Failed",
- *               message: "Processing error | Check file list"
- *             }]
- *           };
- *         }
- *       }
- *     }]
- *   ]),
- *   addMainButtonItem(item) {
+ *   addMainButtonItem = (item: IMainButtonItem): void => {
  *     this.mainButtonItems.set(item.key, item);
- *   },
- *   getMainButtonItems() {
+ *   };
+ *
+ *   getMainButtonItems = (): Map<string, IMainButtonItem> => {
  *     return this.mainButtonItems;
- *   },
- *   updateMainButtonItem(item) {
+ *   };
+ *
+ *   updateMainButtonItem = (item: IMainButtonItem): void => {
  *     this.mainButtonItems.set(item.key, item);
- *   }
- * };
+ *   };
+ * }
  * ```
  */
 export interface IMainButtonPlugin {

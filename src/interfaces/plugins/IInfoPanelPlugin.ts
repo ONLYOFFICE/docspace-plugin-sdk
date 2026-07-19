@@ -25,90 +25,66 @@ import { IInfoPanelItem } from "../items";
  *
  * @example
  *
- * Document metadata viewer with permission checks
+ * The plugin class implements `IInfoPanelPlugin` and registers a "Document Info" tab
+ * in the constructor. DocSpace calls `getInfoPanelItems` to embed the tabs into the
+ * file info panel; the tab UI is described by the item's `body` box.
  *
  * ```typescript
- * const documentInfoPanel: IInfoPanelPlugin = {
- *   infoPanelItems: new Map([
- *     ["doc-info", {
+ * import {
+ *   type IInfoPanelItem,
+ *   type IInfoPanelPlugin,
+ *   Components,
+ *   Actions,
+ *   ToastType,
+ *   FilesType,
+ * } from "@onlyoffice/docspace-plugin-sdk";
+ *
+ * class Plugin implements IInfoPanelPlugin {
+ *   infoPanelItems: Map<string, IInfoPanelItem> = new Map();
+ *
+ *   constructor() {
+ *     this.addInfoPanelItem({
  *       key: "doc-info",
- *       label: "Document Info",
- *       icon: "info-icon.svg",
- *       onClick: async () => {
- *         try {
- *           const info = await getDocumentInfo();
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "success",
- *               title: "Info Retrieved",
- *               message: "Document details | Data loaded | Panel updated"
- *             }]
- *           };
- *         } catch (error) {
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "error",
- *               title: "Info Failed",
- *               message: "Unable to load info | Check permissions"
- *             }]
- *           };
+ *       subMenu: {
+ *         name: "Document Info",
+ *         onClick: async (id) => {
+ *           try {
+ *             await getDocumentInfo(id);
+ *           } catch (error) {
+ *             return {
+ *               actions: [Actions.showToast],
+ *               toastProps: [{
+ *                 type: ToastType.error,
+ *                 title: "Unable to load the document info"
+ *               }]
+ *             };
+ *           }
  *         }
- *       }
- *     }]
- *   ]),
- *   getInfoPanelItems() {
- *     return this.infoPanelItems;
- *   },
- *   updateInfoPanelItem(item) {
- *     this.infoPanelItems.set(item.key, item);
+ *       },
+ *       body: {
+ *         children: [
+ *           {
+ *             component: Components.text,
+ *             props: { text: "Document details will be displayed here" }
+ *           }
+ *         ]
+ *       },
+ *       filesType: [FilesType.file]
+ *     });
  *   }
- * };
- * ```
  *
- * @example
- *
- * File statistics analyzer with visualization
- *
- * ```typescript
- * const analyticsPanel: IInfoPanelPlugin = {
- *   infoPanelItems: new Map([
- *     ["file-stats", {
- *       key: "file-stats",
- *       label: "File Analytics",
- *       icon: "analytics-icon.svg",
- *       onClick: async () => {
- *         try {
- *           await loadFileAnalytics();
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "success",
- *               title: "Analytics Loaded",
- *               message: "Stats calculated | Charts rendered | View ready"
- *             }]
- *           };
- *         } catch (error) {
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "error",
- *               title: "Analytics Failed",
- *               message: "Unable to load stats | Check data source"
- *             }]
- *           };
- *         }
- *       }
- *     }]
- *   ]),
- *   getInfoPanelItems() {
- *     return this.infoPanelItems;
- *   },
- *   updateInfoPanelItem(item) {
+ *   addInfoPanelItem = (item: IInfoPanelItem): void => {
  *     this.infoPanelItems.set(item.key, item);
- *   }
- * };
+ *   };
+ *
+ *   getInfoPanelItems = (): Map<string, IInfoPanelItem> => {
+ *     return this.infoPanelItems;
+ *   };
+ *
+ *   updateInfoPanelItem = (item: IInfoPanelItem): void => {
+ *     this.infoPanelItems.set(item.key, item);
+ *   };
+ * }
  * ```
  */
 export interface IInfoPanelPlugin {

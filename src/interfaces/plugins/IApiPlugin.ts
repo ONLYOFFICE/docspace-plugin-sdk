@@ -19,94 +19,61 @@
 /**
  * The plugin that is provided with the origin, proxy, and prefix to make requests to the portal server.
  *
-
- *
  * @example
  *
- * API configuration manager with endpoint validation
+ * The plugin class implements `IApiPlugin`. DocSpace fills in the API parameters
+ * via `setOrigin`/`setProxy`/`setPrefix` (or `setAPI`) when the plugin is loaded;
+ * the plugin then uses `getAPI` to build request URLs to the portal.
  *
  * ```typescript
- * const documentApi: IApiPlugin = {
- *   origin: "https://docspace.example.com",
- *   proxy: "/api/proxy",
- *   prefix: "/api/v1",
+ * import { type IApiPlugin } from "@onlyoffice/docspace-plugin-sdk";
  *
- *   setOrigin(origin) {
- *     try {
- *       this.origin = origin;
- *       return {
- *         actions: [Actions.showToast],
- *         toastProps: [{
- *           type: "success",
- *           title: "Origin Updated",
- *           message: "API endpoint changed | Config saved | Ready to use"
- *         }]
- *       };
- *     } catch (error) {
- *       return {
- *         actions: [Actions.showToast],
- *         toastProps: [{
- *           type: "error",
- *           title: "Update Failed",
- *           message: "Unable to update origin | Check URL format"
- *         }]
- *       };
- *     }
- *   },
+ * class Plugin implements IApiPlugin {
+ *   origin = "";
+ *   proxy = "";
+ *   prefix = "";
  *
- *   setProxy(proxy) {
+ *   setOrigin = (origin: string): void => {
+ *     this.origin = origin;
+ *   };
+ *
+ *   setProxy = (proxy: string): void => {
  *     this.proxy = proxy;
- *   },
+ *   };
  *
- *   setPrefix(prefix) {
+ *   setPrefix = (prefix: string): void => {
  *     this.prefix = prefix;
- *   },
+ *   };
  *
- *   getOrigin() {
+ *   getOrigin = (): string => {
  *     return this.origin;
- *   },
+ *   };
  *
- *   getProxy() {
+ *   getProxy = (): string => {
  *     return this.proxy;
- *   },
+ *   };
  *
- *   getPrefix() {
+ *   getPrefix = (): string => {
  *     return this.prefix;
- *   },
+ *   };
  *
- *   setAPI(origin, proxy, prefix) {
- *     try {
- *       this.origin = origin;
- *       this.proxy = proxy;
- *       this.prefix = prefix;
- *       return {
- *         actions: [Actions.showToast],
- *         toastProps: [{
- *           type: "success",
- *           title: "API Updated",
- *           message: "Configuration saved | Endpoints updated | Ready to use"
- *         }]
- *       };
- *     } catch (error) {
- *       return {
- *         actions: [Actions.showToast],
- *         toastProps: [{
- *           type: "error",
- *           title: "Update Failed",
- *           message: "Unable to update API | Check configuration"
- *         }]
- *       };
- *     }
- *   },
+ *   setAPI = (origin: string, proxy: string, prefix: string): void => {
+ *     this.origin = origin;
+ *     this.proxy = proxy;
+ *     this.prefix = prefix;
+ *   };
  *
- *   getAPI() {
- *     return {
- *       origin: this.origin,
- *       proxy: this.proxy,
- *       prefix: this.prefix
- *     };
- *   }
- * };
+ *   getAPI = (): { origin: string; proxy: string; prefix: string } => {
+ *     return { origin: this.origin, proxy: this.proxy, prefix: this.prefix };
+ *   };
+ *
+ *   // Example of a custom method that uses the API parameters to call the portal
+ *   getUsersList = async (): Promise<unknown> => {
+ *     const { origin, proxy, prefix } = this.getAPI();
+ *     const response = await fetch(`${origin}${proxy}${prefix}/people`);
+ *     return response.json();
+ *   };
+ * }
  * ```
  */
 export interface IApiPlugin {

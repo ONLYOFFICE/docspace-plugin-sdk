@@ -26,90 +26,51 @@ import { IProfileMenuItem } from "../items";
  *
  * @example
  *
- * User preferences manager with error handling
+ * The plugin class implements `IProfileMenuPlugin` and registers a "User Settings"
+ * entry in the constructor. DocSpace calls `getProfileMenuItems` to embed the items
+ * into the user profile dropdown.
  *
  * ```typescript
- * const settingsPlugin: IProfileMenuPlugin = {
- *   profileMenuItems: new Map([
- *     ["user-settings", {
+ * import {
+ *   type IProfileMenuItem,
+ *   type IProfileMenuPlugin,
+ *   Actions,
+ *   ToastType,
+ * } from "@onlyoffice/docspace-plugin-sdk";
+ *
+ * class Plugin implements IProfileMenuPlugin {
+ *   profileMenuItems: Map<string, IProfileMenuItem> = new Map();
+ *
+ *   constructor() {
+ *     this.addProfileMenuItem({
  *       key: "user-settings",
  *       label: "User Settings",
  *       icon: "settings-icon.svg",
  *       onClick: async () => {
- *         try {
- *           await loadUserSettings();
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "success",
- *               title: "Settings Loaded",
- *               message: "Preferences loaded | Options ready | Panel opened"
- *             }]
- *           };
- *         } catch (error) {
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "error",
- *               title: "Settings Failed",
- *               message: "Unable to load settings | Check permissions"
- *             }]
- *           };
- *         }
+ *         await loadUserSettings();
+ *         return {
+ *           actions: [Actions.showToast],
+ *           toastProps: [{
+ *             type: ToastType.success,
+ *             title: "User settings loaded"
+ *           }]
+ *         };
  *       }
- *     }]
- *   ]),
- *   addProfileMenuItem(item) {
- *     this.profileMenuItems.set(item.key, item);
- *   },
- *   getProfileMenuItems() {
- *     return this.profileMenuItems;
+ *     });
  *   }
- * };
- * ```
  *
- * @example
- *
- * Interactive user profile viewer
- *
- * ```typescript
- * const profilePlugin: IProfileMenuPlugin = {
- *   profileMenuItems: new Map([
- *     ["user-profile", {
- *       key: "user-profile",
- *       label: "View Profile",
- *       icon: "profile-icon.svg",
- *       onClick: async () => {
- *         try {
- *           await loadUserProfile();
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "success",
- *               title: "Profile Loaded",
- *               message: "Data retrieved | Profile ready | View updated"
- *             }]
- *           };
- *         } catch (error) {
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "error",
- *               title: "Profile Failed",
- *               message: "Unable to load profile | Check connection"
- *             }]
- *           };
- *         }
- *       }
- *     }]
- *   ]),
- *   addProfileMenuItem(item) {
+ *   addProfileMenuItem = (item: IProfileMenuItem): void => {
  *     this.profileMenuItems.set(item.key, item);
- *   },
- *   getProfileMenuItems() {
+ *   };
+ *
+ *   getProfileMenuItems = (): Map<string, IProfileMenuItem> => {
  *     return this.profileMenuItems;
- *   }
- * };
+ *   };
+ *
+ *   updateProfileMenuItem = (item: IProfileMenuItem): void => {
+ *     this.profileMenuItems.set(item.key, item);
+ *   };
+ * }
  * ```
  */
 export interface IProfileMenuPlugin {

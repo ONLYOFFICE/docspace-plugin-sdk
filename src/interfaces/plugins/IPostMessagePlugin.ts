@@ -29,7 +29,7 @@ import { IPostMessageCallbackMessage } from "../utils";
  * PostMessage handler with toast notification
  *
  * ```typescript
- * class MyPlugin implements IPlugin, IInfoPanelPlugin, IPostMessagePlugin {
+ * class Plugin implements IPostMessagePlugin {
  *   postMessageCallback: (message: IPostMessageCallbackMessage) => void = () => {};
  *
  *   setPostMessageCallback = (callback: (message: IPostMessageCallbackMessage) => void): void => {
@@ -41,7 +41,7 @@ import { IPostMessageCallbackMessage } from "../utils";
  *   };
  * }
  *
- * const plugin = new MyPlugin();
+ * const plugin = new Plugin();
  *
  * window.parent.addEventListener("message", (event) => {
  *   try {

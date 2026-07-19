@@ -21,100 +21,55 @@ import { IFileItem } from "../items";
 /**
  * The plugin that can interact with the file list.
  *
-
- *
  * @example
  *
- * File compression utility with size validation
+ * The plugin class implements `IFilePlugin` and registers a handler for the ".drawio"
+ * extension in the constructor. DocSpace calls `getFileItems` to hook the plugin into
+ * the file list: files with the registered extension get the custom icon, and clicking
+ * them triggers the item's `onClick`.
  *
  * ```typescript
- * const compressionPlugin: IFilePlugin = {
- *   fileItems: new Map([
- *     ["compress", {
- *       key: "compress",
- *       label: "Compress File",
- *       icon: "compress-icon.svg",
- *       onClick: async () => {
- *         try {
- *           await compressSelectedFile();
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "success",
- *               title: "File Compressed",
- *               message: "Compression complete | Space saved | Ready to use"
- *             }]
- *           };
- *         } catch (error) {
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "error",
- *               title: "Compression Failed",
- *               message: "Unable to compress file | Check file size"
- *             }]
- *           };
- *         }
+ * import {
+ *   type IFileItem,
+ *   type IFilePlugin,
+ *   Actions,
+ *   ToastType,
+ * } from "@onlyoffice/docspace-plugin-sdk";
+ *
+ * class Plugin implements IFilePlugin {
+ *   fileItems: Map<string, IFileItem> = new Map();
+ *
+ *   constructor() {
+ *     this.addFileItem({
+ *       extension: ".drawio",
+ *       fileTypeName: "Diagram",
+ *       fileRowIcon: "diagram-32.svg",
+ *       fileTileIcon: "diagram-96.svg",
+ *       onClick: async (file) => {
+ *         await openDiagramEditor(file.id);
+ *         return {
+ *           actions: [Actions.showToast],
+ *           toastProps: [{
+ *             type: ToastType.success,
+ *             title: `Opening ${file.title}`
+ *           }]
+ *         };
  *       }
- *     }]
- *   ]),
- *   getFileItems() {
- *     return this.fileItems;
- *   },
- *   addFileItem(item) {
- *     this.fileItems.set(item.key, item);
- *   },
- *   updateFileItem(item) {
- *     this.fileItems.set(item.key, item);
+ *     });
  *   }
- * };
- * ```
  *
- * @example
+ *   addFileItem = (item: IFileItem): void => {
+ *     this.fileItems.set(item.extension, item);
+ *   };
  *
- * File encryption manager with key validation
- *
- * ```typescript
- * const encryptionPlugin: IFilePlugin = {
- *   fileItems: new Map([
- *     ["encrypt", {
- *       key: "encrypt",
- *       label: "Encrypt File",
- *       icon: "encrypt-icon.svg",
- *       onClick: async () => {
- *         try {
- *           await encryptSelectedFile();
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "success",
- *               title: "File Encrypted",
- *               message: "Encryption complete | Security applied | Ready to store"
- *             }]
- *           };
- *         } catch (error) {
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "error",
- *               title: "Encryption Failed",
- *               message: "Unable to encrypt file | Check key status"
- *             }]
- *           };
- *         }
- *       }
- *     }]
- *   ]),
- *   getFileItems() {
+ *   getFileItems = (): Map<string, IFileItem> => {
  *     return this.fileItems;
- *   },
- *   addFileItem(item) {
- *     this.fileItems.set(item.key, item);
- *   },
- *   updateFileItem(item) {
- *     this.fileItems.set(item.key, item);
- *   }
- * };
+ *   };
+ *
+ *   updateFileItem = (item: IFileItem): void => {
+ *     this.fileItems.set(item.extension, item);
+ *   };
+ * }
  * ```
  */
 export interface IFilePlugin {
@@ -126,7 +81,7 @@ export interface IFilePlugin {
 
   /**
    * Add a new item for interactions with files.
-   * @param item - The file item to add, containing key, label, icon, and onClick handler
+   * @param item - The file item to add, containing the file extension, onClick handler, and optional display and access options
    */
   addFileItem(item: IFileItem): void;
 

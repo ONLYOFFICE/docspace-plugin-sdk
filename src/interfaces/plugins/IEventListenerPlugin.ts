@@ -21,118 +21,48 @@ import { IEventListenerItem } from "../items";
 /**
  * The plugin that is given the access to the portal events.
  *
-
- *
  * @example
  *
- * Room activity monitor with permission checks
+ * The plugin class implements `IEventListenerPlugin` and registers a listener for
+ * the room creation event in the constructor. DocSpace calls `getEventListenerItems`
+ * to subscribe the handlers to the portal events.
  *
  * ```typescript
- * const roomListener: IEventListenerPlugin = {
- *   eventListenerItems: new Map([
- *     ["room-activity", {
- *       key: "room-activity",
- *       event: Events.ROOM_CREATE,
- *       onEvent: async (data) => {
- *         try {
- *           await logRoomActivity(data);
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "success",
- *               title: "Room Created",
- *               message: "Room initialized | Settings applied | Ready to use"
- *             }]
- *           };
- *         } catch (error) {
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "error",
- *               title: "Room Creation Failed",
- *               message: "Unable to create room | Check permissions"
- *             }]
- *           };
- *         }
+ * import {
+ *   type IEventListenerItem,
+ *   type IEventListenerPlugin,
+ *   Events,
+ *   Actions,
+ *   ToastType,
+ * } from "@onlyoffice/docspace-plugin-sdk";
+ *
+ * class Plugin implements IEventListenerPlugin {
+ *   eventListenerItems: Map<string, IEventListenerItem> = new Map();
+ *
+ *   constructor() {
+ *     this.addEventListenerItem({
+ *       key: "room-create-listener",
+ *       eventType: Events.ROOM_CREATE,
+ *       eventHandler: () => {
+ *         return {
+ *           actions: [Actions.showToast],
+ *           toastProps: [{
+ *             type: ToastType.success,
+ *             title: "A new room has been created"
+ *           }]
+ *         };
  *       }
- *     }]
- *   ]),
- *   addEventListenerItem(item) {
- *     this.eventListenerItems.set(item.key, item);
- *   },
- *   getEventListenerItems() {
- *     return this.eventListenerItems;
+ *     });
  *   }
- * };
- * ```
  *
- * @example
- *
- * File operations tracker with history logging
- *
- * ```typescript
- * const fileMonitor: IEventListenerPlugin = {
- *   eventListenerItems: new Map([
- *     ["file-rename", {
- *       key: "file-rename",
- *       event: Events.RENAME,
- *       onEvent: async (data) => {
- *         try {
- *           await trackFileRename(data);
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "success",
- *               title: "File Renamed",
- *               message: "Name updated | Records modified | History logged"
- *             }]
- *           };
- *         } catch (error) {
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "error",
- *               title: "Rename Failed",
- *               message: "Unable to rename | Check file status"
- *             }]
- *           };
- *         }
- *       }
- *     }],
- *     ["file-delete", {
- *       key: "file-delete",
- *       event: Events.DELETE,
- *       onEvent: async (data) => {
- *         try {
- *           await handleFileDeletion(data);
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "success",
- *               title: "File Deleted",
- *               message: "File removed | Space cleared | Records updated"
- *             }]
- *           };
- *         } catch (error) {
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "error",
- *               title: "Deletion Failed",
- *               message: "Unable to delete | Check file access"
- *             }]
- *           };
- *         }
- *       }
- *     }]
- *   ]),
- *   addEventListenerItem(item) {
+ *   addEventListenerItem = (item: IEventListenerItem): void => {
  *     this.eventListenerItems.set(item.key, item);
- *   },
- *   getEventListenerItems() {
+ *   };
+ *
+ *   getEventListenerItems = (): Map<string, IEventListenerItem> => {
  *     return this.eventListenerItems;
- *   }
- * };
+ *   };
+ * }
  * ```
  */
 export interface IEventListenerPlugin {
@@ -144,7 +74,7 @@ export interface IEventListenerPlugin {
 
   /**
    * Add a new event listener item to the collection.
-   * @param item - The event listener item to add, containing key, event type, and onEvent handler
+   * @param item - The event listener item to add, containing key, eventType, and eventHandler
    */
   addEventListenerItem(item: IEventListenerItem): void;
 
