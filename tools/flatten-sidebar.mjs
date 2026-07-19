@@ -180,6 +180,36 @@ function groupByTopLevel(items) {
 	return result;
 }
 
+/**
+ * Relabels doc items with the H1 title of the generated page, so the sidebar
+ * matches the page title when it differs from the file name (e.g. the file
+ * Utility.md documents FilterType). Files are never renamed — only labels.
+ * @param {any[]} items
+ */
+function relabelFromPageTitles(items) {
+	for (const item of items) {
+		if (item.type === "category" && Array.isArray(item.items)) {
+			relabelFromPageTitles(item.items);
+			continue;
+		}
+		if (item.type !== "doc" || !item.id || item.id.endsWith("/index")) continue;
+
+		const relPath = item.id.startsWith(`${PATH_PREFIX}/`)
+			? item.id.slice(PATH_PREFIX.length + 1)
+			: item.id;
+		const mdPath = join(process.cwd(), "docs", `${relPath}.md`);
+		try {
+			const md = readFileSync(mdPath, "utf-8");
+			const h1 = md.match(/^# (.+)$/m);
+			if (h1 && h1[1].trim() && h1[1].trim() !== item.label) {
+				item.label = h1[1].trim();
+			}
+		} catch {
+			// No such file — keep the existing label
+		}
+	}
+}
+
 try {
 	let content = readFileSync(SIDEBAR_FILE, "utf-8");
 
@@ -204,6 +234,7 @@ try {
 		if (sidebarObj.items && Array.isArray(sidebarObj.items)) {
 			const flattened = flattenSidebar(sidebarObj.items);
 			sidebarObj.items = groupByTopLevel(flattened);
+			relabelFromPageTitles(sidebarObj.items);
 		}
 
 		// Reconstruct the file content

@@ -16,45 +16,101 @@ const DOCS_DIR = join(ROOT, "docs");
 const SRC_DIR = join(ROOT, "src");
 
 /**
- * Extracts the description from a TypeDoc-generated markdown file.
- * Pattern: ### EntityName → Defined in: ... → blank → description text → #### ...
+ * Returns the first sentence of a text. Unlike a plain indexOf("."), it does not
+ * break on periods inside parentheses ("(file, folder, etc.)"), after common
+ * abbreviations ("etc.", "e.g.", "i.e.") or inside tokens ("9.2", "file.png").
+ * @param {string} text
+ * @returns {string}
+ */
+function firstSentence(text) {
+	if (!text) return "";
+	const abbrev = /(?:\betc|\be\.g|\bi\.e|\bvs)\.$/i;
+	let parenDepth = 0;
+	for (let i = 0; i < text.length; i++) {
+		const ch = text[i];
+		if (ch === "(") parenDepth++;
+		else if (ch === ")") parenDepth = Math.max(0, parenDepth - 1);
+		else if ((ch === "." || ch === "!" || ch === "?") && parenDepth === 0) {
+			const next = text[i + 1];
+			// Not a sentence boundary if followed by a non-space (e.g. "9.2", "file.png")
+			if (next !== undefined && next !== " ") continue;
+			if (ch === "." && abbrev.test(text.slice(0, i + 1))) continue;
+			return text.slice(0, i + 1);
+		}
+	}
+	return text;
+}
+
+/**
+ * Reads the H1 title of a generated page (falls back to the given name).
+ * Used so index tables and sidebar labels match the page title even when it
+ * differs from the file name (e.g. Utility.md → "FilterType").
+ * @param {string} mdFilePath
+ * @param {string} fallback
+ * @returns {string}
+ */
+function pageTitle(mdFilePath, fallback) {
+	const content = readFileSync(mdFilePath, "utf-8");
+	const m = content.match(/^# (.+)$/m);
+	return m ? m[1].trim() : fallback;
+}
+
+/**
+ * Extracts the description of the page's main symbol from a fully post-processed
+ * markdown file: the first paragraph after the H1 (skipping "Defined in:" lines
+ * and embedded images). Must run AFTER hoistMainSection/promoteFirstH2toH1 so the
+ * H1 belongs to the symbol matching the file name (or to the module preamble).
+ * Falls back to the paragraph after the first "Defined in:" for pages without H1.
  * @param {string} mdFilePath - Path to the generated .md file
  * @returns {string}
  */
 function extractDescriptionFromMd(mdFilePath) {
 	const content = readFileSync(mdFilePath, "utf-8");
-	const lines = content.split("\n");
+	const body = content.replace(/^---\n[\s\S]*?---\n/, "");
+	const lines = body.split("\n");
 
-	let afterDefinedIn = false;
+	let sawContext = false; // set by the H1 or a "Defined in:" line
+	let inFence = false;
 	const descLines = [];
 
-	for (let i = 0; i < lines.length; i++) {
-		const line = lines[i];
+	for (const line of lines) {
+		const trimmed = line.trim();
 
-		// Skip until we pass the "Defined in:" line
-		if (!afterDefinedIn) {
-			if (line.startsWith("Defined in:")) afterDefinedIn = true;
+		// Skip fenced code blocks (e.g. the type alias signature under the H1)
+		if (/^\s*(```|~~~)/.test(line)) {
+			inFence = !inFence;
+			continue;
+		}
+		if (inFence) continue;
+
+		if (/^# /.test(line) || trimmed.startsWith("Defined in:")) {
+			if (descLines.length > 0) break;
+			sawContext = true;
 			continue;
 		}
 
 		// Stop at the next heading
-		if (line.startsWith("####") || line.startsWith("## ") || line.startsWith("### "))
-			break;
+		if (/^#{2,} /.test(line)) break;
 
-		const trimmed = line.trim();
 		if (!trimmed) {
 			// Stop at first blank line AFTER we already collected some text
 			if (descLines.length > 0) break;
 			continue;
 		}
 
+		// Skip embedded images and anchor tags
+		if (
+			trimmed.startsWith("<img") ||
+			trimmed.startsWith("<a ") ||
+			trimmed.startsWith("<plugin-image")
+		)
+			continue;
+
+		if (!sawContext) continue;
 		descLines.push(trimmed);
 	}
 
-	const full = descLines.join(" ").trim();
-	// Return only the first sentence
-	const dot = full.indexOf(".");
-	return dot !== -1 ? full.slice(0, dot + 1) : full;
+	return firstSentence(descLines.join(" ").trim());
 }
 
 /**
@@ -91,15 +147,17 @@ function generateIndexPage(section) {
 		const name = basename(file, ".md");
 		const mdFile = file;
 
+		// Display the page's H1 (may differ from the file name, e.g. Utility → FilterType)
+		const displayName = pageTitle(join(docsPath, mdFile), name);
 		const description = extractDescriptionFromMd(join(docsPath, mdFile));
 		const extraValue = section.tableExtraValues?.[name] ?? "";
 
 		if (section.tableExtraColumn) {
 			rows.push(
-				`| [\`${name}\`](${mdFile}) | ${description || "—"} | ${extraValue || "—"} |`
+				`| [\`${displayName}\`](${mdFile}) | ${description || "—"} | ${extraValue || "—"} |`
 			);
 		} else {
-			rows.push(tableRow(name, description, mdFile));
+			rows.push(tableRow(displayName, description, mdFile));
 		}
 	}
 
@@ -108,9 +166,10 @@ function generateIndexPage(section) {
 		return;
 	}
 
+	const headerName = section.tableHeaderName ?? "Interface";
 	const tableHeader = section.tableExtraColumn
-		? `| Interface | Description | ${section.tableExtraColumn} |\n| --- | --- | --- |`
-		: `| Interface | Description |\n| --- | --- |`;
+		? `| ${headerName} | Description | ${section.tableExtraColumn} |\n| --- | --- | --- |`
+		: `| ${headerName} | Description |\n| --- | --- |`;
 
 	const content = [
 		`---`,
@@ -270,7 +329,9 @@ function convertEnumListToTable(relPath) {
 		const markerIdx = section.indexOf(marker);
 		if (markerIdx === -1) return section;
 
-		const sectionPreamble = section.slice(0, markerIdx + marker.length);
+		// Drop the "### Enumeration Members" heading: the table follows the enum
+		// heading directly, and the extra H3 only duplicates entries in the TOC.
+		const sectionPreamble = section.slice(0, markerIdx).replace(/\n+$/, "\n");
 		const membersContent = section.slice(markerIdx + marker.length);
 
 		// Split into individual member blocks on #### heading boundaries
@@ -278,9 +339,11 @@ function convertEnumListToTable(relPath) {
 
 		const rows = [];
 		for (const block of blocks) {
-			const nameMatch = block.match(/^\n#### (\w+)/);
+			// TypeDoc escapes underscores in headings ("ROOM\_CREATE") — capture the
+			// full heading text and unescape it, otherwise names get cut at "\_".
+			const nameMatch = block.match(/^\n#### (.+)/);
 			if (!nameMatch) continue;
-			const name = nameMatch[1];
+			const name = nameMatch[1].trim().replace(/\\(.)/g, "$1");
 
 			// Value: from ```ts block — handles string and numeric values
 			const valueMatch = block.match(/```ts\n\w+:\s*([^\n;]+);?\n```/);
@@ -297,16 +360,21 @@ function convertEnumListToTable(relPath) {
 						.replace(/\s*\*{3}\s*$/, "")
 				: "";
 
-			rows.push(`| \`${name}\` | \`${value}\` | ${desc || "—"} |`);
+			// Keep the per-member anchor TypeDoc gave the heading, so existing
+			// cross-page links like enums/Components.md#box keep working.
+			const anchor = name.toLowerCase();
+			rows.push(
+				`| <a id="${anchor}"></a> \`${name}\` | \`${value}\` | ${desc || "—"} |`
+			);
 		}
 
 		if (!rows.length) return section;
 
 		totalMembers += rows.length;
 		const table =
-			"\n\n| Member | Value | Description |\n| :------ | :------ | :------ |\n" +
+			"\n| Member | Value | Description |\n| :------ | :------ | :------ |\n" +
 			rows.join("\n") +
-			"\n";
+			"\n\n";
 
 		return sectionPreamble + table;
 	});
@@ -421,6 +489,10 @@ function promoteFirstH2toH1(filePath) {
 	if (!fmMatch) return;
 	const afterFm = content.slice(fmMatch[1].length);
 
+	// Already promoted (e.g. the pipeline ran twice over the same output) —
+	// promoting again would turn the NEXT H2 into a second H1.
+	if (/^# /m.test(afterFm)) return;
+
 	const firstH2Pos = afterFm.search(/^## /m);
 	if (firstH2Pos < 0) return;
 
@@ -447,11 +519,159 @@ function promoteFirstH2toH1(filePath) {
 	// else: multiple types, no description — leave H2 structure as is
 }
 
-// Run
-for (const section of SECTIONS) {
-	generateIndexPage(section);
+/**
+ * Docusaurus-compatible slug for a heading text (github-slugger style):
+ * lowercase, punctuation stripped, spaces → hyphens, `_`/`-` preserved.
+ * @param {string} text
+ * @returns {string}
+ */
+function slugify(text) {
+	return text
+		.toLowerCase()
+		.trim()
+		.replace(/<[^>]+>/g, "")
+		.replace(/[`*\\]/g, "")
+		.replace(/[^\w\- ]/g, "")
+		.replace(/\s+/g, "-");
 }
 
+/**
+ * Docusaurus does not give the H1 (page title) an anchor id, so links targeting
+ * the page's main symbol — from this page or any other ("Selector.md#tselector") —
+ * silently scroll nowhere. Materialize an invisible anchor right below the H1.
+ * @param {string} filePath
+ */
+function ensureH1Anchor(filePath) {
+	if (!existsSync(filePath)) return;
+	const content = readFileSync(filePath, "utf-8");
+	const h1Match = content.match(/^# (.+)$/m);
+	if (!h1Match) return;
+	const h1Slug = slugify(h1Match[1]);
+	if (!h1Slug || content.includes(`<a id="${h1Slug}"`)) return;
+	const updated = content.replace(/^(# .+)$/m, `$1\n\n<a id="${h1Slug}"></a>`);
+	if (updated !== content) writeFileSync(filePath, updated, "utf-8");
+}
+
+/**
+ * Repairs in-page hash links:
+ * - drops stale TypeDoc dedup suffixes ("#name-1") when "#name" exists;
+ * - materializes an anchor for self-references to the page H1 (Docusaurus
+ *   does not give the title heading an anchor);
+ * - warns about anchors that cannot be resolved at all.
+ * @param {string} filePath
+ */
+function fixInPageAnchors(filePath) {
+	if (!existsSync(filePath)) return;
+	const original = readFileSync(filePath, "utf-8");
+	let content = original;
+
+	const ids = new Set();
+	for (const m of content.matchAll(/<a id="([^"]+)"/g)) ids.add(m[1].toLowerCase());
+	// The H1 is the page title and gets no anchor — collect H2–H6 only
+	for (const m of content.matchAll(/^#{2,6} (.+)$/gm)) ids.add(slugify(m[1]));
+
+	const h1Match = content.match(/^# (.+)$/m);
+	const h1Slug = h1Match ? slugify(h1Match[1]) : null;
+	let injectH1Anchor = false;
+
+	content = content.replace(/\]\(#([^)\s]+)\)/g, (full, anchor) => {
+		const target = anchor.toLowerCase();
+		if (ids.has(target)) return full;
+		const stripped = target.replace(/-\d+$/, "");
+		if (stripped !== target && ids.has(stripped)) return `](#${stripped})`;
+		if (h1Slug && (target === h1Slug || stripped === h1Slug)) {
+			injectH1Anchor = true;
+			return `](#${h1Slug})`;
+		}
+		console.warn(
+			`⚠️  Unresolved in-page anchor #${anchor} in ${basename(filePath)}`
+		);
+		return full;
+	});
+
+	if (injectH1Anchor && h1Slug && !ids.has(h1Slug)) {
+		content = content.replace(/^(# .+)$/m, `$1\n\n<a id="${h1Slug}"></a>`);
+	}
+
+	if (content !== original) writeFileSync(filePath, content, "utf-8");
+}
+
+/**
+ * Removes the stray leading pipe TypeDoc emits for union types in table cells:
+ * "() => \| `void` \| ..." → "() => `void` \| ...", "( \| `A` \| `B`)" → "(`A` \| `B`)".
+ * @param {string} filePath
+ */
+function fixUnionPipeArtifacts(filePath) {
+	if (!existsSync(filePath)) return;
+	const content = readFileSync(filePath, "utf-8");
+	const updated = content
+		.replace(/=> \\\| /g, "=> ")
+		.replace(/\( \\\| /g, "(")
+		// Union type at the start of a table cell: "| \| `A` \| `B` |"
+		.replace(/\| \\\| /g, "| ");
+	if (updated !== content) writeFileSync(filePath, updated, "utf-8");
+}
+
+/**
+ * Inserts a blank line before headings that directly follow content (usually a
+ * table row) — a known fragility point for GFM/MDX parsers. Skips code fences.
+ * @param {string} filePath
+ */
+function ensureBlankLineBeforeHeadings(filePath) {
+	if (!existsSync(filePath)) return;
+	const original = readFileSync(filePath, "utf-8");
+	const lines = original.split("\n");
+	/** @type {string[]} */
+	const out = [];
+	let inFence = false;
+	for (const line of lines) {
+		if (/^\s*(```|~~~)/.test(line)) inFence = !inFence;
+		if (
+			!inFence &&
+			/^#{1,6} /.test(line) &&
+			out.length > 0 &&
+			out[out.length - 1].trim() !== ""
+		) {
+			out.push("");
+		}
+		out.push(line);
+	}
+	const patched = out.join("\n");
+	if (patched !== original) writeFileSync(filePath, patched, "utf-8");
+}
+
+/**
+ * Strips a dangling `***` thematic break at the very end of a page.
+ * @param {string} filePath
+ */
+function stripTrailingHr(filePath) {
+	if (!existsSync(filePath)) return;
+	const content = readFileSync(filePath, "utf-8");
+	const updated = content.replace(/\n\*{3,}\s*$/, "\n");
+	if (updated !== content) writeFileSync(filePath, updated, "utf-8");
+}
+
+// Run.
+// Order matters: structural transforms first, cleanup second, and the section
+// index pages last — they read the final H1 titles and descriptions.
+
+const ALL_MD_FILES = existsSync(DOCS_DIR)
+	? readdirSync(DOCS_DIR, { recursive: true })
+			.filter(
+				(f) => typeof f === "string" && f.endsWith(".md") && !f.endsWith("index.md")
+			)
+			.map((f) => join(DOCS_DIR, /** @type {string} */ (f)))
+	: [];
+
+// 1. Per-file structural transforms
+for (const filePath of ALL_MD_FILES) {
+	hoistMainSection(filePath);
+	reorderExamplesLast(filePath);
+	resolvePluginImageTags(filePath);
+	promoteFirstH2toH1(filePath);
+}
+
+// 2. TOC tuning
 for (const relPath of TOC_LEVEL_2_OVERRIDES) {
 	patchTocLevel(relPath, 2);
 }
@@ -462,24 +682,23 @@ for (const relPath of TOC_LEVEL_4_OVERRIDES) {
 	patchTocMinLevel(relPath, 3);
 }
 
+// 3. Enum member lists → tables
 for (const relPath of ENUM_LIST_TO_TABLE_FILES) {
 	convertEnumListToTable(relPath);
 }
 
-// Reorder Example sections to appear after Properties in every generated page
-const ALL_MD_FILES = existsSync(DOCS_DIR)
-	? readdirSync(DOCS_DIR, { recursive: true })
-			.filter(
-				(f) => typeof f === "string" && f.endsWith(".md") && !f.endsWith("index.md")
-			)
-			.map((f) => join(DOCS_DIR, /** @type {string} */ (f)))
-	: [];
-
+// 4. Cleanup passes over the final content
 for (const filePath of ALL_MD_FILES) {
-	hoistMainSection(filePath);
-	reorderExamplesLast(filePath);
-	resolvePluginImageTags(filePath);
-	promoteFirstH2toH1(filePath);
+	fixUnionPipeArtifacts(filePath);
+	ensureH1Anchor(filePath);
+	fixInPageAnchors(filePath);
+	ensureBlankLineBeforeHeadings(filePath);
+	stripTrailingHr(filePath);
+}
+
+// 5. Section index pages (read the final page content)
+for (const section of SECTIONS) {
+	generateIndexPage(section);
 }
 
 // Write _category_.json so docs:sync carries it into the coding-plugin folder

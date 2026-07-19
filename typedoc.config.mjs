@@ -118,7 +118,9 @@ export default {
 		hideInherited: false,
 		hideModifiers: false,
 		hideOverrides: false,
-		hideSources: false,
+		// The per-row "Defined in" column duplicates the page-level source link
+		// and squeezes the Description column on rendered pages.
+		hideSources: true,
 		hideValues: false,
 		leftAlignHeaders: false
 	},
