@@ -18,11 +18,15 @@
 
 /**
  * A collection of events that will be processed on the portal side.
+ *
+ * Pass these values in the `actions` array of an [`IMessage`](../interfaces/utils.md#imessage)
+ * returned from an event handler (onClick, onChange, onSubmit, etc.).
+ * Most actions read their configuration from the matching `*Props` parameter of the message.
  */
 export enum Actions {
 	/**
 	 * Calls a function to update the state of the item which action was passed.
-	 * It does not work if the "newProps" parameter is not passed to the message.
+	 * It does not work if the [`newProps`](../interfaces/utils.md#imessage) parameter is not passed to the message.
 	 *
 	 *
 	 * @example
@@ -38,7 +42,7 @@ export enum Actions {
 
 	/**
 	 * Calls a function to update the state of the parent or child items which were passed.
-	 * It does not work if the "contextProps" parameter is not passed to the message.
+	 * It does not work if the [`contextProps`](../interfaces/utils.md#imessage) parameter is not passed to the message.
 	 *
 	 *
 	 * @example
@@ -154,7 +158,7 @@ export enum Actions {
 
 	/**
 	 * Calls a function to display a toast notification after the user actions.
-	 * It does not work if the "toastProps" parameter is not passed to the message.
+	 * It does not work if the [`toastProps`](../interfaces/components/IToast.md) parameter is not passed to the message.
 	 *
 	 *
 	 * @example
@@ -170,7 +174,7 @@ export enum Actions {
 
 	/**
 	 * Calls a function to open a modal window for creating certain item (file, folder, etc.).
-	 * It does not work if the "createDialogProps" parameter is not passed to the message.
+	 * It does not work if the [`createDialogProps`](../interfaces/components/ICreateDialog.md) parameter is not passed to the message.
 	 *
 	 *
 	 * @example
@@ -200,7 +204,7 @@ export enum Actions {
 
 	/**
 	 * Calls a function to update a modal window for creating certain item (file, folder, etc.).
-	 * It does not work if the "createDialogProps" parameter is not passed to the message.
+	 * It does not work if the [`createDialogProps`](../interfaces/components/ICreateDialog.md) parameter is not passed to the message.
 	 *
 	 *
 	 * @example
@@ -217,7 +221,7 @@ export enum Actions {
 
 	/**
 	 * Calls a function to open a modal window.
-	 * It does not work if the "modalDialogProps" parameter is not passed to the message.
+	 * It does not work if the [`modalDialogProps`](../interfaces/components/IModalDialog.md) parameter is not passed to the message.
 	 *
 	 *
 	 * @example
@@ -245,14 +249,7 @@ export enum Actions {
 
 	/**
 	 * Calls a function to send a message to a frame.
-	 * It does not work if the "postMessage" parameter is not passed to the message or the specified frame is not found.
-	 */
-	sendPostMessage = "send-post-message",
-
-	/**
-	 * Calls a function to save the data that was transferred in the "settings" parameter
-	 * and returns it in the "setAdminPluginSettingsValue" method each time the plugin is requested.
-	 * It functions only when the "Save" button is clicked in the "Settings" block.
+	 * It does not work if the [`postMessage`](../interfaces/utils.md#ipostmessage) parameter is not passed to the message or the specified frame is not found.
 	 *
 	 *
 	 * @example
@@ -271,11 +268,30 @@ export enum Actions {
 	 * }
 	 * ```
 	 */
+	sendPostMessage = "send-post-message",
+
+	/**
+	 * Calls a function to save the data that was transferred in the [`settings`](../interfaces/utils.md#imessage) parameter
+	 * and returns it in the "setAdminPluginSettingsValue" method each time the plugin is requested.
+	 * It functions only when the "Save" button is clicked in the "Settings" block.
+	 *
+	 *
+	 * @example
+	 * ```typescript
+	 * const onSaveButtonClick = (): IMessage => {
+	 *   return {
+	 *     actions: [Actions.saveSettings, Actions.showToast],
+	 *     settings: JSON.stringify({ apiKey: apiKeyInput.value }),
+	 *     toastProps: [{ type: ToastType.success, title: "Settings saved" }],
+	 *   };
+	 * }
+	 * ```
+	 */
 	saveSettings = "save-settings",
 
 	/**
 	 * Calls a function to display a selector.
-	 * It does not work if the "selectorProps" parameter is not passed to the message.
+	 * It does not work if the [`selectorProps`](../interfaces/components/Selector.md) parameter is not passed to the message.
 	 *
 	 *
 	 * @example
@@ -293,7 +309,7 @@ export enum Actions {
 
 	/**
 	 * Calls a function to update a selector.
-	 * It does not work if the "selectorProps" parameter is not passed to the message.
+	 * It does not work if the [`selectorProps`](../interfaces/components/Selector.md) parameter is not passed to the message.
 	 *
 	 *
 	 * @example
@@ -325,7 +341,7 @@ export enum Actions {
 	/**
 	 * Calls a function to add operations in floating button.
 	 * Multiple plugins can show operations simultaneously - they will be aggregated.
-	 * It does not work if the "floatingOperationsButtonProps" parameter is not passed to the message.
+	 * It does not work if the [`floatingOperationsButtonProps`](../interfaces/components/IFloatingOperationsButton.md) parameter is not passed to the message.
 	 *
 	 * **Note:** Each floating operations is identified by its id. Calling this  action again
 	 * will not replace the previous operations.
@@ -343,7 +359,7 @@ export enum Actions {
 
 	/**
 	 * Calls a function to update operations in floating button.
-	 * It does not work if the "floatingOperationsButtonProps" parameter is not passed to the message.
+	 * It does not work if the [`floatingOperationsButtonProps`](../interfaces/components/IFloatingOperationsButton.md) parameter is not passed to the message.
 	 *
 	 *
 	 * @example
@@ -372,7 +388,7 @@ export enum Actions {
 
 	/**
 	 * Calls a function to remove the floating operations.
-	 * It does not work if the "floatingOperationsButtonPropsId" parameter is not passed to the message.
+	 * It does not work if the [`floatingOperationsButtonPropsId`](../interfaces/components/IFloatingOperationsButton.md) parameter is not passed to the message.
 	 *
 	 *
 	 * @example
@@ -388,22 +404,25 @@ export enum Actions {
 	/**
 	 * Calls a function to navigate to the specified path.
 	 * All actions listed after navigate will be called after the navigation is complete.
-	 * It does not work if the "navigatePath" parameter is not passed to the message.
+	 * It does not work if the [`navigatePath`](../interfaces/utils.md#imessage) parameter is not passed to the message.
 	 */
 	navigate = "navigate",
 
 	/**
 	 * Calls a function to open the plugin info panel.
+	 * The tab to open is passed in the [`infoPanelTab`](../interfaces/utils.md#imessage) parameter.
 	 */
 	openInfoPanel = "open-info-panel",
 
 	/**
 	 * Calls a function to open the plugin media viewer.
+	 * The viewer configuration is passed in the [`mediaViewerProps`](../interfaces/components/IMediaViewer.md) parameter.
 	 */
 	showMediaViewer = "show-media-viewer",
 
 	/**
 	 * Calls a function to update the plugin media viewer.
+	 * The new configuration is passed in the [`mediaViewerProps`](../interfaces/components/IMediaViewer.md) parameter.
 	 */
 	updateMediaViewer = "update-media-viewer",
 
