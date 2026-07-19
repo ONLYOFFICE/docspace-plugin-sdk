@@ -101,9 +101,8 @@ export interface IPostMessage {
  *     isDisabled: true
  *   },
  *   toastProps: [{
- *     type: "success",
- *     title: "Form Submitted",
- *     message: "Your data has been saved successfully"
+ *     type: ToastType.success,
+ *     title: "Your data has been saved successfully"
  *   }],
  *   contextProps: [{
  *     name: "submit-button",
@@ -133,9 +132,8 @@ export interface IPostMessage {
  *     value: "us"
  *   },
  *   toastProps: [{
- *     type: "error",
- *     title: "Validation Error",
- *     message: "Please complete all required fields"
+ *     type: ToastType.error,
+ *     title: "Please complete all required fields"
  *   }],
  *   contextProps: [{
  *     name: "state-select",
@@ -155,21 +153,18 @@ export interface IMessage {
 	/**
 	 * Defines a collection of events that will be processed on the portal side.
 	 * The specified actions will be performed depending on the set of values.
-	 * @category Properties
 	 */
 	actions?: Actions[];
 
 	/**
 	 * Defines the properties that update the state of the items which interact with the users.
 	 * This parameter is used only with Actions.updateProps.
-	 * @category Properties
 	 */
 	newProps?: IInput | ICheckbox | IToggleButton | IButton | ITextArea | IComboBox;
 
 	/**
 	 * Defines the properties that display a toast notification after the user actions.
 	 * This parameter is used only with Actions.showToast.
-	 * @category Properties
 	 */
 	toastProps?: IToast[];
 
@@ -178,7 +173,6 @@ export interface IMessage {
 	 * Contains an array of objects with:
 	 * - name: Defines the item name
 	 * - props: Defines the new properties for the parent or child item
-	 * @category Properties
 	 */
 	contextProps?: {
 		name: string;
@@ -200,21 +194,18 @@ export interface IMessage {
 	/**
 	 * Defines the properties that display the default dialog box for creating a file/folder managed by the plugin.
 	 * This parameter is used only with Actions.showCreateDialogModal.
-	 * @category Properties
 	 */
 	createDialogProps?: ICreateDialog;
 
 	/**
 	 * Defines the properties that display the modal window.
 	 * This parameter is used only with Actions.showModal.
-	 * @category Properties
 	 */
 	modalDialogProps?: IModalDialog;
 
 	/**
 	 * Defines the properties that display the selector.
 	 * This parameter is used only with Actions.showSelector.
-	 * @category Properties
 	 */
 	selectorProps?: TSelector;
 
@@ -222,7 +213,6 @@ export interface IMessage {
 	 * Defines the configuration for the floating operations button that displays progress of long-running operations.
 	 * Used with Actions.addFloatingOperationsButton to create a new button or Actions.updateFloatingOperationsButton to update existing one.
 	 * The button appears as a floating action button in the bottom-right corner. Multiple plugins can show operations simultaneously.
-	 * @category Properties
 	 */
 	floatingOperationsButtonProps?: IFloatingOperationsButton;
 
@@ -230,7 +220,6 @@ export interface IMessage {
 	 * Unique identifier for the floating operations button to remove.
 	 * Used only with Actions.removeFloatingOperationsButton to close a specific operations panel.
 	 * The ID should match the `id` property of the IFloatingOperationsButton that was previously added.
-	 * @category Properties
 	 */
 	floatingOperationsButtonPropsId?: string;
 
@@ -238,14 +227,12 @@ export interface IMessage {
 	 * Defines the properties that are used to send a message to a frame.
 	 * If the frame ID is not specified or the frame with such an ID does not exist, then nothing changes.
 	 * This parameter is used only with Actions.sendPostMessage.
-	 * @category Properties
 	 */
 	postMessage?: IPostMessage;
 
 	/**
 	 * Defines a parameter that is used to save and transfer the administrator or owner plugin settings to all the portal users.
 	 * This parameter is used only with Actions.saveSettings.
-	 * @category Properties
 	 */
 	settings?: string;
 
@@ -253,21 +240,18 @@ export interface IMessage {
 	 * Defines the path to navigate to.
 	 * All actions listed after navigate will be called after the navigation is complete.
 	 * This parameter is used only with Actions.navigate.
-	 * @category Properties
 	 */
 	navigatePath?: string;
 
 	/**
 	 * Defines the info panel tab to open.
 	 * This parameter is used only with Actions.openInfoPanel.
-	 * @category Properties
 	 */
 	infoPanelTab?: TInfoPanelTab;
 
 	/**
 	 * Defines the properties for the media viewer.
 	 * This parameter is used only with Actions.showMediaViewer and Actions.updateMediaViewer.
-	 * @category Properties
 	 */
 	mediaViewerProps?: IMediaViewer;
 }
@@ -284,9 +268,8 @@ export interface IMessage {
  * const postMessageResponse: IPostMessageCallbackMessage = {
  *   actions: [Actions.showToast],
  *   toastProps: [{
- *     type: "success",
- *     title: "Message Received",
- *     message: "Frame message processed successfully"
+ *     type: ToastType.success,
+ *     title: "Frame message processed successfully"
  *   }]
  * };
  * ```
@@ -297,8 +280,9 @@ export interface IPostMessageCallbackMessage {
 	 * Only the following actions are available:
 	 * updateContextMenuItems, updateInfoPanelItems, updateMainButtonItems,
 	 * updateProfileMenuItems, updateFileItems, updateEventListenerItems,
-	 * showToast, showCreateDialogModal, showModal, showSelector, addFloatingOperationsButton,
-	 * navigate, openInfoPanel.
+	 * showToast, showCreateDialogModal, showModal, closeModal, showSelector,
+	 * showMediaViewer, closeMediaViewer, addFloatingOperationsButton,
+	 * removeFloatingOperationsButton, navigate, openInfoPanel.
 	 */
 	actions?: (
 		| Actions.updateContextMenuItems
@@ -371,6 +355,9 @@ export interface IPostMessageCallbackMessage {
 	infoPanelTab?: TInfoPanelTab;
 }
 
+/**
+ * Describes a return message of a postMessage event handler.
+ */
 export type TReturnPostMessage =
 	| Promise<IPostMessageCallbackMessage>
 	| Promise<void>
