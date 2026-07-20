@@ -529,19 +529,60 @@ function slugify(text) {
 }
 
 /**
- * Docusaurus does not give the H1 (page title) an anchor id, so links targeting
- * the page's main symbol — from this page or any other ("Selector.md#tselector") —
- * silently scroll nowhere. Materialize an invisible anchor right below the H1.
+ * Scroll offset for raw `<a id>` anchors, matching Docusaurus' own heading
+ * anchors (`.anchorTargetStickyNavbar` in @docusaurus/theme-common). See
+ * {@link addScrollMarginToAnchors}.
+ */
+const ANCHOR_SCROLL_STYLE =
+	'style={{scrollMarginTop: "calc(var(--ifm-navbar-height) + 0.5rem)"}}';
+
+/**
+ * Docusaurus deliberately strips the id from every `<h1>` — see theme Heading:
+ * `if (As === 'h1' || !id) return <As id={undefined} />` — so the page-title
+ * heading can never own an anchor and links to the main symbol
+ * ("Selector.md#tselector", or the sidebar entry) would resolve nowhere.
+ * TypeDoc emits `<a id="ibox">` right AFTER the heading, but jumping there
+ * scrolls the empty anchor to the top and leaves the title hidden above it,
+ * under the sticky navbar. Materialize a single anchor on its own line just
+ * BEFORE the h1 instead; {@link addScrollMarginToAnchors} then offsets it below
+ * the navbar so the title itself becomes the visible scroll target.
  * @param {string} filePath
  */
-function ensureH1Anchor(filePath) {
+function placeMainSymbolAnchor(filePath) {
 	if (!existsSync(filePath)) return;
 	const content = readFileSync(filePath, "utf-8");
 	const h1Match = content.match(/^# (.+)$/m);
 	if (!h1Match) return;
-	const h1Slug = slugify(h1Match[1]);
-	if (!h1Slug || content.includes(`<a id="${h1Slug}"`)) return;
-	const updated = content.replace(/^(# .+)$/m, `$1\n\n<a id="${h1Slug}"></a>`);
+	const slug = slugify(h1Match[1]);
+	if (!slug) return;
+
+	// Drop the standalone anchor wherever TypeDoc placed it (usually after the h1)
+	let body = content.replace(
+		new RegExp(`^<a id="${slug}"(?:\\s[^>]*)?></a>\\n+`, "gm"),
+		""
+	);
+	// Re-insert it immediately before the h1
+	body = body.replace(/^(# .+)$/m, `<a id="${slug}"></a>\n\n$1`);
+	if (body !== content) writeFileSync(filePath, body, "utf-8");
+}
+
+/**
+ * Raw `<a id>` anchors (the main-symbol anchor above the h1, plus every
+ * property-row and enum-member anchor TypeDoc emits inside tables) are not
+ * headings, so Docusaurus never applies its `.anchorTargetStickyNavbar`
+ * scroll-margin to them. Without it, following a hash link scrolls the target
+ * flush to the viewport top, hidden behind the sticky navbar. Give every bare
+ * anchor the same scroll-margin Docusaurus uses for heading anchors.
+ * @param {string} filePath
+ */
+function addScrollMarginToAnchors(filePath) {
+	if (!existsSync(filePath)) return;
+	const content = readFileSync(filePath, "utf-8");
+	// Only bare anchors match — an already-styled anchor has extra attributes.
+	const updated = content.replace(
+		/<a id="([^"]+)"><\/a>/g,
+		`<a id="$1" ${ANCHOR_SCROLL_STYLE}></a>`
+	);
 	if (updated !== content) writeFileSync(filePath, updated, "utf-8");
 }
 
@@ -583,7 +624,7 @@ function fixInPageAnchors(filePath) {
 	});
 
 	if (injectH1Anchor && h1Slug && !ids.has(h1Slug)) {
-		content = content.replace(/^(# .+)$/m, `$1\n\n<a id="${h1Slug}"></a>`);
+		content = content.replace(/^(# .+)$/m, `<a id="${h1Slug}"></a>\n\n$1`);
 	}
 
 	if (content !== original) writeFileSync(filePath, content, "utf-8");
@@ -683,10 +724,11 @@ for (const relPath of ENUM_LIST_TO_TABLE_FILES) {
 // 4. Cleanup passes over the final content
 for (const filePath of ALL_MD_FILES) {
 	fixUnionPipeArtifacts(filePath);
-	ensureH1Anchor(filePath);
+	placeMainSymbolAnchor(filePath);
 	fixInPageAnchors(filePath);
 	ensureBlankLineBeforeHeadings(filePath);
 	stripTrailingHr(filePath);
+	addScrollMarginToAnchors(filePath);
 }
 
 // 5. Section index pages (read the final page content)
