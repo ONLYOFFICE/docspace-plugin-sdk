@@ -77,7 +77,7 @@ import {
  *   // Label for the create room button.
  *   createDefineRoomLabel: "Create a new collaboration room",
  *   // Default type for a newly created room.
- *   createDefineRoomType: RoomsType.Collaboration,
+ *   createDefineRoomType: RoomsType.EditingRoom,
  *
  *   // A callback function that is executed when the user clicks the submit button.
  *   onSubmit: (selectedIds) => {

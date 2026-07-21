@@ -216,9 +216,13 @@ export interface IContextMenuItem {
 	 * Callback invoked when the action is triggered for multiple selected
 	 * files, folders, or rooms.
 	 *
-	 * @param items Receives the selected file, folder, or room items as an argument.
+	 * @param items The selected entities passed as an array of `GroupItem`.
 	 *
 	 * @remarks
+	 * Each `GroupItem` in `items` exposes the entity `id` (`number` or `string`)
+	 * and its `itemType` (`"file"`, `"folder"`, or `"room"`), so files, folders,
+	 * and rooms can be distinguished within the selection.
+	 *
 	 * To make the action appear in the group actions menu, set `isGroupAction` to `true`.
 	 * When `isGroupAction` is `true`, the action will not be shown for single selected items.
 	 */
@@ -234,7 +238,8 @@ export interface IContextMenuItem {
 	isGroupAction?: boolean;
 
 	/**
-	 * Whether to add the action state to the item in the file list when the onClick event is triggered
+	 * Whether to add the action state to the item in the file list when the
+	 * `onItemClick` (or the deprecated `onClick`) event is triggered.
 	 *
 	 */
 	withActiveItem?: boolean;
@@ -257,7 +262,7 @@ export interface IContextMenuItem {
 
 	/**
 	 * Specifies elements as submenus.
-	 * If specified, onClick on the parent will not work.
+	 * If specified, `onItemClick` (and the deprecated `onClick`) on the parent will not work.
 	 * If none of the child elements are displayed, for example due to security or itemSecurity, the parent will also be hidden.
 	 * Max level of the menu is 2.
 	 */

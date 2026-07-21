@@ -343,9 +343,10 @@ export enum Actions {
 	 * Multiple plugins can show operations simultaneously - they will be aggregated.
 	 * It does not work if the [`floatingOperationsButtonProps`](../interfaces/components/IFloatingOperationsButton.md) parameter is not passed to the message.
 	 *
-	 * **Note:** Each floating operations is identified by its id. Calling this  action again
+	 * :::note
+	 * Each floating operations is identified by its id. Calling this action again
 	 * will not replace the previous operations.
-	 *
+	 * :::
 	 *
 	 * @example
 	 * ```typescript
@@ -405,29 +406,73 @@ export enum Actions {
 	 * Calls a function to navigate to the specified path.
 	 * All actions listed after navigate will be called after the navigation is complete.
 	 * It does not work if the [`navigatePath`](../interfaces/utils.md#imessage) parameter is not passed to the message.
+	 *
+	 *
+	 * @example
+	 * ```typescript
+	 * const message: IMessage = {
+	 *   actions: [Actions.navigate],
+	 *   navigatePath: "/rooms/shared/12345",
+	 * }
+	 * ```
 	 */
 	navigate = "navigate",
 
 	/**
 	 * Calls a function to open the plugin info panel.
 	 * The tab to open is passed in the [`infoPanelTab`](../interfaces/utils.md#imessage) parameter.
+	 *
+	 *
+	 * @example
+	 * ```typescript
+	 * const message: IMessage = {
+	 *   actions: [Actions.openInfoPanel],
+	 *   infoPanelTab: "info_details",
+	 * }
+	 * ```
 	 */
 	openInfoPanel = "open-info-panel",
 
 	/**
 	 * Calls a function to open the plugin media viewer.
 	 * The viewer configuration is passed in the [`mediaViewerProps`](../interfaces/components/IMediaViewer.md) parameter.
+	 *
+	 *
+	 * @example
+	 * ```typescript
+	 * const message: IMessage = {
+	 *   actions: [Actions.showMediaViewer],
+	 *   mediaViewerProps: { ...mediaViewerProps },
+	 * }
+	 * ```
 	 */
 	showMediaViewer = "show-media-viewer",
 
 	/**
 	 * Calls a function to update the plugin media viewer.
 	 * The new configuration is passed in the [`mediaViewerProps`](../interfaces/components/IMediaViewer.md) parameter.
+	 *
+	 *
+	 * @example
+	 * ```typescript
+	 * const message: IMessage = {
+	 *   actions: [Actions.updateMediaViewer],
+	 *   mediaViewerProps: { ...mediaViewerProps },
+	 * }
+	 * ```
 	 */
 	updateMediaViewer = "update-media-viewer",
 
 	/**
 	 * Calls a function to close the plugin media viewer.
+	 *
+	 *
+	 * @example
+	 * ```typescript
+	 * const message: IMessage = {
+	 *   actions: [Actions.closeMediaViewer],
+	 * }
+	 * ```
 	 */
 	closeMediaViewer = "close-media-viewer"
 }

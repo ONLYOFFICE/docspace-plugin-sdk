@@ -205,7 +205,7 @@ export interface IMessage {
 
 	/**
 	 * Defines the properties that display the selector.
-	 * This parameter is used only with Actions.showSelector.
+	 * This parameter is used only with Actions.showSelector and Actions.updateSelector.
 	 */
 	selectorProps?: TSelector;
 

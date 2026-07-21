@@ -92,6 +92,12 @@ export default {
 		hide_title: true
 	},
 	commentStyle: "jsdoc",
+	locales: {
+		en: {
+			tag_deprecated: "Deprecated:",
+			tag_remarks: "Remarks:"
+		}
+	},
 	useTsLinkResolution: true,
 	jsDocCompatibility: {
 		defaultTag: true,

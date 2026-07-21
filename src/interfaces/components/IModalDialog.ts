@@ -176,9 +176,11 @@ import { IBox } from "./IBox";
  * ```
  *
  * @remarks
- * **Important:** `dialogBody` and `dialogFooter` are rendered in separate contexts.
+ * :::info
+ * `dialogBody` and `dialogFooter` are rendered in separate contexts.
  * Components in `dialogFooter` cannot update components in `dialogBody` using
  * `Actions.updateContext`, and vice versa.
+ * :::
  */
 export interface IModalDialog {
   /** Defines the modal dialog display type

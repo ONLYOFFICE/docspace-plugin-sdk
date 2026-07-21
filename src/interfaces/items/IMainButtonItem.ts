@@ -143,7 +143,7 @@ export interface IMainButtonItem {
 
 	/**
 	 * The main button items that are added to the current item as a drop-down list.
-	 * In this case, the onClick event does not work.
+	 * In this case, the `onItemClick` (and the deprecated `onClick`) event does not work.
 	 *   */
 	items?: IMainButtonItem[];
 

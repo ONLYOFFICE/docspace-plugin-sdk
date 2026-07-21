@@ -139,14 +139,16 @@ export interface IMediaViewer {
 	onClose?: () => TReturnMessage;
 
 	/**
-	 * Filter configuration for playlist.
-	 * Only applies when enablePlaylist is true.
+	 * Filter that determines which files are included in the media viewer playlist
+	 * used for navigation.
+	 * If not specified, the playlist is not filtered.
 	 */
 	playlistFilter?: IMediaViewerPlaylistFilter;
 
 	/**
-	 * Navigation callbacks.
-	 * Only applies when enablePlaylist is true.
+	 * Navigation callbacks invoked when the user moves between files in the media
+	 * viewer playlist.
+	 * If not specified, no navigation callbacks are triggered.
 	 */
 	navigation?: IMediaViewerNavigation;
 

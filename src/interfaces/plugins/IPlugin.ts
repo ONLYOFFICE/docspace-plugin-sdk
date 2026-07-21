@@ -28,13 +28,16 @@ import { PluginLocale, PluginStatus } from "../../enums";
  * Every plugin class implements `IPlugin` (usually together with one or more
  * type-specific interfaces such as `IContextMenuPlugin`). DocSpace reads the
  * plugin status via `getStatus` and runs `onLoadCallback` when the plugin is
- * uploaded to the portal.
+ * uploaded to the portal. The optional `language` field and its `setLanguage`/
+ * `getLanguage` methods let the portal keep the plugin in sync with the current
+ * portal language.
  *
  * ```typescript
- * import { type IPlugin, PluginStatus } from "@onlyoffice/docspace-plugin-sdk";
+ * import { type IPlugin, PluginStatus, PluginLocale } from "@onlyoffice/docspace-plugin-sdk";
  *
  * class Plugin implements IPlugin {
  *   status: PluginStatus = PluginStatus.active;
+ *   language: PluginLocale = PluginLocale.EN_US;
  *
  *   onLoadCallback = async (): Promise<void> => {
  *     try {
@@ -51,6 +54,16 @@ import { PluginLocale, PluginStatus } from "../../enums";
  *
  *   getStatus = (): PluginStatus => {
  *     return this.status;
+ *   };
+ *
+ *   // Called by the portal when the portal language changes
+ *   setLanguage = (language: PluginLocale): void => {
+ *     this.language = language;
+ *   };
+ *
+ *   // Called by the portal to read the current plugin language
+ *   getLanguage = (): PluginLocale => {
+ *     return this.language;
  *   };
  *
  *   setOnLoadCallback = (callback: () => Promise<void>): void => {
