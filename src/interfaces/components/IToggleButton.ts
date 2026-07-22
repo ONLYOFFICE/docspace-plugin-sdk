@@ -21,7 +21,7 @@ import { IMessage } from "../utils";
 /**
  * Custom toggle button input for binary state controls.
  *
- * <plugin-image src="toggle-button.png" />
+ * <plugin-image src="toggle-button.png" dark />
  *
  * @example
  *

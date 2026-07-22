@@ -19,7 +19,7 @@
 /**
  * Plain text.
  *
- * <plugin-image src="text.png" />
+ * <plugin-image src="text.png" dark />
  *
  * @example
  *

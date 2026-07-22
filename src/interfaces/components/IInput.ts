@@ -21,7 +21,7 @@ import { IMessage } from "../utils";
 /**
  * Input field for single-line strings.
  *
- * <plugin-image src="input.png" />
+ * <plugin-image src="input.png" dark />
  *
  * @example
  *

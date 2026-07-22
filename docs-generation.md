@@ -128,7 +128,7 @@ TypeDoc/plugin upgrade changes the output shape.
 
 | Transform | What it fixes |
 | --- | --- |
-| `resolvePluginImageTags` | Rewrites `<plugin-image src="x.png" width="..." />` → `<img src="/assets/images/docspace/x.png" .../>` |
+| `resolvePluginImageTags` | Rewrites `<plugin-image src="x.png" width="..." [dark] />` → `<img src="/assets/images/docspace/x.png" .../>` (a `dark` attribute emits a light/dark pair) |
 | `convertEnumListToTable` | Converts list-format enum members into a `Member / Value / Description` table (all enums except list-format overrides like `Actions`) |
 | `reorderExamplesLast` | Moves `### Example(s)` sections after `### Properties` within each section |
 | `hoistMainSection` | In mixed-kind modules, moves the section matching the file name to the top (fixes Enum-before-Interface ordering) |
@@ -299,6 +299,30 @@ and add the custom tag to the symbol's JSDoc:
 
 `width` is optional. Step 3 rewrites the tag to
 `<img alt="button" src="/assets/images/docspace/button.png" style={{width: "480px"}} />`.
+
+#### Theme-aware images (light / dark)
+
+Add the optional `dark` attribute to emit a light/dark image pair. The docs site hides the
+wrong one per theme via CSS on the `#gh-light-mode-only` / `#gh-dark-mode-only` src suffix
+(`[data-theme='dark'] img[src$='#gh-light-mode-only']` etc.).
+
+```typescript
+/**
+ * <plugin-image src="main-button-plugin.png" width="400px" dark />
+ */
+```
+
+rewrites to two tags:
+
+```html
+<img alt="main-button-plugin" src="/assets/images/docspace/main-button-plugin.png#gh-light-mode-only" style={{width: "400px"}} /><img alt="main-button-plugin" src="/assets/images/docspace/main-button-plugin.dark.png#gh-dark-mode-only" style={{width: "400px"}} />
+```
+
+- A valueless `dark` auto-derives the dark file name by inserting `.dark` before the extension
+  (`main-button-plugin.png` → `main-button-plugin.dark.png`).
+- Use `dark="other-name.png"` to point at an explicitly named dark asset instead.
+- Both files must exist in the site's `assets/images/docspace/` folder.
+- Without the `dark` attribute a single `<img>` is emitted (unchanged behavior).
 
 ### Ordering: `@example` last
 

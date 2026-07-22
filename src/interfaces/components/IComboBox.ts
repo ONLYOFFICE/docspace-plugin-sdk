@@ -21,7 +21,7 @@ import { IMessage } from "../utils";
 /**
  * Custom combo box input.
  *
- * <plugin-image src="combobox.png" />
+ * <plugin-image src="combobox.png" dark />
  *
  * @example
  *

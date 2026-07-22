@@ -420,19 +420,46 @@ function hoistMainSection(filePath) {
 const IMAGE_BASE = "/assets/images/docspace";
 
 /**
- * Replaces <plugin-image src="..." [width="..."] /> tags with <img> elements.
+ * Derives the dark-theme file name from a light-theme one by inserting `.dark`
+ * before the extension: `main-button-plugin.png` -> `main-button-plugin.dark.png`.
+ * @param {string} src
+ * @returns {string}
+ */
+function toDarkSrc(src) {
+	return src.replace(/(\.[^.]+)$/, ".dark$1");
+}
+
+/**
+ * Replaces <plugin-image src="..." [width="..."] [dark[="..."]] /> tags with <img> elements.
  * The src is relative to IMAGE_BASE. Width is optional.
+ *
+ * When the `dark` attribute is present, two theme-aware <img> tags are emitted using the
+ * `#gh-light-mode-only` / `#gh-dark-mode-only` convention that the docs site toggles via CSS
+ * (`[data-theme='dark'] img[src$='#gh-light-mode-only']` etc.). The dark source is either the
+ * explicit value of `dark="..."` or, when the attribute is valueless, auto-derived by inserting
+ * `.dark` before the extension of `src`. Without the `dark` attribute a single <img> is emitted
+ * (backward compatible).
  * @param {string} filePath
  */
 function resolvePluginImageTags(filePath) {
 	if (!existsSync(filePath)) return;
 	const content = readFileSync(filePath, "utf-8");
 	const updated = content.replace(
-		/<plugin-image\s+src=(["'])([^"']+)\1(?:\s+width=(["'])([^"']+)\3)?\s*\/>/g,
-		(_, _q1, src, _q2, width) => {
+		/<plugin-image\s+src=(["'])([^"']+)\1(?:\s+width=(["'])([^"']+)\3)?(\s+dark(?:=(["'])([^"']*)\6)?)?\s*\/>/g,
+		(_match, _q1, src, _q2, width, darkAttr, _q3, darkValue) => {
 			const alt = src.replace(/\.[^.]+$/, "");
 			const styleAttr = width ? ` style={{width: "${width}"}}` : "";
-			return `<img alt="${alt}" src="${IMAGE_BASE}/${src}"${styleAttr} />`;
+
+			// `darkAttr` is undefined only when the `dark` attribute is absent.
+			// A valueless `dark` (or `dark=""`) auto-derives the dark file name.
+			if (darkAttr === undefined) {
+				return `<img alt="${alt}" src="${IMAGE_BASE}/${src}"${styleAttr} />`;
+			}
+
+			const darkSrc = darkValue ? darkValue : toDarkSrc(src);
+			const light = `<img alt="${alt}" src="${IMAGE_BASE}/${src}#gh-light-mode-only"${styleAttr} />`;
+			const dark = `<img alt="${alt}" src="${IMAGE_BASE}/${darkSrc}#gh-dark-mode-only"${styleAttr} />`;
+			return `${light}${dark}`;
 		}
 	);
 	if (updated !== content) writeFileSync(filePath, updated, "utf-8");

@@ -23,7 +23,7 @@ import { IMessage } from "../utils";
  * Describes an item that will be embedded in the file list.
  * The file item can be displayed as a file or a folder.
  *
- * <plugin-image src="file-icon.png" />
+ * <plugin-image src="file-icon.png" dark />
  *
  * @example
  *

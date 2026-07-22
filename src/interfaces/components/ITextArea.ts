@@ -21,7 +21,7 @@ import { IMessage } from "../utils";
 /**
  * Custom textarea.
  *
- * <plugin-image src="textarea.png" />
+ * <plugin-image src="textarea.png" dark />
  *
  * @example
  *

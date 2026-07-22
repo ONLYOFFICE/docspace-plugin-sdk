@@ -21,7 +21,7 @@ import { IMessage } from "../utils";
 /**
  * A component that is used for an action on a page.
  *
- * <plugin-image src="button.png" />
+ * <plugin-image src="button.png" dark />
  *
  * @example
  *

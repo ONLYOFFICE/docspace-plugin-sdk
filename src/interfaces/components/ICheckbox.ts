@@ -21,7 +21,7 @@ import { IMessage } from "../utils";
 /**
  * Custom checkbox.
  *
- * <plugin-image src="checkbox.png" />
+ * <plugin-image src="checkbox.png" dark />
  *
  * @example
  *

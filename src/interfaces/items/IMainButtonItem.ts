@@ -25,7 +25,7 @@ import { IMessage } from "../utils";
  * Items are registered by a plugin implementing
  * [`IMainButtonPlugin`](../plugins/IMainButtonPlugin.md).
  *
- * <plugin-image src="main-button-plugin.png" width="400px" />
+ * <plugin-image src="main-button-plugin.png" width="400px" dark />
  *
  * @example
  *

@@ -27,7 +27,7 @@ import { IBox } from "./IBox";
  * and pass the dialog configuration in `modalDialogProps`.
  * Use [`Actions.closeModal`](../../enums/Actions.md#closemodal) to close it.
  *
- * <plugin-image src="modal-dialog.png" />
+ * <plugin-image src="modal-dialog.png" dark />
  *
  * :::info
  * `dialogBody` and `dialogFooter` are rendered in separate contexts.

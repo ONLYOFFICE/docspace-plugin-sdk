@@ -26,7 +26,7 @@ import { Component } from "./Component";
  * A container that lays out its contents in one direction.
  * Box provides general CSS capabilities like flexbox layout, paddings, background color, border, and animation.
  *
- * <plugin-image src="box.png" />
+ * <plugin-image src="box.png" dark />
  *
  * @example
  *

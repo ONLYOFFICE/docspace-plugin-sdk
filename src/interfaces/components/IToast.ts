@@ -23,7 +23,7 @@
  * [`Actions.showToast`](../../enums/Actions.md#showtoast) in `actions`
  * and pass the toast configuration in the `toastProps` array.
  *
- * <plugin-image src="toast.png" />
+ * <plugin-image src="toast.png" dark />
  *
  * @example
  *

@@ -19,7 +19,7 @@
 /**
  * Field name in the form.
  *
- * <plugin-image src="label.png" />
+ * <plugin-image src="label.png" dark />
  *
  * @example
  *
