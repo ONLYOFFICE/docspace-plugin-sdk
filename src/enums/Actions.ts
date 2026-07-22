@@ -371,10 +371,12 @@ export enum Actions {
 	 * }
 	 * ```
 	 *
-	 * @remarks
-	 * To update the status directly, you can use the "dispatchMessage" callback from the onLoad event.
-	 *
 	 * @example
+	 *
+	 * :::note
+	 * To update the status directly, use the `dispatchMessage` callback from the `onLoad` event.
+	 * :::
+	 *
 	 * ```typescript
 	 * onLoad(dispatchMessage) {
 	 *   const message: IMessage = {

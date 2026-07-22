@@ -29,6 +29,12 @@ import { IBox } from "./IBox";
  *
  * <plugin-image src="modal-dialog.png" />
  *
+ * :::info
+ * `dialogBody` and `dialogFooter` are rendered in separate contexts.
+ * Components in `dialogFooter` cannot update components in `dialogBody` using
+ * `Actions.updateContext`, and vice versa.
+ * :::
+ *
  * @example
  *
  * Interactive document preview modal with dynamic content loading
@@ -174,13 +180,6 @@ import { IBox } from "./IBox";
  *   }
  * }
  * ```
- *
- * @remarks
- * :::info
- * `dialogBody` and `dialogFooter` are rendered in separate contexts.
- * Components in `dialogFooter` cannot update components in `dialogBody` using
- * `Actions.updateContext`, and vice versa.
- * :::
  */
 export interface IModalDialog {
   /** Defines the modal dialog display type
