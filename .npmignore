@@ -1,5 +1,7 @@
 node_modules
 src
 samples
+scripts
+dist-plugins
 onlyoffice-docspace-plugin-sdk-v0.0.1.tgz
 .github

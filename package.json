@@ -30,6 +30,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
+    "build:samples": "node scripts/build-samples.mjs",
     "prepublish": "tsc"
   },
   "devDependencies": {
