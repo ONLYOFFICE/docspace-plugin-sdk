@@ -33,7 +33,7 @@ import {
  * 2. "Sample: Quick Help"   - fires an info toast when clicked.
  */
 class ProfileMenuSample implements IPlugin, IProfileMenuPlugin {
-	// ─── IPlugin ────────────────────────────────────────────────────────────────
+	// --- IPlugin ----------------------------------------------------------------
 
 	status: PluginStatus = PluginStatus.active;
 
@@ -54,7 +54,7 @@ class ProfileMenuSample implements IPlugin, IProfileMenuPlugin {
 		this.onLoadCallback = callback;
 	};
 
-	// ─── IProfileMenuPlugin ──────────────────────────────────────────────────────
+	// --- IProfileMenuPlugin ------------------------------------------------------
 
 	profileMenuItems: Map<string, IProfileMenuItem> = new Map();
 
@@ -71,7 +71,7 @@ class ProfileMenuSample implements IPlugin, IProfileMenuPlugin {
 	};
 }
 
-// ─── Item definitions ─────────────────────────────────────────────────────────
+// --- Item definitions ---------------------------------------------------------
 
 /**
  * 1. Account Info item
@@ -123,7 +123,7 @@ const quickHelpItem: IProfileMenuItem = {
 	}),
 };
 
-// ─── Plugin registration ───────────────────────────────────────────────────────
+// --- Plugin registration -------------------------------------------------------
 
 const plugin = new ProfileMenuSample();
 

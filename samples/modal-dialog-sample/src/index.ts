@@ -37,7 +37,7 @@ import {
  * function is used - showing that IModalDialog can be fully declared once.
  *
  * Flow
- * ────
+ * ----
  * 1. `onLoadCallback` registers a profile-menu item "About Plugin".
  * 2. When the user clicks the item, `onClick` returns
  *    `Actions.showModal` with the module-level `aboutDialog` constant.
@@ -47,7 +47,7 @@ import {
  *    the built-in "x" button via `onClose`.
  *
  * Key IModalDialog features demonstrated
- * ───────────────────────────────────────
+ * ---------------------------------------
  * - `displayType`      - center-screen modal (`ModalDisplayType.modal`).
  * - `dialogHeader`     - static header string.
  * - `dialogBody`       - placeholder box (overwritten by `onLoad`).
@@ -57,7 +57,7 @@ import {
  * - `withFooterBorder` - visual separator between body and footer.
  */
 class ModalDialogPlugin implements IPlugin, IProfileMenuPlugin {
-	// ── IPlugin ──────────────────────────────────────────────────────────────────
+	// -- IPlugin ------------------------------------------------------------------
 
 	status: PluginStatus = PluginStatus.active;
 
@@ -75,7 +75,7 @@ class ModalDialogPlugin implements IPlugin, IProfileMenuPlugin {
 		this.onLoadCallback = callback;
 	};
 
-	// ── IProfileMenuPlugin ────────────────────────────────────────────────────────
+	// -- IProfileMenuPlugin --------------------------------------------------------
 
 	profileMenuItems: Map<string, IProfileMenuItem> = new Map();
 
@@ -90,7 +90,7 @@ class ModalDialogPlugin implements IPlugin, IProfileMenuPlugin {
 	};
 }
 
-// ─── Dialog footer - "Close" button ──────────────────────────────────────────
+// --- Dialog footer - "Close" button ------------------------------------------
 
 const footerBox: IBox = {
 	children: [
@@ -109,7 +109,7 @@ const footerBox: IBox = {
 	]
 };
 
-// ─── Dialog body ──────────────────────────────────────────────────────────────
+// --- Dialog body --------------------------------------------------------------
 
 const bodyBox: IBox = {
 	children: [
@@ -133,7 +133,7 @@ const bodyBox: IBox = {
 	]
 };
 
-// ─── Modal dialog props (module-level constant) ────────────────────────────────
+// --- Modal dialog props (module-level constant) --------------------------------
 
 const aboutDialog: IModalDialog = {
 	displayType: ModalDisplayType.modal,
@@ -155,7 +155,7 @@ const aboutDialog: IModalDialog = {
 	})
 };
 
-// ─── Profile menu item ────────────────────────────────────────────────────────
+// --- Profile menu item --------------------------------------------------------
 
 const aboutItem: IProfileMenuItem = {
 	key: "modal-dialog-sample-about",
@@ -167,7 +167,7 @@ const aboutItem: IProfileMenuItem = {
 	})
 };
 
-// ─── Registration ─────────────────────────────────────────────────────────────
+// --- Registration -------------------------------------------------------------
 
 const plugin = new ModalDialogPlugin();
 

@@ -39,10 +39,10 @@ import {
  * description modal.
  *
  * Flow
- * ────
+ * ----
  * 1. Plugin registers `adminPluginSettings` with an `ISettings` block
  *    containing an API endpoint input and an "Enable Notifications" toggle.
- * 2. When the settings dialog opens, `onLoad` is called — it reads the
+ * 2. When the settings dialog opens, `onLoad` is called - it reads the
  *    persisted settings string (stored by the portal) and populates the
  *    input/toggle with the saved values.
  * 3. Clicking Save calls `Actions.saveSettings` with a JSON string containing
@@ -52,20 +52,20 @@ import {
  *    in-memory state so the UI reflects the latest persisted values.
  *
  * Key features demonstrated
- * ──────────────────────────
- * - `ISettingsPlugin`            — the interface that adds admin settings.
- * - `adminPluginSettings`        — the ISettings block rendered in the dialog.
- * - `setAdminPluginSettings`     — called by the portal to replace the block.
- * - `setAdminPluginSettingsValue`— called by the portal to distribute saved
+ * --------------------------
+ * - `ISettingsPlugin`            - the interface that adds admin settings.
+ * - `adminPluginSettings`        - the ISettings block rendered in the dialog.
+ * - `setAdminPluginSettings`     - called by the portal to replace the block.
+ * - `setAdminPluginSettingsValue`- called by the portal to distribute saved
  *                                  settings to every connected user.
- * - `getAdminPluginSettings`     — returns the current ISettings block.
- * - `ISettings.onLoad`           — hydrates the UI from persisted values.
- * - `Actions.saveSettings`       — triggers portal-side save + distribution.
- * - `IInput` component           — text input for the API endpoint URL.
- * - `IToggleButton` component    — toggle for enabling/disabling notifications.
+ * - `getAdminPluginSettings`     - returns the current ISettings block.
+ * - `ISettings.onLoad`           - hydrates the UI from persisted values.
+ * - `Actions.saveSettings`       - triggers portal-side save + distribution.
+ * - `IInput` component           - text input for the API endpoint URL.
+ * - `IToggleButton` component    - toggle for enabling/disabling notifications.
  */
 
-// ── Mutable state ─────────────────────────────────────────────────────────────
+// -- Mutable state -------------------------------------------------------------
 
 /** Tracks the current endpoint value so the save button can read it. */
 let currentEndpoint = "https://api.example.com";
@@ -73,7 +73,7 @@ let currentEndpoint = "https://api.example.com";
 /** Tracks the current toggle state so the save button can read it. */
 let currentNotifications = true;
 
-// ── Input component ───────────────────────────────────────────────────────────
+// -- Input component -----------------------------------------------------------
 
 const endpointInput: IInput = {
 	value: currentEndpoint,
@@ -90,7 +90,7 @@ const endpointInput: IInput = {
 	},
 };
 
-// ── Toggle component ──────────────────────────────────────────────────────────
+// -- Toggle component ----------------------------------------------------------
 
 const notificationsToggle: IToggleButton = {
 	label: "Enable Notifications",
@@ -108,7 +108,7 @@ const notificationsToggle: IToggleButton = {
 	},
 };
 
-// ── Settings body (IBox) ──────────────────────────────────────────────────────
+// -- Settings body (IBox) ------------------------------------------------------
 
 const settingsBox: IBox = {
 	children: [
@@ -123,7 +123,7 @@ const settingsBox: IBox = {
 	],
 };
 
-// ── Save button ────────────────────────────────────────────────────────────────
+// -- Save button ----------------------------------------------------------------
 
 const saveButton: { component: Components.button; props: IButton } = {
 	component: Components.button,
@@ -148,7 +148,7 @@ const saveButton: { component: Components.button; props: IButton } = {
 	},
 };
 
-// ── ISettings block ───────────────────────────────────────────────────────────
+// -- ISettings block -----------------------------------------------------------
 
 const adminSettings: ISettings = {
 	settings: settingsBox,
@@ -178,10 +178,10 @@ const adminSettings: ISettings = {
 	},
 };
 
-// ── Plugin class ──────────────────────────────────────────────────────────────
+// -- Plugin class --------------------------------------------------------------
 
 class SettingsPlugin implements IPlugin, ISettingsPlugin {
-	// ── IPlugin ──────────────────────────────────────────────────────────────
+	// -- IPlugin --------------------------------------------------------------
 
 	status: PluginStatus = PluginStatus.active;
 
@@ -197,7 +197,7 @@ class SettingsPlugin implements IPlugin, ISettingsPlugin {
 		this.onLoadCallback = callback;
 	};
 
-	// ── ISettingsPlugin ───────────────────────────────────────────────────────
+	// -- ISettingsPlugin -------------------------------------------------------
 
 	adminPluginSettings: ISettings | null = adminSettings;
 
@@ -234,7 +234,7 @@ class SettingsPlugin implements IPlugin, ISettingsPlugin {
 	getAdminPluginSettings = (): ISettings | null => this.adminPluginSettings;
 }
 
-// ── Registration ──────────────────────────────────────────────────────────────
+// -- Registration --------------------------------------------------------------
 
 const plugin = new SettingsPlugin();
 

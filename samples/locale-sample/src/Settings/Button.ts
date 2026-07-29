@@ -42,7 +42,7 @@ const onClick = async (): Promise<IMessage> => ({
 	settings: tokenInput.value,
 });
 
-/** Mutable button props — label is updated by `onLoad` when language changes. */
+/** Mutable button props - label is updated by `onLoad` when language changes. */
 export const saveButtonProps: IButton = {
 	onClick,
 	size: ButtonSize.normal,

@@ -55,24 +55,24 @@ import {
  * each component looks like and how to wire its interactive props.
  *
  * Sections inside the modal
- * ─────────────────────────
- * 1. Text & Labels  — IText, ILabel, ILink
- * 2. Inputs         — IInput (text + password), ITextArea, IComboBox
- * 3. Controls       — IButton, IIconButton, ICheckbox, IToggleButton
- * 4. Media & Layout — IImage, IFrame, ISkeleton, nested IBox
+ * -------------------------
+ * 1. Text & Labels  - IText, ILabel, ILink
+ * 2. Inputs         - IInput (text + password), ITextArea, IComboBox
+ * 3. Controls       - IButton, IIconButton, ICheckbox, IToggleButton
+ * 4. Media & Layout - IImage, IFrame, ISkeleton, nested IBox
  *
  * API patterns demonstrated
- * ─────────────────────────
- * - `Actions.updateProps` — every interactive component mutates its own
+ * -------------------------
+ * - `Actions.updateProps` - every interactive component mutates its own
  *   module-level object and returns the full spread as `newProps`, so
  *   DocSpace re-renders it with the latest state on every change.
- * - `Actions.showToast`   — buttons and action-type links fire toasts.
- * - `Actions.showModal`   — main-button item opens the gallery.
- * - `Actions.closeModal`  — footer button and the × icon dismiss it.
- * - `IModalDialog.onLoad` — body/footer are assembled when the dialog opens.
+ * - `Actions.showToast`   - buttons and action-type links fire toasts.
+ * - `Actions.showModal`   - main-button item opens the gallery.
+ * - `Actions.closeModal`  - footer button and the close icon dismiss it.
+ * - `IModalDialog.onLoad` - body/footer are assembled when the dialog opens.
  */
 
-// ─── Mutable state ─────────────────────────────────────────────────────────────
+// --- Mutable state -------------------------------------------------------------
 //
 // Each interactive component captures one of these variables in its handler
 // closure.  The handler reads the variable for the latest value, flips/sets
@@ -85,12 +85,12 @@ let textAreaText = "Line one\nLine two\nLine three";
 let checkboxChecked = false;
 let toggleChecked = true;
 
-// ─── Section 1 — Text & Labels ────────────────────────────────────────────────
+// --- Section 1 - Text & Labels ------------------------------------------------
 
 /**
  * IText
  *
- * The fundamental text renderer.  All styling is done through props — there
+ * The fundamental text renderer.  All styling is done through props - there
  * is no inner HTML.
  *
  * Key props: text, fontSize, fontWeight, isBold, isItalic, color, lineHeight,
@@ -122,7 +122,7 @@ const textSection: IBox = {
 	displayProp: "flex",
 	flexDirection: "column",
 	children: [
-		// ── Section heading ──────────────────────────────────────────────────────
+		// -- Section heading ------------------------------------------------------
 		{
 			component: Components.text,
 			props: {
@@ -131,7 +131,7 @@ const textSection: IBox = {
 				isBold: true,
 			} as IText,
 		},
-		// ── IText variants ───────────────────────────────────────────────────────
+		// -- IText variants -------------------------------------------------------
 		{
 			component: Components.text,
 			props: {
@@ -156,7 +156,7 @@ const textSection: IBox = {
 				isItalic: true,
 			} as IText,
 		},
-		// ── ILabel variants ──────────────────────────────────────────────────────
+		// -- ILabel variants ------------------------------------------------------
 		{
 			component: Components.label,
 			props: {
@@ -170,7 +170,7 @@ const textSection: IBox = {
 				text: "ILabel — optional field",
 			} as ILabel,
 		},
-		// ── ILink variants ───────────────────────────────────────────────────────
+		// -- ILink variants -------------------------------------------------------
 		{
 			component: Components.link,
 			props: {
@@ -196,10 +196,10 @@ const textSection: IBox = {
 	],
 };
 
-// ─── Section 2 — Inputs ───────────────────────────────────────────────────────
+// --- Section 2 - Inputs -------------------------------------------------------
 
 /**
- * IInput — text variant
+ * IInput - text variant
  *
  * A single-line text field.  onChange receives the current string value.
  *
@@ -207,7 +207,7 @@ const textSection: IBox = {
  * type (InputType.*), placeholder, scale, isDisabled, hasError, hasWarning.
  *
  * updateProps pattern
- * ───────────────────
+ * -------------------
  * 1. Update the module-level variable (keeps future spreads correct).
  * 2. Write the new value back onto the component object itself.
  * 3. Return `{ actions: [Actions.updateProps], newProps: { ...obj, value } }`.
@@ -229,7 +229,7 @@ const textInput: IInput = {
 };
 
 /**
- * IInput — password variant
+ * IInput - password variant
  *
  * type: InputType.password masks the entered characters.
  */
@@ -305,12 +305,12 @@ const inputsSection: IBox = {
 	displayProp: "flex",
 	flexDirection: "column",
 	children: [
-		// ── Section heading ──────────────────────────────────────────────────────
+		// -- Section heading ------------------------------------------------------
 		{
 			component: Components.text,
 			props: { text: "Inputs", fontSize: "15px", isBold: true } as IText,
 		},
-		// ── IInput text ──────────────────────────────────────────────────────────
+		// -- IInput text ----------------------------------------------------------
 		{
 			component: Components.text,
 			props: {
@@ -320,7 +320,7 @@ const inputsSection: IBox = {
 			} as IText,
 		},
 		{ component: Components.input, props: textInput },
-		// ── IInput password ──────────────────────────────────────────────────────
+		// -- IInput password ------------------------------------------------------
 		{
 			component: Components.text,
 			props: {
@@ -330,7 +330,7 @@ const inputsSection: IBox = {
 			} as IText,
 		},
 		{ component: Components.input, props: passwordInput },
-		// ── ITextArea ────────────────────────────────────────────────────────────
+		// -- ITextArea ------------------------------------------------------------
 		{
 			component: Components.text,
 			props: {
@@ -340,7 +340,7 @@ const inputsSection: IBox = {
 			} as IText,
 		},
 		{ component: Components.textArea, props: textArea },
-		// ── IComboBox ────────────────────────────────────────────────────────────
+		// -- IComboBox ------------------------------------------------------------
 		{
 			component: Components.text,
 			props: {
@@ -353,7 +353,7 @@ const inputsSection: IBox = {
 	],
 };
 
-// ─── Section 3 — Controls ─────────────────────────────────────────────────────
+// --- Section 3 - Controls -----------------------------------------------------
 
 /**
  * IButton
@@ -385,7 +385,7 @@ const iconButton: IIconButton = {
 /**
  * ICheckbox
  *
- * A boolean checkbox.  onChange receives NO arguments — read and negate the
+ * A boolean checkbox.  onChange receives NO arguments - read and negate the
  * component object's own isChecked from the closure.
  *
  * Key props: isChecked, label, onChange (), isDisabled, isIndeterminate,
@@ -407,7 +407,7 @@ const checkbox: ICheckbox = {
 /**
  * IToggleButton
  *
- * An on/off toggle switch.  onChange receives NO arguments — same closure
+ * An on/off toggle switch.  onChange receives NO arguments - same closure
  * pattern as ICheckbox.
  *
  * Key props: isChecked, label, onChange (), isDisabled.
@@ -429,12 +429,12 @@ const controlsSection: IBox = {
 	displayProp: "flex",
 	flexDirection: "column",
 	children: [
-		// ── Section heading ──────────────────────────────────────────────────────
+		// -- Section heading ------------------------------------------------------
 		{
 			component: Components.text,
 			props: { text: "Controls", fontSize: "15px", isBold: true } as IText,
 		},
-		// ── IButton row ──────────────────────────────────────────────────────────
+		// -- IButton row ----------------------------------------------------------
 		{
 			component: Components.text,
 			props: {
@@ -490,7 +490,7 @@ const controlsSection: IBox = {
 				],
 			} as IBox,
 		},
-		// ── IIconButton ──────────────────────────────────────────────────────────
+		// -- IIconButton ----------------------------------------------------------
 		{
 			component: Components.text,
 			props: {
@@ -500,14 +500,14 @@ const controlsSection: IBox = {
 			} as IText,
 		},
 		{ component: Components.iconButton, props: iconButton },
-		// ── ICheckbox ────────────────────────────────────────────────────────────
+		// -- ICheckbox ------------------------------------------------------------
 		{ component: Components.checkbox, props: checkbox },
-		// ── IToggleButton ────────────────────────────────────────────────────────
+		// -- IToggleButton --------------------------------------------------------
 		{ component: Components.toggleButton, props: toggleButton },
 	],
 };
 
-// ─── Section 4 — Media & Layout ───────────────────────────────────────────────
+// --- Section 4 - Media & Layout -----------------------------------------------
 
 /**
  * IImage
@@ -559,7 +559,7 @@ const skeleton: ISkeleton = {
 };
 
 /**
- * IBox — nested layout
+ * IBox - nested layout
  *
  * IBox is the only layout primitive available to plugins.  It maps to a
  * styled <div> and supports a subset of CSS flexbox props.
@@ -636,12 +636,12 @@ const mediaSection: IBox = {
 	displayProp: "flex",
 	flexDirection: "column",
 	children: [
-		// ── Section heading ──────────────────────────────────────────────────────
+		// -- Section heading ------------------------------------------------------
 		{
 			component: Components.text,
 			props: { text: "Media & Layout", fontSize: "15px", isBold: true } as IText,
 		},
-		// ── IImage ───────────────────────────────────────────────────────────────
+		// -- IImage ---------------------------------------------------------------
 		{
 			component: Components.text,
 			props: {
@@ -651,7 +651,7 @@ const mediaSection: IBox = {
 			} as IText,
 		},
 		{ component: Components.img, props: image },
-		// ── IFrame ───────────────────────────────────────────────────────────────
+		// -- IFrame ---------------------------------------------------------------
 		{
 			component: Components.text,
 			props: {
@@ -661,7 +661,7 @@ const mediaSection: IBox = {
 			} as IText,
 		},
 		{ component: Components.iFrame, props: frame },
-		// ── ISkeleton ────────────────────────────────────────────────────────────
+		// -- ISkeleton ------------------------------------------------------------
 		{
 			component: Components.text,
 			props: {
@@ -671,7 +671,7 @@ const mediaSection: IBox = {
 			} as IText,
 		},
 		{ component: Components.skeleton, props: skeleton },
-		// ── IBox layout ──────────────────────────────────────────────────────────
+		// -- IBox layout ----------------------------------------------------------
 		{
 			component: Components.text,
 			props: {
@@ -684,7 +684,7 @@ const mediaSection: IBox = {
 	],
 };
 
-// ─── Modal dialog ─────────────────────────────────────────────────────────────
+// --- Modal dialog -------------------------------------------------------------
 
 const galleryFooter: IBox = {
 	children: [
@@ -705,7 +705,7 @@ const galleryDialog: IModalDialog = {
 	displayType: ModalDisplayType.modal,
 	dialogHeader: "Plugin Component Gallery",
 
-	/** Placeholder — overwritten by onLoad before the dialog is shown. */
+	/** Placeholder - overwritten by onLoad before the dialog is shown. */
 	dialogBody: { children: [] },
 
 	withFooterBorder: true,
@@ -735,7 +735,7 @@ const galleryDialog: IModalDialog = {
 	}),
 };
 
-// ─── Main button item ─────────────────────────────────────────────────────────
+// --- Main button item ---------------------------------------------------------
 
 /**
  * The single entry point for this plugin.
@@ -751,10 +751,10 @@ const galleryItem: IMainButtonItem = {
 	}),
 };
 
-// ─── Plugin class ─────────────────────────────────────────────────────────────
+// --- Plugin class -------------------------------------------------------------
 
 class UiComponentsSample implements IPlugin, IMainButtonPlugin {
-	// ── IPlugin ──────────────────────────────────────────────────────────────
+	// -- IPlugin --------------------------------------------------------------
 
 	status: PluginStatus = PluginStatus.active;
 
@@ -772,7 +772,7 @@ class UiComponentsSample implements IPlugin, IMainButtonPlugin {
 		this.onLoadCallback = callback;
 	};
 
-	// ── IMainButtonPlugin ────────────────────────────────────────────────────
+	// -- IMainButtonPlugin ----------------------------------------------------
 
 	mainButtonItems: Map<string, IMainButtonItem> = new Map();
 
@@ -787,7 +787,7 @@ class UiComponentsSample implements IPlugin, IMainButtonPlugin {
 	};
 }
 
-// ─── Registration ─────────────────────────────────────────────────────────────
+// --- Registration -------------------------------------------------------------
 
 const plugin = new UiComponentsSample();
 

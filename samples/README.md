@@ -28,8 +28,8 @@ npm run build:samples -- --help
 
 ## Adding a sample
 
-Create the folder with a `package.json` that has a `build` script — the same layout as
-any existing sample — and that is all. Samples are discovered from the filesystem, so
+Create the folder with a `package.json` that has a `build` script - the same layout as
+any existing sample - and that is all. Samples are discovered from the filesystem, so
 nothing has to be registered: the build script picks up the new folder, notices it is
 missing from `samples/package-lock.json`, refreshes the shared dependencies and builds it.
 
@@ -41,5 +41,5 @@ missing from `samples/package-lock.json`, refreshes the shared dependencies and 
 - `"types": []` in each `tsconfig.json` is deliberate. Sample code is browser-side and
   needs no ambient Node types; without it, TypeScript picks up the hoisted `@types/node`,
   which is newer than the TypeScript version the samples pin and fails to parse.
-- Building a single sample by hand still works — `cd <sample> && npm run build` — the
+- Building a single sample by hand still works - `cd <sample> && npm run build` - the
   binaries and packages resolve from the shared `samples/node_modules`.

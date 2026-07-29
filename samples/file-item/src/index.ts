@@ -38,7 +38,7 @@ import {
  *             Custom type label "Sample: Spreadsheet".
  */
 class FileItemSample implements IPlugin, IFilePlugin {
-	// ─── IPlugin ────────────────────────────────────────────────────────────────
+	// --- IPlugin ----------------------------------------------------------------
 
 	status: PluginStatus = PluginStatus.active;
 
@@ -59,7 +59,7 @@ class FileItemSample implements IPlugin, IFilePlugin {
 		this.onLoadCallback = callback;
 	};
 
-	// ─── IFilePlugin ──────────────────────────────────────────────────────────
+	// --- IFilePlugin ----------------------------------------------------------
 
 	fileItems: Map<string, IFileItem> = new Map();
 
@@ -76,7 +76,7 @@ class FileItemSample implements IPlugin, IFilePlugin {
 	};
 }
 
-// ─── Item definitions ─────────────────────────────────────────────────────────
+// --- Item definitions ---------------------------------------------------------
 
 /**
  * 1. PDF handler
@@ -132,7 +132,7 @@ const xlsxItem: IFileItem = {
 	})
 };
 
-// ─── Plugin registration ───────────────────────────────────────────────────────
+// --- Plugin registration -------------------------------------------------------
 
 const plugin = new FileItemSample();
 

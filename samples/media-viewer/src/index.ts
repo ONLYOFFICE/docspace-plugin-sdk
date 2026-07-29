@@ -35,14 +35,14 @@ import {
  *
  * Two items demonstrating the core media viewer API:
  *
- * 1. ".mp4" handler — intercepts video file clicks and opens a custom media viewer.
+ * 1. ".mp4" handler - intercepts video file clicks and opens a custom media viewer.
  *                     Shows an info toast via the `onLoad` callback.
  *
- * 2. ".jpg" handler — same pattern for image files.
+ * 2. ".jpg" handler - same pattern for image files.
  *                     Shows a success toast via the `onLoad` callback.
  */
 class MediaViewerSample implements IPlugin, IFilePlugin {
-	// ─── IPlugin ────────────────────────────────────────────────────────────────
+	// --- IPlugin ----------------------------------------------------------------
 
 	status: PluginStatus = PluginStatus.active;
 
@@ -63,7 +63,7 @@ class MediaViewerSample implements IPlugin, IFilePlugin {
 		this.onLoadCallback = callback;
 	};
 
-	// ─── IFilePlugin ──────────────────────────────────────────────────────────
+	// --- IFilePlugin ----------------------------------------------------------
 
 	fileItems: Map<string, IFileItem> = new Map();
 
@@ -80,7 +80,7 @@ class MediaViewerSample implements IPlugin, IFilePlugin {
 	};
 }
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
+// --- Helpers ------------------------------------------------------------------
 
 function buildViewerContent(fileTitle: string): IBox {
 	const title: TextGroup = {
@@ -140,7 +140,7 @@ function buildMediaViewerProps(
 	};
 }
 
-// ─── Item definitions ─────────────────────────────────────────────────────────
+// --- Item definitions ---------------------------------------------------------
 
 /**
  * 1. MP4 handler
@@ -149,12 +149,12 @@ function buildMediaViewerProps(
  * Opens the DocSpace media viewer with custom plugin content.
  *
  * Key API features demonstrated:
- * - `Actions.showMediaViewer` — opens the media viewer with plugin content.
- * - `mediaViewerProps.content` — IBox rendered inside the viewer.
- * - `mediaViewerProps.onLoad`  — fires an info toast when the viewer mounts.
- * - `mediaViewerProps.onClose` — closes the viewer with Actions.closeMediaViewer.
- * - `mediaViewerProps.playlistFilter` — restricts playlist to media/image files.
- * - `mediaViewerProps.navigation` — callbacks for next/prev navigation.
+ * - `Actions.showMediaViewer` - opens the media viewer with plugin content.
+ * - `mediaViewerProps.content` - IBox rendered inside the viewer.
+ * - `mediaViewerProps.onLoad`  - fires an info toast when the viewer mounts.
+ * - `mediaViewerProps.onClose` - closes the viewer with Actions.closeMediaViewer.
+ * - `mediaViewerProps.playlistFilter` - restricts playlist to media/image files.
+ * - `mediaViewerProps.navigation` - callbacks for next/prev navigation.
  */
 const mp4Item: IFileItem = {
 	extension: ".mp4",
@@ -191,7 +191,7 @@ const jpgItem: IFileItem = {
 	})
 };
 
-// ─── Plugin registration ───────────────────────────────────────────────────────
+// --- Plugin registration -------------------------------------------------------
 
 const plugin = new MediaViewerSample();
 

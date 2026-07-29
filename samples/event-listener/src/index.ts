@@ -30,11 +30,11 @@ import {
  *
  * Two items demonstrating the core event listener API:
  *
- * 1. "Create Listener"      — fires an info toast when a file or folder is created.
- * 2. "Room Create Listener" — fires a success toast when a room is created.
+ * 1. "Create Listener"      - fires an info toast when a file or folder is created.
+ * 2. "Room Create Listener" - fires a success toast when a room is created.
  */
 class EventListenerSample implements IPlugin, IEventListenerPlugin {
-	// ─── IPlugin ────────────────────────────────────────────────────────────────
+	// --- IPlugin ----------------------------------------------------------------
 
 	status: PluginStatus = PluginStatus.active;
 
@@ -55,7 +55,7 @@ class EventListenerSample implements IPlugin, IEventListenerPlugin {
 		this.onLoadCallback = callback;
 	};
 
-	// ─── IEventListenerPlugin ────────────────────────────────────────────────────
+	// --- IEventListenerPlugin ----------------------------------------------------
 
 	eventListenerItems: Map<string, IEventListenerItem> = new Map();
 
@@ -68,7 +68,7 @@ class EventListenerSample implements IPlugin, IEventListenerPlugin {
 	};
 }
 
-// ─── Item definitions ─────────────────────────────────────────────────────────
+// --- Item definitions ---------------------------------------------------------
 
 /**
  * 1. Create Listener
@@ -77,7 +77,7 @@ class EventListenerSample implements IPlugin, IEventListenerPlugin {
  * (e.g. when the user creates a new file or folder via the UI).
  *
  * Key API features demonstrated:
- * - `eventType` set to `Events.CREATE` — subscribes to the "create" window event.
+ * - `eventType` set to `Events.CREATE` - subscribes to the "create" window event.
  * - `eventHandler` returning an IMessage with a ToastType.info notification.
  */
 const createListenerItem: IEventListenerItem = {
@@ -101,7 +101,7 @@ const createListenerItem: IEventListenerItem = {
  * (e.g. when the user opens the Create Room dialog).
  *
  * Key API features demonstrated:
- * - `eventType` set to `Events.ROOM_CREATE` — subscribes to the "create_room" window event.
+ * - `eventType` set to `Events.ROOM_CREATE` - subscribes to the "create_room" window event.
  * - `eventHandler` returning an IMessage with a ToastType.success notification.
  */
 const roomCreateListenerItem: IEventListenerItem = {
@@ -118,7 +118,7 @@ const roomCreateListenerItem: IEventListenerItem = {
 	}),
 };
 
-// ─── Plugin registration ───────────────────────────────────────────────────────
+// --- Plugin registration -------------------------------------------------------
 
 const plugin = new EventListenerSample();
 

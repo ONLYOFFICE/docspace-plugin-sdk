@@ -34,7 +34,7 @@ import {
  * tracks the progress of long-running operations (uploads, conversions, etc.).
  *
  * Flow
- * ────
+ * ----
  * 1. `onLoadCallback` registers one context-menu item: "Sample: Upload with progress".
  * 2. Clicking the item on a file triggers `addFloatingOperationsButton`, which
  *    shows the floating button with one Upload operation.
@@ -53,7 +53,7 @@ import {
  *    and returns `updateFloatingOperationsButton`.
  *
  * Key IFloatingOperationsButton features demonstrated
- * ────────────────────────────────────────────────────
+ * ----------------------------------------------------
  * - `id`                        - unique button identifier.
  * - `operations`                - array of IFloatingOperation items.
  * - `operationsCompleted`       - signals all operations are done.
@@ -63,7 +63,7 @@ import {
  * - `onLoad`                    - starts the progress timer via dispatchMessage.
  */
 class FloatingOperationsPlugin implements IPlugin, IContextMenuPlugin {
-	// ─── IPlugin ────────────────────────────────────────────────────────────────
+	// --- IPlugin ----------------------------------------------------------------
 
 	status: PluginStatus = PluginStatus.active;
 
@@ -81,7 +81,7 @@ class FloatingOperationsPlugin implements IPlugin, IContextMenuPlugin {
 		this.onLoadCallback = callback;
 	};
 
-	// ─── IContextMenuPlugin ─────────────────────────────────────────────────────
+	// --- IContextMenuPlugin -----------------------------------------------------
 
 	contextMenuItems: Map<string, IContextMenuItem> = new Map();
 
@@ -100,7 +100,7 @@ class FloatingOperationsPlugin implements IPlugin, IContextMenuPlugin {
 	};
 }
 
-// ─── Operation template ────────────────────────────────────────────────────────
+// --- Operation template --------------------------------------------------------
 
 const initialOperation: IFloatingOperation = {
 	id: "floating-operations-upload-doc",
@@ -112,7 +112,7 @@ const initialOperation: IFloatingOperation = {
 	icon: "docspace-icon.svg",
 };
 
-// ─── Upload-in-progress guard ──────────────────────────────────────────────────
+// --- Upload-in-progress guard --------------------------------------------------
 
 /** Prevents a second upload from starting while one is already running. */
 let isUploading = false;
@@ -120,7 +120,7 @@ let isUploading = false;
 /** Reference to the active interval so it can be cancelled at any time. */
 let intervalId: ReturnType<typeof setInterval> | null = null;
 
-// ─── Floating operations button ────────────────────────────────────────────────
+// --- Floating operations button ------------------------------------------------
 
 const uploadButton: IFloatingOperationsButton = {
 	id: "floating-operations-button",
@@ -198,7 +198,7 @@ const uploadButton: IFloatingOperationsButton = {
 	},
 };
 
-// ─── Context menu item ────────────────────────────────────────────────────────
+// --- Context menu item --------------------------------------------------------
 
 const uploadItem: IContextMenuItem = {
 	key: "floating-operations-upload",
@@ -225,7 +225,7 @@ const uploadItem: IContextMenuItem = {
 	},
 };
 
-// ─── Plugin registration ───────────────────────────────────────────────────────
+// --- Plugin registration -------------------------------------------------------
 
 const plugin = new FloatingOperationsPlugin();
 

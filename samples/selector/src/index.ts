@@ -35,16 +35,16 @@ import {
  *
  * Five context menu items demonstrating all DocSpace selector types:
  *
- * 1. "Base selector"  — a custom static list of items (no API calls).
- * 2. "File selector"  — browses files and folders via the DocSpace file API.
- * 3. "Room selector"  — browses rooms via the DocSpace rooms API.
- * 4. "Group selector" — lists user groups via the DocSpace groups API.
- * 5. "User selector"  — lists users/people via the DocSpace people API.
+ * 1. "Base selector"  - a custom static list of items (no API calls).
+ * 2. "File selector"  - browses files and folders via the DocSpace file API.
+ * 3. "Room selector"  - browses rooms via the DocSpace rooms API.
+ * 4. "Group selector" - lists user groups via the DocSpace groups API.
+ * 5. "User selector"  - lists users/people via the DocSpace people API.
  *
  * Each selector closes on submit and shows a success toast.
  */
 class SelectorSample implements IPlugin, IContextMenuPlugin {
-	// ─── IPlugin ────────────────────────────────────────────────────────────────
+	// --- IPlugin ----------------------------------------------------------------
 
 	status: PluginStatus = PluginStatus.active;
 
@@ -68,7 +68,7 @@ class SelectorSample implements IPlugin, IContextMenuPlugin {
 		this.onLoadCallback = callback;
 	};
 
-	// ─── IContextMenuPlugin ──────────────────────────────────────────────────────
+	// --- IContextMenuPlugin ------------------------------------------------------
 
 	contextMenuItems: Map<string, IContextMenuItem> = new Map();
 
@@ -89,20 +89,20 @@ class SelectorSample implements IPlugin, IContextMenuPlugin {
 	};
 }
 
-// ─── Item definitions ─────────────────────────────────────────────────────────
+// --- Item definitions ---------------------------------------------------------
 
 /**
  * 1. Base selector
  *
  * Opens a selector with a hard-coded list of three items.
- * This is the simplest selector type — no API calls, full control over content.
+ * This is the simplest selector type - no API calls, full control over content.
  *
  * Key API features demonstrated:
- * - `SelectorType.Base`      — custom item list managed entirely by the plugin.
- * - `items`                  — static array of `{ id, label }` objects.
- * - `isMultiSelect`          — allows choosing more than one item at once.
- * - `onSubmit`               — receives `selectedIds[]`, closes selector, shows toast.
- * - `onCancel`               — closes selector when Cancel is clicked.
+ * - `SelectorType.Base`      - custom item list managed entirely by the plugin.
+ * - `items`                  - static array of `{ id, label }` objects.
+ * - `isMultiSelect`          - allows choosing more than one item at once.
+ * - `onSubmit`               - receives `selectedIds[]`, closes selector, shows toast.
+ * - `onCancel`               - closes selector when Cancel is clicked.
  */
 const baseItem: IContextMenuItem = {
 	key: "selector-sample-base",
@@ -159,11 +159,11 @@ const baseItem: IContextMenuItem = {
  * The submit button is disabled while the user is at the root level.
  *
  * Key API features demonstrated:
- * - `SelectorType.Files`     — integrates with the live DocSpace file API.
- * - `withBreadCrumbs`        — shows a navigation trail.
- * - `withSearch`             — enables the search bar.
- * - `getIsDisabled`          — disables submit at the root (must navigate into a folder first).
- * - `onSubmit`               — receives `folderTitle`, closes selector, shows toast.
+ * - `SelectorType.Files`     - integrates with the live DocSpace file API.
+ * - `withBreadCrumbs`        - shows a navigation trail.
+ * - `withSearch`             - enables the search bar.
+ * - `getIsDisabled`          - disables submit at the root (must navigate into a folder first).
+ * - `onSubmit`               - receives `folderTitle`, closes selector, shows toast.
  */
 const fileItem: IContextMenuItem = {
 	key: "selector-sample-file",
@@ -214,9 +214,9 @@ const fileItem: IContextMenuItem = {
  * Opens the DocSpace room browser.
  *
  * Key API features demonstrated:
- * - `SelectorType.Room`      — integrates with the live DocSpace rooms API.
- * - `withSearch`             — enables the search bar.
- * - `onSubmit`               — receives `selectedIds[]` (room IDs), shows toast.
+ * - `SelectorType.Room`      - integrates with the live DocSpace rooms API.
+ * - `withSearch`             - enables the search bar.
+ * - `onSubmit`               - receives `selectedIds[]` (room IDs), shows toast.
  */
 const roomItem: IContextMenuItem = {
 	key: "selector-sample-room",
@@ -256,11 +256,11 @@ const roomItem: IContextMenuItem = {
  * 4. Group selector
  *
  * Opens the DocSpace group browser.
- * This selector type has a minimal API — only a header and onSubmit are needed.
+ * This selector type has a minimal API - only a header and onSubmit are needed.
  *
  * Key API features demonstrated:
- * - `SelectorType.Groups`    — integrates with the live DocSpace groups API.
- * - `onSubmit`               — receives `selectedIds[]` (group IDs), shows toast.
+ * - `SelectorType.Groups`    - integrates with the live DocSpace groups API.
+ * - `onSubmit`               - receives `selectedIds[]` (group IDs), shows toast.
  */
 const groupItem: IContextMenuItem = {
 	key: "selector-sample-group",
@@ -297,10 +297,10 @@ const groupItem: IContextMenuItem = {
  * Opens the DocSpace user browser with multi-select enabled.
  *
  * Key API features demonstrated:
- * - `SelectorType.People`    — integrates with the live DocSpace people API.
- * - `isMultiSelect`          — allows selecting multiple users at once.
- * - `withGroups`             — includes groups alongside individual users.
- * - `onSubmit`               — receives `selectedIds[]` (user IDs), shows toast.
+ * - `SelectorType.People`    - integrates with the live DocSpace people API.
+ * - `isMultiSelect`          - allows selecting multiple users at once.
+ * - `withGroups`             - includes groups alongside individual users.
+ * - `onSubmit`               - receives `selectedIds[]` (user IDs), shows toast.
  */
 const userItem: IContextMenuItem = {
 	key: "selector-sample-user",
@@ -337,7 +337,7 @@ const userItem: IContextMenuItem = {
 	}
 };
 
-// ─── Plugin registration ───────────────────────────────────────────────────────
+// --- Plugin registration -------------------------------------------------------
 
 const plugin = new SelectorSample();
 

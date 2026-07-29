@@ -39,7 +39,7 @@ import {
  * from an embedded iframe and trigger portal-side actions.
  *
  * Flow
- * ────
+ * ----
  * 1. `onLoadCallback` registers a profile-menu item "Open PostMessage Panel".
  * 2.  window.parent.addEventListener("message", ...)` handler
  *    is installed.  It parses incoming postMessage events and, when
@@ -48,29 +48,29 @@ import {
  * 3. When the user clicks the menu item, `onClick` returns
  *    `Actions.showModal` with the module-level `postMessageDialog` constant.
  * 4. DocSpace renders a PluginDialog containing an IFrame whose `src` is a
- *    `data:text/html` URI built inline — no separate HTML asset is required.
+ *    `data:text/html` URI built inline - no separate HTML asset is required.
  *    `onLoad` is called immediately and returns the real dialog body and footer.
  * 5. The iframe page has a button that calls
  *    `window.parent.postMessage({ source: "post-message-plugin", ... }, "*")`.
  *    The listener installed in step 2 catches this and fires the toast.
  *
  * Key features demonstrated
- * ──────────────────────────
- * - `IPostMessagePlugin`       — the interface that grants postMessage access.
- * - `postMessageCallback`      — set by the portal; called by the plugin to
+ * --------------------------
+ * - `IPostMessagePlugin`       - the interface that grants postMessage access.
+ * - `postMessageCallback`      - set by the portal; called by the plugin to
  *                                 trigger portal-side actions.
- * - `setPostMessageCallback`   — portal calls this to register the callback.
- * - `getPostMessageCallback`   — portal calls this to retrieve the callback.
- * - `window.parent.addEventListener` — the plugin runs inside a hidden iframe;
+ * - `setPostMessageCallback`   - portal calls this to register the callback.
+ * - `getPostMessageCallback`   - portal calls this to retrieve the callback.
+ * - `window.parent.addEventListener` - the plugin runs inside a hidden iframe;
  *                                 `window.parent` is the portal window where
  *                                 visible iframes deliver their messages.
- * - `IFrame` component         — embeds an inline `data:text/html` page inside the dialog.
- * - `ModalDisplayType.modal`   — center-screen modal dialog.
- * - `onLoad`                   — returns real body and footer after the shell
+ * - `IFrame` component         - embeds an inline `data:text/html` page inside the dialog.
+ * - `ModalDisplayType.modal`   - center-screen modal dialog.
+ * - `onLoad`                   - returns real body and footer after the shell
  *                                 dialog is already visible.
  */
 class PostMessagePlugin implements IPlugin, IProfileMenuPlugin, IPostMessagePlugin {
-	// ── IPlugin ──────────────────────────────────────────────────────────────────
+	// -- IPlugin ------------------------------------------------------------------
 
 	status: PluginStatus = PluginStatus.active;
 
@@ -88,7 +88,7 @@ class PostMessagePlugin implements IPlugin, IProfileMenuPlugin, IPostMessagePlug
 		this.onLoadCallback = callback;
 	};
 
-	// ── IProfileMenuPlugin ────────────────────────────────────────────────────────
+	// -- IProfileMenuPlugin --------------------------------------------------------
 
 	profileMenuItems: Map<string, IProfileMenuItem> = new Map();
 
@@ -102,7 +102,7 @@ class PostMessagePlugin implements IPlugin, IProfileMenuPlugin, IPostMessagePlug
 		this.profileMenuItems.set(item.key, item);
 	};
 
-	// ── IPostMessagePlugin ────────────────────────────────────────────────────────
+	// -- IPostMessagePlugin --------------------------------------------------------
 
 	/** Callback registered by the portal; initially a no-op. */
 	postMessageCallback: (message: IPostMessageCallbackMessage) => void = () => {};
@@ -118,7 +118,7 @@ class PostMessagePlugin implements IPlugin, IProfileMenuPlugin, IPostMessagePlug
 	};
 }
 
-// ─── Dialog footer — "Close" button ──────────────────────────────────────────
+// --- Dialog footer - "Close" button ------------------------------------------
 
 const footerBox: IBox = {
 	children: [
@@ -137,11 +137,11 @@ const footerBox: IBox = {
 	]
 };
 
-// ─── Iframe HTML — defined inline so no separate asset file is needed ─────────
+// --- Iframe HTML - defined inline so no separate asset file is needed ---------
 //
 // The page has a single button that fires window.parent.postMessage with
 // source: "post-message-plugin".  The plugin's message listener (installed in
-// the constructor) catches this and calls postMessageCallback → showToast.
+// the constructor) catches this and calls postMessageCallback -> showToast.
 
 const iframeHtml = `
 <!DOCTYPE html>
@@ -152,7 +152,7 @@ const iframeHtml = `
 </html>
 `;
 
-// ─── Embedded iframe using a data URI — no server-side asset required ──────────
+// --- Embedded iframe using a data URI - no server-side asset required ----------
 
 const frameProps: IFrame = {
 	src: "data:text/html;charset=utf-8," + encodeURIComponent(iframeHtml),
@@ -164,7 +164,7 @@ const frameProps: IFrame = {
 	style: { border: "none" }
 };
 
-// ─── Dialog body — the IFrame component ──────────────────────────────────────
+// --- Dialog body - the IFrame component --------------------------------------
 
 const bodyBox: IBox = {
 	children: [
@@ -175,13 +175,13 @@ const bodyBox: IBox = {
 	]
 };
 
-// ─── Modal dialog props (module-level constant) ────────────────────────────────
+// --- Modal dialog props (module-level constant) --------------------------------
 
 const postMessageDialog: IModalDialog = {
 	displayType: ModalDisplayType.modal,
 	dialogHeader: "PostMessage Plugin Demo",
 
-	/** Placeholder body — replaced by onLoad before the dialog is shown. */
+	/** Placeholder body - replaced by onLoad before the dialog is shown. */
 	dialogBody: { children: [] },
 
 	withFooterBorder: true,
@@ -198,7 +198,7 @@ const postMessageDialog: IModalDialog = {
 	})
 };
 
-// ─── Profile menu item ────────────────────────────────────────────────────────
+// --- Profile menu item --------------------------------------------------------
 
 const openPanelItem: IProfileMenuItem = {
 	key: "post-message-open-panel",
@@ -210,7 +210,7 @@ const openPanelItem: IProfileMenuItem = {
 	})
 };
 
-// ─── Registration ─────────────────────────────────────────────────────────────
+// --- Registration -------------------------------------------------------------
 
 const plugin = new PostMessagePlugin();
 

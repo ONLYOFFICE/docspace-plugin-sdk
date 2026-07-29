@@ -31,13 +31,13 @@ import {
  *
  * Demonstrates the four main patterns for adding items to the DocSpace context menu:
  *
- * 1. Basic item    — visible on all file types, pinned to the top of the menu.
- * 2. Filtered item — visible only on Office documents (.docx, .xlsx, .pptx).
- * 3. Submenu       — a parent item with nested child items (max 2 levels).
- * 4. Group action  — appears in the toolbar when multiple items are selected.
+ * 1. Basic item    - visible on all file types, pinned to the top of the menu.
+ * 2. Filtered item - visible only on Office documents (.docx, .xlsx, .pptx).
+ * 3. Submenu       - a parent item with nested child items (max 2 levels).
+ * 4. Group action  - appears in the toolbar when multiple items are selected.
  */
 class ContextMenuSample implements IPlugin, IContextMenuPlugin {
-	// ─── IPlugin ────────────────────────────────────────────────────────────────
+	// --- IPlugin ----------------------------------------------------------------
 
 	status: PluginStatus = PluginStatus.active;
 
@@ -61,7 +61,7 @@ class ContextMenuSample implements IPlugin, IContextMenuPlugin {
 		this.onLoadCallback = callback
 	};
 
-	// ─── IContextMenuPlugin ─────────────────────────────────────────────────────
+	// --- IContextMenuPlugin -----------------------------------------------------
 
 	contextMenuItems: Map<string, IContextMenuItem> = new Map();
 
@@ -82,7 +82,7 @@ class ContextMenuSample implements IPlugin, IContextMenuPlugin {
 	};
 }
 
-// ─── Item Definitions ─────────────────────────────────────────────────────────
+// --- Item Definitions ---------------------------------------------------------
 
 /**
  * 1. Basic item
@@ -91,8 +91,8 @@ class ContextMenuSample implements IPlugin, IContextMenuPlugin {
  * Clicking it shows a success toast with the selected item's ID.
  *
  * Key API features demonstrated:
- * - `placement: "top"` — pins the item above the default "More Options" submenu.
- * - `onItemClick`      — preferred single-selection callback (supports string | number IDs).
+ * - `placement: "top"` - pins the item above the default "More Options" submenu.
+ * - `onItemClick`      - preferred single-selection callback (supports string | number IDs).
  */
 const basicItem: IContextMenuItem = {
 	key: "context-menu-sample-basic",
@@ -119,8 +119,8 @@ const basicItem: IContextMenuItem = {
  * Any other file type or extension will not show this item.
  *
  * Key API features demonstrated:
- * - `fileType`  — restricts visibility to the "file" entity type.
- * - `fileExt`   — further restricts to specific file extensions.
+ * - `fileType`  - restricts visibility to the "file" entity type.
+ * - `fileExt`   - further restricts to specific file extensions.
  */
 const filteredItem: IContextMenuItem = {
 	key: "context-menu-sample-filtered",
@@ -145,10 +145,10 @@ const filteredItem: IContextMenuItem = {
  * 3. Submenu
  *
  * A parent item that expands into two child actions.
- * The parent itself has no click handler — interaction happens on the children.
+ * The parent itself has no click handler - interaction happens on the children.
  *
  * Key API features demonstrated:
- * - `items` — array of child IContextMenuItems (max 2 levels deep).
+ * - `items` - array of child IContextMenuItems (max 2 levels deep).
  *   Note: child items cannot use `items` or `placement` themselves.
  */
 const submenuItem: IContextMenuItem = {
@@ -198,11 +198,11 @@ const submenuItem: IContextMenuItem = {
  * Receives the full list of selected items and returns a summary toast.
  *
  * Key API features demonstrated:
- * - `isGroupAction: true` — hides the item in single-selection menus and shows
+ * - `isGroupAction: true` - hides the item in single-selection menus and shows
  *   it in the group-action toolbar instead.
- * - `onGroupClick`        — receives a GroupItem[] with id and itemType for each
+ * - `onGroupClick`        - receives a GroupItem[] with id and itemType for each
  *   selected file, folder, or room.
- * - `fileType`            — limits scope to files and folders (rooms excluded).
+ * - `fileType`            - limits scope to files and folders (rooms excluded).
  */
 const groupItem: IContextMenuItem = {
 	key: "context-menu-sample-group",
@@ -226,7 +226,7 @@ const groupItem: IContextMenuItem = {
 	}
 }
 
-// ─── Plugin registration ───────────────────────────────────────────────────────
+// --- Plugin registration -------------------------------------------------------
 
 const plugin = new ContextMenuSample()
 

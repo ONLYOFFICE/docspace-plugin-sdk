@@ -31,13 +31,13 @@ import {
  *
  * Two items demonstrating the core article button API:
  *
- * 1. "Notification Button" — a simple icon button in the article sidebar
+ * 1. "Notification Button" - a simple icon button in the article sidebar
  *                            that fires a success toast when clicked.
- * 2. "Status Button"       — demonstrates the onLoad pattern:
+ * 2. "Status Button"       - demonstrates the onLoad pattern:
  *                            starts as a skeleton, then loads an icon button.
  */
 class ArticleButtonSample implements IPlugin, IArticleButtonPlugin {
-	// ─── IPlugin ────────────────────────────────────────────────────────────────
+	// --- IPlugin ----------------------------------------------------------------
 
 	status: PluginStatus = PluginStatus.active;
 
@@ -58,7 +58,7 @@ class ArticleButtonSample implements IPlugin, IArticleButtonPlugin {
 		this.onLoadCallback = callback;
 	};
 
-	// ─── IArticleButtonPlugin ────────────────────────────────────────────────────
+	// --- IArticleButtonPlugin ----------------------------------------------------
 
 	articleButtonItems: Map<string, IArticleButtonItem> = new Map();
 
@@ -75,7 +75,7 @@ class ArticleButtonSample implements IPlugin, IArticleButtonPlugin {
 	};
 }
 
-// ─── Item definitions ─────────────────────────────────────────────────────────
+// --- Item definitions ---------------------------------------------------------
 
 /**
  * 1. Notification Button
@@ -174,7 +174,7 @@ const statusItem: IArticleButtonItem = {
 	})
 };
 
-// ─── Plugin registration ───────────────────────────────────────────────────────
+// --- Plugin registration -------------------------------------------------------
 
 const plugin = new ArticleButtonSample();
 

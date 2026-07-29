@@ -33,16 +33,16 @@ import {
  *
  * Four tabs demonstrating the core info panel API:
  *
- * 1. "Sample"       — visible for any file or folder; uses subMenu.onClick for a toast.
- * 2. "Image info"   — visible only for image files; uses onLoad to populate the body
+ * 1. "Sample"       - visible for any file or folder; uses subMenu.onClick for a toast.
+ * 2. "Image info"   - visible only for image files; uses onLoad to populate the body
  *                     asynchronously after the tab is opened.
- * 3. "Beta"         — visible for any file or folder; demonstrates a second tab with
+ * 3. "Beta"         - visible for any file or folder; demonstrates a second tab with
  *                     distinct body content (no onLoad).
- * 4. "File details" — visible only for files (not folders); demonstrates filesType
+ * 4. "File details" - visible only for files (not folders); demonstrates filesType
  *                     filtering without onLoad.
  */
 class InfoPanelSample implements IPlugin, IInfoPanelPlugin {
-	// ─── IPlugin ────────────────────────────────────────────────────────────────
+	// --- IPlugin ----------------------------------------------------------------
 
 	status: PluginStatus = PluginStatus.active;
 
@@ -65,7 +65,7 @@ class InfoPanelSample implements IPlugin, IInfoPanelPlugin {
 		this.onLoadCallback = callback;
 	};
 
-	// ─── IInfoPanelPlugin ────────────────────────────────────────────────────────
+	// --- IInfoPanelPlugin --------------------------------------------------------
 
 	infoPanelItems: Map<string, IInfoPanelItem> = new Map();
 
@@ -82,7 +82,7 @@ class InfoPanelSample implements IPlugin, IInfoPanelPlugin {
 	};
 }
 
-// ─── Item definitions ─────────────────────────────────────────────────────────
+// --- Item definitions ---------------------------------------------------------
 
 /**
  * 1. General tab
@@ -230,7 +230,7 @@ const fileOnlyItem: IInfoPanelItem = {
 	devices: [Devices.desktop]
 };
 
-// ─── Plugin registration ───────────────────────────────────────────────────────
+// --- Plugin registration -------------------------------------------------------
 
 const plugin = new InfoPanelSample();
 

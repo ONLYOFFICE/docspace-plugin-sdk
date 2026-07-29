@@ -29,12 +29,12 @@ import {
  * API Sample Plugin
  *
  * Demonstrates how a plugin uses IApiPlugin to build an authenticated
- * URL and call the DocSpace REST API from the same origin — no explicit
+ * URL and call the DocSpace REST API from the same origin - no explicit
  * auth token is required because the browser sends session cookies
  * automatically when `credentials: "include"` is set.
  *
  * Flow
- * ────
+ * ----
  * 1. The host application calls `setAPI(origin, proxy, prefix)` before
  *    `onLoadCallback` runs (because the plugin scope includes "API").
  * 2. `onLoadCallback` calls `createAPIUrl()` to assemble the base URL
@@ -43,14 +43,14 @@ import {
  *    `{apiURL}/files/rooms` and shows a toast with the new room's title.
  *
  * URL assembly example
- * ────────────────────
+ * --------------------
  *   origin = "https://docspace.example.com"
- *   proxy  = ""          (empty — no additional proxy segment)
+ *   proxy  = ""          (empty - no additional proxy segment)
  *   prefix = "/api/2.0"
- *   → apiURL = "https://docspace.example.com/api/2.0"
+ *   -> apiURL = "https://docspace.example.com/api/2.0"
  */
 class Apiplugin implements IPlugin, IApiPlugin, IProfileMenuPlugin {
-	// ─── IPlugin ────────────────────────────────────────────────────────────────
+	// --- IPlugin ----------------------------------------------------------------
 
 	status: PluginStatus = PluginStatus.active;
 
@@ -69,7 +69,7 @@ class Apiplugin implements IPlugin, IApiPlugin, IProfileMenuPlugin {
 		this.onLoadCallback = callback;
 	};
 
-	// ─── IApiPlugin ──────────────────────────────────────────────────────────────
+	// --- IApiPlugin --------------------------------------------------------------
 
 	origin = "";
 	proxy = "";
@@ -86,8 +86,8 @@ class Apiplugin implements IPlugin, IApiPlugin, IProfileMenuPlugin {
 	 * normalising leading/trailing slashes so no double-slash appears.
 	 *
 	 *   origin = "https://docspace.example.com/"
-	 *   proxy  = "/api"          → "api"
-	 *   prefix = "/2.0"          → "2.0"
+	 *   proxy  = "/api"          -> "api"
+	 *   prefix = "/2.0"          -> "2.0"
 	 *   apiURL = "https://docspace.example.com/api/2.0"
 	 */
 	createAPIUrl = (): void => {
@@ -127,7 +127,7 @@ class Apiplugin implements IPlugin, IApiPlugin, IProfileMenuPlugin {
 		prefix: this.prefix,
 	});
 
-	// ─── IProfileMenuPlugin ──────────────────────────────────────────────────────
+	// --- IProfileMenuPlugin ------------------------------------------------------
 
 	profileMenuItems: Map<string, IProfileMenuItem> = new Map();
 
@@ -143,18 +143,18 @@ class Apiplugin implements IPlugin, IApiPlugin, IProfileMenuPlugin {
 	};
 }
 
-// ─── Plugin instance ──────────────────────────────────────────────────────────
+// --- Plugin instance ----------------------------------------------------------
 
 const plugin = new Apiplugin();
 
-// ─── Profile menu item: Create Room ──────────────────────────────────────────
+// --- Profile menu item: Create Room ------------------------------------------
 
 /**
  * Sends `POST {apiURL}/files/rooms` and shows the new room's title in a toast.
  *
  * Key API features demonstrated:
- * - `plugin.apiURL` — assembled by `createAPIUrl()` from IApiPlugin values.
- * - `credentials: "include"` — the browser sends session cookies automatically,
+ * - `plugin.apiURL` - assembled by `createAPIUrl()` from IApiPlugin values.
+ * - `credentials: "include"` - the browser sends session cookies automatically,
  *   so no explicit Bearer token is needed for same-origin calls.
  * - The request body follows the DocSpace API contract: `title` + `roomType`.
  * - Error handling returns a toast with type `error`.
@@ -195,7 +195,7 @@ const createRoomItem: IProfileMenuItem = {
 	},
 };
 
-// ─── Plugin registration ───────────────────────────────────────────────────────
+// --- Plugin registration -------------------------------------------------------
 
 declare global {
 	interface Window {

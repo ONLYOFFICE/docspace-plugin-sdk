@@ -29,15 +29,15 @@ import {
  *
  * Demonstrates the two navigation-related actions in the DocSpace plugin API:
  *
- * 1. "Navigate to Shared with me" — uses Actions.navigate to programmatically
+ * 1. "Navigate to Shared with me" - uses Actions.navigate to programmatically
  *    redirect the user to a different portal section. Chains Actions.showToast
  *    to confirm arrival, illustrating that subsequent actions fire after navigation.
  *
- * 2. "Open Info Panel"             — uses Actions.openInfoPanel to open the
+ * 2. "Open Info Panel"             - uses Actions.openInfoPanel to open the
  *    right-side info panel and activate a specific built-in tab (Details).
  */
 class NavigationSample implements IPlugin, IContextMenuPlugin {
-	// ─── IPlugin ────────────────────────────────────────────────────────────────
+	// --- IPlugin ----------------------------------------------------------------
 
 	status: PluginStatus = PluginStatus.active;
 
@@ -58,7 +58,7 @@ class NavigationSample implements IPlugin, IContextMenuPlugin {
 		this.onLoadCallback = callback;
 	};
 
-	// ─── IContextMenuPlugin ──────────────────────────────────────────────────────
+	// --- IContextMenuPlugin ------------------------------------------------------
 
 	contextMenuItems: Map<string, IContextMenuItem> = new Map();
 
@@ -79,7 +79,7 @@ class NavigationSample implements IPlugin, IContextMenuPlugin {
 	};
 }
 
-// ─── Item definitions ─────────────────────────────────────────────────────────
+// --- Item definitions ---------------------------------------------------------
 
 /**
  * 1. Navigate to Shared with me
@@ -89,10 +89,10 @@ class NavigationSample implements IPlugin, IContextMenuPlugin {
  * fires a success toast confirming the navigation.
  *
  * Key API features demonstrated:
- * - `Actions.navigate`   — navigates to the given `navigatePath`.
- * - `Actions.showToast`  — chained after navigate; fires once navigation
+ * - `Actions.navigate`   - navigates to the given `navigatePath`.
+ * - `Actions.showToast`  - chained after navigate; fires once navigation
  *                          is triggered (shows the chained-action pattern).
- * - `placement: "top"`   — pins the item above the default "More Options" submenu.
+ * - `placement: "top"`   - pins the item above the default "More Options" submenu.
  */
 const navigateItem: IContextMenuItem = {
 	key: "navigation-sample-navigate",
@@ -121,8 +121,8 @@ const navigateItem: IContextMenuItem = {
  * the built-in "Details" tab.
  *
  * Key API features demonstrated:
- * - `Actions.openInfoPanel` — opens the info panel.
- * - `infoPanelTab`          — selects which tab to activate.
+ * - `Actions.openInfoPanel` - opens the info panel.
+ * - `infoPanelTab`          - selects which tab to activate.
  *   Accepted built-in values: "info_details", "info_history",
  *   "info_members", "info_share".
  *   Any other string activates a custom plugin tab by that key.
@@ -140,7 +140,7 @@ const openInfoPanelItem: IContextMenuItem = {
 	}
 };
 
-// ─── Plugin registration ───────────────────────────────────────────────────────
+// --- Plugin registration -------------------------------------------------------
 
 const plugin = new NavigationSample();
 

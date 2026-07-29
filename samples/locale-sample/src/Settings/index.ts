@@ -27,7 +27,7 @@ import { i18n } from "../i18n";
 import { tokenFieldGroup, tokenLabelText } from "./Token";
 import { saveButtonGroup, saveButtonProps } from "./Button";
 
-/** Mutable description text props — updated by `onLoad` when language changes. */
+/** Mutable description text props - updated by `onLoad` when language changes. */
 const descriptionProps = {
 	text: i18n.t("settings.description"),
 	color: "#A3A9AE",

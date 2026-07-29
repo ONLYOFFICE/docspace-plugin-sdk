@@ -29,14 +29,14 @@ import {
  *
  * Two items demonstrating the core main button API:
  *
- * 1. "Quick Action"      — a simple top-level item that fires a success toast
+ * 1. "Quick Action"      - a simple top-level item that fires a success toast
  *                          with the current folder ID.
- * 2. "Generate Report"   — a top-level item with two sub-items:
- *    - "PDF Report"      — fires a success toast with the folder ID.
- *    - "CSV Report"      — fires a success toast with the folder ID.
+ * 2. "Generate Report"   - a top-level item with two sub-items:
+ *    - "PDF Report"      - fires a success toast with the folder ID.
+ *    - "CSV Report"      - fires a success toast with the folder ID.
  */
 class MainButtonSample implements IPlugin, IMainButtonPlugin {
-	// ─── IPlugin ────────────────────────────────────────────────────────────────
+	// --- IPlugin ----------------------------------------------------------------
 
 	status: PluginStatus = PluginStatus.active;
 
@@ -57,7 +57,7 @@ class MainButtonSample implements IPlugin, IMainButtonPlugin {
 		this.onLoadCallback = callback;
 	};
 
-	// ─── IMainButtonPlugin ───────────────────────────────────────────────────────
+	// --- IMainButtonPlugin -------------------------------------------------------
 
 	mainButtonItems: Map<string, IMainButtonItem> = new Map();
 
@@ -74,7 +74,7 @@ class MainButtonSample implements IPlugin, IMainButtonPlugin {
 	};
 }
 
-// ─── Item definitions ─────────────────────────────────────────────────────────
+// --- Item definitions ---------------------------------------------------------
 
 /**
  * 1. Quick Action
@@ -83,7 +83,7 @@ class MainButtonSample implements IPlugin, IMainButtonPlugin {
  * Clicking it shows a success toast with the current folder ID.
  *
  * Key API features demonstrated:
- * - `onItemClick` — preferred callback (supports string | number IDs).
+ * - `onItemClick` - preferred callback (supports string | number IDs).
  */
 const quickItem: IMainButtonItem = {
 	key: "main-button-sample-quick",
@@ -106,10 +106,10 @@ const quickItem: IMainButtonItem = {
  * 2. Generate Report
  *
  * A main button item with two nested sub-items.
- * The parent has no onItemClick — interaction happens on the children.
+ * The parent has no onItemClick - interaction happens on the children.
  *
  * Key API features demonstrated:
- * - `items` — array of child IMainButtonItems (no further nesting).
+ * - `items` - array of child IMainButtonItems (no further nesting).
  *   Each child uses onItemClick to handle the click.
  */
 const reportItem: IMainButtonItem = {
@@ -152,7 +152,7 @@ const reportItem: IMainButtonItem = {
 	]
 };
 
-// ─── Plugin registration ───────────────────────────────────────────────────────
+// --- Plugin registration -------------------------------------------------------
 
 const plugin = new MainButtonSample();
 

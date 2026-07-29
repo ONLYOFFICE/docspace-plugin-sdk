@@ -50,7 +50,7 @@ const onChange = (value: string): IMessage => {
 	};
 };
 
-/** Mutable input state — value is updated by `onChange`. */
+/** Mutable input state - value is updated by `onChange`. */
 export const tokenInput: IInput = {
 	value: "",
 	onChange,
@@ -69,7 +69,7 @@ const inputBox: IBox = {
 	children: [tokenInputGroup],
 };
 
-/** Mutable text state — updated by `onLoad` when language changes. */
+/** Mutable text state - updated by `onLoad` when language changes. */
 export const tokenLabelText: IText = {
 	text: i18n.t("settings.apiToken"),
 	fontWeight: 600,

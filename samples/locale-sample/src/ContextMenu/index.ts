@@ -51,5 +51,5 @@ export const createContextMenuItem = (): IContextMenuItem => ({
 	],
 });
 
-/** Initial instance — replaced on every language change via `updateContextMenuItem`. */
+/** Initial instance - replaced on every language change via `updateContextMenuItem`. */
 export const contextMenuItem: IContextMenuItem = createContextMenuItem();

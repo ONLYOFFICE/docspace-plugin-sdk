@@ -33,7 +33,7 @@ import {
  * DocSpace "create item" modal from a main-button item.
  *
  * Flow
- * ────
+ * ----
  * 1. `onLoadCallback` registers one main-button item: "Create Plugin Folder".
  * 2. When the user clicks the item, `onItemClick` returns
  *    `Actions.showCreateDialogModal` with a fully-configured `ICreateDialog`.
@@ -46,19 +46,19 @@ import {
  *    reads the current type choice.
  *
  * Key ICreateDialog features demonstrated
- * ───────────────────────────────────────
- * - `title`          — dialog header.
- * - `startValue`     — pre-filled input text.
- * - `options`        — combobox items for the folder-type selector.
- * - `selectedOption` — currently highlighted option.
- * - `onSelect`       — called when the user changes the combobox selection.
- * - `onSave`         — async callback; returns IMessage to the host app.
- * - `onCancel`       — called when the user dismisses without saving.
- * - `isCreateDialog` — marks the dialog as a "create" variant (button
+ * ---------------------------------------
+ * - `title`          - dialog header.
+ * - `startValue`     - pre-filled input text.
+ * - `options`        - combobox items for the folder-type selector.
+ * - `selectedOption` - currently highlighted option.
+ * - `onSelect`       - called when the user changes the combobox selection.
+ * - `onSave`         - async callback; returns IMessage to the host app.
+ * - `onCancel`       - called when the user dismisses without saving.
+ * - `isCreateDialog` - marks the dialog as a "create" variant (button
  *                      label becomes "Create" instead of "Save").
  */
 class CreateDialogPlugin implements IPlugin, IMainButtonPlugin {
-	// ─── IPlugin ────────────────────────────────────────────────────────────────
+	// --- IPlugin ----------------------------------------------------------------
 
 	status: PluginStatus = PluginStatus.active;
 
@@ -76,7 +76,7 @@ class CreateDialogPlugin implements IPlugin, IMainButtonPlugin {
 		this.onLoadCallback = callback;
 	};
 
-	// ─── IMainButtonPlugin ───────────────────────────────────────────────────────
+	// --- IMainButtonPlugin -------------------------------------------------------
 
 	mainButtonItems: Map<string, IMainButtonItem> = new Map();
 
@@ -91,12 +91,12 @@ class CreateDialogPlugin implements IPlugin, IMainButtonPlugin {
 	};
 }
 
-// ─── Folder-type options ──────────────────────────────────────────────────────
+// --- Folder-type options ------------------------------------------------------
 
 /**
  * Available folder/room types surfaced in the dialog combobox.
  * The `key` is an opaque string used by the plugin; DocSpace does not
- * interpret it — it is only passed back through `onSelect` / `onSave`.
+ * interpret it - it is only passed back through `onSelect` / `onSave`.
  */
 const folderTypeOptions: IComboBoxItem[] = [
 	{ key: "private", label: "Private Folder" },
@@ -107,7 +107,7 @@ const folderTypeOptions: IComboBoxItem[] = [
 /** Tracks whichever option the user has currently selected. */
 let selectedOption: IComboBoxItem = folderTypeOptions[0];
 
-// ─── Create dialog props factory ──────────────────────────────────────────────
+// --- Create dialog props factory ----------------------------------------------
 
 /**
  * Builds a fresh `ICreateDialog` object each time the main-button item is
@@ -126,7 +126,7 @@ function buildDialogProps(): ICreateDialog {
 		/**
 		 * Called when the user picks a different folder type.
 		 * Updates the module-level `selectedOption` so `onSave` sees the
-		 * latest choice.  Returns void — the ComboBox manages its own
+		 * latest choice.  Returns void - the ComboBox manages its own
 		 * display state.
 		 */
 		onSelect: (option: IComboBoxItem): void => {
@@ -162,7 +162,7 @@ function buildDialogProps(): ICreateDialog {
 	};
 }
 
-// ─── Main button item ─────────────────────────────────────────────────────────
+// --- Main button item ---------------------------------------------------------
 
 /**
  * The single main-button entry registered by this plugin.
@@ -183,7 +183,7 @@ const createFolderItem: IMainButtonItem = {
 	}
 };
 
-// ─── Plugin instance & registration ───────────────────────────────────────────
+// --- Plugin instance & registration -------------------------------------------
 
 const plugin = new CreateDialogPlugin();
 

@@ -33,15 +33,15 @@ import { i18n, setLocale } from "./i18n";
  *
  * Demonstrates how a DocSpace plugin can be fully localized:
  *
- * 1. **Plugin metadata** — `nameLocale` and `descriptionLocale` fields in
+ * 1. **Plugin metadata** - `nameLocale` and `descriptionLocale` fields in
  *    `package.json` tell the portal to display translated plugin name and
  *    description based on the active portal language.
  *
- * 2. **Settings UI labels** — `ISettings.onLoad` refreshes translated text
+ * 2. **Settings UI labels** - `ISettings.onLoad` refreshes translated text
  *    props (description, field labels, button label) every time the settings
  *    dialog opens, so the UI always matches the current language.
  *
- * 3. **Context menu item labels** — `setLanguage` is called by the portal
+ * 3. **Context menu item labels** - `setLanguage` is called by the portal
  *    whenever the user switches language. The plugin recreates the context menu
  *    item via a factory function so the label is retranslated immediately
  *    without a page reload.
@@ -50,15 +50,15 @@ import { i18n, setLocale } from "./i18n";
  * Any unsupported locale falls back to en-US automatically.
  *
  * Key features demonstrated
- * ──────────────────────────
- * - `setLanguage(PluginLocale)` — portal callback for live language switching.
- * - `getLanguage()`             — returns the plugin's current active locale.
- * - `ISettingsPlugin`           — admin-configurable settings with translated labels.
- * - `IContextMenuPlugin`        — context menu item with translated label.
- * - `i18n-js`                   — lightweight i18n library for runtime translation.
+ * --------------------------
+ * - `setLanguage(PluginLocale)` - portal callback for live language switching.
+ * - `getLanguage()`             - returns the plugin's current active locale.
+ * - `ISettingsPlugin`           - admin-configurable settings with translated labels.
+ * - `IContextMenuPlugin`        - context menu item with translated label.
+ * - `i18n-js`                   - lightweight i18n library for runtime translation.
  */
 class LocaleSample implements IPlugin, ISettingsPlugin, IContextMenuPlugin {
-	// ── IPlugin ────────────────────────────────────────────────────────────────
+	// -- IPlugin ----------------------------------------------------------------
 
 	status: PluginStatus = PluginStatus.active;
 
@@ -77,7 +77,7 @@ class LocaleSample implements IPlugin, ISettingsPlugin, IContextMenuPlugin {
 		this.onLoadCallback = callback;
 	};
 
-	// ── Locale ────────────────────────────────────────────────────────────────
+	// -- Locale ----------------------------------------------------------------
 
 	/**
 	 * Called by the portal whenever the user changes the interface language.
@@ -94,7 +94,7 @@ class LocaleSample implements IPlugin, ISettingsPlugin, IContextMenuPlugin {
 
 	getLanguage = (): PluginLocale => i18n.locale as PluginLocale;
 
-	// ── ISettingsPlugin ───────────────────────────────────────────────────────
+	// -- ISettingsPlugin -------------------------------------------------------
 
 	adminPluginSettings: ISettings | null = null;
 
@@ -109,7 +109,7 @@ class LocaleSample implements IPlugin, ISettingsPlugin, IContextMenuPlugin {
 
 	getAdminPluginSettings = (): ISettings | null => this.adminPluginSettings;
 
-	// ── IContextMenuPlugin ────────────────────────────────────────────────────
+	// -- IContextMenuPlugin ----------------------------------------------------
 
 	contextMenuItems: Map<string, IContextMenuItem> = new Map();
 
@@ -126,7 +126,7 @@ class LocaleSample implements IPlugin, ISettingsPlugin, IContextMenuPlugin {
 	};
 }
 
-// ── Registration ──────────────────────────────────────────────────────────────
+// -- Registration --------------------------------------------------------------
 
 const plugin = new LocaleSample();
 
