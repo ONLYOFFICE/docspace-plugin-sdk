@@ -1,0 +1,13 @@
+{
+  "name": "docspace-plugin-samples",
+  "version": "2.1.0",
+  "private": true,
+  "description": "Workspace root for the DocSpace plugin samples. Every folder next to this file is picked up automatically, so all samples share a single node_modules.",
+  "license": "Apache-2.0",
+  "workspaces": [
+    "*"
+  ],
+  "scripts": {
+    "build": "node ../scripts/build-samples.mjs"
+  }
+}
