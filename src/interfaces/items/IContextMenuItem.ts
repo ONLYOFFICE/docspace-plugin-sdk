@@ -175,7 +175,7 @@ export interface IContextMenuItem {
 	label: string;
 
 	/**
-	 * The item display icon. The icon image must be uploaded to the "assets" folder.
+	 * The item display icon. The icon image must be uploaded to the assets folder.
 	 * Only the image name with the extension must be specified in this field. The required icon size is 16x16 px.
 	 * Otherwise, it will be compressed to this size.
 	 *

@@ -63,17 +63,21 @@ import { TReturnMessage } from "../utils";
  */
 export interface IIconButton {
   /**
-   * Icon name with extension
+   * The button display icon. The icon image must be uploaded to the assets folder.
+   * Only the image name with the extension must be specified in this field.
+   * The icon is rendered at the size set in the `size` field.
    */
   iconName?: string;
 
   /**
-   * Icon name with extension for hover state
+   * The icon displayed while the cursor is over the button. The icon image must be uploaded
+   * to the assets folder. Only the image name with the extension must be specified in this field.
    */
   iconHoverName?: string;
 
   /**
-   * Icon name with extension for click state
+   * The icon displayed while the button is being clicked. The icon image must be uploaded
+   * to the assets folder. Only the image name with the extension must be specified in this field.
    */
   iconClickName?: string;
 

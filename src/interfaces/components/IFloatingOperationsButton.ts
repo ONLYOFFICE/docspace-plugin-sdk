@@ -332,8 +332,9 @@ export interface IFloatingOperation {
 
    /**
     * Custom icon for the operation (overrides default operation icon).
-    * The icon image must be uploaded to the "assets" folder.
-    * Only specify the filename here, e.g., "upload.svg" or "custom-icon.png".
+    * The icon image must be uploaded to the assets folder.
+    * Only the image name with the extension must be specified in this field,
+    * for example, "upload.svg" or "custom-icon.png".
     *
 
     */

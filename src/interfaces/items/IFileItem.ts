@@ -156,10 +156,18 @@ export interface IFileItem {
 	/** A file type which is displayed in the list (for example, Document/Folder) */
 	fileTypeName?: string;
 
-	/** A file icon which is displayed in the table format. The preferred icon size is 32x32 px */
+	/**
+	 * A file icon which is displayed in the table format. The icon image must be uploaded
+	 * to the assets folder. Only the image name with the extension must be specified in this field.
+	 * The preferred icon size is 32x32 px.
+	 */
 	fileRowIcon?: string;
 
-	/** A file icon which is displayed in the tile format. The preferred icon size is 96x96 px */
+	/**
+	 * A file icon which is displayed in the tile format. The icon image must be uploaded
+	 * to the assets folder. Only the image name with the extension must be specified in this field.
+	 * The preferred icon size is 96x96 px.
+	 */
 	fileTileIcon?: string;
 
 	/**

@@ -235,9 +235,8 @@ export interface IComboBoxItem {
   label: string;
 
   /**
-   * Optional icon for the option
-   *
-
+   * The option display icon. The icon image must be uploaded to the assets folder.
+   * Only the image name with the extension must be specified in this field.
    */
   icon?: string;
 
