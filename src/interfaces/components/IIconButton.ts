@@ -22,6 +22,8 @@ import { TReturnMessage } from "../utils";
 /**
  * A component that displays an interactive icon button with hover and click states.
  *
+ * <plugin-image src="iconbutton.png" dark />
+ *
  * @example
  *
  * Simple icon button with click handler

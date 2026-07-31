@@ -29,6 +29,7 @@ import { FilesExst, FilesSecurity, Devices, UsersType } from "../../enums";
  * Use [`Actions.updateMediaViewer`](../../enums/Actions.md#updatemediaviewer) and
  * [`Actions.closeMediaViewer`](../../enums/Actions.md#closemediaviewer) to update or close it.
  *
+ * <plugin-image src="mediaviewer.png" width="600px" dark />
  *
  * @example
  *

@@ -19,6 +19,8 @@
 /**
  * A component that is used to embed a third-party website into a modal window or the settings page.
  *
+ * <plugin-image src="iframe.png" dark />
+ *
  * @example
  *
  * Embedding a PDF viewer in a modal window

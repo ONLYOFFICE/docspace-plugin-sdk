@@ -27,6 +27,7 @@ import { IBox } from "../components/IBox";
  * Items are registered by a plugin implementing
  * [`IArticleButtonPlugin`](../plugins/IArticleButtonPlugin.md).
  *
+ * <plugin-image src="articlebuttonitem.png" dark />
  *
  * @example
  *

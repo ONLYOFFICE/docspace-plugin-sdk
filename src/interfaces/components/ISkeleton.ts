@@ -19,6 +19,8 @@
 /**
  * A component that is used to hide components during uploading.
  *
+ * <plugin-image src="skeleton.png" dark />
+ *
  * @example
  *
  * Circular avatar placeholder for loading states

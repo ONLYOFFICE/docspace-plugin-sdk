@@ -25,7 +25,7 @@ import { IMessage } from "../utils";
  * Items are registered by a plugin implementing
  * [`IProfileMenuPlugin`](../plugins/IProfileMenuPlugin.md).
  *
-
+ * <plugin-image src="profilemenuitem.png" dark />
  *
  * @example
  *

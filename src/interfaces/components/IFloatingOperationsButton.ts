@@ -32,6 +32,8 @@ import { IMessage, TReturnMessage } from "../utils";
  * [`Actions.removeFloatingOperationsButton`](../../enums/Actions.md#removefloatingoperationsbutton)
  * (with `floatingOperationsButtonPropsId`) to remove the button.
  *
+ * <plugin-image src="floatingoperationsbutton.png" dark />
+ *
  * @example
  *
  * Demonstrates a floating operations button with simulated upload progress,

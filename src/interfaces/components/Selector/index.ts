@@ -36,6 +36,8 @@ import type { TRoomSelector } from "./IRoomSelector";
  * Use [`Actions.updateSelector`](../../enums/Actions.md#updateselector) and
  * [`Actions.closeSelector`](../../enums/Actions.md#closeselector) to update or close it.
  *
+ * <plugin-image src="selector.png" width="400px" dark />
+ *
  * @example
  * ```typescript
  * import { TSelector, TBaseSelector, SelectorType, Actions, ToastType } from "@onlyoffice/docspace-plugin-sdk";

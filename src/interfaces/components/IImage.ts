@@ -19,6 +19,8 @@
 /**
  * A component that is used to embed an image not from the assets folder into a modal window or the settings page.
  *
+ * <plugin-image src="image.png" dark />
+ *
  * @example
  *
  * Plugin logo with fixed dimensions and spacing

@@ -40,6 +40,7 @@ export interface IInfoPanelSubMenu {
 /**
  * The info panel item that is displayed in the info panel.
  *
+ * <plugin-image src="infopanelitem.png" dark />
  *
  * @example
  *

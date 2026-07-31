@@ -22,6 +22,8 @@ import { IText } from './IText'
 /**
  * Defines the link component properties.
  *
+ * <plugin-image src="link.png" dark />
+ *
  * @example
  * ```typescript
  * import { ILink, LinkType, LinkTarget } from "@onlyoffice/docspace-plugin-sdk";

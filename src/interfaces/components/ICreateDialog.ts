@@ -29,6 +29,8 @@ import { IComboBoxItem } from "./IComboBox";
  * Use [`Actions.updateCreateDialogModal`](../../enums/Actions.md#updatecreatedialogmodal)
  * to update an open dialog.
  *
+ * <plugin-image src="createdialog.png" dark />
+ *
  * @example
  *
  * Document creation dialog with multiple format options
