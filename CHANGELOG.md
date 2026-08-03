@@ -1,6 +1,6 @@
 # Change Log
 
-## #.#.#
+## 2.1.0
 
 ## Changed
 
@@ -46,6 +46,7 @@
   closeMediaViewer)
 - Add placement prop to IContextMenuItem
 - Add IArticleNavigationPlugin, IArticleNavigationItem, Section enum
+- Add `itemId` prop to IContextMenuItem
 
 ## Fixed
 
