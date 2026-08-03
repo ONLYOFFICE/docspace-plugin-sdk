@@ -41,10 +41,10 @@ import {
  * Flow
  * ----
  * 1. `onLoadCallback` registers a profile-menu item "Open PostMessage Panel".
- * 2.  window.parent.addEventListener("message", ...)` handler
+ * 2. A module-level `window.parent.addEventListener("message", ...)` handler
  *    is installed.  It parses incoming postMessage events and, when
  *    `data.source === "post-message-plugin"`, calls `plugin.postMessageCallback`
- *    wieth `Actions.showToast` to surface a success notification in the portal.
+ *    with `Actions.showToast` to surface a success notification in the portal.
  * 3. When the user clicks the menu item, `onClick` returns
  *    `Actions.showModal` with the module-level `postMessageDialog` constant.
  * 4. DocSpace renders a PluginDialog containing an IFrame whose `src` is a
@@ -140,8 +140,8 @@ const footerBox: IBox = {
 // --- Iframe HTML - defined inline so no separate asset file is needed ---------
 //
 // The page has a single button that fires window.parent.postMessage with
-// source: "post-message-plugin".  The plugin's message listener (installed in
-// the constructor) catches this and calls postMessageCallback -> showToast.
+// source: "post-message-plugin".  The plugin's message listener (installed at
+// the bottom of this module) catches this and calls postMessageCallback -> showToast.
 
 const iframeHtml = `
 <!DOCTYPE html>

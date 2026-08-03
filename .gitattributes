@@ -1,0 +1,4 @@
+# The samples install the SDK as a link to this repository, and npm rewrites the
+# shebang of a linked package's bin scripts to end with LF. Checking these two out
+# with CRLF would therefore leave them permanently dirty in `git status` on Windows.
+npx/*.js text eol=lf

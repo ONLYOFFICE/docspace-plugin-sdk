@@ -3,5 +3,5 @@ src
 samples
 scripts
 dist-plugins
-onlyoffice-docspace-plugin-sdk-v0.0.1.tgz
+onlyoffice-docspace-plugin-sdk-*.tgz
 .github

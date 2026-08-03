@@ -29,6 +29,6 @@
     "css-loader": "^6.8.1"
   },
   "dependencies": {
-    "@onlyoffice/docspace-plugin-sdk": "file:../../onlyoffice-docspace-plugin-sdk-2.1.0.tgz"
+    "@onlyoffice/docspace-plugin-sdk": "file:../.."
   }
 }

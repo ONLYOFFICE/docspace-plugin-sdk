@@ -41,7 +41,7 @@ const USAGE = `Usage: node scripts/build-samples.mjs [options]
   --out <dir>       output folder (default: dist-plugins)
   --filter <text>   only build samples whose name contains <text> (repeatable)
   --jobs <n>        parallel builds (default: min(4, cpus))
-  --no-install      never touch node_modules, just build
+  --no-install      skip the SDK build and the dependency install, just build samples
   --help`;
 
 /**
@@ -117,10 +117,16 @@ function runNpm(args, cwd) {
   const command = usesNodeCli ? process.execPath : process.platform === "win32" ? "npm.cmd" : "npm";
   const commandArgs = usesNodeCli ? [execPath, ...args] : args;
 
+  // Node refuses to spawn a batch file without a shell (EINVAL, since 18.20/20.12/22),
+  // and npm on Windows is `npm.cmd`. This path is taken when the script runs directly
+  // rather than through npm. The arguments are fixed literals, so the shell is safe.
+  const needsShell = command === "npm.cmd";
+
   return new Promise((resolve) => {
     const child = spawn(command, commandArgs, {
       cwd,
       windowsHide: true,
+      shell: needsShell,
       stdio: ["ignore", "pipe", "pipe"],
       env: { ...process.env, npm_config_yes: "true" },
     });
@@ -135,22 +141,23 @@ function runNpm(args, cwd) {
 }
 
 /**
- * The samples install the SDK from the tarball in the repo root. npm happily keeps
- * a previously extracted copy, so a rebuilt tarball has to force a reinstall.
- * @returns {boolean}
+ * The samples depend on the SDK as `file:../..`, which npm installs as a link to the
+ * repo root, so they compile against `dist/` there. That folder is not checked in, and
+ * when it is missing the samples fail with unrelated-looking type errors, so build it
+ * up front. Being a link, it never goes stale: the next build sees the current sources.
  */
-function isSdkStale() {
-  const [tarball] = fs
-    .readdirSync(REPO_ROOT)
-    .filter((file) => file.startsWith("onlyoffice-docspace-plugin-sdk") && file.endsWith(".tgz"));
+async function buildSdk() {
+  console.log(`🔧 Building ${SDK_PACKAGE_NAME} from source...`);
 
-  if (!tarball) return false;
+  const { code, output } = await runNpm(["run", "build"], REPO_ROOT);
 
-  const installed = path.join(SAMPLES_DIR, "node_modules", SDK_PACKAGE_NAME, "package.json");
+  if (code !== 0) {
+    console.error(output);
+    console.error("❌ SDK build failed.");
+    process.exit(1);
+  }
 
-  if (!fs.existsSync(installed)) return true;
-
-  return fs.statSync(path.join(REPO_ROOT, tarball)).mtimeMs > fs.statSync(installed).mtimeMs;
+  console.log("✅ SDK ready.\n");
 }
 
 /**
@@ -171,16 +178,13 @@ function findUnlockedSamples(samples) {
 async function installDependencies(samples) {
   const missing = !fs.existsSync(path.join(SAMPLES_DIR, "node_modules"));
   const unlocked = findUnlockedSamples(samples);
-  const stale = isSdkStale();
 
-  if (!missing && !stale && unlocked.length === 0) return;
+  if (!missing && unlocked.length === 0) return;
 
   console.log(
     missing
       ? "📦 Installing shared dependencies for all samples..."
-      : unlocked.length
-        ? `📦 New sample(s) detected (${unlocked.join(", ")}), updating dependencies...`
-        : `📦 Refreshing ${SDK_PACKAGE_NAME} from the repo tarball...`
+      : `📦 New sample(s) detected (${unlocked.join(", ")}), updating dependencies...`
   );
 
   const { code, output } = await runNpm(["install"], SAMPLES_DIR);
@@ -246,8 +250,11 @@ async function main() {
     process.exit(1);
   }
 
-  // Checked against every sample, not just the filtered ones: the lockfile covers them all.
-  if (options.install) await installDependencies(discovered);
+  if (options.install) {
+    await buildSdk();
+    // Checked against every sample, not just the filtered ones: the lockfile covers them all.
+    await installDependencies(discovered);
+  }
 
   fs.mkdirSync(options.outDir, { recursive: true });
 
