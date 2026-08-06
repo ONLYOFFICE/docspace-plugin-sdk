@@ -399,14 +399,11 @@ const overviewItem: IArticleNavigationItem = {
  * 2. Sample Settings
  *
  * A navigation item restricted to the portal Settings section and to portal
- * administrators. It shows the same skeleton-then-content flow, and adds an
- * `onClick` callback that fires before the navigation happens.
+ * administrators. It shows the same skeleton-then-content flow as the first item.
  *
  * Key API features demonstrated:
- * - `appears: [Section.Settings]`  - the item is shown in Settings only.
- * - `usersTypes`                   - the item is shown to admins only.
- * - `onClick`                      - runs before navigating; returns an IMessage
- *                                    to trigger extra portal actions.
+ * - `appears: [Section.Settings]` - the item is shown in Settings only.
+ * - `usersTypes`                  - the item is shown to admins only.
  */
 const settingsItem: IArticleNavigationItem = {
 	key: "article-navigation-sample-settings",
@@ -414,15 +411,6 @@ const settingsItem: IArticleNavigationItem = {
 	icon: "docspace-icon.svg",
 	appears: [Section.Settings],
 	usersTypes: [UsersType.owner, UsersType.docSpaceAdmin],
-	onClick: async (): Promise<IMessage> => ({
-		actions: [Actions.showToast],
-		toastProps: [
-			{
-				type: ToastType.info,
-				title: "Opening the sample settings page..."
-			}
-		]
-	}),
 	section: {
 		id: "article-navigation-sample-settings-skeleton",
 		widthProp: "100%",

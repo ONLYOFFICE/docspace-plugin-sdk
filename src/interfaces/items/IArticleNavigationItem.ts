@@ -19,7 +19,6 @@
 import { Devices, UsersType } from "../../enums";
 import { Section } from "../../enums/Section";
 import { IBox } from "../components/IBox";
-import { TReturnMessage } from "../utils";
 
 /**
  * Describes a navigation item that will be embedded in the article sidebar as a first-class
@@ -82,13 +81,6 @@ export interface IArticleNavigationItem {
 	 * It returns a new section value. If this functionality is not required,   the previous section value is returned.
 	 */
 	onLoad?: () => Promise<{ section: IBox }>;
-
-	/**
-	 * An optional async callback invoked before navigation occurs.
-	 * Return an IMessage to trigger additional portal actions (e.g. showToast),
-	 * or void to proceed with navigation only.
-	 */
-	onClick?: () => TReturnMessage;
 
 	/*T*
 	 * The types of users who will see this navigation item.
