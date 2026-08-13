@@ -1,6 +1,6 @@
 // @ts-check
 import { readFileSync, writeFileSync, readdirSync, existsSync } from "node:fs";
-import { join, basename } from "node:path";
+import { join, basename, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SECTIONS } from "./constants/sections.mjs";
 
@@ -91,11 +91,14 @@ function extractDescriptionFromMd(mdFilePath) {
 			continue;
 		}
 
-		// Skip embedded images and anchor tags
+		// Skip embedded images, anchor tags, and the blockquote TypeDoc renders the
+		// declaration signature as ("> **Component** = ...") — none of them describe
+		// the symbol.
 		if (
 			trimmed.startsWith("<img") ||
 			trimmed.startsWith("<a ") ||
-			trimmed.startsWith("<plugin-image")
+			trimmed.startsWith("<plugin-image") ||
+			trimmed.startsWith(">")
 		)
 			continue;
 
@@ -190,194 +193,55 @@ function generateIndexPage(section) {
 }
 
 /**
- * Files where toc_max_heading_level should be set to 2 (many types per page).
- * These override the global level-3 setting from typedoc.config.mjs.
+ * TypeDoc nests a module page as "## Symbol / ### Group / #### member". Once
+ * promoteFirstH2toH1 lifts the main symbol to the page H1, its subtree sits one
+ * level too deep — the group lands on H3 and members on H4, below Docusaurus'
+ * default TOC cutoff of 3.
+ *
+ * Shift that subtree up by one so it reads "# Symbol / ## Properties / ### member".
+ * Only the region between the H1 and the next H2 moves: secondary symbols further
+ * down the page are still H2 and keep their own nesting.
+ * @param {string} filePath
  */
-const TOC_LEVEL_2_OVERRIDES = [
-	"interfaces/components/Selector.md",
-	"interfaces/components/IMediaViewer.md",
-	"interfaces/components/Component.md"
-];
+function raiseMainSymbolSubtree(filePath) {
+	if (!existsSync(filePath)) return;
+	const lines = readFileSync(filePath, "utf-8").split("\n");
 
-/**
- * Only Actions.md uses list format with H4 member headings in TOC.
- * toc_max_heading_level:4 + toc_min_heading_level:4 hides the "Actions" H2
- * and "Enumeration Members" H3, showing only the member names.
- */
-const TOC_LEVEL_4_OVERRIDES = ["enums/Actions.md"];
-
-/**
- * All enum files not in TOC_LEVEL_4_OVERRIDES — convert list-format members back to a table.
- * Discovered dynamically so new enum files are handled automatically.
- */
-const ENUM_LIST_TO_TABLE_FILES = existsSync(join(DOCS_DIR, "enums"))
-	? readdirSync(join(DOCS_DIR, "enums"))
-			.filter((f) => f.endsWith(".md") && f !== "index.md")
-			.map((f) => `enums/${f}`)
-			.filter((f) => !TOC_LEVEL_4_OVERRIDES.includes(f))
-	: [];
-
-/**
- * Patches the toc_max_heading_level in a markdown file's frontmatter.
- * @param {string} relPath - relative path from docs/ (e.g. "interfaces/components/Selector.md")
- * @param {number} level
- */
-function patchTocLevel(relPath, level) {
-	const filePath = join(DOCS_DIR, relPath);
-	if (!existsSync(filePath)) {
-		console.warn(`⚠️  patchTocLevel: file not found: ${relPath}`);
-		return;
-	}
-	const content = readFileSync(filePath, "utf-8");
-	const patched = content.replace(
-		/^(---\n[\s\S]*?)toc_max_heading_level:\s*\d+([\s\S]*?---)/m,
-		`$1toc_max_heading_level: ${level}$2`
-	);
-	writeFileSync(filePath, patched, "utf-8");
-	console.log(`✅  Patched toc_max_heading_level:${level} in ${relPath}`);
-}
-
-/**
- * Adds toc_min_heading_level to frontmatter so that H2/H3 section headings
- * ("Actions", "Enumeration Members") are excluded from the right-side TOC.
- * @param {string} relPath
- * @param {number} level
- */
-function patchTocMinLevel(relPath, level) {
-	const filePath = join(DOCS_DIR, relPath);
-	if (!existsSync(filePath)) {
-		console.warn(`⚠️  patchTocMinLevel: file not found: ${relPath}`);
-		return;
-	}
-	const content = readFileSync(filePath, "utf-8");
-	// Insert after toc_max_heading_level line if not already present
-	if (content.includes("toc_min_heading_level:")) {
-		const patched = content.replace(
-			/toc_min_heading_level:\s*\d+/,
-			`toc_min_heading_level: ${level}`
-		);
-		writeFileSync(filePath, patched, "utf-8");
-	} else {
-		const patched = content.replace(
-			/(toc_max_heading_level:\s*\d+)/,
-			`$1\ntoc_min_heading_level: ${level}`
-		);
-		writeFileSync(filePath, patched, "utf-8");
-	}
-	console.log(`✅  Patched toc_min_heading_level:${level} in ${relPath}`);
-}
-
-/**
- * For enum files that keep list format (like Actions), promotes H4 member headings
- * to H3 so they render larger, and removes the redundant "### Enumeration Members" line.
- * @param {string} relPath
- */
-function promoteEnumMemberHeadings(relPath) {
-	const filePath = join(DOCS_DIR, relPath);
-	if (!existsSync(filePath)) {
-		console.warn(`⚠️  promoteEnumMemberHeadings: file not found: ${relPath}`);
-		return;
-	}
-	let content = readFileSync(filePath, "utf-8");
-	// Remove "### Enumeration Members" group header (it becomes redundant)
-	content = content.replace(/^### Enumeration Members\n+/gm, "");
-	// Promote member headings #### → ### first (while Example is still #####)
-	content = content.replace(/^#### /gm, "### ");
-	// Then promote ##### → #### (Example headings, won't reach H3 and won't appear in TOC)
-	content = content.replace(/^##### /gm, "#### ");
-	writeFileSync(filePath, content, "utf-8");
-	console.log(`✅  Promoted enum member headings in ${relPath}`);
-}
-
-/**
- * Converts list-format enum members (H4 headings with code+description blocks)
- * back to a Markdown table — for all enums that don't need per-member TOC entries.
- * Handles files with multiple enums by processing each H2 section independently.
- * @param {string} relPath
- */
-function convertEnumListToTable(relPath) {
-	const filePath = join(DOCS_DIR, relPath);
-	if (!existsSync(filePath)) {
-		console.warn(`⚠️  convertEnumListToTable: file not found: ${relPath}`);
-		return;
-	}
-
-	const content = readFileSync(filePath, "utf-8");
-	const marker = "### Enumeration Members";
-	if (!content.includes(marker)) {
-		console.warn(`⚠️  convertEnumListToTable: no "${marker}" in ${relPath}`);
-		return;
-	}
-
-	// Split file into preamble + H2 sections, process each H2 independently
-	const preambleMatch = content.match(/^([\s\S]*?)(?=^## )/m);
-	const preamble = preambleMatch ? preambleMatch[1] : "";
-	const h2Content = content.slice(preamble.length);
-	const h2Sections = h2Content.split(/(?=^## )/m);
-
-	let totalMembers = 0;
-
-	const converted = h2Sections.map((section) => {
-		const markerIdx = section.indexOf(marker);
-		if (markerIdx === -1) return section;
-
-		// Drop the "### Enumeration Members" heading: the table follows the enum
-		// heading directly, and the extra H3 only duplicates entries in the TOC.
-		const sectionPreamble = section.slice(0, markerIdx).replace(/\n+$/, "\n");
-		const membersContent = section.slice(markerIdx + marker.length);
-
-		// Split into individual member blocks on #### heading boundaries
-		const blocks = membersContent.split(/(?=\n#### )/);
-
-		const rows = [];
-		for (const block of blocks) {
-			// TypeDoc escapes underscores in headings ("ROOM\_CREATE") — capture the
-			// full heading text and unescape it, otherwise names get cut at "\_".
-			const nameMatch = block.match(/^\n#### (.+)/);
-			if (!nameMatch) continue;
-			const name = nameMatch[1].trim().replace(/\\(.)/g, "$1");
-
-			// Value: from ```ts block — handles string and numeric values
-			const valueMatch = block.match(/```ts\n\w+:\s*([^\n;]+);?\n```/);
-			const value = valueMatch ? valueMatch[1].trim() : "";
-
-			// Description: text after "Defined in:..." line, before next heading, HR or empty
-			const descMatch = block.match(
-				/Defined in:[^\n]*\n+([\s\S]*?)(?=\n##### |\n#### |\n\*\*\*|\n## |$)/
-			);
-			const desc = descMatch
-				? descMatch[1]
-						.trim()
-						.replace(/\n+/g, " ")
-						.replace(/\s*\*{3}\s*$/, "")
-				: "";
-
-			// Keep the per-member anchor TypeDoc gave the heading, so existing
-			// cross-page links like enums/Components.md#box keep working.
-			const anchor = name.toLowerCase();
-			rows.push(
-				`| <a id="${anchor}"></a> \`${name}\` | \`${value}\` | ${desc || "—"} |`
-			);
+	let inFence = false;
+	let h1 = -1;
+	let end = lines.length;
+	for (let i = 0; i < lines.length; i++) {
+		if (/^\s*(```|~~~)/.test(lines[i])) {
+			inFence = !inFence;
+			continue;
 		}
+		if (inFence) continue;
+		if (h1 < 0) {
+			if (/^# /.test(lines[i])) h1 = i;
+			continue;
+		}
+		if (/^## /.test(lines[i])) {
+			end = i;
+			break;
+		}
+	}
+	if (h1 < 0) return;
 
-		if (!rows.length) return section;
-
-		totalMembers += rows.length;
-		const table =
-			"\n| Member | Value | Description |\n| :------ | :------ | :------ |\n" +
-			rows.join("\n") +
-			"\n\n";
-
-		return sectionPreamble + table;
-	});
-
-	if (!totalMembers) {
-		console.warn(`⚠️  convertEnumListToTable: no members parsed in ${relPath}`);
-		return;
+	inFence = false;
+	let changed = false;
+	for (let i = h1 + 1; i < end; i++) {
+		if (/^\s*(```|~~~)/.test(lines[i])) {
+			inFence = !inFence;
+			continue;
+		}
+		if (inFence) continue;
+		const m = lines[i].match(/^(#{3,6}) (.*)$/);
+		if (!m) continue;
+		lines[i] = `${m[1].slice(1)} ${m[2]}`;
+		changed = true;
 	}
 
-	writeFileSync(filePath, preamble + converted.join(""), "utf-8");
-	console.log(`✅  Converted to table: ${relPath}  (${totalMembers} members)`);
+	if (changed) writeFileSync(filePath, lines.join("\n"), "utf-8");
 }
 
 /**
@@ -505,9 +369,11 @@ function promoteFirstH2toH1(filePath) {
 	const name = basename(filePath, ".md");
 	const content = readFileSync(filePath, "utf-8");
 
+	// Frontmatter is optional — TypeDoc only emits a block when something puts a
+	// key in it, and nothing does by default.
 	const fmMatch = content.match(/^(---\n[\s\S]*?---\n)/);
-	if (!fmMatch) return;
-	const afterFm = content.slice(fmMatch[1].length);
+	const fm = fmMatch ? fmMatch[1] : "";
+	const afterFm = content.slice(fm.length);
 
 	// Already promoted (e.g. the pipeline ran twice over the same output) —
 	// promoting again would turn the NEXT H2 into a second H1.
@@ -532,8 +398,10 @@ function promoteFirstH2toH1(filePath) {
 		// Multiple unrelated types + module description from @packageDocumentation
 		const title = name.charAt(0).toUpperCase() + name.slice(1);
 		// Inject sidebar_label so Docusaurus shows the capitalized title in the sidebar
-		const fm = fmMatch[1].replace(/^(---\n)/, `$1sidebar_label: "${title}"\n`);
-		const patched = fm + `\n# ${title}\n\n${preamble}\n\n` + h2Part;
+		const newFm = fm
+			? fm.replace(/^(---\n)/, `$1sidebar_label: "${title}"\n`)
+			: `---\nsidebar_label: "${title}"\n---\n`;
+		const patched = newFm + `\n# ${title}\n\n${preamble}\n\n` + h2Part;
 		writeFileSync(filePath, patched, "utf-8");
 	}
 	// else: multiple types, no description — leave H2 structure as is
@@ -556,68 +424,63 @@ function slugify(text) {
 }
 
 /**
- * Scroll offset for raw `<a id>` anchors, matching Docusaurus' own heading
- * anchors (`.anchorTargetStickyNavbar` in @docusaurus/theme-common). See
- * {@link addScrollMarginToAnchors}.
- */
-const ANCHOR_SCROLL_STYLE =
-	'style={{scrollMarginTop: "calc(var(--ifm-navbar-height) + 0.5rem)"}}';
-
-/**
- * Docusaurus deliberately strips the id from every `<h1>` — see theme Heading:
- * `if (As === 'h1' || !id) return <As id={undefined} />` — so the page-title
- * heading can never own an anchor and links to the main symbol
- * ("Selector.md#tselector", or the sidebar entry) would resolve nowhere.
- * TypeDoc emits `<a id="ibox">` right AFTER the heading, but jumping there
- * scrolls the empty anchor to the top and leaves the title hidden above it,
- * under the sticky navbar. Materialize a single anchor on its own line just
- * BEFORE the h1 instead; {@link addScrollMarginToAnchors} then offsets it below
- * the navbar so the title itself becomes the visible scroll target.
+ * Strips the raw `<a id>` anchors TypeDoc leaves behind. Under list format every
+ * member is a heading, so Docusaurus generates the anchor natively and these are
+ * pure noise — the sole exception, the page title, is handled by
+ * {@link dropPageTitleFragments}.
  * @param {string} filePath
  */
-function placeMainSymbolAnchor(filePath) {
+function stripRawAnchors(filePath) {
 	if (!existsSync(filePath)) return;
 	const content = readFileSync(filePath, "utf-8");
-	const h1Match = content.match(/^# (.+)$/m);
-	if (!h1Match) return;
-	const slug = slugify(h1Match[1]);
-	if (!slug) return;
-
-	// Drop the standalone anchor wherever TypeDoc placed it (usually after the h1)
-	let body = content.replace(
-		new RegExp(`^<a id="${slug}"(?:\\s[^>]*)?></a>\\n+`, "gm"),
-		""
-	);
-	// Re-insert it immediately before the h1
-	body = body.replace(/^(# .+)$/m, `<a id="${slug}"></a>\n\n$1`);
-	if (body !== content) writeFileSync(filePath, body, "utf-8");
+	const updated = content
+		.replace(/^<a id="[^"]+"><\/a>\n+/gm, "")
+		.replace(/<a id="[^"]+"><\/a> ?/g, "");
+	if (updated !== content) writeFileSync(filePath, updated, "utf-8");
 }
 
 /**
- * Raw `<a id>` anchors (the main-symbol anchor above the h1, plus every
- * property-row and enum-member anchor TypeDoc emits inside tables) are not
- * headings, so Docusaurus never applies its `.anchorTargetStickyNavbar`
- * scroll-margin to them. Without it, following a hash link scrolls the target
- * flush to the viewport top, hidden behind the sticky navbar. Give every bare
- * anchor the same scroll-margin Docusaurus uses for heading anchors.
- * @param {string} filePath
+ * Docusaurus deliberately strips the id from every `<h1>` — see theme Heading:
+ * `if (As === 'h1' || !id) return <As id={undefined} />` — so the page title is
+ * the one heading that can never own an anchor. Rather than materialize an HTML
+ * anchor for it, drop the now-pointless fragment from links that target it:
+ * "../utils.md#imessage" → "../utils.md" lands on the very same spot, the top of
+ * the page.
+ *
+ * Cross-file, so it needs every page's title at once.
+ * @param {string[]} filePaths
  */
-function addScrollMarginToAnchors(filePath) {
-	if (!existsSync(filePath)) return;
-	const content = readFileSync(filePath, "utf-8");
-	// Only bare anchors match — an already-styled anchor has extra attributes.
-	const updated = content.replace(
-		/<a id="([^"]+)"><\/a>/g,
-		`<a id="$1" ${ANCHOR_SCROLL_STYLE}></a>`
-	);
-	if (updated !== content) writeFileSync(filePath, updated, "utf-8");
+function dropPageTitleFragments(filePaths) {
+	/** @type {Map<string, string>} */
+	const titleSlugs = new Map();
+	for (const filePath of filePaths) {
+		const m = readFileSync(filePath, "utf-8").match(/^# (.+)$/m);
+		if (m) titleSlugs.set(resolve(filePath), slugify(m[1]));
+	}
+
+	for (const filePath of filePaths) {
+		const content = readFileSync(filePath, "utf-8");
+		const ownSlug = titleSlugs.get(resolve(filePath));
+
+		const updated = content
+			// Another page's title: keep the link, drop the fragment.
+			.replace(/\]\(([^)\s#]+)#([^)\s]+)\)/g, (full, rel, fragment) => {
+				const target = resolve(dirname(filePath), rel);
+				return titleSlugs.get(target) === fragment.toLowerCase() ? `](${rel})` : full;
+			})
+			// This page's own title: unlink it. Pointing the reader at the top of the
+			// page they are already reading is noise.
+			.replace(/\[([^\]]+)\]\(#([^)\s]+)\)/g, (full, label, fragment) =>
+				fragment.toLowerCase() === ownSlug ? label : full
+			);
+
+		if (updated !== content) writeFileSync(filePath, updated, "utf-8");
+	}
 }
 
 /**
  * Repairs in-page hash links:
  * - drops stale TypeDoc dedup suffixes ("#name-1") when "#name" exists;
- * - materializes an anchor for self-references to the page H1 (Docusaurus
- *   does not give the title heading an anchor);
  * - warns about anchors that cannot be resolved at all.
  * @param {string} filePath
  */
@@ -626,33 +489,20 @@ function fixInPageAnchors(filePath) {
 	const original = readFileSync(filePath, "utf-8");
 	let content = original;
 
-	const ids = new Set();
-	for (const m of content.matchAll(/<a id="([^"]+)"/g)) ids.add(m[1].toLowerCase());
 	// The H1 is the page title and gets no anchor — collect H2–H6 only
+	const ids = new Set();
 	for (const m of content.matchAll(/^#{2,6} (.+)$/gm)) ids.add(slugify(m[1]));
-
-	const h1Match = content.match(/^# (.+)$/m);
-	const h1Slug = h1Match ? slugify(h1Match[1]) : null;
-	let injectH1Anchor = false;
 
 	content = content.replace(/\]\(#([^)\s]+)\)/g, (full, anchor) => {
 		const target = anchor.toLowerCase();
 		if (ids.has(target)) return full;
 		const stripped = target.replace(/-\d+$/, "");
 		if (stripped !== target && ids.has(stripped)) return `](#${stripped})`;
-		if (h1Slug && (target === h1Slug || stripped === h1Slug)) {
-			injectH1Anchor = true;
-			return `](#${h1Slug})`;
-		}
 		console.warn(
 			`[warn] Unresolved in-page anchor #${anchor} in ${basename(filePath)}`
 		);
 		return full;
 	});
-
-	if (injectH1Anchor && h1Slug && !ids.has(h1Slug)) {
-		content = content.replace(/^(# .+)$/m, `<a id="${h1Slug}"></a>\n\n$1`);
-	}
 
 	if (content !== original) writeFileSync(filePath, content, "utf-8");
 }
@@ -730,35 +580,24 @@ for (const filePath of ALL_MD_FILES) {
 	reorderExamplesLast(filePath);
 	resolvePluginImageTags(filePath);
 	promoteFirstH2toH1(filePath);
+	raiseMainSymbolSubtree(filePath);
 }
 
-// 2. TOC tuning
-for (const relPath of TOC_LEVEL_2_OVERRIDES) {
-	patchTocLevel(relPath, 2);
-}
+// 2. Links to a page title lose their fragment. Needs every page's H1 at once,
+// and must precede fixInPageAnchors, which would otherwise warn about the very
+// anchors this resolves.
+dropPageTitleFragments(ALL_MD_FILES);
 
-for (const relPath of TOC_LEVEL_4_OVERRIDES) {
-	promoteEnumMemberHeadings(relPath);
-	patchTocLevel(relPath, 3);
-	patchTocMinLevel(relPath, 3);
-}
-
-// 3. Enum member lists → tables
-for (const relPath of ENUM_LIST_TO_TABLE_FILES) {
-	convertEnumListToTable(relPath);
-}
-
-// 4. Cleanup passes over the final content
+// 3. Cleanup passes over the final content
 for (const filePath of ALL_MD_FILES) {
 	fixUnionPipeArtifacts(filePath);
-	placeMainSymbolAnchor(filePath);
+	stripRawAnchors(filePath);
 	fixInPageAnchors(filePath);
 	ensureBlankLineBeforeHeadings(filePath);
 	stripTrailingHr(filePath);
-	addScrollMarginToAnchors(filePath);
 }
 
-// 5. Section index pages (read the final page content)
+// 4. Section index pages (read the final page content)
 for (const section of SECTIONS) {
 	generateIndexPage(section);
 }

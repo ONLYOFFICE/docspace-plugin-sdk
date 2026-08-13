@@ -128,12 +128,31 @@ TypeDoc/plugin upgrade changes the output shape.
 
 | Transform | What it fixes |
 | --- | --- |
-| `resolvePluginImageTags` | Rewrites `<plugin-image src="x.png" width="..." [dark] />` → `<img src="/assets/images/docspace/x.png" .../>` (a `dark` attribute emits a light/dark pair) |
-| `convertEnumListToTable` | Converts list-format enum members into a `Member / Value / Description` table (all enums except list-format overrides like `Actions`) |
+| `resolvePluginImageTags` | Rewrites `<plugin-image src="x.png" [dark] />` → `![x](/assets/images/docspace/x.png)` (a `dark` attribute emits a light/dark pair) |
 | `reorderExamplesLast` | Moves `### Example(s)` sections after `### Properties` within each section |
 | `hoistMainSection` | In mixed-kind modules, moves the section matching the file name to the top (fixes Enum-before-Interface ordering) |
-| `promoteFirstH2toH1` | Promotes the main type's `## Heading` to `# H1`, or injects a title + module description for multi-type modules |
-| `patchTocLevel` / `patchTocMinLevel` | Tunes `toc_max/min_heading_level` in frontmatter per file (dense pages drop to level 2; `Actions` uses a member-only TOC) |
+| `promoteFirstH2toH1` | Promotes the main type's `## Heading` to `# H1`, or injects a title + module description (and a `sidebar_label`) for multi-type modules |
+| `raiseMainSymbolSubtree` | Shifts the main symbol's headings up one level, so its group lands on H2 and its members on H3 — within Docusaurus' TOC cutoff |
+| `fixUnionPipeArtifacts` | Strips TypeDoc's stray leading `\|` in union types |
+| `stripRawAnchors` | Removes the `<a id>` anchors TypeDoc leaves behind — every member is a heading and Docusaurus anchors it natively |
+| `fixInPageAnchors` | Repairs in-page links whose target anchor does not exist, and warns about the ones it cannot resolve |
+| `dropPageTitleFragments` | Drops the fragment from links that target a page title, which is the one heading Docusaurus cannot anchor |
+| `ensureBlankLineBeforeHeadings` | Guarantees the blank line MDX needs before a heading |
+| `stripTrailingHr` | Drops the trailing `***` TypeDoc puts between groups |
+
+Every page's `# H1` comes from `promoteFirstH2toH1` — TypeDoc emits none, because `hidePageTitle`
+is `true`. Several later steps key off that H1 (`raiseMainSymbolSubtree`, `dropPageTitleFragments`,
+the sidebar labels in step 4, the index-page descriptions in step 3), so a change that stops the
+promotion breaks them all silently.
+
+### No raw HTML in the output
+
+The generated Markdown contains no HTML tags at all, and the pipeline should stay that way.
+Every symbol member is a heading, so Docusaurus generates its anchor and applies the sticky-navbar
+scroll offset (`.anchorTargetStickyNavbar`) natively — which is what the old injected
+`<a id … style={{scrollMarginTop}}>` anchors were reimplementing by hand. The one heading
+Docusaurus refuses to anchor is the page title (`Heading/index.js`: `if (As === 'h1' || !id)`),
+so links to it drop their fragment instead of growing an anchor.
 
 ## TypeDoc Configuration
 
@@ -147,20 +166,33 @@ The full configuration is in [`typedoc.config.mjs`](typedoc.config.mjs). Key opt
 | `plugin` | markdown, frontmatter, docusaurus-theme | Output format and Docusaurus integration |
 | `out` | `"docs"` | Output directory |
 | `sort` | `["source-order"]` | Keep members in source order (not alphabetical) |
-| `propertiesFormat` / `interfacePropertiesFormat` | `"table"` | Render interface properties as tables |
-| `enumMembersFormat` | `"list"` | Emit enum members as a list (converted to a table in step 3) |
-| `parametersFormat` / `typeDeclarationFormat` | `"table"` | Render parameters and inline types as tables |
+| every `*Format` option | `"list"` | Render each member as its own heading — a table row cannot carry an anchor without raw HTML |
+| `useCodeBlocks` | `true` | Signatures as ` ```ts ` fences. The alternative, blockquotes, keeps type names linked but wraps long unions into a dense run of escaped braces |
+| `expandObjects` / `expandParameters` | `false` | Keep objects collapsed in signatures — expanding inlines the whole shape into one line that "Type Declaration" already documents property by property |
 | `excludePrivate` / `excludeProtected` / `excludeInternal` / `excludeExternals` | `true` | Exclude private/protected/`@internal`/external members |
 | `commentStyle` | `"jsdoc"` | Use `/** */` comment style |
 | `useTsLinkResolution` | `true` | Resolve `{@link}` tags via the TypeScript type checker |
 | `sourceLinkTemplate` / `gitRevision` | GitHub blob URL / current branch | Build the "Defined in:" source links (branch set in step 1, reverted in step 5) |
-| `frontmatterGlobals` | `toc_max_heading_level: 3`, `hide_title: true` | Default frontmatter for every page (some overridden in step 3) |
 | `cleanOutputDir` | `true` | Wipe and rebuild `docs/` on every run |
 | `sidebar` | `{ autoConfiguration: true }` | Auto-generate the Docusaurus sidebar |
 | `validation` | notExported, invalidLink, rewrittenLink | Validate documentation quality on generation |
 
 To document a **new section**, add its glob to `entryPoints` here **and** add an entry to
 [`tools/constants/sections.mjs`](tools/constants/sections.mjs).
+
+### Frontmatter
+
+Pages carry no frontmatter unless something needs it. Only two keys are ever written, both by
+step 3 and neither by `typedoc-plugin-frontmatter`:
+
+| Key | Where | Written by |
+| --- | --- | --- |
+| `sidebar_label` | multi-type module pages with a `@packageDocumentation` preamble | `promoteFirstH2toH1` |
+| `sidebar_position` | the five section `index.md` pages | `generateIndexPage` |
+
+Do not reintroduce `toc_max_heading_level` / `hide_title` globals. `toc_max_heading_level: 3` is
+already the Docusaurus default, and `hide_title` only suppresses Docusaurus' synthetic title,
+which never renders while a page has its own `# H1`.
 
 ## Writing Documentation Comments
 
@@ -293,36 +325,42 @@ and add the custom tag to the symbol's JSDoc:
 
 ```typescript
 /**
- * <plugin-image src="button.png" width="480px" />
+ * <plugin-image src="button.png" />
  */
 ```
 
-`width` is optional. Step 3 rewrites the tag to
-`<img alt="button" src="/assets/images/docspace/button.png" style={{width: "480px"}} />`.
+Step 3 rewrites the tag to a plain Markdown image,
+`![button](/assets/images/docspace/button.png)`.
+
+There is no size attribute: Markdown images cannot carry one, and the output is deliberately
+free of raw HTML. An image renders at its natural size, capped to the content column by the
+site's global `img { max-width: 100% }`. Size a screenshot by saving the asset at the width it
+should appear.
 
 #### Theme-aware images (light / dark)
 
 Add the optional `dark` attribute to emit a light/dark image pair. The docs site hides the
-wrong one per theme via CSS on the `#gh-light-mode-only` / `#gh-dark-mode-only` src suffix
-(`[data-theme='dark'] img[src$='#gh-light-mode-only']` etc.).
+wrong one per theme via CSS on the `#gh-light-mode-only` / `#gh-dark-mode-only` src fragment
+(`[data-theme='dark'] img[src$='#gh-light-mode-only']` etc. in its `src/css/custom.css`) — the
+mechanism keys on the URL, not on the tag, so plain Markdown images work with it unchanged.
 
 ```typescript
 /**
- * <plugin-image src="main-button-plugin.png" width="400px" dark />
+ * <plugin-image src="main-button-plugin.png" dark />
  */
 ```
 
-rewrites to two tags:
+rewrites to two images on one line:
 
-```html
-<img alt="main-button-plugin" src="/assets/images/docspace/main-button-plugin.png#gh-light-mode-only" style={{width: "400px"}} /><img alt="main-button-plugin" src="/assets/images/docspace/main-button-plugin.dark.png#gh-dark-mode-only" style={{width: "400px"}} />
+```markdown
+![main-button-plugin](/assets/images/docspace/main-button-plugin.png#gh-light-mode-only)![main-button-plugin](/assets/images/docspace/main-button-plugin.dark.png#gh-dark-mode-only)
 ```
 
 - A valueless `dark` auto-derives the dark file name by inserting `.dark` before the extension
   (`main-button-plugin.png` → `main-button-plugin.dark.png`).
 - Use `dark="other-name.png"` to point at an explicitly named dark asset instead.
 - Both files must exist in the site's `assets/images/docspace/` folder.
-- Without the `dark` attribute a single `<img>` is emitted (unchanged behavior).
+- Without the `dark` attribute a single image is emitted.
 
 ### Ordering: `@example` last
 

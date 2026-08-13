@@ -87,10 +87,6 @@ export default {
 	githubPages: false,
 	searchInComments: true,
 	cleanOutputDir: true,
-	frontmatterGlobals: {
-		toc_max_heading_level: 3,
-		hide_title: true
-	},
 	commentStyle: "jsdoc",
 	locales: {
 		en: {
@@ -108,28 +104,24 @@ export default {
 		autoConfiguration: true,
 		pretty: true
 	},
-	frontmatterCommentTags: ["toc_max_heading_level"],
+	// Signatures as ```ts fences. The alternative, blockquotes, keeps type names
+	// linked, but a long union or intersection then wraps into a dense run of
+	// escaped braces; the fence breaks it across lines and highlights it.
 	useCodeBlocks: true,
+	// Leave objects collapsed in signatures: expanding them inlines the whole
+	// shape into one dense line that the "Type Declaration" section below already
+	// documents property by property.
 	expandObjects: true,
 	expandParameters: true,
-	propertiesFormat: "table",
-	interfacePropertiesFormat: "table",
-	classPropertiesFormat: "table",
+	// List format throughout: every member becomes a heading, so Docusaurus gives
+	// it a native anchor and no HTML has to be injected into the output.
+	propertiesFormat: "list",
+	interfacePropertiesFormat: "list",
+	classPropertiesFormat: "list",
 	enumMembersFormat: "list",
-	typeDeclarationFormat: "table",
-	parametersFormat: "table",
-	propertyMembersFormat: "table",
-	tableColumnSettings: {
-		hideDefaults: false,
-		hideInherited: false,
-		hideModifiers: false,
-		hideOverrides: false,
-		// The per-row "Defined in" column duplicates the page-level source link
-		// and squeezes the Description column on rendered pages.
-		hideSources: true,
-		hideValues: false,
-		leftAlignHeaders: false
-	},
+	typeDeclarationFormat: "list",
+	parametersFormat: "list",
+	propertyMembersFormat: "list",
 	textContentMappings: {
 		"header.title": "API Reference",
 		"breadcrumbs.home": "Home"
