@@ -25,8 +25,6 @@ import {
     TSelectorSubmitButton
 } from "./IBaseSelector";
 
-
-
 /**
  * Defines the properties for a user and group selector component.
  *
@@ -38,7 +36,7 @@ import {
  * @see {@link TSelectorBaseProps} - Common base properties (id, className)
  * @see {@link TSelectorLifecycleEvents} - Lifecycle callbacks (onLoad, onClose)
  * @see {@link TSelectorEmptyScreen} - Empty state messages
- * 
+ *
  * @example
  * ```typescript
  * // This example demonstrates how to configure a selector for choosing users and groups.
@@ -84,8 +82,6 @@ import {
  *   },
  * };
  * ```
- * 
- * 
  */
 export type TPeopleSelector = TSelectorHeader &
     TSelectorCancelButton &
@@ -96,93 +92,67 @@ export type TPeopleSelector = TSelectorHeader &
         /**
          * The type of entity for which the user is being selected (e.g., for sharing a file).
          * @example "file" | "folder" | "room"
-         * 
-
          */
         targetEntityType?: "file" | "folder" | "room";
         /**
          * If true, allows the selection of groups.
          * @default false
-         * 
-
          */
         withGroups?: boolean;
         /**
          * If true, displays only groups in the selector.
          * @default false
-         * 
-
          */
         isGroupsOnly?: boolean;
         /**
          * If true, includes guest users in the selector.
          * @default false
-         * 
-
          */
         withGuests?: boolean;
         /**
          * If true, displays only guest users in the selector.
          * @default false
-         * 
-
          */
         isGuestsOnly?: boolean;
         /**
          * If true, allows multiple users and/or groups to be selected.
          * @default false
-         * 
-
          */
         isMultiSelect?: boolean;
         /**
          * The ID of the current user, to be excluded from the list.
          * @example "user-1234"
-         * 
-
          */
         currentUserId?: string;
         /**
          * An array of user or group IDs to exclude from the list.
          * @example ["user-1234", "group-5678"]
-         * 
-
          */
         excludeItems?: string[];
         /**
          * An array of user IDs that are already invited and should be disabled.
          * @example ["user-1234", "user-5678"]
-         * 
-
          */
         disableInvitedUsers?: string[];
         /**
          * If true, users with a 'disabled' status will not be displayed.
          * @default false
-         * 
-
          */
         disableDisabledUsers?: boolean;
         /**
          * The ID of the room to which the selector is related.
          * @example "room-1234"
-         * 
-
          */
         roomId?: string | number;
 
         /**
          * If true, the footer will always be visible, even if no users are selected.
          * @default false
-         * 
-
          */
         alwaysShowFooter?: boolean;
         /**
          * If true, displays only the members of the current room.
          * @default false
-         * 
-
          */
         onlyRoomMembers?: boolean;
     }

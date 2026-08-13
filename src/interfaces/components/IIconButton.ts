@@ -18,7 +18,6 @@
 
 import { TReturnMessage } from "../utils";
 
-
 /**
  * A component that displays an interactive icon button with hover and click states.
  *
@@ -58,8 +57,6 @@ import { TReturnMessage } from "../utils";
  *   title: "Delete item"
  * }
  * ```
- *
- *
  */
 export interface IIconButton {
   /**

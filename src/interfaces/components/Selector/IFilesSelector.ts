@@ -20,16 +20,14 @@ import { FilesExst, FilesSecurity, Security } from "../../../enums";
 import { FilterType } from "../../../enums/Utility";
 import { TReturnMessage } from "../../utils";
 import {
-	TBreadCrumbItem,
-	TSelectorBaseProps,
-	TSelectorCancelButton,
-	TSelectorHeader,
-	TSelectorLifecycleEvents,
-	TSelectorSearchCreate,
-	TSelectorSubmitButton
+  TBreadCrumbItem,
+  TSelectorBaseProps,
+  TSelectorCancelButton,
+  TSelectorHeader,
+  TSelectorLifecycleEvents,
+  TSelectorSearchCreate,
+  TSelectorSubmitButton
 } from "./IBaseSelector";
-
-
 
 /**
  * Defines the properties for a file and folder selector component.
@@ -37,20 +35,20 @@ import {
  * This type combines multiple selector-related types:
  *
  * #### TSelectedFileInfo
- * 
+ *
  * | Property | Type | Description |
  * |----------|------|-------------|
  * | `id` | `string \| number` | The unique identifier of the file |
  * | `title` | `string` | The title or name of the file |
  * | `fileExst` | `FilesExst \| string` | The file extension (e.g., 'docx', 'pdf') |
- * 
+ *
  * @see {@link TSelectorHeader} - Header configuration properties
  * @see {@link TSelectorBaseProps} - Common base properties (id, className)
  * @see {@link TSelectorLifecycleEvents} - Lifecycle callbacks (onLoad, onClose)
  * @see {@link TSelectorSearchCreate} - Search and create functionality
  * @see {@link TSelectorCancelButton} - Cancel button properties
  * @see {@link TSelectorSubmitButton} - Submit button properties (partial)
- * 
+ *
  * @example
  * ```typescript
  * // This example demonstrates a file selector for choosing a location to save a file.
@@ -106,54 +104,54 @@ import {
  * ```
  */
 export type TFilesSelector = TSelectorHeader &
-	TSelectorBaseProps &
-	TSelectorLifecycleEvents &
-	TSelectorSearchCreate &
-	TSelectorCancelButton &
-	Pick<TSelectorSubmitButton, "submitButtonLabel"> & {
-		/** If true, allows multiple items to be selected. */
-		isMultiSelect?: boolean;
-		/** If true, displays breadcrumb navigation. */
-		withBreadCrumbs?: boolean;
-		/** The ID of the folder to open by default. */
-		currentFolderId?: string | number;
-		/** If true, displays only rooms at the root level. */
-		isRoomsOnly?: boolean;
-		/** If true, opens the root directory by default. */
-		openRoot?: boolean;
-		/** A descriptive text displayed within the selector. */
-		descriptionText?: string;
-		/** If true, displays an input field in the footer. */
-		withFooterInput?: boolean;
-		/** The header text for the footer input. */
-		footerInputHeader?: string;
-		/** The initial value for the footer input. */
-		currentFooterInputValue?: string;
-		/** If true, displays a checkbox in the footer. */
-		withFooterCheckbox?: boolean;
-		/** The label for the footer checkbox. */
-		footerCheckboxLabel?: string;
-		/** File type filter. */
-		filterParam?: FilterType;
-		/** A callback function to determine if the submit button should be disabled. */
-		getIsDisabled: (params: TGetIsDisabledParams) => boolean;
-		/** A callback function that is triggered when the submit button is clicked. */
-		onSubmit?: (params: TOnSubmitParams) => TReturnMessage;
-		/** A callback function that is triggered when an item is selected. */
-		onSelect?: (id: string | number | undefined) => TReturnMessage;
-	};
+  TSelectorBaseProps &
+  TSelectorLifecycleEvents &
+  TSelectorSearchCreate &
+  TSelectorCancelButton &
+  Pick<TSelectorSubmitButton, "submitButtonLabel"> & {
+    /** If true, allows multiple items to be selected. */
+    isMultiSelect?: boolean;
+    /** If true, displays breadcrumb navigation. */
+    withBreadCrumbs?: boolean;
+    /** The ID of the folder to open by default. */
+    currentFolderId?: string | number;
+    /** If true, displays only rooms at the root level. */
+    isRoomsOnly?: boolean;
+    /** If true, opens the root directory by default. */
+    openRoot?: boolean;
+    /** A descriptive text displayed within the selector. */
+    descriptionText?: string;
+    /** If true, displays an input field in the footer. */
+    withFooterInput?: boolean;
+    /** The header text for the footer input. */
+    footerInputHeader?: string;
+    /** The initial value for the footer input. */
+    currentFooterInputValue?: string;
+    /** If true, displays a checkbox in the footer. */
+    withFooterCheckbox?: boolean;
+    /** The label for the footer checkbox. */
+    footerCheckboxLabel?: string;
+    /** File type filter. */
+    filterParam?: FilterType;
+    /** A callback function to determine if the submit button should be disabled. */
+    getIsDisabled: (params: TGetIsDisabledParams) => boolean;
+    /** A callback function that is triggered when the submit button is clicked. */
+    onSubmit?: (params: TOnSubmitParams) => TReturnMessage;
+    /** A callback function that is triggered when an item is selected. */
+    onSelect?: (id: string | number | undefined) => TReturnMessage;
+  };
 
 /**
  * Represents information about a selected file.
  * @inline
  */
 type TSelectedFileInfo = {
-	/** The unique identifier of the file. */
-	id: string | number;
-	/** The title or name of the file. */
-	title: string;
-	/** The file extension (e.g., 'docx', 'pdf'). */
-	fileExst?: FilesExst | string;
+  /** The unique identifier of the file. */
+  id: string | number;
+  /** The title or name of the file. */
+  title: string;
+  /** The file extension (e.g., 'docx', 'pdf'). */
+  fileExst?: FilesExst | string;
 };
 
 /**
@@ -161,18 +159,18 @@ type TSelectedFileInfo = {
  * @inline
  */
 type TOnSubmitParams = {
-	/** The ID of the selected item (file or folder). */
-	selectedItemId: string | number | undefined;
-	/** The title of the folder where the submission occurred. */
-	folderTitle: string;
-	/** The name of the file entered in the footer input. */
-	fileName: string;
-	/** The checked state of the footer checkbox. */
-	isChecked: boolean;
-	/** Detailed information about the selected file, if any. */
-	selectedFileInfo: TSelectedFileInfo | null;
-	/** The current breadcrumb trail at the time of submission. */
-	breadCrumbs?: TBreadCrumbItem[];
+  /** The ID of the selected item (file or folder). */
+  selectedItemId: string | number | undefined;
+  /** The title of the folder where the submission occurred. */
+  folderTitle: string;
+  /** The name of the file entered in the footer input. */
+  fileName: string;
+  /** The checked state of the footer checkbox. */
+  isChecked: boolean;
+  /** Detailed information about the selected file, if any. */
+  selectedFileInfo: TSelectedFileInfo | null;
+  /** The current breadcrumb trail at the time of submission. */
+  breadCrumbs?: TBreadCrumbItem[];
 };
 
 /**
@@ -180,18 +178,18 @@ type TOnSubmitParams = {
  * @inline
  */
 type TGetIsDisabledParams = {
-	/** The ID of the currently selected item. */
-	selectedItemId: string | number | undefined;
-	/** The type of the selected item ('rooms' or 'files'). */
-	selectedItemType?: "rooms" | "files";
-	/** The security level of the selected item. */
-	selectedItemSecurity?: FilesSecurity | Security;
-	/** Detailed information about the selected file. */
-	selectedFileInfo: TSelectedFileInfo | null;
-	/** If true, this is the initial load of the selector. */
-	isFirstLoad: boolean;
-	/** If true, the selected item is a folder that should be disabled. */
-	isDisabledFolder?: boolean;
-	/** If true, the selector is currently at the root level. */
-	isRoot: boolean;
+  /** The ID of the currently selected item. */
+  selectedItemId: string | number | undefined;
+  /** The type of the selected item ('rooms' or 'files'). */
+  selectedItemType?: "rooms" | "files";
+  /** The security level of the selected item. */
+  selectedItemSecurity?: FilesSecurity | Security;
+  /** Detailed information about the selected file. */
+  selectedFileInfo: TSelectedFileInfo | null;
+  /** If true, this is the initial load of the selector. */
+  isFirstLoad: boolean;
+  /** If true, the selected item is a folder that should be disabled. */
+  isDisabledFolder?: boolean;
+  /** If true, the selector is currently at the root level. */
+  isRoot: boolean;
 };

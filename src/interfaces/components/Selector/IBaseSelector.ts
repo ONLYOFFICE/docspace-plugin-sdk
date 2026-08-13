@@ -33,7 +33,7 @@ import { TReturnMessage } from "../../utils";
  * @see {@link TSelectorBaseProps} - Common base properties (id, className)
  * @see {@link TSelectorLifecycleEvents} - Lifecycle callbacks (onLoad, onClose)
  * @see {@link TSelectorEmptyScreen} - Empty state messages
- * 
+ *
  * @example
  * ```typescript
  * // This example demonstrates how to create a basic selector with a list of items,
@@ -96,7 +96,6 @@ import { TReturnMessage } from "../../utils";
  *   },
  * };
  * ```
- * 
  */
 export type TBaseSelector =
   TSelectorBreadCrumbs &
@@ -108,56 +107,39 @@ export type TBaseSelector =
   TSelectorBaseProps &
   TSelectorLifecycleEvents &
   TSelectorEmptyScreen & {
-    /** 
-     * If true, shows a loading indicator for the entire selector. 
-     * 
-
+    /**
+     * If true, shows a loading indicator for the entire selector.
      */
     isLoading?: boolean;
-    /** 
-     * If true, allows multiple items to be selected. 
-     * 
-
+    /**
+     * If true, allows multiple items to be selected.
      */
     isMultiSelect?: boolean;
-    /** 
-     * The maximum number of items that can be selected. 
-     * 
-
+    /**
+     * The maximum number of items that can be selected.
      */
     maxSelectedItems?: number;
-    /** 
-     * An array of initially selected items. 
-     * 
-
+    /**
+     * An array of initially selected items.
      */
     selectedItems?: TSelectorItem[];
-    /** 
-     * A descriptive text displayed within the selector. 
-     * 
-
+    /**
+     * A descriptive text displayed within the selector.
      */
     descriptionText?: string;
-    /** 
-     * The header text to display when a search yields no results. 
-     * 
-
+    /**
+     * The header text to display when a search yields no results.
      */
     searchEmptyScreenHeader?: string;
-    /** 
-     * The description text to display when a search yields no results. 
-     * 
-
+    /**
+     * The description text to display when a search yields no results.
      */
     searchEmptyScreenDescription?: string;
-    /** 
-     * A callback function that is triggered when an item is selected. 
-     * 
-
+    /**
+     * A callback function that is triggered when an item is selected.
      */
     onSelect?: (params: TOnSelectParams) => TReturnMessage;
   };
-
 
 /**
  * Represents a single item within a selector component.
@@ -167,14 +149,12 @@ export type TBaseSelector =
  * @see {@link TSelectorItemNew} - New item properties
  */
 export type TSelectorItem = {
-  /** 
-   * The display text for the item. 
-   * 
+  /**
+   * The display text for the item.
    */
   label: string;
-  /** 
-   * A unique identifier for the item. 
-   * 
+  /**
+   * A unique identifier for the item.
    */
   id?: string | number;
 } & Partial<TSelectorItemFile> &
@@ -185,24 +165,20 @@ export type TSelectorItem = {
  * Defines properties for an item that represents a file.
  */
 export type TSelectorItemFile = {
-  /** 
-   * The URL or identifier for the item's icon. 
-   * 
+  /**
+   * The URL or identifier for the item's icon.
    */
   icon: string;
-  /** 
-   * The file extension (e.g., 'docx', 'pdf'). 
-   * 
+  /**
+   * The file extension (e.g., 'docx', 'pdf').
    */
   fileExst: FilesExst | string;
-  /** 
-   * The general type of the file (e.g., 'text', 'spreadsheet'). 
-   * 
+  /**
+   * The general type of the file (e.g., 'text', 'spreadsheet').
    */
   fileType: FilesType;
-  /** 
-   * The security or access level of the file. 
-   * 
+  /**
+   * The security or access level of the file.
    */
   security: FilesSecurity;
 };
@@ -211,25 +187,20 @@ export type TSelectorItemFile = {
  * Defines properties for an item that functions as an input field.
  */
 export type TSelectorItemInput = {
-  /** 
-   * If true, this item will be rendered as an input field. 
-   * 
-
+  /**
+   * If true, this item will be rendered as an input field.
    */
   isInputItem: boolean;
-  /** 
-   * The default value to display in the input field. 
-   * 
+  /**
+   * The default value to display in the input field.
    */
   defaultInputValue: string;
-  /** 
-   * A callback function that is triggered when the user accepts the input value. 
-   * 
+  /**
+   * A callback function that is triggered when the user accepts the input value.
    */
   onAcceptInput: (value: string) => TReturnMessage;
-  /** 
-   * A callback function that is triggered when the user cancels the input. 
-   * 
+  /**
+   * A callback function that is triggered when the user cancels the input.
    */
   onCancelInput: () => TReturnMessage;
 };
@@ -238,38 +209,30 @@ export type TSelectorItemInput = {
  * Defines properties for an item that allows creating a new entity.
  */
 export type TSelectorItemNew = {
-  /** 
-   * If true, this item will be rendered as a 'create new' button. 
-   * 
+  /**
+   * If true, this item will be rendered as a 'create new' button.
    */
   isCreateNewItem: boolean;
-  /** 
-   * A callback function that is triggered when the user clicks the 'create new' button. 
-   * 
+  /**
+   * A callback function that is triggered when the user clicks the 'create new' button.
    */
   onCreateClick: () => TReturnMessage;
 };
 
 /**
  * Represents a single item in a breadcrumb trail.
- *
  */
 export type TBreadCrumbItem = {
-  /** 
-   * The display text for the breadcrumb item. 
-   * 
+  /**
+   * The display text for the breadcrumb item.
    */
   label: string;
-  /** 
-   * A unique identifier for the breadcrumb item. 
-   * 
-
+  /**
+   * A unique identifier for the breadcrumb item.
    */
   id: string | number;
-  /** 
-   * If true, indicates that the breadcrumb item represents a room. 
-   * 
-
+  /**
+   * If true, indicates that the breadcrumb item represents a room.
    */
   isRoom?: boolean;
 };
@@ -277,7 +240,6 @@ export type TBreadCrumbItem = {
 /**
  * Defines the parameters passed to the `onSelect` callback.
  * @inline
- * 
  */
 type TOnSelectParams = {
   /** The ID of the selected item. */
@@ -288,101 +250,82 @@ type TOnSelectParams = {
 
 /**
  * Defines properties for configuring breadcrumbs in a selector.
- *
  */
 export type TSelectorBreadCrumbs = {
-  /** 
-   * If true, displays the breadcrumb navigation. 
-   * 
+  /**
+   * If true, displays the breadcrumb navigation.
    */
   withBreadCrumbs?: boolean;
-  /** 
-   * If true, shows a loading indicator for the breadcrumbs. 
-   * 
+  /**
+   * If true, shows a loading indicator for the breadcrumbs.
    */
   isBreadCrumbsLoading?: boolean;
-  /** 
-   * An array of breadcrumb items to display. 
-   * 
+  /**
+   * An array of breadcrumb items to display.
    */
   breadCrumbs?: TBreadCrumbItem[];
-  /** 
-   * A callback function that is triggered when a breadcrumb item is selected. 
-   * 
+  /**
+   * A callback function that is triggered when a breadcrumb item is selected.
    */
   onSelectBreadCrumb?: (id: string | number) => TReturnMessage;
 };
 
 /**
  * Defines properties for pagination within a selector.
- *
  */
 export type TSelectorPagination = {
-  /** 
-   * The list of items to display on the current page. 
-   * 
+  /**
+   * The list of items to display on the current page.
    */
   items: TSelectorItem[];
-  /** 
-   * If true, indicates that more items are available on subsequent pages. 
-   * 
+  /**
+   * If true, indicates that more items are available on subsequent pages.
    */
   hasNextPage?: boolean;
-  /** 
-   * If true, shows a loading indicator while the next page is being loaded. 
-   * 
+  /**
+   * If true, shows a loading indicator while the next page is being loaded.
    */
   isNextPageLoading?: boolean;
-  /** 
-   * A callback function that is triggered to load the next page of items. 
-   * 
+  /**
+   * A callback function that is triggered to load the next page of items.
    */
   onLoadNextPage?: () => TReturnMessage;
-  /** 
-   * The total number of items available. 
-   * 
+  /**
+   * The total number of items available.
    */
   totalItems?: number;
 };
 
 /**
  * Defines properties for the selector's header.
- *
  */
 export type TSelectorHeader = {
-  /** 
-   * If true, displays the header. 
-   * 
+  /**
+   * If true, displays the header.
    */
   withHeader?: boolean;
-  /** 
-   * An object containing properties for the header. 
-   * 
+  /**
+   * An object containing properties for the header.
    */
   headerProps?: {
-    /** 
-     * The title text to display in the header. 
-     * 
+    /**
+     * The title text to display in the header.
      */
     label: string;
-    /** 
-     * If true, displays a close button in the header. 
-     * 
+    /**
+     * If true, displays a close button in the header.
      */
     isCloseable?: boolean;
-    /** 
-     * A callback function that is triggered when the close button is clicked. 
-     * 
+    /**
+     * A callback function that is triggered when the close button is clicked.
      */
     onCloseClick?: () => TReturnMessage;
-    /** 
-     * If true, displays a back button in the header. 
-     * 
+    /**
+     * If true, displays a back button in the header.
      */
     withBackButton?: boolean;
-    /** 
-     * A callback function that is triggered when the back button is clicked. 
-     * 
+    /**
+     * A callback function that is triggered when the back button is clicked.
      */
     onBackClick?: () => TReturnMessage;
   };
@@ -390,114 +333,92 @@ export type TSelectorHeader = {
 
 /**
  * Defines properties for a checkbox in the selector's footer.
- *
  */
 export type TSelectorCheckbox = {
-  /** 
-   * If true, displays a checkbox in the footer. 
-   * 
+  /**
+   * If true, displays a checkbox in the footer.
    */
   withCheckbox?: boolean;
-  /** 
-   * The label for the footer checkbox. 
-   * 
+  /**
+   * The label for the footer checkbox.
    */
   footerCheckboxLabel?: string;
-  /** 
-   * The initial checked state of the footer checkbox. 
-   * 
+  /**
+   * The initial checked state of the footer checkbox.
    */
   isChecked?: boolean;
 }
 
 /**
  * Defines properties for the cancel button in the selector.
- *
  */
 export type TSelectorCancelButton = {
-  /** 
-   * If true, displays the cancel button. 
-   * 
-
+  /**
+   * If true, displays the cancel button.
    */
   withCancelButton?: boolean;
-  /** 
-   * The text label for the cancel button. 
-   * 
-
+  /**
+   * The text label for the cancel button.
    */
   cancelButtonLabel?: string;
-  /** 
-   * A callback function that is triggered when the cancel button is clicked. 
-   * 
+  /**
+   * A callback function that is triggered when the cancel button is clicked.
    */
   onCancel?: () => TReturnMessage;
 }
 
 /**
  * Common base properties shared across all selector types.
- *
  */
 export type TSelectorBaseProps = {
-  /** 
-   * A unique identifier for the selector component. 
-   * 
+  /**
+   * A unique identifier for the selector component.
    */
   id?: string;
-  /** 
-   * A CSS class name to apply to the selector component. 
-   * 
+  /**
+   * A CSS class name to apply to the selector component.
    */
   className?: string;
 }
 
 /**
  * Lifecycle callback properties for selectors.
- *
  */
 export type TSelectorLifecycleEvents = {
-  /** 
-   * A callback function that is triggered when the selector is loaded. 
-   * 
+  /**
+   * A callback function that is triggered when the selector is loaded.
    */
   onLoad?: () => TReturnMessage;
-  /** 
-   * A callback function that is triggered when the selector is closed. 
-   * 
+  /**
+   * A callback function that is triggered when the selector is closed.
    */
   onClose?: () => TReturnMessage;
 }
 
 /**
  * Empty screen message properties for selectors.
- *
  */
 export type TSelectorEmptyScreen = {
-  /** 
-   * The header text to display when there are no items to show. 
-   * 
+  /**
+   * The header text to display when there are no items to show.
    */
   emptyScreenHeader?: string;
-  /** 
-   * The description text to display when there are no items to show. 
-   * 
+  /**
+   * The description text to display when there are no items to show.
    */
   emptyScreenDescription?: string;
 }
 
 /**
  * Search and create functionality properties for selectors.
- *
  */
 export type TSelectorSearchCreate = {
-  /** 
-   * If true, displays a search input field. 
-   * 
+  /**
+   * If true, displays a search input field.
    */
   withSearch?: boolean;
-  /** 
-   * If true, allows users to create new items. 
-   * 
+  /**
+   * If true, allows users to create new items.
    */
   withCreate?: boolean;
 }
@@ -505,8 +426,7 @@ export type TSelectorSearchCreate = {
 /**
  * Defines the parameters passed to the `onSubmit` callback.
  * @inline
- * 
-*/
+ */
 type TOnSubmitParams = {
   /** An array of IDs of the selected items. */
   selectedIds: (string | number)[];
@@ -520,28 +440,24 @@ type TOnSubmitParams = {
  * Defines properties for the submit button in the selector.
  *
  * #### TOnSubmitParams parameters
- * 
+ *
  * | Property | Type | Description |
  * |----------|------|-------------|
  * | `selectedIds` | `(string \| number)[]` | An array of IDs of the selected items. |
  * | `fileName` | `string` | The name of the file, if applicable. |
  * | `isFooterCheckboxChecked` | `boolean` | The checked state of the footer checkbox. |
- * 
  */
 export type TSelectorSubmitButton = {
-  /** 
-   * The text label for the submit button. 
-   * 
+  /**
+   * The text label for the submit button.
    */
   submitButtonLabel: string;
-  /** 
-   * If true, the submit button will be disabled. 
-   * 
+  /**
+   * If true, the submit button will be disabled.
    */
   disabledSubmitButton?: boolean;
-  /** 
-   * A callback function that is triggered when the submit button is clicked. 
-   * 
+  /**
+   * A callback function that is triggered when the submit button is clicked.
    */
   onSubmit: (params: TOnSubmitParams) => TReturnMessage;
 }

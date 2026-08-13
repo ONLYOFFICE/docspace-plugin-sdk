@@ -60,56 +60,39 @@
  *   }
  * }
  * ```
- *
  */
 export interface IFrame {
   /** Defines the base URL to a modal window or the settings page. It is used to generate links
-   *
-
    */
   src: string;
 
   /** Defines the frame width measured in percent
-   *
-
    */
   width?: string;
 
   /** Defines the frame height measured in percent
-   *
-
    */
   height?: string;
 
   /** Defines the name of the object inserted into the page
-   *
-
    */
   name?: string;
 
   /** Defines the frame sandbox
-   *
-
    */
   sandbox?: string;
 
   /** Defines the element ID
-   *
-
    */
   id?: string;
 
   /** Defines the frame style
-   *
-
    */
   style?: { [key: string]: string };
 
   /**
    * Defines the CSS class for styling the component.
    * Can be used to override or extend the default component styles.
-   *
-
    */
   className?: string;
 }

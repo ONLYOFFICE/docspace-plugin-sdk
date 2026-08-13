@@ -53,49 +53,37 @@
  * ```
  */
 export interface ILabel {
-	/** Defines the element text
-	 *
-	 */
-	text: string;
-
-	/** Specifies whether the field to which the label is attached is required
-	 *
-	 */
-	isRequired?: boolean;
-
-	/** Specifies whether the field to which the label is attached is incorrect
-	 *
-	 */
-	error?: boolean;
-
-	/** Defines the label title
-	 *
-	 */
-	title?: string;
-
-	/** Specifies whether the word wrapping is disabled
-   *
-
+  /** Defines the element text
    */
-	truncate?: boolean;
+  text: string;
 
-	/** Defines the field ID to which the label is attached
-   *
-
+  /** Specifies whether the field to which the label is attached is required
    */
-	htmlFor?: string;
+  isRequired?: boolean;
 
-	/** Specifies whether the "display" property is set
-   *
-
+  /** Specifies whether the field to which the label is attached is incorrect
    */
-	display?: string;
+  error?: boolean;
 
-	/**
+  /** Defines the label title
+   */
+  title?: string;
+
+  /** Specifies whether the word wrapping is disabled
+   */
+  truncate?: boolean;
+
+  /** Defines the field ID to which the label is attached
+   */
+  htmlFor?: string;
+
+  /** Specifies whether the "display" property is set
+   */
+  display?: string;
+
+  /**
    * Defines the CSS class for styling the component.
    * Can be used to override or extend the default component styles.
-   *
-
    */
-	className?: string;
+  className?: string;
 }

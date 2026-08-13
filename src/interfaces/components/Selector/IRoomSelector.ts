@@ -28,7 +28,6 @@ import {
     TSelectorSubmitButton
 } from "./IBaseSelector";
 
-
 /**
  * Defines the properties for a room selector component.
  *
@@ -41,7 +40,7 @@ import {
  * @see {@link TSelectorEmptyScreen} - Empty state messages
  * @see {@link TSelectorSearchCreate} - Search and create functionality
  * @see {@link TSelectorSubmitButton} - Submit button properties (partial)
- * 
+ *
  * @example
  * ```typescript
  * // This example demonstrates how to create a room selector that allows users to

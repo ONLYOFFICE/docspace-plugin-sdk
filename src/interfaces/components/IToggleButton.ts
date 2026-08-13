@@ -94,44 +94,31 @@ import { IMessage } from "../utils";
  *   }
  * }
  * ```
- *
  */
 export interface IToggleButton {
-	/** Defines the toggle button label
-   *
-
+  /** Defines the toggle button label
    */
-	label?: string;
+  label?: string;
 
-	/** Specifies whether the toggle button is enabled
-   *
-
+  /** Specifies whether the toggle button is enabled
    */
-	isChecked: boolean;
+  isChecked: boolean;
 
-	/** Sets a function which is triggered whenever the toggle button is clicked
-   *
-
+  /** Sets a function which is triggered whenever the toggle button is clicked
    */
-	onChange: () => IMessage | void;
+  onChange: () => IMessage | void;
 
-	/** Specifies whether the toggle button is disabled
-   *
-
+  /** Specifies whether the toggle button is disabled
    */
-	isDisabled?: boolean;
+  isDisabled?: boolean;
 
-	/** Defines the toggle button CSS style
-   *
-
+  /** Defines the toggle button CSS style
    */
-	style?: any;
+  style?: any;
 
-	/**
+  /**
    * Defines the CSS class for styling the component.
    * Can be used to override or extend the default component styles.
-   *
-
    */
-	className?: string;
+  className?: string;
 }

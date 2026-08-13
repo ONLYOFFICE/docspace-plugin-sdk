@@ -106,83 +106,60 @@ import { IComboBoxItem } from "./IComboBox";
  *   extension: "docx"
  * }
  * ```
- *
  */
 export interface ICreateDialog {
   /**
    * Defines the modal dialog title.
-   *
-
    */
   title: string;
 
   /**
    * Defines the modal dialog start value.
-   *
-
    */
   startValue: string;
 
   /**
    * Specifies if the modal dialog is visible or not.
-   *
-
    */
   visible: boolean;
 
   /**
    * Specifies if the create button is disabled.
-   *
-
    */
   isCreateDisabled?: boolean;
 
   /**
    * Specifies if the modal dialog should be closed after the create action.
-   *
-
    */
   isCloseAfterCreate?: boolean;
 
   /**
    * Defines an array of the modal dialog options.
-   *
-
    */
   options?: IComboBoxItem[];
 
   /**
    * Defines the selected modal dialog option.
-   *
-
    */
   selectedOption?: IComboBoxItem;
 
   /**
    * Error text to display when validation fails or an error occurs.
-   *
-
    */
   errorText?: string;
 
   /**
    * Sets a function which is triggered whenever the modal dialog option is selected.
-   *
-
    */
   onSelect?: (option: IComboBoxItem) => IMessage | void;
 
   /**
    * Sets a function which is triggered whenever the input value changes.
-   *
-
    */
   onChange?: (value: string) => IMessage | void;
 
   /**
    * Sets a function which is triggered whenever the data in the modal dialog is saved.
-   *
-
    */
   onSave?: (
     e: any,
@@ -191,43 +168,31 @@ export interface ICreateDialog {
 
   /**
    * Sets a function which is triggered whenever an action in the modal dialog is canceled.
-   *
-
    */
   onCancel?: (e: any) => void;
 
   /**
    * Sets a function which is triggered whenever the modal dialog is closed.
-   *
-
    */
   onClose?: (e: any) => void;
 
   /**
    * Sets a function which is triggered whenever an error occurs during the onSave operation.
-   *
-
    */
   onError?: (e: any) => Promise<IMessage> | Promise<void> | IMessage | void;
 
   /**
    * Specifies if this modal dialog is for creating certain item (file, folder, etc.).
-   *
-
    */
   isCreateDialog: boolean;
 
   /**
    * Specifies if this modal dialog should automatically focus on the error input field when an error occurs during the onSave operation.
-   *
-
    */
   isAutoFocusOnError?: boolean;
 
   /**
    * Defines an extension of an item which will be created (file, folder, etc.).
-   *
-
    */
   extension?: string;
 }

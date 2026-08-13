@@ -25,8 +25,6 @@ import { IMessage } from "../utils";
  * Items are registered by a plugin implementing
  * [`IEventListenerPlugin`](../plugins/IEventListenerPlugin.md).
  *
-
- *
  * @example
  *
  * Automatic room categorization with role-based access
@@ -112,14 +110,12 @@ import { IMessage } from "../utils";
 export interface IEventListenerItem {
   /**
    * The unique item identifier used by the service to recognize the item
-   *
    */
   key: string;
 
   /**
    * The event type which will be executed.
    * Presently the following events are available: CREATE, RENAME, ROOM_CREATE, ROOM_EDIT, CHANGE_COLUMN, CHANGE_USER_TYPE, CREATE_PLUGIN_FILE.
-   *
    */
   eventType: Events;
 
@@ -127,7 +123,6 @@ export interface IEventListenerItem {
    * A function that will be executed when the event is triggered.
    * This function can be asynchronous.
    * After the event is executed, only updating the items or displaying toast is possible, other actions are blocked.
-   *
    */
   eventHandler: () => Promise<IMessage> |  Promise<void> | IMessage | void;
 
@@ -135,7 +130,6 @@ export interface IEventListenerItem {
    * The types of users who have the access to the current item.
    * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
    * If this parameter is not specified, then the current item will be available for all user types.
-   *
    */
   usersTypes?: UsersType[];
 
@@ -143,7 +137,6 @@ export interface IEventListenerItem {
    * The types of devices where the current item will be available.
    * At the moment the following device types are available: mobile, tablet, desktop.
    * If this parameter is not specified, then the current item will be available in any device types.
-   *
    */
   devices?: Devices[];
 }

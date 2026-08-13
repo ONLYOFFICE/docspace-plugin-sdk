@@ -56,32 +56,23 @@
  *   borderRadius: "4px"
  * }
  * ```
- *
  */
 export interface ISkeleton {
   /** Defines the skeleton width
-   *
-
    */
   width: string;
 
   /** Defines the skeleton height
-   *
-
    */
   height: string;
 
   /** Defines the skeleton border radius
-   *
-
    */
   borderRadius?: string;
 
   /**
    * Defines the CSS class for styling the component.
    * Can be used to override or extend the default component styles.
-   *
-
    */
   className?: string;
 }

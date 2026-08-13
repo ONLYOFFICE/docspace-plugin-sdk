@@ -88,262 +88,200 @@ import { IMessage } from "../utils";
  * ```
  */
 export interface IInput {
-	/**
+  /**
    * Defines the input value.
-   *
-
    */
-	value: string;
+  value: string;
 
-	/**
+  /**
    * Sets a function which is triggered whenever the input value is changed.
    * It is required when the input is not read-only.
    * The changed input value is passed to the function, which passes it back in the "value" parameter.
-   *
-
    */
-	onChange: (value: string) => IMessage | void;
+  onChange: (value: string) => IMessage | void;
 
-	/**
+  /**
    * Defines the input HTML "name" property.
-   *
-
    */
-	name?: string;
+  name?: string;
 
-	/**
+  /**
    * Defines the input placeholder text.
-   *
-
    */
-	placeholder?: string;
+  placeholder?: string;
 
-	/**
+  /**
    * Defines the default maximum length of the input value.
-   *
-
    */
-	maxLength?: string;
+  maxLength?: string;
 
-	/**
+  /**
    * Defines the input size.
-   *
-
    */
-	size?: InputSize;
+  size?: InputSize;
 
-	/**
+  /**
    * Specifies whether to focus the input field when initially rendered.
-   *
-
    */
-	isAutoFocused?: boolean;
+  isAutoFocused?: boolean;
 
-	/**
+  /**
    * Specifies whether the input field displays the read-only content.
-   *
-
    */
-	isReadOnly?: boolean;
+  isReadOnly?: boolean;
 
-	/**
+  /**
    * Specifies whether to indicate that there is an error in the input field.
-   *
-
    */
-	hasError?: boolean;
+  hasError?: boolean;
 
-	/**
+  /**
    * Specifies whether to indicate that there is a warning in the input field.
-   *
-
    */
-	hasWarning?: boolean;
+  hasWarning?: boolean;
 
-	/**
+  /**
    * Specifies if the input field is scaled or not.
-   *
-
    */
-	scale?: boolean;
+  scale?: boolean;
 
-	/**
+  /**
    * Defines the input HTML "autocomplete" property.
-   *
-
    */
-	autoComplete?: InputAutocomplete;
+  autoComplete?: InputAutocomplete;
 
-	/**
+  /**
    * Defines the input HTML "tabindex" property.
-   *
-
    */
-	tabIndex?: number;
+  tabIndex?: number;
 
-	/**
+  /**
    * Defines the input text mask.
-   *
-
    */
-	mask?: [];
+  mask?: [];
 
-	/**
+  /**
    * Specifies that the field cannot be used (e.g the user is not authorized, or the changes are not saved).
-   *
-
    */
-	isDisabled?: boolean;
+  isDisabled?: boolean;
 
-	/**
+  /**
    * The input field type.
-   *
-
    */
-	type?: InputType;
+  type?: InputType;
 
-	/**
+  /**
    * Specifies whether the characters are allowed to be added or deleted without changing the positions of the existing characters.
-   *
-
    */
-	keepCharPositions?: boolean;
+  keepCharPositions?: boolean;
 
-	/**
+  /**
    * Sets a function which is triggered whenever the input field is blurred.
-   *
-
    */
-	onBlur?: (value: string) => IMessage | void;
+  onBlur?: (value: string) => IMessage | void;
 
-	/**
+  /**
    * Sets a function which is triggered whenever the input field is focused.
-   *
-
    */
-	onFocus?: (value: string) => IMessage | void;
+  onFocus?: (value: string) => IMessage | void;
 
-	/**
+  /**
    * Defines the input field components.
-   *
-
    */
-	children?: Node[] | Node;
+  children?: Node[] | Node;
 
-	/**
+  /**
    * Defines the input icon size.
-   *
-
    */
-	iconSize?: number;
+  iconSize?: number;
 
-	/**
+  /**
    * Defines the path to the input icon.
-   *
-
    */
-	iconName?: string;
+  iconName?: string;
 
-	/**
+  /**
    * Specifies if the icon fill is needed or not.
-   *
-
    */
-	isIconFill?: boolean;
+  isIconFill?: boolean;
 
-	/**
+  /**
    * Defines the input icon color.
-   *
-
    */
-	iconColor?: string;
+  iconColor?: string;
 
-	/**
+  /**
    * Defines the icon color on hover action.
-   *
-
    */
-	hoverColor?: string;
+  hoverColor?: string;
 
-	/**
+  /**
    * Defines the class name of the icon button.
-   *
-
    */
-	iconButtonClassName?: string;
+  iconButtonClassName?: string;
 
-	/**
+  /**
    * Sets a function which is triggered whenever the input icon is clicked.
-   *
-
    */
-	onIconClick?: () => void;
+  onIconClick?: () => void;
 
-	/**
+  /**
    * Defines the CSS class for styling the component.
    * Can be used to override or extend the default component styles.
-   *
-
    */
-	className?: string;
+  className?: string;
 }
 
 /**
  * The supported input sizes.
- *
-
  */
 export const enum InputSize {
-	/**
-	 * Base size of the input field.
-	 */
-	base = "base",
-	/**
-	 * Middle size of the input field.
-	 */
-	middle = "middle",
-	/**
-	 * Big size of the input field.
-	 */
-	big = "big",
-	/**
-	 * Huge size of the input field.
-	 */
-	huge = "huge",
-	/**
-	 * Large size of the input field.
-	 */
-	large = "large"
+  /**
+   * Base size of the input field.
+   */
+  base = "base",
+  /**
+   * Middle size of the input field.
+   */
+  middle = "middle",
+  /**
+   * Big size of the input field.
+   */
+  big = "big",
+  /**
+   * Huge size of the input field.
+   */
+  huge = "huge",
+  /**
+   * Large size of the input field.
+   */
+  large = "large"
 }
 
 /**
  * The input autocomplete feature.
- *
-
  */
 export const enum InputAutocomplete {
-	/**
-	 * Autocomplete is enabled.
-	 */
-	on = "on",
-	/**
-	 * Autocomplete is disabled.
-	 */
-	off = "off"
+  /**
+   * Autocomplete is enabled.
+   */
+  on = "on",
+  /**
+   * Autocomplete is disabled.
+   */
+  off = "off"
 }
 
 /**
  * The supported input types.
- *
-
  */
 export const enum InputType {
-	/**
-	 * Text input type.
-	 */
-	text = "text",
-	/**
-	 * Password input type.
-	 */
-	password = "password"
+  /**
+   * Text input type.
+   */
+  text = "text",
+  /**
+   * Password input type.
+   */
+  password = "password"
 }

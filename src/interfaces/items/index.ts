@@ -61,13 +61,13 @@ import { IMainButtonItem } from "./IMainButtonItem";
 import { IArticleButtonItem } from "./IArticleButtonItem";
 
 export {
-	IContextMenuItem,
-	IInfoPanelItem,
-	IInfoPanelSubMenu,
-	IMainButtonItem,
-	IProfileMenuItem,
-	IEventListenerItem,
-	IFileItem,
-	File,
-	IArticleButtonItem
+  IContextMenuItem,
+  IInfoPanelItem,
+  IInfoPanelSubMenu,
+  IMainButtonItem,
+  IProfileMenuItem,
+  IEventListenerItem,
+  IFileItem,
+  File,
+  IArticleButtonItem
 };

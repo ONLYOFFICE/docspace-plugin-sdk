@@ -21,8 +21,6 @@ import { IInfoPanelItem } from "../items";
 /**
  * The plugin that is embedded as a separate tab in the file info panel.
  *
-
- *
  * @example
  *
  * The plugin class implements `IInfoPanelPlugin` and registers a "Document Info" tab

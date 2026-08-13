@@ -18,7 +18,6 @@
 
 import { IMessage, TReturnMessage } from "../utils";
 
-
 /**
  * Configuration for the floating operations button.
  * Used to display progress of long-running operations (upload, conversion, backup, etc.)
@@ -171,7 +170,6 @@ import { IMessage, TReturnMessage } from "../utils";
  *   },
  * };
  * ```
- *
  */
 export interface IFloatingOperationsButton {
    /**
@@ -180,14 +178,13 @@ export interface IFloatingOperationsButton {
     * When Actions.addFloatingOperationsButton is called again with the same identifier,
     * the existing operations are preserved rather than replaced.
     * Use Actions.updateFloatingOperationsButton to update the state.
-   */
+    */
    id: string;
 
    /**
     * Array of operations to display in the floating button.
     * Each operation shows as a row with icon, label, and progress indicator.
     * Operations from multiple plugins are aggregated and displayed together.
-
     */
    operations?: IFloatingOperation[];
 
@@ -195,16 +192,12 @@ export interface IFloatingOperationsButton {
     * Flag indicating all operations are completed.
     * When true, the button shows a green checkmark and "completed" status.
     * User can then dismiss the button or review completed operations.
-    *
-
     */
    operationsCompleted?: boolean;
 
    /**
     * Flag indicating at least one operation has an error.
     * When true, the button shows a red warning indicator.
-    *
-
     */
    operationsAlert?: boolean;
 
@@ -212,15 +205,11 @@ export interface IFloatingOperationsButton {
     * Controls the visibility of the cancel button.
     * Cancel button is displayed only if the floating button contains only one operation
     * from the plugin and this flag is set to true.
-    *
-
     */
    showCancelButton?: boolean;
 
    /**
     * Callback executed when user clicks the cancel button in the floating button.
-    *
-
     */
    cancelOperation?: () => TReturnMessage;
 
@@ -228,8 +217,6 @@ export interface IFloatingOperationsButton {
     * Callback executed when user closes a specific operation from the operations list.
     * Receives the operation ID.
     * Typically returns Actions.updateFloatingOperationsButton with the updated operations list.
-    *
-
     */
    onCancelOperationFromList?: (operationId: string) => TReturnMessage;
 
@@ -238,17 +225,12 @@ export interface IFloatingOperationsButton {
     * Receives a dispatchMessage function to send updates back to DocSpace.
     * Use this to initialize progress tracking or update.
     * @param dispatchMessage - Function to send progress updates to DocSpace
-    *
-
     */
    onLoad?: (dispatchMessage: (message: IMessage) => void) => TReturnMessage;
 }
 
-
 /**
  * Determines the icon and visual representation of the operation.
- *
-
  */
 export enum FloatingOperationType {
    /** File download operation */
@@ -282,9 +264,6 @@ export enum FloatingOperationType {
 /**
  * Represents a single operation in the floating operations button.
  * Each operation displays as a row with icon, label, and progress indicator.
- *
-
- *
  */
 export interface IFloatingOperation {
    /**
@@ -295,16 +274,12 @@ export interface IFloatingOperation {
    /**
     * Text label displayed to the user describing the operation.
     * Example: "Uploading document.pdf" or "Converting 5 files"
-    *
-
     */
    label: string;
 
    /**
     * Type of operation - determines the default icon and visual representation.
     * Use predefined types (Upload, Convert, etc.).
-    *
-
     */
    operation: FloatingOperationType;
 
@@ -317,16 +292,12 @@ export interface IFloatingOperation {
    /**
     * Completion flag - if true, the operation is marked as completed.
     * Shows checkmark icon and allows user to dismiss the operation.
-    *
-
     */
    completed: boolean;
 
    /**
     * Progress percentage of the operation (0-100).
     * If undefined, displays an infinite loader animation instead of percentage.
-    *
-
     */
    percent?: number;
 
@@ -335,8 +306,6 @@ export interface IFloatingOperation {
     * The icon image must be uploaded to the assets folder.
     * Only the image name with the extension must be specified in this field,
     * for example, "upload.svg" or "custom-icon.png".
-    *
-
     */
    icon?: string;
 }

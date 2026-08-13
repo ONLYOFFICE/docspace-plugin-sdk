@@ -21,8 +21,6 @@ import { IMainButtonItem } from "../items";
 /**
  * The plugin that can add items to the main button menu.
  *
-
- *
  * @example
  *
  * The plugin class implements `IMainButtonPlugin` and registers an "Export to PDF"

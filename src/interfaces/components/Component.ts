@@ -17,7 +17,6 @@
  */
 
 /**
- *
  * @module interfaces/components/Component
  *
  * Defines the {@link Component} discriminated union for embedding UI components into plugin layouts.
@@ -43,7 +42,6 @@ import { ILink } from "./ILink";
 /**
  * A component that is used to add components into Box.
  * Only components that are embedded into DOM can be wrapped (toast, modal dialog, etc. cannot be wrapped).
- *
  *
  * @example
  * ```typescript
@@ -104,25 +102,23 @@ import { ILink } from "./ILink";
  * ```
  */
 type Component =
-	| BoxGroup
-	| ButtonGroup
-	| CheckboxGroup
-	| ComboBoxGroup
-	| IFrameGroup
-	| ImageGroup
-	| InputGroup
-	| LabelGroup
-	| SkeletonGroup
-	| TextGroup
-	| TextAreaGroup
-	| ToggleButtonGroup
-	| IconButtonGroup
-	| LinkGroup;
+  | BoxGroup
+  | ButtonGroup
+  | CheckboxGroup
+  | ComboBoxGroup
+  | IFrameGroup
+  | ImageGroup
+  | InputGroup
+  | LabelGroup
+  | SkeletonGroup
+  | TextGroup
+  | TextAreaGroup
+  | ToggleButtonGroup
+  | IconButtonGroup
+  | LinkGroup;
 
 /**
  * Defines the box component.
- *
-
  *
  * @example
  * ```typescript
@@ -151,18 +147,16 @@ type Component =
  * ```
  */
 type BoxGroup = {
-	/** Defines the "box" component type */
-	component: Components.box;
-	/** Defines the box component properties */
-	props: IBox;
-	/** Defines the box component context name that updates the component via React context */
-	contextName?: string;
+  /** Defines the "box" component type */
+  component: Components.box;
+  /** Defines the box component properties */
+  props: IBox;
+  /** Defines the box component context name that updates the component via React context */
+  contextName?: string;
 };
 
 /**
  * Defines the button component.
- *
-
  *
  * @example
  * ```typescript
@@ -184,18 +178,16 @@ type BoxGroup = {
  * ```
  */
 type ButtonGroup = {
-	/** Defines the "button" component type */
-	component: Components.button;
-	/** Defines the button component properties */
-	props: IButton;
-	/** Defines the button component context name that updates the component via React context */
-	contextName?: string;
+  /** Defines the "button" component type */
+  component: Components.button;
+  /** Defines the button component properties */
+  props: IButton;
+  /** Defines the button component context name that updates the component via React context */
+  contextName?: string;
 };
 
 /**
  * Defines the checkbox component.
- *
-
  *
  * @example
  * ```typescript
@@ -229,18 +221,16 @@ type ButtonGroup = {
  * ```
  */
 type CheckboxGroup = {
-	/** Defines the "checkbox" component type */
-	component: Components.checkbox;
-	/** Defines the checkbox component properties */
-	props: ICheckbox;
-	/** Defines the checkbox component context name that updates the component via React context */
-	contextName?: string;
+  /** Defines the "checkbox" component type */
+  component: Components.checkbox;
+  /** Defines the checkbox component properties */
+  props: ICheckbox;
+  /** Defines the checkbox component context name that updates the component via React context */
+  contextName?: string;
 };
 
 /**
  * Defines the combo box component.
- *
-
  *
  * @example
  * ```typescript
@@ -269,18 +259,16 @@ type CheckboxGroup = {
  * ```
  */
 type ComboBoxGroup = {
-	/** Defines the "comboBox" component type */
-	component: Components.comboBox;
-	/** Defines the combo box component properties */
-	props: IComboBox;
-	/** Defines the combo box component context name that updates the component via React context */
-	contextName?: string;
+  /** Defines the "comboBox" component type */
+  component: Components.comboBox;
+  /** Defines the combo box component properties */
+  props: IComboBox;
+  /** Defines the combo box component context name that updates the component via React context */
+  contextName?: string;
 };
 
 /**
  * Defines the iframe component.
- *
-
  *
  * @example
  * ```typescript
@@ -308,18 +296,16 @@ type ComboBoxGroup = {
  * ```
  */
 type IFrameGroup = {
-	/** Defines the "iFrame" component type */
-	component: Components.iFrame;
-	/** Defines the iFrame component properties */
-	props: IFrame;
-	/** Defines the iFrame component context name that updates the component via React context */
-	contextName?: string;
+  /** Defines the "iFrame" component type */
+  component: Components.iFrame;
+  /** Defines the iFrame component properties */
+  props: IFrame;
+  /** Defines the iFrame component context name that updates the component via React context */
+  contextName?: string;
 };
 
 /**
  * Defines the image component.
- *
-
  *
  * @example
  * ```typescript
@@ -347,18 +333,16 @@ type IFrameGroup = {
  * ```
  */
 type ImageGroup = {
-	/** Defines the "img" component type */
-	component: Components.img;
-	/** Defines the image component properties */
-	props: IImage;
-	/** Defines the image component context name that updates the component via React context */
-	contextName?: string;
+  /** Defines the "img" component type */
+  component: Components.img;
+  /** Defines the image component properties */
+  props: IImage;
+  /** Defines the image component context name that updates the component via React context */
+  contextName?: string;
 };
 
 /**
  * Defines the input component.
- *
-
  *
  * @example
  * ```typescript
@@ -387,18 +371,16 @@ type ImageGroup = {
  * ```
  */
 type InputGroup = {
-	/** Defines the "input" component type */
-	component: Components.input;
-	/** Defines the input component properties */
-	props: IInput;
-	/** Defines the input component context name that updates the component via React context */
-	contextName?: string;
+  /** Defines the "input" component type */
+  component: Components.input;
+  /** Defines the input component properties */
+  props: IInput;
+  /** Defines the input component context name that updates the component via React context */
+  contextName?: string;
 };
 
 /**
  * Defines the label component.
- *
-
  *
  * @example
  * ```typescript
@@ -422,18 +404,16 @@ type InputGroup = {
  * ```
  */
 type LabelGroup = {
-	/** Defines the "label" component type */
-	component: Components.label;
-	/** Defines the label component properties */
-	props: ILabel;
-	/** Defines the label component context name that updates the component via React context */
-	contextName?: string;
+  /** Defines the "label" component type */
+  component: Components.label;
+  /** Defines the label component properties */
+  props: ILabel;
+  /** Defines the label component context name that updates the component via React context */
+  contextName?: string;
 };
 
 /**
  * Defines the skeleton component.
- *
-
  *
  * @example
  * ```typescript
@@ -453,18 +433,16 @@ type LabelGroup = {
  * ```
  */
 type SkeletonGroup = {
-	/** Defines the "skeleton" component type */
-	component: Components.skeleton;
-	/** Defines the skeleton component properties */
-	props: ISkeleton;
-	/** Defines the skeleton component context name that updates the component via React context */
-	contextName?: string;
+  /** Defines the "skeleton" component type */
+  component: Components.skeleton;
+  /** Defines the skeleton component properties */
+  props: ISkeleton;
+  /** Defines the skeleton component context name that updates the component via React context */
+  contextName?: string;
 };
 
 /**
  * Defines the text component.
- *
-
  *
  * @example
  * ```typescript
@@ -490,18 +468,16 @@ type SkeletonGroup = {
  * ```
  */
 type TextGroup = {
-	/** Defines the "text" component type */
-	component: Components.text;
-	/** Defines the text component properties */
-	props: IText;
-	/** Defines the text component context name that updates the component via React context */
-	contextName?: string;
+  /** Defines the "text" component type */
+  component: Components.text;
+  /** Defines the text component properties */
+  props: IText;
+  /** Defines the text component context name that updates the component via React context */
+  contextName?: string;
 };
 
 /**
  * Defines the textarea component.
- *
-
  *
  * @example
  * ```typescript
@@ -527,18 +503,16 @@ type TextGroup = {
  * ```
  */
 type TextAreaGroup = {
-	/** Defines the "textArea" component type */
-	component: Components.textArea;
-	/** Defines the textarea component properties */
-	props: ITextArea;
-	/** Defines the textarea component context name that updates the component via React context */
-	contextName?: string;
+  /** Defines the "textArea" component type */
+  component: Components.textArea;
+  /** Defines the textarea component properties */
+  props: ITextArea;
+  /** Defines the textarea component context name that updates the component via React context */
+  contextName?: string;
 };
 
 /**
  * Defines the toggle button component.
- *
-
  *
  * @example
  * ```typescript
@@ -563,17 +537,16 @@ type TextAreaGroup = {
  * ```
  */
 type ToggleButtonGroup = {
-	/** Defines the "toggleButton" component type */
-	component: Components.toggleButton;
-	/** Defines the toggle button component properties */
-	props: IToggleButton;
-	/** Defines the toggle button component context name that updates the component via React context */
-	contextName?: string;
+  /** Defines the "toggleButton" component type */
+  component: Components.toggleButton;
+  /** Defines the toggle button component properties */
+  props: IToggleButton;
+  /** Defines the toggle button component context name that updates the component via React context */
+  contextName?: string;
 };
 
 /**
  * Defines the icon button component.
- *
  *
  * @example
  * ```typescript
@@ -599,17 +572,16 @@ type ToggleButtonGroup = {
  * ```
  */
 type IconButtonGroup = {
-	/** Defines the "iconButton" component type */
-	component: Components.iconButton;
-	/** Defines the icon button component properties */
-	props: IIconButton;
-	/** Defines the icon button component context name that updates the component via React context */
-	contextName?: string;
+  /** Defines the "iconButton" component type */
+  component: Components.iconButton;
+  /** Defines the icon button component properties */
+  props: IIconButton;
+  /** Defines the icon button component context name that updates the component via React context */
+  contextName?: string;
 };
 
 /**
  * Defines the link component.
- *
  *
  * @example
  * ```typescript
@@ -633,28 +605,28 @@ type IconButtonGroup = {
  * ```
  */
 type LinkGroup = {
-	/** Defines the "link" component type */
-	component: Components.link;
-	/** Defines the link component properties */
-	props: ILink;
-	/** Defines the link component context name that updates the component via React context */
-	contextName?: string;
+  /** Defines the "link" component type */
+  component: Components.link;
+  /** Defines the link component properties */
+  props: ILink;
+  /** Defines the link component context name that updates the component via React context */
+  contextName?: string;
 };
 
 export {
-	Component,
-	BoxGroup,
-	ButtonGroup,
-	CheckboxGroup,
-	ComboBoxGroup,
-	IFrameGroup,
-	ImageGroup,
-	InputGroup,
-	LabelGroup,
-	SkeletonGroup,
-	TextGroup,
-	TextAreaGroup,
-	ToggleButtonGroup,
-	IconButtonGroup,
-	LinkGroup
+  Component,
+  BoxGroup,
+  ButtonGroup,
+  CheckboxGroup,
+  ComboBoxGroup,
+  IFrameGroup,
+  ImageGroup,
+  InputGroup,
+  LabelGroup,
+  SkeletonGroup,
+  TextGroup,
+  TextAreaGroup,
+  ToggleButtonGroup,
+  IconButtonGroup,
+  LinkGroup
 };

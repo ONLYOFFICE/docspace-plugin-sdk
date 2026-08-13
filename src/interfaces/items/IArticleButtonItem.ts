@@ -85,34 +85,34 @@ import { IBox } from "../components/IBox";
  */
 
 export interface IArticleButtonItem {
-	/**
-	 * The unique item identifier used by the service to recognize the item
-	 */
-	key: string;
+  /**
+   * The unique item identifier used by the service to recognize the item
+   */
+  key: string;
 
-	/**
-	 * The body of the article button item. This is the main content that will be displayed.
-	 * Recommended size: 32x32 pixels to fit properly in the article sidebar.
-	 */
-	body: IBox;
+  /**
+   * The body of the article button item. This is the main content that will be displayed.
+   * Recommended size: 32x32 pixels to fit properly in the article sidebar.
+   */
+  body: IBox;
 
-	/**
-	 * A function that is executed after the article button item is loaded.
-	 * It returns a new body. If this functionality is not needed, the old body value is returned.
-	 */
-	onLoad?: () => Promise<{ body: IBox }>;
+  /**
+   * A function that is executed after the article button item is loaded.
+   * It returns a new body. If this functionality is not needed, the old body value is returned.
+   */
+  onLoad?: () => Promise<{ body: IBox }>;
 
-	/**
-	 * The types of users who will see the current button item in the article.
-	 * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
-	 * If this parameter is not specified, then the item will be displayed for all user types.
-	 */
-	usersTypes?: UsersType[];
+  /**
+   * The types of users who will see the current button item in the article.
+   * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
+   * If this parameter is not specified, then the item will be displayed for all user types.
+   */
+  usersTypes?: UsersType[];
 
-	/**
-	 * The types of devices where the current button item will be displayed.
-	 * At the moment the following device types are available: mobile, tablet, desktop.
-	 * If this parameter is not specified, then the item will be displayed on all device types.
-	 */
-	devices?: Devices[];
+  /**
+   * The types of devices where the current button item will be displayed.
+   * At the moment the following device types are available: mobile, tablet, desktop.
+   * If this parameter is not specified, then the item will be displayed on all device types.
+   */
+  devices?: Devices[];
 }

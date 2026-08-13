@@ -183,69 +183,47 @@ import { IBox } from "./IBox";
  */
 export interface IModalDialog {
   /** Defines the modal dialog display type
-   *
-
    */
   displayType: ModalDisplayType;
 
   /** Defines the modal dialog header
-   *
-
    */
   dialogHeader?: string;
 
   /** Defines the modal dialog body
-   *
-
    */
   dialogBody: IBox;
 
   /** Defines the modal dialog footer
-   *
-
    */
   dialogFooter?: IBox;
 
   /** Specifies whether the "max-width: auto" property is set
-   *
-
    */
   autoMaxWidth?: boolean;
 
   /** Specifies whether the "max-height: auto" property is set
-   *
-
    */
   autoMaxHeight?: boolean;
 
   /** Specifies whether the modal dialog body has no paddings
-   *
-
    */
   withoutBodyPadding?: boolean;
 
   /** Specifies whether the modal dialog header has no bottom margins
-   *
-
    */
   withoutHeaderMargin?: boolean;
 
   /** Specifies whether the border betweeen the body and footer is displayed
-   *
-
    */
   withFooterBorder?: boolean;
 
   /** Specifies whether to display the modal dialog body in the full screen mode without paddings
-   *
-
    */
   fullScreen?: boolean;
 
   /**
    * Defines the event listeners.
-   *
-
    */
   eventListeners?: {
     /**
@@ -259,15 +237,11 @@ export interface IModalDialog {
   }[];
 
   /** Sets a function which is triggered whenever the "Close" button in the modal dialog is clicked
-   *
-
    */
   onClose: () => Promise<IMessage> | IMessage | Promise<void> | void;
 
   /**
    * Sets a function which is triggered whenever the modal dialog is loaded.
-   *
-
    */
   onLoad: () => Promise<{
     /**
@@ -287,8 +261,6 @@ export interface IModalDialog {
 
 /**
  * The supported modal dialog types.
- *
-
  */
 export const enum ModalDisplayType {
   /** Modal dialog displayed in the center of the screen */

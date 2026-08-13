@@ -82,121 +82,87 @@ import { IMessage } from "../utils";
 export interface IComboBox {
   /**
    * Defines the combo box options
-   *
-
    */
   options: IComboBoxItem[];
 
   /**
    * Defines the combo box selected option
-   *
-
    */
   selectedOption: IComboBoxItem;
 
   /**
    * Sets a function which is triggered whenever the combo box is selected
-   *
-
    */
   onSelect?: (item: IComboBoxItem) => IMessage | void;
 
   /**
    * Specifies that the combo box is scaled by its parent
-   *
-
    */
   scaled?: boolean;
 
   /**
    * Defines the position of the combo box in the X direction
-   *
-
    */
   directionX?: "left" | "right";
 
   /**
    * Defines the position of the combo box in the Y direction
-   *
-
    */
   directionY?: "bottom" | "top" | "both";
 
   /**
    * Defines the combo box display type
-   *
-
    */
   displayType?: "default" | "toggle";
 
   /**
    * Specifies whether to display the combo box in the modern view
-   *
-
    */
   modernView?: boolean;
 
   /**
    * Specifies if the combo box is disabled or not
-   *
-
    */
   isDisabled?: boolean;
 
   /**
    * Whether to show disabled combo box options
-   *
-
    */
   showDisabledItems?: boolean;
 
   /**
    * Specifies whether to open the combo box
-   *
-
    */
   opened?: boolean;
 
   /**
    * Specifies whether the combo box options are scaled by the combo box button
-   *
-
    */
   scaledOptions?: boolean;
 
   /**
    * Sets a function which is triggered whenever the combo box is clicked when "displayType == toggle"
-   *
-
    */
   onToggle?: () => IMessage | void;
 
   /**
    * Specifies whether to display the combo box without borders
-   *
-
    */
   noBorder?: boolean;
 
   /**
    * Specifies whether the combo box contains a backdrop
-   *
-
    */
   withBackdrop?: boolean;
 
   /**
    * Defines the maximum height of the dropdown list
-   *
-
    */
   dropDownMaxHeight?: number;
 
   /**
    * Defines the CSS class for styling the component.
    * Can be used to override or extend the default component styles.
-   *
-
    */
   className?: string;
 }
@@ -216,21 +182,15 @@ export interface IComboBox {
  *   disabled: false
  * }
  * ```
- *
- *
  */
 export interface IComboBoxItem {
   /**
    * Unique identifier for the option
-   *
-
    */
   key: string;
 
   /**
    * Display text for the option
-   *
-
    */
   label: string;
 
@@ -242,8 +202,6 @@ export interface IComboBoxItem {
 
   /**
    * Specifies if the combo box option is disabled or not
-   *
-
    */
   disabled?: boolean;
 }

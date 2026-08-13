@@ -56,44 +56,44 @@ import type { TRoomSelector } from "./IRoomSelector";
  * ```
  */
 export type TSelector =
-	| {
-			type: SelectorType.Base;
-			props: TBaseSelector;
-	  }
-	| {
-			type: SelectorType.Files;
-			props: TFilesSelector;
-	  }
-	| {
-			type: SelectorType.Groups;
-			props: TGroupsSelector;
-	  }
-	| {
-			type: SelectorType.People;
-			props: TPeopleSelector;
-	  }
-	| {
-			type: SelectorType.Room;
-			props: TRoomSelector;
-	  };
+  | {
+      type: SelectorType.Base;
+      props: TBaseSelector;
+    }
+  | {
+      type: SelectorType.Files;
+      props: TFilesSelector;
+    }
+  | {
+      type: SelectorType.Groups;
+      props: TGroupsSelector;
+    }
+  | {
+      type: SelectorType.People;
+      props: TPeopleSelector;
+    }
+  | {
+      type: SelectorType.Room;
+      props: TRoomSelector;
+    };
 
 export {
-	TBaseSelector,
-	TSelectorItem,
-	TSelectorItemFile,
-	TSelectorItemInput,
-	TSelectorItemNew,
-	TBreadCrumbItem,
-	TSelectorBreadCrumbs,
-	TSelectorPagination,
-	TSelectorHeader,
-	TSelectorCheckbox,
-	TSelectorCancelButton,
-	TSelectorBaseProps,
-	TSelectorLifecycleEvents,
-	TSelectorEmptyScreen,
-	TSelectorSearchCreate,
-	TSelectorSubmitButton
+  TBaseSelector,
+  TSelectorItem,
+  TSelectorItemFile,
+  TSelectorItemInput,
+  TSelectorItemNew,
+  TBreadCrumbItem,
+  TSelectorBreadCrumbs,
+  TSelectorPagination,
+  TSelectorHeader,
+  TSelectorCheckbox,
+  TSelectorCancelButton,
+  TSelectorBaseProps,
+  TSelectorLifecycleEvents,
+  TSelectorEmptyScreen,
+  TSelectorSearchCreate,
+  TSelectorSubmitButton
 } from "./IBaseSelector";
 
 export { TFilesSelector } from "./IFilesSelector";

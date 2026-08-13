@@ -20,7 +20,6 @@
  * @packageDocumentation
  *
  * Here is a description of the module Settings.
- *
  */
 
 import { ISettings } from "./ISettings";

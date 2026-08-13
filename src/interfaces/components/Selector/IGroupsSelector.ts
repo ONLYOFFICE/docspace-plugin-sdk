@@ -36,7 +36,6 @@ import { TSelectorBaseProps, TSelectorHeader, TSelectorLifecycleEvents } from ".
  * @see {@link TSelectorBaseProps} - Common base properties (id, className)
  * @see {@link TSelectorLifecycleEvents} - Lifecycle callbacks (onLoad, onClose)
  *
- *
  * @example
  * ```typescript
  * // This example shows how to set up a group selector with a custom header and submit logic.
@@ -64,15 +63,12 @@ import { TSelectorBaseProps, TSelectorHeader, TSelectorLifecycleEvents } from ".
  *   },
  * };
  * ```
- *
  */
 export type TGroupsSelector = TSelectorHeader &
     TSelectorBaseProps &
     TSelectorLifecycleEvents & {
         /**
          * A callback function that is triggered when the submit button is clicked.
-         *
-
          */
         onSubmit: (params: TOnSubmitParams) => TReturnMessage;
     }
@@ -80,22 +76,18 @@ export type TGroupsSelector = TSelectorHeader &
 /**
  * Defines the parameters passed to the `onSubmit` callback for the group selector.
  * @inline
- *
  */
 type TOnSubmitParams = {
     /**
      * An array of IDs of the selected groups.
-     *
      */
     selectedIds: (string | number)[];
     /**
      * The name of the file, if applicable.
-     *
      */
     fileName?: string;
     /**
      * The checked state of the footer checkbox.
-     *
      */
     isFooterCheckboxChecked?: boolean;
 }

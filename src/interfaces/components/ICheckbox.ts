@@ -59,86 +59,62 @@ import { IMessage } from "../utils";
 export interface ICheckbox {
   /**
    * Sets the checked state of the checkbox
-   *
-
    */
   isChecked: boolean;
 
   /**
    * Defines the checkbox label
-   *
-
    */
   label?: string;
 
   /**
    * Sets a function which is triggered whenever the checkbox input is clicked
-   *
-
    */
   onChange: () => IMessage | void;
 
   /**
    * Specifies if the word wrapping is disabled or not
-   *
-
    */
   truncate?: boolean;
 
   /**
    * Defines the checkbox tab index
-   *
-
    */
   tabIndex?: number;
 
   /**
    * Specifies whether a notification will be sent if an error occurs
-   *
-
    */
   hasError?: boolean;
 
   /**
    * Defines the HTML "name" property
-   *
-
    */
   name?: string;
 
   /**
    * Defines the checkbox input value
-   *
-
    */
   value?: string;
 
   /**
    * Specifies whether the checkbox state will be displayed as a black rectangle in the checkbox when it is set to true
-   *
-
    */
   isIndeterminate?: boolean;
 
   /**
    * Specifies if the checkbox input is disabled
-   *
-
    */
   isDisabled?: boolean;
 
   /**
    * Defines the checkbox input title
-   *
-
    */
   title?: string;
 
   /**
    * Defines the CSS class for styling the component.
    * Can be used to override or extend the default component styles.
-   *
-
    */
   className?: string;
 }

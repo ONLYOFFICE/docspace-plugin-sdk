@@ -21,8 +21,6 @@ import { PluginLocale, PluginStatus } from "../../enums";
  * The default plugin.
  * This interface must be implemented in each plugin because without the plugin status it will not be built in.
  *
-
- *
  * @example
  *
  * Every plugin class implements `IPlugin` (usually together with one or more
