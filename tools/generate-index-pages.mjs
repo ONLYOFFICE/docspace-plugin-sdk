@@ -445,20 +445,21 @@ function resolvePluginImageTags(filePath) {
 	if (!existsSync(filePath)) return;
 	const content = readFileSync(filePath, "utf-8");
 	const updated = content.replace(
-		/<plugin-image\s+src=(["'])([^"']+)\1(?:\s+width=(["'])([^"']+)\3)?(\s+dark(?:=(["'])([^"']*)\6)?)?\s*\/>/g,
-		(_match, _q1, src, _q2, width, darkAttr, _q3, darkValue) => {
+		/<plugin-image\s+src=(["'])([^"']+)\1(\s+dark(?:=(["'])([^"']*)\4)?)?\s*\/>/g,
+		(_match, _q1, src, darkAttr, _q2, darkValue) => {
 			const alt = src.replace(/\.[^.]+$/, "");
-			const styleAttr = width ? ` style={{width: "${width}"}}` : "";
 
 			// `darkAttr` is undefined only when the `dark` attribute is absent.
 			// A valueless `dark` (or `dark=""`) auto-derives the dark file name.
 			if (darkAttr === undefined) {
-				return `<img alt="${alt}" src="${IMAGE_BASE}/${src}"${styleAttr} />`;
+				return `![${alt}](${IMAGE_BASE}/${src})`;
 			}
 
+			// The site hides whichever image does not match the active theme, keyed
+			// on the URL fragment — see the `#gh-*-mode-only` rule in its custom.css.
 			const darkSrc = darkValue ? darkValue : toDarkSrc(src);
-			const light = `<img alt="${alt}" src="${IMAGE_BASE}/${src}#gh-light-mode-only"${styleAttr} />`;
-			const dark = `<img alt="${alt}" src="${IMAGE_BASE}/${darkSrc}#gh-dark-mode-only"${styleAttr} />`;
+			const light = `![${alt}](${IMAGE_BASE}/${src}#gh-light-mode-only)`;
+			const dark = `![${alt}](${IMAGE_BASE}/${darkSrc}#gh-dark-mode-only)`;
 			return `${light}${dark}`;
 		}
 	);

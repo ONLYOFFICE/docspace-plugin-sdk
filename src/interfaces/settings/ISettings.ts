@@ -21,7 +21,7 @@ import { ButtonGroup, IBox } from "../components";
 /**
  * Defines the administrator or owner settings block that is embedded in the modal window with the plugin description.
  *
- * <plugin-image src="settings-block.png" width="400px" dark />
+ * <plugin-image src="settings-block.png" dark />
  *
  * @example
  *

@@ -22,7 +22,7 @@ import { ISettings } from "../settings/ISettings";
  * The plugin that manages settings for the administrator or owner.
  * The plugin that can interact with the settings panel.
  *
- * <plugin-image src="settings-block.png" width="400px" dark />
+ * <plugin-image src="settings-block.png" dark />
  *
  * @example
  *

@@ -45,7 +45,7 @@ type GroupItem = {
  * Items are registered by a plugin implementing
  * [`IContextMenuPlugin`](../plugins/IContextMenuPlugin.md).
  *
- * <plugin-image src="context-menu-plugin.png" width="400px" dark />
+ * <plugin-image src="context-menu-plugin.png" dark />
  *
  * @example
  *
