@@ -31,8 +31,6 @@ import {
 /**
  * Defines the properties for a room selector component.
  *
- * This type combines multiple selector-related types:
- *
  * @see {@link TSelectorHeader} - Header configuration properties
  * @see {@link TSelectorCancelButton} - Cancel button properties
  * @see {@link TSelectorBaseProps} - Common base properties (id, className)

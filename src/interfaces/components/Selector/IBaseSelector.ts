@@ -22,8 +22,6 @@ import { TReturnMessage } from "../../utils";
 /**
  * Defines the base properties for all selector components.
  *
- * This type combines multiple selector-related types:
- *
  * @see {@link TSelectorBreadCrumbs} - Breadcrumb navigation properties
  * @see {@link TSelectorPagination} - Pagination and item loading properties
  * @see {@link TSelectorHeader} - Header configuration properties
@@ -438,14 +436,6 @@ type TOnSubmitParams = {
 
 /**
  * Defines properties for the submit button in the selector.
- *
- * #### TOnSubmitParams parameters
- *
- * | Property | Type | Description |
- * |----------|------|-------------|
- * | `selectedIds` | `(string \| number)[]` | An array of IDs of the selected items. |
- * | `fileName` | `string` | The name of the file, if applicable. |
- * | `isFooterCheckboxChecked` | `boolean` | The checked state of the footer checkbox. |
  */
 export type TSelectorSubmitButton = {
   /**

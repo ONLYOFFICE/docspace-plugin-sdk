@@ -32,16 +32,6 @@ import {
 /**
  * Defines the properties for a file and folder selector component.
  *
- * This type combines multiple selector-related types:
- *
- * #### TSelectedFileInfo
- *
- * | Property | Type | Description |
- * |----------|------|-------------|
- * | `id` | `string \| number` | The unique identifier of the file |
- * | `title` | `string` | The title or name of the file |
- * | `fileExst` | `FilesExst \| string` | The file extension (e.g., 'docx', 'pdf') |
- *
  * @see {@link TSelectorHeader} - Header configuration properties
  * @see {@link TSelectorBaseProps} - Common base properties (id, className)
  * @see {@link TSelectorLifecycleEvents} - Lifecycle callbacks (onLoad, onClose)

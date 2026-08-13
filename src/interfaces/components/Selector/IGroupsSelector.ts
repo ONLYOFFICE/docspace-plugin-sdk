@@ -22,16 +22,6 @@ import { TSelectorBaseProps, TSelectorHeader, TSelectorLifecycleEvents } from ".
 /**
  * Defines the properties for a group selector component.
  *
- * This type combines multiple selector-related types:
- *
- * #### onSubmit parameters
- *
- * | Property | Type | Description |
- * |----------|------|-------------|
- * | `selectedIds` | `(string \| number)[]` | An array of IDs of the selected groups |
- * | `fileName` | `string` | The name of the file, if applicable |
- * | `isFooterCheckboxChecked` | `boolean` | The checked state of the footer checkbox |
- *
  * @see {@link TSelectorHeader} - Header configuration properties
  * @see {@link TSelectorBaseProps} - Common base properties (id, className)
  * @see {@link TSelectorLifecycleEvents} - Lifecycle callbacks (onLoad, onClose)
