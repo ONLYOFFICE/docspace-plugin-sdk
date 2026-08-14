@@ -168,10 +168,6 @@ function generateIndexPage(section) {
 		: `| ${headerName} | Description |\n| --- | --- |`;
 
 	const content = [
-		`---`,
-		`sidebar_position: ${section.sidebarPosition}`,
-		`---`,
-		``,
 		`# ${section.title}`,
 		``,
 		section.description,
@@ -407,13 +403,11 @@ function promoteFirstH2toH1(filePath) {
 		const patched = content.replace(/^## /m, "# ");
 		if (patched !== content) writeFileSync(filePath, patched, "utf-8");
 	} else if (preamble) {
-		// Multiple unrelated types + module description from @packageDocumentation
+		// Multiple unrelated types + module description from @packageDocumentation.
+		// The sidebar takes its label from this H1 (flatten-sidebar.mjs), so no
+		// sidebar_label frontmatter is needed.
 		const title = name.charAt(0).toUpperCase() + name.slice(1);
-		// Inject sidebar_label so Docusaurus shows the capitalized title in the sidebar
-		const newFm = fm
-			? fm.replace(/^(---\n)/, `$1sidebar_label: "${title}"\n`)
-			: `---\nsidebar_label: "${title}"\n---\n`;
-		const patched = newFm + `\n# ${title}\n\n${preamble}\n\n` + h2Part;
+		const patched = fm + `# ${title}\n\n${preamble}\n\n` + h2Part;
 		writeFileSync(filePath, patched, "utf-8");
 	}
 	// else: multiple types, no description — leave H2 structure as is

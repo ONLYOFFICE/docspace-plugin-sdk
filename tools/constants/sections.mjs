@@ -4,10 +4,8 @@
  * Section configuration for index page generation.
  *
  * @typedef {Object} Section
- * @property {string} srcDir - Path inside src/ (source)
  * @property {string} docsDir - Path inside docs/ (output)
  * @property {string} title - Section title (H1 of the index page)
- * @property {number} sidebarPosition - Controls order in sidebar
  * @property {string} description - Intro paragraph of the index page
  * @property {string} usage - "When to use" paragraph of the index page
  * @property {string} tableCaption - Line rendered right before the overview table
@@ -19,10 +17,8 @@
 /** @type {Section[]} */
 export const SECTIONS = [
 	{
-		srcDir: "interfaces/components",
 		docsDir: "interfaces/components",
 		title: "Components",
-		sidebarPosition: 1,
 		description:
 			"UI components for building plugin interfaces — dialogs, buttons, inputs, and other visual elements. " +
 			"Compose them with `IModalDialog`, `IBox`, or other layout containers; overlays such as dialogs, toasts " +
@@ -32,10 +28,8 @@ export const SECTIONS = [
 		tableCaption: "The following components are available:"
 	},
 	{
-		srcDir: "interfaces/items",
 		docsDir: "interfaces/items",
 		title: "Items",
-		sidebarPosition: 2,
 		description:
 			"Plugin items that extend specific DocSpace UI locations — context menus, file rows, info panels, " +
 			"profile menus, and navigation buttons.",
@@ -47,10 +41,8 @@ export const SECTIONS = [
 		tableCaption: "Each plugin type has specific items described in this section:"
 	},
 	{
-		srcDir: "interfaces/plugins",
 		docsDir: "interfaces/plugins",
 		title: "Plugins",
-		sidebarPosition: 3,
 		description:
 			"Core plugin interfaces that define the contract for each plugin type supported by DocSpace. " +
 			"Every plugin must implement `IPlugin` plus one or more type-specific interfaces.",
@@ -60,10 +52,8 @@ export const SECTIONS = [
 		tableCaption: "Available plugin type interfaces:"
 	},
 	{
-		srcDir: "interfaces/settings",
 		docsDir: "interfaces/settings",
 		title: "Settings",
-		sidebarPosition: 4,
 		description:
 			"Interfaces for configuring plugin settings displayed in the DocSpace admin and user settings panels.",
 		usage:
@@ -71,10 +61,8 @@ export const SECTIONS = [
 		tableCaption: "Settings interfaces:"
 	},
 	{
-		srcDir: "enums",
 		docsDir: "enums",
 		title: "Enums",
-		sidebarPosition: 5,
 		description:
 			"Enumerations for actions, component types, events, file types, security permissions, " +
 			"room types and other SDK-wide constants.",
