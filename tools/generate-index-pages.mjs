@@ -91,12 +91,12 @@ function extractDescriptionFromMd(mdFilePath) {
 			continue;
 		}
 
-		// Skip embedded images, anchor tags, and the blockquote TypeDoc renders the
-		// declaration signature as ("> **Component** = ...") — none of them describe
-		// the symbol.
+		// Skip embedded images — both the raw tag, in case one has not been resolved
+		// yet, and the markdown it resolves to — and the blockquote TypeDoc renders
+		// the declaration signature as ("> **Component** = ..."). None of them
+		// describe the symbol.
 		if (
-			trimmed.startsWith("<img") ||
-			trimmed.startsWith("<a ") ||
+			trimmed.startsWith("![") ||
 			trimmed.startsWith("<plugin-image") ||
 			trimmed.startsWith(">")
 		)
@@ -294,15 +294,18 @@ function toDarkSrc(src) {
 }
 
 /**
- * Replaces <plugin-image src="..." [width="..."] [dark[="..."]] /> tags with <img> elements.
- * The src is relative to IMAGE_BASE. Width is optional.
+ * Replaces `<plugin-image src="..." [dark[="..."]] />` tags with Markdown images.
+ * The src is relative to IMAGE_BASE.
  *
- * When the `dark` attribute is present, two theme-aware <img> tags are emitted using the
- * `#gh-light-mode-only` / `#gh-dark-mode-only` convention that the docs site toggles via CSS
+ * With the `dark` attribute two images are emitted, using the
+ * `#gh-light-mode-only` / `#gh-dark-mode-only` convention the docs site toggles via CSS
  * (`[data-theme='dark'] img[src$='#gh-light-mode-only']` etc.). The dark source is either the
  * explicit value of `dark="..."` or, when the attribute is valueless, auto-derived by inserting
- * `.dark` before the extension of `src`. Without the `dark` attribute a single <img> is emitted
- * (backward compatible).
+ * `.dark` before the extension of `src`. Without it a single image is emitted.
+ *
+ * There is no size attribute — Markdown images cannot carry one. A tag that does
+ * not match is reported rather than passed through: a stray `<plugin-image>` in
+ * the output is raw HTML that fails the Docusaurus build.
  * @param {string} filePath
  */
 function resolvePluginImageTags(filePath) {
@@ -327,6 +330,15 @@ function resolvePluginImageTags(filePath) {
 			return `${light}${dark}`;
 		}
 	);
+
+	// An unrecognised attribute (`width=` was dropped, for one) leaves the tag in
+	// place, where it becomes raw HTML. Say so instead of shipping it.
+	for (const leftover of updated.matchAll(/<plugin-image[^>]*>/g)) {
+		console.warn(
+			`[warn] Unrecognised ${leftover[0]} in ${basename(filePath)} — left as raw HTML`
+		);
+	}
+
 	if (updated !== content) writeFileSync(filePath, updated, "utf-8");
 }
 
@@ -440,6 +452,45 @@ function stripRawAnchors(filePath) {
 }
 
 /**
+ * The anchors Docusaurus will generate for a page.
+ *
+ * Only H2–H6 count: the theme strips the id from the page title. Repeated
+ * headings are disambiguated with a numeric suffix the same way github-slugger
+ * does, so a page with four `onSubmit` headings yields `onsubmit`, `onsubmit-1`,
+ * `onsubmit-2`, `onsubmit-3`. Getting that wrong makes a valid deep link look
+ * broken and invites "repairing" it onto the wrong heading.
+ *
+ * Fenced blocks are skipped so a `#` inside a code sample is not read as one.
+ * @param {string} content
+ * @returns {Set<string>}
+ */
+function pageAnchors(content) {
+	/** @type {Map<string, number>} */
+	const seen = new Map();
+	const ids = new Set();
+
+	let inFence = false;
+	for (const line of content.split("\n")) {
+		if (/^\s*(```|~~~)/.test(line)) {
+			inFence = !inFence;
+			continue;
+		}
+		if (inFence) continue;
+
+		const m = line.match(/^#{2,6} (.+)$/);
+		if (!m) continue;
+		const base = slugify(m[1]);
+		if (!base) continue;
+
+		const count = seen.get(base) ?? 0;
+		seen.set(base, count + 1);
+		ids.add(count === 0 ? base : `${base}-${count}`);
+	}
+
+	return ids;
+}
+
+/**
  * Docusaurus deliberately strips the id from every `<h1>` — see theme Heading:
  * `if (As === 'h1' || !id) return <As id={undefined} />` — so the page title is
  * the one heading that can never own an anchor. Rather than materialize an HTML
@@ -451,27 +502,41 @@ function stripRawAnchors(filePath) {
  * @param {string[]} filePaths
  */
 function dropPageTitleFragments(filePaths) {
-	/** @type {Map<string, string>} */
-	const titleSlugs = new Map();
+	/** @type {Map<string, {title: string|undefined, anchors: Set<string>}>} */
+	const pages = new Map();
 	for (const filePath of filePaths) {
-		const m = readFileSync(filePath, "utf-8").match(/^# (.+)$/m);
-		if (m) titleSlugs.set(resolve(filePath), slugify(m[1]));
+		const content = readFileSync(filePath, "utf-8");
+		const m = content.match(/^# (.+)$/m);
+		pages.set(resolve(filePath), {
+			title: m ? slugify(m[1]) : undefined,
+			anchors: pageAnchors(content)
+		});
 	}
+
+	/**
+	 * A page title slug is only pointless when no heading claims it. On a page
+	 * whose title repeats as a property name, that property owns the anchor and
+	 * the link must keep it.
+	 * @param {{title: string|undefined, anchors: Set<string>}} page
+	 * @param {string} fragment
+	 */
+	const isDeadTitleLink = (page, fragment) =>
+		page?.title === fragment.toLowerCase() && !page.anchors.has(fragment.toLowerCase());
 
 	for (const filePath of filePaths) {
 		const content = readFileSync(filePath, "utf-8");
-		const ownSlug = titleSlugs.get(resolve(filePath));
+		const own = pages.get(resolve(filePath));
 
 		const updated = content
 			// Another page's title: keep the link, drop the fragment.
 			.replace(/\]\(([^)\s#]+)#([^)\s]+)\)/g, (full, rel, fragment) => {
-				const target = resolve(dirname(filePath), rel);
-				return titleSlugs.get(target) === fragment.toLowerCase() ? `](${rel})` : full;
+				const target = pages.get(resolve(dirname(filePath), rel));
+				return target && isDeadTitleLink(target, fragment) ? `](${rel})` : full;
 			})
 			// This page's own title: unlink it. Pointing the reader at the top of the
 			// page they are already reading is noise.
 			.replace(/\[([^\]]+)\]\(#([^)\s]+)\)/g, (full, label, fragment) =>
-				fragment.toLowerCase() === ownSlug ? label : full
+				own && isDeadTitleLink(own, fragment) ? label : full
 			);
 
 		if (updated !== content) writeFileSync(filePath, updated, "utf-8");
@@ -489,13 +554,12 @@ function fixInPageAnchors(filePath) {
 	const original = readFileSync(filePath, "utf-8");
 	let content = original;
 
-	// The H1 is the page title and gets no anchor — collect H2–H6 only
-	const ids = new Set();
-	for (const m of content.matchAll(/^#{2,6} (.+)$/gm)) ids.add(slugify(m[1]));
+	const ids = pageAnchors(content);
 
 	content = content.replace(/\]\(#([^)\s]+)\)/g, (full, anchor) => {
 		const target = anchor.toLowerCase();
 		if (ids.has(target)) return full;
+		// Only a suffix that matches nothing is stale: real repeats are in `ids`.
 		const stripped = target.replace(/-\d+$/, "");
 		if (stripped !== target && ids.has(stripped)) return `](#${stripped})`;
 		console.warn(
@@ -508,19 +572,50 @@ function fixInPageAnchors(filePath) {
 }
 
 /**
- * Removes the stray leading pipe TypeDoc emits for union types in table cells:
- * "() => \| `void` \| ..." → "() => `void` \| ...", "( \| `A` \| `B`)" → "(`A` \| `B`)".
+ * Removes the leading pipe TypeDoc puts on the first line of a multi-line union.
+ *
+ * TypeScript allows `type X = | A | B` for alignment, and TypeDoc emits unions
+ * that way — one member per line, each opening with an escaped pipe:
+ *
+ *     \| `void`
+ *     \| `IMessage`
+ *
+ * Markdown joins those lines into one paragraph, so the reader sees
+ * "| void | IMessage" with a pipe dangling at the front. Drop it from the line
+ * that opens the run; the rest are genuine separators.
+ *
+ * Fenced blocks are skipped — there the union is source code, and the leading
+ * pipe is valid TypeScript.
  * @param {string} filePath
  */
 function fixUnionPipeArtifacts(filePath) {
 	if (!existsSync(filePath)) return;
-	const content = readFileSync(filePath, "utf-8");
-	const updated = content
-		.replace(/=> \\\| /g, "=> ")
-		.replace(/\( \\\| /g, "(")
-		// Union type at the start of a table cell: "| \| `A` \| `B` |"
-		.replace(/\| \\\| /g, "| ");
-	if (updated !== content) writeFileSync(filePath, updated, "utf-8");
+	const lines = readFileSync(filePath, "utf-8").split("\n");
+	const isUnionLine = (/** @type {string} */ line) => /^\s*\\\| /.test(line);
+
+	let inFence = false;
+	let changed = false;
+	// Tracked separately rather than re-read from `lines`: the previous line may
+	// already have had its pipe stripped, which would make the whole run look
+	// like a series of openers and strip every separator.
+	let prevWasUnion = false;
+	for (let i = 0; i < lines.length; i++) {
+		if (/^\s*(```|~~~)/.test(lines[i])) {
+			inFence = !inFence;
+			prevWasUnion = false;
+			continue;
+		}
+		const isUnion = !inFence && isUnionLine(lines[i]);
+
+		// Only the line that opens the run carries a stray pipe.
+		if (isUnion && !prevWasUnion) {
+			lines[i] = lines[i].replace(/^(\s*)\\\| /, "$1");
+			changed = true;
+		}
+		prevWasUnion = isUnion;
+	}
+
+	if (changed) writeFileSync(filePath, lines.join("\n"), "utf-8");
 }
 
 /**

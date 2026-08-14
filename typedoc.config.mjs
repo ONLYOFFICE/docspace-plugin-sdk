@@ -42,7 +42,6 @@ export default {
 	hideBreadcrumbs: true,
 	hidePageHeader: true,
 	hidePageTitle: true,
-	hideGenerator: true,
 	hideGroupHeadings: true,
 	categorizeByGroup: false,
 	groupOrder: ["Overview", "Types", "*"],
@@ -84,8 +83,9 @@ export default {
 	sourceLinkTemplate:
 		"https://github.com/ONLYOFFICE/docspace-plugin-sdk/blob/{gitRevision}/{path}#L{line}",
 	gitRevision: "master",
+	// Keeps TypeDoc from dropping a .nojekyll into docs/, which docs:sync would
+	// then carry into the site repository.
 	githubPages: false,
-	searchInComments: true,
 	cleanOutputDir: true,
 	commentStyle: "jsdoc",
 	locales: {
@@ -108,9 +108,10 @@ export default {
 	// linked, but a long union or intersection then wraps into a dense run of
 	// escaped braces; the fence breaks it across lines and highlights it.
 	useCodeBlocks: true,
-	// Leave objects collapsed in signatures: expanding them inlines the whole
-	// shape into one dense line that the "Type Declaration" section below already
-	// documents property by property.
+	// Expand inline objects and parameters in signatures. Collapsed, they render
+	// as a bare `object`, which tells the reader nothing. The cost is that their
+	// fields also appear in the "Type Declaration" section below — the signature
+	// is the overview, that section is the reference.
 	expandObjects: true,
 	expandParameters: true,
 	// List format throughout: every member becomes a heading, so Docusaurus gives
@@ -121,18 +122,5 @@ export default {
 	enumMembersFormat: "list",
 	typeDeclarationFormat: "list",
 	parametersFormat: "list",
-	propertyMembersFormat: "list",
-	textContentMappings: {
-		"header.title": "API Reference",
-		"breadcrumbs.home": "Home"
-	},
-	// Custom page title templates
-	pageTitleTemplates: {
-		index: (args) => `${args.projectName} ${args.version}`,
-		module: (args) => {
-			// Extract the last part of the path (e.g., "interfaces/components/Component" -> "Component")
-			const parts = args.name.split("/");
-			return parts[parts.length - 1];
-		}
-	}
+	propertyMembersFormat: "list"
 };

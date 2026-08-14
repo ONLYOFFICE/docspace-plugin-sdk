@@ -116,10 +116,6 @@ writes a `_category_.json`. It requires `../api.onlyoffice.com` to exist as a si
 The script does **not** push or publish anything. To actually publish, commit and push the changes
 in the `api.onlyoffice.com` repository yourself (its own build/deploy takes it from there).
 
-> **`tools/fix-titles.mjs`** is a standalone helper (not wired into any script). It normalises any
-> `# some/path/Title` heading down to `# Title` in a separate docs checkout. Run it manually only
-> when maintaining that destination.
-
 ### Post-processing details
 
 Step 3 applies a series of text transforms to fix TypeDoc's raw output. Because these are
@@ -168,7 +164,7 @@ The full configuration is in [`typedoc.config.mjs`](typedoc.config.mjs). Key opt
 | `sort` | `["source-order"]` | Keep members in source order (not alphabetical) |
 | every `*Format` option | `"list"` | Render each member as its own heading — a table row cannot carry an anchor without raw HTML |
 | `useCodeBlocks` | `true` | Signatures as ` ```ts ` fences. The alternative, blockquotes, keeps type names linked but wraps long unions into a dense run of escaped braces |
-| `expandObjects` / `expandParameters` | `false` | Keep objects collapsed in signatures — expanding inlines the whole shape into one line that "Type Declaration" already documents property by property |
+| `expandObjects` / `expandParameters` | `true` | Spell inline objects and parameters out in signatures. Collapsed they render as a bare `object`; the cost is that their fields repeat in the "Type Declaration" section below |
 | `excludePrivate` / `excludeProtected` / `excludeInternal` / `excludeExternals` | `true` | Exclude private/protected/`@internal`/external members |
 | `commentStyle` | `"jsdoc"` | Use `/** */` comment style |
 | `useTsLinkResolution` | `true` | Resolve `{@link}` tags via the TypeScript type checker |
@@ -391,7 +387,7 @@ Tags used in this project:
   is interrupted between them, `gitRevision` may be left on your branch name — re-run `npm run docs`
   or reset it to `master` before committing.
 - Barrel `index.ts` files are excluded on purpose; adding one as an entry point duplicates every symbol.
-- `docs:sync` / `fix-titles.mjs` depend on sibling repositories being present at fixed relative paths.
+- `docs:sync` depends on the sibling `api.onlyoffice.com` checkout being present at a fixed relative path.
 
 ## File Map
 
@@ -405,5 +401,4 @@ Tags used in this project:
 | [`tools/flatten-sidebar.mjs`](tools/flatten-sidebar.mjs) | Step 4 — flatten & regroup sidebar |
 | [`tools/update-sidebar.mjs`](tools/update-sidebar.mjs) | Step 5 — prefix sidebar IDs, revert `gitRevision` |
 | [`tools/sync-docs.mjs`](tools/sync-docs.mjs) | `docs:sync` — copy output into a local docs-site checkout for preview |
-| [`tools/fix-titles.mjs`](tools/fix-titles.mjs) | Standalone helper — normalise path-style titles |
 | `docs/` | Generated output (do not edit by hand) |

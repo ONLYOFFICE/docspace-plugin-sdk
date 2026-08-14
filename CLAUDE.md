@@ -59,7 +59,6 @@ Each plugin type contains `*Item` interfaces (e.g., `IContextMenuItem`, `IInfoPa
 2. TypeDoc — generates raw markdown from JSDoc comments
 3. `generate-index-pages.mjs` — builds summary tables per section
 4. `flatten-sidebar.mjs` + `update-sidebar.mjs` — prepares Docusaurus sidebar
-5. `fix-titles.mjs` — normalizes headings
 
 TypeDoc entry points are listed explicitly in `typedoc.config.mjs` (not all of `src/`).
 
