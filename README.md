@@ -68,3 +68,26 @@ This command generates the obfuscated code from the entire project and collects 
 The *dist* folder will be created in the root plugin folder and the plugin archive will be placed in it. This archive is the completed plugin that can be uploaded to the DocSpace portal.
 
 The old *createZip* script is no longer required and can be safely removed.
+
+## Building a plugin with an AI agent
+
+The [*skills/docspace-plugin*](skills/docspace-plugin/) folder holds a skill that teaches an AI coding agent to build, audit and explain DocSpace plugins: describe the feature you want and the agent scaffolds the project, writes the TypeScript, builds it and validates it into an uploadable *dist/plugin.zip*.
+
+It is host-agnostic — [*skills/docspace-plugin/SKILL.md*](skills/docspace-plugin/SKILL.md) is the single body, and every supported agent is pointed at that same file.
+
+In Claude Code this repository is a plugin marketplace, so installing it is two commands:
+
+```
+/plugin marketplace add ONLYOFFICE/docspace-plugin-sdk
+/plugin install docspace-plugin@onlyoffice
+```
+
+The validator it uses also runs on its own, against any plugin, without a portal:
+
+```
+node skills/docspace-plugin/scripts/validate-plugin.mjs ./my-plugin --invoke
+```
+
+It loads the built bundle in a sandbox and checks what the portal checks — that the registered name matches the manifest, that every declared scope registers items, that item fields and filter values are ones the host reads, and that each returned action carries its payload. These are the mistakes that make a plugin install cleanly and then do nothing, with no error anywhere.
+
+See [*skills/docspace-plugin/README.md*](skills/docspace-plugin/README.md) for the details.
