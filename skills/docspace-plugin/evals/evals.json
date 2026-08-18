@@ -1,0 +1,189 @@
+{
+  "skill_name": "docspace-plugin",
+  "evals": [
+    {
+      "id": 0,
+      "name": "context-menu-file-action",
+      "mode": "build",
+      "prompt": "We have a pile of .md files in DocSpace from the tech writers, and it is awkward for people - to see the rendered markdown you have to download the file first. I want a plugin: right click on a .md file → a \"Preview as HTML\" item, opens a modal with the rendered content. Our portal is self-hosted, version 3.7.",
+      "expected_output": "A built plugin project with ContextMenu + API scopes, dist/plugin.zip present, validator clean. Item filtered to .md files, opens a modal, handles fetch failures.",
+      "files": [],
+      "assertions": [
+        "dist/plugin.zip exists",
+        "validate-plugin.mjs --invoke reports zero errors",
+        "package.json depends on @onlyoffice/docspace-plugin-sdk ^2.1.0, not 3.x",
+        "declared scopes include ContextMenu and are all implemented",
+        "the context menu item is restricted to .md files via fileExt with fileType including file",
+        "items are registered inside onLoadCallback, not at module scope",
+        "the item key is namespaced with the plugin name",
+        "window.Plugins.<X> matches pluginName in package.json exactly",
+        "the modal is opened via showModal with modalDialogProps present in the same message",
+        "the modal object defines onLoad, which the SDK marks as required",
+        "network or parsing failures are caught and surfaced to the user rather than left to reject"
+      ]
+    },
+    {
+      "id": 1,
+      "name": "settings-and-info-panel",
+      "mode": "build",
+      "prompt": "need a plugin for docspace that shows in the info panel tab how much space a room takes up and who owns it. and so the admin can set a threshold in gigabytes in the settings, above which the size is highlighted in red",
+      "expected_output": "A built plugin with InfoPanel + Settings + API scopes. Settings persist via saveSettings and are read in setAdminPluginSettingsValue, not during onLoadCallback. Info panel content loads via onLoad, not in onLoadCallback.",
+      "files": [],
+      "assertions": [
+        "dist/plugin.zip exists",
+        "validate-plugin.mjs --invoke reports zero errors",
+        "declared scopes include InfoPanel and Settings and are all implemented",
+        "saveSettings is returned only from the settings save button",
+        "setAdminPluginSettingsValue parses the stored string defensively, inside try/catch",
+        "stored settings are not read during onLoadCallback, where they are not yet available",
+        "info panel content is fetched in the item's onLoad rather than in onLoadCallback",
+        "if the info panel item filters by user role it uses usersTypes, the plural form",
+        "items are registered inside onLoadCallback",
+        "window.Plugins.<X> matches pluginName in package.json exactly"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "audit-broken-plugin",
+      "mode": "audit",
+      "prompt": "This plugin builds and uploads to the portal fine, but there is nothing from it in the interface at all. Have a look at what is wrong.",
+      "expected_output": "Identifies the pluginName/window.Plugins mismatch as the root cause. Should also catch the usersType/usersTypes error, the dead action without payload, and items registered outside onLoadCallback.",
+      "files": [
+        "fixtures/broken-plugin/"
+      ],
+      "assertions": [
+        "identifies the registration mismatch (window.Plugins.RoomStatistics vs pluginName RoomStats) as the root cause of nothing appearing",
+        "flags usersType on the ContextMenu item, where the host reads usersTypes",
+        "flags the showModal action returned without modalDialogProps, which makes the click dead",
+        "notes that items are registered at module scope instead of inside onLoadCallback",
+        "does not modify the plugin, since the user only asked what was wrong",
+        "cites concrete file and line locations",
+        "explains findings in terms of observable symptoms, not just contract violations"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "extend-existing-plugin",
+      "mode": "build",
+      "prompt": "Here is our plugin with room notes, it is already installed on the portal and works. Right now the note is only visible through the context menu, which is an extra click. Please add it so it also shows up in the room's info panel tab - just as text, no need to edit it from there.",
+      "expected_output": "The existing project is extended in place: InfoPanel added to scopes and implemented together, version bumped, name and pluginName untouched, the existing context menu item still registered, project rebuilt and validating clean.",
+      "files": [
+        "fixtures/working-plugin/"
+      ],
+      "assertions": [
+        "dist/plugin.zip exists and was rebuilt after the edit",
+        "validate-plugin.mjs --invoke reports zero errors",
+        "InfoPanel is added to package.json:scopes and implemented in the same change, with at least one item registered",
+        "name stays room-notes and pluginName stays RoomNotes, since the portal keys the installed plugin by them",
+        "version is bumped above 1.2.0, without which the portal serves the cached bundle",
+        "the existing room-notes-edit context menu item is still registered and still works",
+        "the new item key is namespaced with the plugin name and does not collide with the existing one",
+        "the info panel item reads its content in its own onLoad rather than in onLoadCallback",
+        "the project's existing conventions are followed - labels go through locales.ts rather than being hardcoded",
+        "the plugin is extended in place rather than regenerated from the scaffolder"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "ui-modal-form",
+      "mode": "build",
+      "prompt": "I want a plugin: a \"Send to archive\" item in the main button, which opens a little window with a field for the archive URL and a dropdown for the format (zip / tar.gz), and a \"Send\" button. If the URL is empty or does not start with https, a red message should appear under the field right away, and the button should not send anything.",
+      "expected_output": "A built plugin with MainButton scope whose modal body is a declarative component tree. Live validation via updateProps on the input and updateContext on the error label. Every node carries the props its component cannot render without.",
+      "files": [],
+      "assertions": [
+        "dist/plugin.zip exists",
+        "validate-plugin.mjs --invoke reports zero errors, and no findings with code component",
+        "every node in the tree is shaped as { component, props } using the Components enum",
+        "the button node carries label, size and onClick, which the host cannot render without",
+        "the input node carries value and onChange, and the comboBox carries options and selectedOption",
+        "ButtonSize is used as an enum member rather than a bare string, which the SDK's const enum rejects",
+        "modalDialogProps carries displayType, dialogHeader, dialogBody, onClose and onLoad",
+        "the modal onLoad returns every section the dialog has - the host assigns header, body and footer together, so returning only newDialogBody wipes the rest",
+        "the comboBox options are objects with key and label, labels are unique, and selectedOption is kept in sync via updateProps from onSelect",
+        "the error text uses var(--input-error-color) rather than a hardcoded red or the nonexistent --error-color",
+        "the error label is addressed by contextName and updated with updateContext, not by rebuilding the tree",
+        "the input updates itself with updateProps in the same message that updates the error label",
+        "validation lives in the callbacks rather than being described in prose to the user"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "explain-filter-fields",
+      "mode": "explain",
+      "prompt": "Hey, how do you restrict an item by user role in a docspace plugin? I saw usersType in one place and usersTypes in another, and both seem to compile. Which one is right, and why is it like that?",
+      "expected_output": "A direct answer: both are real, the correct one depends on the scope, and the singular/plural split is a portal quirk rather than a rule. Names which scopes take which, and warns that the wrong one compiles and then silently shows the item to everyone. No project is generated.",
+      "files": [],
+      "assertions": [
+        "answers directly instead of generating a project, since the question asked for an explanation",
+        "states that both field names are real and that which one applies depends on the scope",
+        "names the scopes on each side of the split rather than answering only for one",
+        "labels it a portal inconsistency rather than presenting it as a designed rule",
+        "explains the observable consequence - the wrong spelling compiles, installs, and the filter silently does nothing",
+        "answers from the reference files rather than from recall, and does not invent a field or a scope",
+        "mentions how to check it - the validator reports the wrong field for that scope"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "native-looking-settings",
+      "mode": "build",
+      "prompt": "make a plugin for docspace: in the plugin settings a \"Webhook URL\" field, an environment dropdown (Production / Staging), a \"send notifications\" toggle and saving. important that it looks like the portal's own settings - in dark theme too, half the team is on dark",
+      "expected_output": "A built plugin with the Settings scope whose settings block matches the portal's visual language: comboBox options as {key, label} objects kept in sync via updateProps, the toggle wrapped so it has real dimensions, colors via theme variables or defaults (no hardcoded hex), saveSettings from the save button, stored settings parsed defensively.",
+      "files": [],
+      "assertions": [
+        "dist/plugin.zip exists",
+        "validate-plugin.mjs --invoke reports zero errors and zero component warnings (no dead sizes, no malformed comboBox options)",
+        "Settings scope is declared and implemented, with a saveButton whose onClick returns saveSettings plus the serialized settings string",
+        "the comboBox options are {key, label} objects with unique labels, selectedOption is one of them, and onSelect returns updateProps with the new selectedOption",
+        "the toggleButton onChange takes no arguments and flips isChecked via updateProps",
+        "the toggle is wrapped in a box with explicit dimensions, since the control has no intrinsic size and overlaps siblings otherwise",
+        "no hardcoded hex colors in component props - theme variables like var(--text-color) or component defaults instead",
+        "none of the dead enum values are used: ButtonSize.extraSmall, InputSize.big, InputSize.huge",
+        "the input stays controlled - onChange returns updateProps with the new value",
+        "setAdminPluginSettingsValue parses the stored string defensively and tolerates null after the plugin was disabled",
+        "items are registered inside onLoadCallback and window.Plugins.<X> matches pluginName"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "plugins-switched-off",
+      "mode": "audit",
+      "prompt": "we uploaded this plugin to our own docspace, reloaded the page like the docs say, and there is nothing. no item in the context menu, nothing in the console either. our admin says the archive uploaded fine. can you find what is wrong with it? we need it working today",
+      "expected_output": "The plugin is correct and must not be changed. The answer is that the portal's plugin system is a server setting that is off by default - when enablePlugins is false the portal never calls initPlugins(), so no bundle is fetched and nothing is logged. Names pluginOptions.upload/delete as the neighbouring switches, and says this is portal configuration the plugin author cannot fix.",
+      "files": [
+        "fixtures/working-plugin/"
+      ],
+      "assertions": [
+        "does not report a defect in the plugin, because there is none - the fixture validates clean",
+        "names the portal-level switch (enablePlugins, from the server's plugins.enabled)",
+        "says it is off by default, so a fresh self-hosted portal shows this exact symptom",
+        "explains the silence: with the flag false the portal never calls initPlugins, so there is no bundle fetch and nothing in the console",
+        "mentions pluginOptions.upload / pluginOptions.delete as separate switches, and that a portal can run plugins while refusing new ones",
+        "says this is server configuration rather than something the plugin or its author can fix",
+        "does not modify the plugin",
+        "checks the plugin before blaming the portal, rather than guessing - runs the validator or reads the source"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "background-job-progress",
+      "mode": "build",
+      "prompt": "our users export whole rooms to our storage and it takes a few minutes. right now they have to keep a dialog open the whole time or they lose track. can you make a docspace plugin where they start the export from the main button and then see how far along it is, like the portal shows its own downloads?",
+      "expected_output": "A built plugin with MainButton + API scopes that reports progress through the portal's floating operations button rather than a held-open modal: addFloatingOperationsButton with an operations array, updates via updateFloatingOperationsButton, removal by the bare id string.",
+      "files": [],
+      "assertions": [
+        "dist/plugin.zip exists",
+        "validate-plugin.mjs --invoke reports zero errors",
+        "progress is reported through Actions.addFloatingOperationsButton rather than by keeping a modal open",
+        "floatingOperationsButtonProps carries an id, which is the handle every later update and the removal are keyed by",
+        "each operation carries id, label, operation, alert and completed - the host reads all of them",
+        "operation is a FloatingOperationType member, with Other for a job that is not one of the portal's own",
+        "progress is advanced with Actions.updateFloatingOperationsButton, not by adding the button again",
+        "removeFloatingOperationsButton is passed floatingOperationsButtonPropsId as a bare string, unlike every other action's payload",
+        "the icon on an operation is an asset file name, not a URL",
+        "network failures mark the operation with alert rather than leaving it stuck at a percentage",
+        "items are registered inside onLoadCallback and window.Plugins.<X> matches pluginName"
+      ]
+    }
+  ]
+}
