@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "docspace-plugin",
+  "displayName": "ONLYOFFICE DocSpace plugins",
+  "version": "1.0.0",
+  "description": "Build, audit and explain ONLYOFFICE DocSpace plugins. Scaffolds a project that already builds and validates, finds why a plugin installs and does nothing, and answers how the SDK and the portal behave from a written contract rather than from memory.",
+  "author": {
+    "name": "Ascensio System SIA",
+    "email": "integration@onlyoffice.com",
+    "url": "https://www.onlyoffice.com"
+  },
+  "homepage": "https://github.com/ONLYOFFICE/docspace-plugin-sdk/tree/master/skills/docspace-plugin",
+  "repository": "https://github.com/ONLYOFFICE/docspace-plugin-sdk",
+  "license": "Apache-2.0",
+  "keywords": [
+    "onlyoffice",
+    "docspace",
+    "plugin",
+    "sdk",
+    "typescript"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "onlyoffice",
+  "description": "ONLYOFFICE tooling for AI coding agents",
+  "owner": {
+    "name": "ONLYOFFICE",
+    "email": "integration@onlyoffice.com"
+  },
+  "plugins": [
+    {
+      "name": "docspace-plugin",
+      "source": "./",
+      "skills": [
+        "./skills/docspace-plugin"
+      ],
+      "version": "1.0.0",
+      "description": "Build, audit and explain ONLYOFFICE DocSpace plugins. Scaffolds a project that already builds and validates, finds why a plugin installs and does nothing, and answers how the SDK and the portal behave from a written contract rather than from memory.",
+      "category": "development",
+      "tags": [
+        "onlyoffice",
+        "docspace",
+        "plugin",
+        "sdk"
+      ],
+      "license": "Apache-2.0",
+      "homepage": "https://github.com/ONLYOFFICE/docspace-plugin-sdk/tree/master/skills/docspace-plugin",
+      "repository": "https://github.com/ONLYOFFICE/docspace-plugin-sdk"
+    }
+  ]
+}
