@@ -16,22 +16,22 @@ const DOCS_DIR = join(ROOT, "docs");
  * @returns {string}
  */
 function firstSentence(text) {
-	if (!text) return "";
-	const abbrev = /(?:\betc|\be\.g|\bi\.e|\bvs)\.$/i;
-	let parenDepth = 0;
-	for (let i = 0; i < text.length; i++) {
-		const ch = text[i];
-		if (ch === "(") parenDepth++;
-		else if (ch === ")") parenDepth = Math.max(0, parenDepth - 1);
-		else if ((ch === "." || ch === "!" || ch === "?") && parenDepth === 0) {
-			const next = text[i + 1];
-			// Not a sentence boundary if followed by a non-space (e.g. "9.2", "file.png")
-			if (next !== undefined && next !== " ") continue;
-			if (ch === "." && abbrev.test(text.slice(0, i + 1))) continue;
-			return text.slice(0, i + 1);
-		}
-	}
-	return text;
+  if (!text) return "";
+  const abbrev = /(?:\betc|\be\.g|\bi\.e|\bvs)\.$/i;
+  let parenDepth = 0;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (ch === "(") parenDepth++;
+    else if (ch === ")") parenDepth = Math.max(0, parenDepth - 1);
+    else if ((ch === "." || ch === "!" || ch === "?") && parenDepth === 0) {
+      const next = text[i + 1];
+      // Not a sentence boundary if followed by a non-space (e.g. "9.2", "file.png")
+      if (next !== undefined && next !== " ") continue;
+      if (ch === "." && abbrev.test(text.slice(0, i + 1))) continue;
+      return text.slice(0, i + 1);
+    }
+  }
+  return text;
 }
 
 /**
@@ -43,9 +43,9 @@ function firstSentence(text) {
  * @returns {string}
  */
 function pageTitle(mdFilePath, fallback) {
-	const content = readFileSync(mdFilePath, "utf-8");
-	const m = content.match(/^# (.+)$/m);
-	return m ? m[1].trim() : fallback;
+  const content = readFileSync(mdFilePath, "utf-8");
+  const m = content.match(/^# (.+)$/m);
+  return m ? m[1].trim() : fallback;
 }
 
 /**
@@ -58,55 +58,55 @@ function pageTitle(mdFilePath, fallback) {
  * @returns {string}
  */
 function extractDescriptionFromMd(mdFilePath) {
-	const content = readFileSync(mdFilePath, "utf-8");
-	const body = content.replace(/^---\n[\s\S]*?---\n/, "");
-	const lines = body.split("\n");
+  const content = readFileSync(mdFilePath, "utf-8");
+  const body = content.replace(/^---\n[\s\S]*?---\n/, "");
+  const lines = body.split("\n");
 
-	let sawContext = false; // set by the H1 or a "Defined in:" line
-	let inFence = false;
-	const descLines = [];
+  let sawContext = false; // set by the H1 or a "Defined in:" line
+  let inFence = false;
+  const descLines = [];
 
-	for (const line of lines) {
-		const trimmed = line.trim();
+  for (const line of lines) {
+    const trimmed = line.trim();
 
-		// Skip fenced code blocks (e.g. the type alias signature under the H1)
-		if (/^\s*(```|~~~)/.test(line)) {
-			inFence = !inFence;
-			continue;
-		}
-		if (inFence) continue;
+    // Skip fenced code blocks (e.g. the type alias signature under the H1)
+    if (/^\s*(```|~~~)/.test(line)) {
+      inFence = !inFence;
+      continue;
+    }
+    if (inFence) continue;
 
-		if (/^# /.test(line) || trimmed.startsWith("Defined in:")) {
-			if (descLines.length > 0) break;
-			sawContext = true;
-			continue;
-		}
+    if (/^# /.test(line) || trimmed.startsWith("Defined in:")) {
+      if (descLines.length > 0) break;
+      sawContext = true;
+      continue;
+    }
 
-		// Stop at the next heading
-		if (/^#{2,} /.test(line)) break;
+    // Stop at the next heading
+    if (/^#{2,} /.test(line)) break;
 
-		if (!trimmed) {
-			// Stop at first blank line AFTER we already collected some text
-			if (descLines.length > 0) break;
-			continue;
-		}
+    if (!trimmed) {
+      // Stop at first blank line AFTER we already collected some text
+      if (descLines.length > 0) break;
+      continue;
+    }
 
-		// Skip embedded images — both the raw tag, in case one has not been resolved
-		// yet, and the markdown it resolves to — and the blockquote TypeDoc renders
-		// the declaration signature as ("> **Component** = ..."). None of them
-		// describe the symbol.
-		if (
-			trimmed.startsWith("![") ||
-			trimmed.startsWith("<plugin-image") ||
-			trimmed.startsWith(">")
-		)
-			continue;
+    // Skip embedded images — both the raw tag, in case one has not been resolved
+    // yet, and the markdown it resolves to — and the blockquote TypeDoc renders
+    // the declaration signature as ("> **Component** = ..."). None of them
+    // describe the symbol.
+    if (
+      trimmed.startsWith("![") ||
+      trimmed.startsWith("<plugin-image") ||
+      trimmed.startsWith(">")
+    )
+      continue;
 
-		if (!sawContext) continue;
-		descLines.push(trimmed);
-	}
+    if (!sawContext) continue;
+    descLines.push(trimmed);
+  }
 
-	return firstSentence(descLines.join(" ").trim());
+  return firstSentence(descLines.join(" ").trim());
 }
 
 /**
@@ -117,7 +117,7 @@ function extractDescriptionFromMd(mdFilePath) {
  * @returns {string}
  */
 function tableRow(name, description, mdPath) {
-	return `| [\`${name}\`](${mdPath}) | ${description || "—"} |`;
+  return `| [\`${name}\`](${mdPath}) | ${description || "—"} |`;
 }
 
 
@@ -126,66 +126,66 @@ function tableRow(name, description, mdPath) {
  * @param {typeof SECTIONS[0]} section
  */
 function generateIndexPage(section) {
-	const docsPath = join(DOCS_DIR, section.docsDir);
+  const docsPath = join(DOCS_DIR, section.docsDir);
 
-	if (!existsSync(docsPath)) {
-		console.warn(`⚠️  Skipping "${section.title}" — docs directory not found`);
-		return;
-	}
+  if (!existsSync(docsPath)) {
+    console.warn(`⚠️  Skipping "${section.title}" — docs directory not found`);
+    return;
+  }
 
-	// Collect generated .md files (exclude index.md itself)
-	const mdFiles = readdirSync(docsPath)
-		.filter((f) => f.endsWith(".md") && f !== "index.md")
-		.sort();
+  // Collect generated .md files (exclude index.md itself)
+  const mdFiles = readdirSync(docsPath)
+    .filter((f) => f.endsWith(".md") && f !== "index.md")
+    .sort();
 
-	const rows = [];
-	for (const file of mdFiles) {
-		const name = basename(file, ".md");
-		const mdFile = file;
+  const rows = [];
+  for (const file of mdFiles) {
+    const name = basename(file, ".md");
+    const mdFile = file;
 
-		// Display the page's H1 (may differ from the file name, e.g. Utility → FilterType)
-		const displayName = pageTitle(join(docsPath, mdFile), name);
-		const description = extractDescriptionFromMd(join(docsPath, mdFile));
-		const extraValue = section.tableExtraValues?.[name] ?? "";
+    // Display the page's H1 (may differ from the file name, e.g. Utility → FilterType)
+    const displayName = pageTitle(join(docsPath, mdFile), name);
+    const description = extractDescriptionFromMd(join(docsPath, mdFile));
+    const extraValue = section.tableExtraValues?.[name] ?? "";
 
-		if (section.tableExtraColumn) {
-			rows.push(
-				`| [\`${displayName}\`](${mdFile}) | ${description || "—"} | ${extraValue || "—"} |`
-			);
-		} else {
-			rows.push(tableRow(displayName, description, mdFile));
-		}
-	}
+    if (section.tableExtraColumn) {
+      rows.push(
+        `| [\`${displayName}\`](${mdFile}) | ${description || "—"} | ${extraValue || "—"} |`
+      );
+    } else {
+      rows.push(tableRow(displayName, description, mdFile));
+    }
+  }
 
-	if (!rows.length) {
-		console.warn(`⚠️  No docs found for "${section.title}" — skipping`);
-		return;
-	}
+  if (!rows.length) {
+    console.warn(`⚠️  No docs found for "${section.title}" — skipping`);
+    return;
+  }
 
-	const headerName = section.tableHeaderName ?? "Interface";
-	const tableHeader = section.tableExtraColumn
-		? `| ${headerName} | Description | ${section.tableExtraColumn} |\n| --- | --- | --- |`
-		: `| ${headerName} | Description |\n| --- | --- |`;
+  const headerName = section.tableHeaderName ?? "Interface";
+  const tableHeader = section.tableExtraColumn
+    ? `| ${headerName} | Description | ${section.tableExtraColumn} |\n| --- | --- | --- |`
+    : `| ${headerName} | Description |\n| --- | --- |`;
 
-	const content = [
-		`# ${section.title}`,
-		``,
-		section.description,
-		...(section.usage ? [``, section.usage] : []),
-		``,
-		`## Overview`,
-		``,
-		section.tableCaption,
-		``,
-		tableHeader,
-		...rows
-	].join("\n");
+  const content = [
+    `# ${section.title}`,
+    ``,
+    section.description,
+    ...(section.usage ? [``, section.usage] : []),
+    ``,
+    `## Overview`,
+    ``,
+    section.tableCaption,
+    ``,
+    tableHeader,
+    ...rows
+  ].join("\n");
 
-	const outPath = join(docsPath, "index.md");
-	writeFileSync(outPath, content, "utf-8");
-	console.log(
-		`✅  Generated: docs/${section.docsDir}/index.md  (${rows.length} entries)`
-	);
+  const outPath = join(docsPath, "index.md");
+  writeFileSync(outPath, content, "utf-8");
+  console.log(
+    `✅  Generated: docs/${section.docsDir}/index.md  (${rows.length} entries)`
+  );
 }
 
 /**
@@ -200,44 +200,44 @@ function generateIndexPage(section) {
  * @param {string} filePath
  */
 function raiseMainSymbolSubtree(filePath) {
-	if (!existsSync(filePath)) return;
-	const lines = readFileSync(filePath, "utf-8").split("\n");
+  if (!existsSync(filePath)) return;
+  const lines = readFileSync(filePath, "utf-8").split("\n");
 
-	let inFence = false;
-	let h1 = -1;
-	let end = lines.length;
-	for (let i = 0; i < lines.length; i++) {
-		if (/^\s*(```|~~~)/.test(lines[i])) {
-			inFence = !inFence;
-			continue;
-		}
-		if (inFence) continue;
-		if (h1 < 0) {
-			if (/^# /.test(lines[i])) h1 = i;
-			continue;
-		}
-		if (/^## /.test(lines[i])) {
-			end = i;
-			break;
-		}
-	}
-	if (h1 < 0) return;
+  let inFence = false;
+  let h1 = -1;
+  let end = lines.length;
+  for (let i = 0; i < lines.length; i++) {
+    if (/^\s*(```|~~~)/.test(lines[i])) {
+      inFence = !inFence;
+      continue;
+    }
+    if (inFence) continue;
+    if (h1 < 0) {
+      if (/^# /.test(lines[i])) h1 = i;
+      continue;
+    }
+    if (/^## /.test(lines[i])) {
+      end = i;
+      break;
+    }
+  }
+  if (h1 < 0) return;
 
-	inFence = false;
-	let changed = false;
-	for (let i = h1 + 1; i < end; i++) {
-		if (/^\s*(```|~~~)/.test(lines[i])) {
-			inFence = !inFence;
-			continue;
-		}
-		if (inFence) continue;
-		const m = lines[i].match(/^(#{3,6}) (.*)$/);
-		if (!m) continue;
-		lines[i] = `${m[1].slice(1)} ${m[2]}`;
-		changed = true;
-	}
+  inFence = false;
+  let changed = false;
+  for (let i = h1 + 1; i < end; i++) {
+    if (/^\s*(```|~~~)/.test(lines[i])) {
+      inFence = !inFence;
+      continue;
+    }
+    if (inFence) continue;
+    const m = lines[i].match(/^(#{3,6}) (.*)$/);
+    if (!m) continue;
+    lines[i] = `${m[1].slice(1)} ${m[2]}`;
+    changed = true;
+  }
 
-	if (changed) writeFileSync(filePath, lines.join("\n"), "utf-8");
+  if (changed) writeFileSync(filePath, lines.join("\n"), "utf-8");
 }
 
 /**
@@ -246,29 +246,29 @@ function raiseMainSymbolSubtree(filePath) {
  * @param {string} filePath
  */
 function hoistMainSection(filePath) {
-	const name = basename(filePath, ".md");
-	const content = readFileSync(filePath, "utf-8");
+  const name = basename(filePath, ".md");
+  const content = readFileSync(filePath, "utf-8");
 
-	// Everything before the first H2 (frontmatter + module description)
-	const preambleMatch = content.match(/^([\s\S]*?)(?=^## )/m);
-	if (!preambleMatch) return;
-	const preamble = preambleMatch[1];
-	const h2Content = content.slice(preamble.length);
+  // Everything before the first H2 (frontmatter + module description)
+  const preambleMatch = content.match(/^([\s\S]*?)(?=^## )/m);
+  if (!preambleMatch) return;
+  const preamble = preambleMatch[1];
+  const h2Content = content.slice(preamble.length);
 
-	const h2Sections = h2Content.split(/(?=^## )/m);
-	if (h2Sections.length <= 1) return;
+  const h2Sections = h2Content.split(/(?=^## )/m);
+  if (h2Sections.length <= 1) return;
 
-	// Find section whose heading matches the file name (with optional I/T prefix)
-	const candidates = [name, `I${name}`, `T${name}`];
-	const mainIdx = h2Sections.findIndex((s) =>
-		candidates.some((c) => new RegExp(`^## ${c}\\b`).test(s))
-	);
-	if (mainIdx <= 0) return; // already first or not found
+  // Find section whose heading matches the file name (with optional I/T prefix)
+  const candidates = [name, `I${name}`, `T${name}`];
+  const mainIdx = h2Sections.findIndex((s) =>
+    candidates.some((c) => new RegExp(`^## ${c}\\b`).test(s))
+  );
+  if (mainIdx <= 0) return; // already first or not found
 
-	const main = h2Sections.splice(mainIdx, 1)[0];
-	h2Sections.unshift(main);
+  const main = h2Sections.splice(mainIdx, 1)[0];
+  h2Sections.unshift(main);
 
-	writeFileSync(filePath, preamble + h2Sections.join(""), "utf-8");
+  writeFileSync(filePath, preamble + h2Sections.join(""), "utf-8");
 }
 
 /**
@@ -286,7 +286,7 @@ const IMAGE_BASE = "/assets/images/docspace";
  * @returns {string}
  */
 function toDarkSrc(src) {
-	return src.replace(/(\.[^.]+)$/, ".dark$1");
+  return src.replace(/(\.[^.]+)$/, ".dark$1");
 }
 
 /**
@@ -305,64 +305,64 @@ function toDarkSrc(src) {
  * @param {string} filePath
  */
 function resolvePluginImageTags(filePath) {
-	if (!existsSync(filePath)) return;
-	const content = readFileSync(filePath, "utf-8");
-	const updated = content.replace(
-		/<plugin-image\s+src=(["'])([^"']+)\1(\s+dark(?:=(["'])([^"']*)\4)?)?\s*\/>/g,
-		(_match, _q1, src, darkAttr, _q2, darkValue) => {
-			const alt = src.replace(/\.[^.]+$/, "");
+  if (!existsSync(filePath)) return;
+  const content = readFileSync(filePath, "utf-8");
+  const updated = content.replace(
+    /<plugin-image\s+src=(["'])([^"']+)\1(\s+dark(?:=(["'])([^"']*)\4)?)?\s*\/>/g,
+    (_match, _q1, src, darkAttr, _q2, darkValue) => {
+      const alt = src.replace(/\.[^.]+$/, "");
 
-			// `darkAttr` is undefined only when the `dark` attribute is absent.
-			// A valueless `dark` (or `dark=""`) auto-derives the dark file name.
-			if (darkAttr === undefined) {
-				return `![${alt}](${IMAGE_BASE}/${src})`;
-			}
+      // `darkAttr` is undefined only when the `dark` attribute is absent.
+      // A valueless `dark` (or `dark=""`) auto-derives the dark file name.
+      if (darkAttr === undefined) {
+        return `![${alt}](${IMAGE_BASE}/${src})`;
+      }
 
-			// The site hides whichever image does not match the active theme, keyed
-			// on the URL fragment — see the `#gh-*-mode-only` rule in its custom.css.
-			const darkSrc = darkValue ? darkValue : toDarkSrc(src);
-			const light = `![${alt}](${IMAGE_BASE}/${src}#gh-light-mode-only)`;
-			const dark = `![${alt}](${IMAGE_BASE}/${darkSrc}#gh-dark-mode-only)`;
-			return `${light}${dark}`;
-		}
-	);
+      // The site hides whichever image does not match the active theme, keyed
+      // on the URL fragment — see the `#gh-*-mode-only` rule in its custom.css.
+      const darkSrc = darkValue ? darkValue : toDarkSrc(src);
+      const light = `![${alt}](${IMAGE_BASE}/${src}#gh-light-mode-only)`;
+      const dark = `![${alt}](${IMAGE_BASE}/${darkSrc}#gh-dark-mode-only)`;
+      return `${light}${dark}`;
+    }
+  );
 
-	// An unrecognised attribute (`width=` was dropped, for one) leaves the tag in
-	// place, where it becomes raw HTML. Say so instead of shipping it.
-	for (const leftover of updated.matchAll(/<plugin-image[^>]*>/g)) {
-		console.warn(
-			`[warn] Unrecognised ${leftover[0]} in ${basename(filePath)} — left as raw HTML`
-		);
-	}
+  // An unrecognised attribute (`width=` was dropped, for one) leaves the tag in
+  // place, where it becomes raw HTML. Say so instead of shipping it.
+  for (const leftover of updated.matchAll(/<plugin-image[^>]*>/g)) {
+    console.warn(
+      `[warn] Unrecognised ${leftover[0]} in ${basename(filePath)} — left as raw HTML`
+    );
+  }
 
-	if (updated !== content) writeFileSync(filePath, updated, "utf-8");
+  if (updated !== content) writeFileSync(filePath, updated, "utf-8");
 }
 
 /** @param {string} filePath */
 function reorderExamplesLast(filePath) {
-	if (!existsSync(filePath)) return;
-	const original = readFileSync(filePath, "utf-8");
+  if (!existsSync(filePath)) return;
+  const original = readFileSync(filePath, "utf-8");
 
-	// Split on H2 boundaries, keeping the delimiter via lookahead
-	const h2Parts = original.split(/(?=^## )/m);
+  // Split on H2 boundaries, keeping the delimiter via lookahead
+  const h2Parts = original.split(/(?=^## )/m);
 
-	const result = h2Parts.map((section) => {
-		// Split this H2 section into H3 subsections
-		const h3Parts = section.split(/(?=^### )/m);
-		if (h3Parts.length <= 1) return section;
+  const result = h2Parts.map((section) => {
+    // Split this H2 section into H3 subsections
+    const h3Parts = section.split(/(?=^### )/m);
+    if (h3Parts.length <= 1) return section;
 
-		const before = h3Parts[0]; // content before the first H3
-		const h3Sections = h3Parts.slice(1);
+    const before = h3Parts[0]; // content before the first H3
+    const h3Sections = h3Parts.slice(1);
 
-		const examples = h3Sections.filter((s) => /^### Examples?\b/.test(s));
-		const others = h3Sections.filter((s) => !/^### Examples?\b/.test(s));
+    const examples = h3Sections.filter((s) => /^### Examples?\b/.test(s));
+    const others = h3Sections.filter((s) => !/^### Examples?\b/.test(s));
 
-		if (!examples.length) return section;
-		return before + others.join("") + examples.join("");
-	});
+    if (!examples.length) return section;
+    return before + others.join("") + examples.join("");
+  });
 
-	const patched = result.join("");
-	if (patched !== original) writeFileSync(filePath, patched, "utf-8");
+  const patched = result.join("");
+  if (patched !== original) writeFileSync(filePath, patched, "utf-8");
 }
 
 /**
@@ -373,44 +373,44 @@ function reorderExamplesLast(filePath) {
  * @param {string} filePath
  */
 function promoteFirstH2toH1(filePath) {
-	if (!existsSync(filePath)) return;
-	const name = basename(filePath, ".md");
-	const content = readFileSync(filePath, "utf-8");
+  if (!existsSync(filePath)) return;
+  const name = basename(filePath, ".md");
+  const content = readFileSync(filePath, "utf-8");
 
-	// Frontmatter is optional — TypeDoc only emits a block when something puts a
-	// key in it, and nothing does by default.
-	const fmMatch = content.match(/^(---\n[\s\S]*?---\n)/);
-	const fm = fmMatch ? fmMatch[1] : "";
-	const afterFm = content.slice(fm.length);
+  // Frontmatter is optional — TypeDoc only emits a block when something puts a
+  // key in it, and nothing does by default.
+  const fmMatch = content.match(/^(---\n[\s\S]*?---\n)/);
+  const fm = fmMatch ? fmMatch[1] : "";
+  const afterFm = content.slice(fm.length);
 
-	// Already promoted (e.g. the pipeline ran twice over the same output) —
-	// promoting again would turn the NEXT H2 into a second H1.
-	if (/^# /m.test(afterFm)) return;
+  // Already promoted (e.g. the pipeline ran twice over the same output) —
+  // promoting again would turn the NEXT H2 into a second H1.
+  if (/^# /m.test(afterFm)) return;
 
-	const firstH2Pos = afterFm.search(/^## /m);
-	if (firstH2Pos < 0) return;
+  const firstH2Pos = afterFm.search(/^## /m);
+  if (firstH2Pos < 0) return;
 
-	const preamble = afterFm.slice(0, firstH2Pos).trim();
-	const h2Part = afterFm.slice(firstH2Pos);
+  const preamble = afterFm.slice(0, firstH2Pos).trim();
+  const h2Part = afterFm.slice(firstH2Pos);
 
-	const firstH2Name = (h2Part.match(/^## (.+?)(?:\s|$)/m) || [])[1]?.trim() ?? "";
-	const h2Count = (h2Part.match(/^## /gm) ?? []).length;
-	const candidates = [name, `I${name}`, `T${name}`];
-	const isMainType = candidates.includes(firstH2Name);
+  const firstH2Name = (h2Part.match(/^## (.+?)(?:\s|$)/m) || [])[1]?.trim() ?? "";
+  const h2Count = (h2Part.match(/^## /gm) ?? []).length;
+  const candidates = [name, `I${name}`, `T${name}`];
+  const isMainType = candidates.includes(firstH2Name);
 
-	if (isMainType || h2Count === 1) {
-		// Single main type — promote first H2 to H1
-		const patched = content.replace(/^## /m, "# ");
-		if (patched !== content) writeFileSync(filePath, patched, "utf-8");
-	} else if (preamble) {
-		// Multiple unrelated types + module description from @packageDocumentation.
-		// The sidebar takes its label from this H1 (flatten-sidebar.mjs), so no
-		// sidebar_label frontmatter is needed.
-		const title = name.charAt(0).toUpperCase() + name.slice(1);
-		const patched = fm + `# ${title}\n\n${preamble}\n\n` + h2Part;
-		writeFileSync(filePath, patched, "utf-8");
-	}
-	// else: multiple types, no description — leave H2 structure as is
+  if (isMainType || h2Count === 1) {
+    // Single main type — promote first H2 to H1
+    const patched = content.replace(/^## /m, "# ");
+    if (patched !== content) writeFileSync(filePath, patched, "utf-8");
+  } else if (preamble) {
+    // Multiple unrelated types + module description from @packageDocumentation.
+    // The sidebar takes its label from this H1 (flatten-sidebar.mjs), so no
+    // sidebar_label frontmatter is needed.
+    const title = name.charAt(0).toUpperCase() + name.slice(1);
+    const patched = fm + `# ${title}\n\n${preamble}\n\n` + h2Part;
+    writeFileSync(filePath, patched, "utf-8");
+  }
+  // else: multiple types, no description — leave H2 structure as is
 }
 
 /**
@@ -420,13 +420,13 @@ function promoteFirstH2toH1(filePath) {
  * @returns {string}
  */
 function slugify(text) {
-	return text
-		.toLowerCase()
-		.trim()
-		.replace(/<[^>]+>/g, "")
-		.replace(/[`*\\]/g, "")
-		.replace(/[^\w\- ]/g, "")
-		.replace(/\s+/g, "-");
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/<[^>]+>/g, "")
+    .replace(/[`*\\]/g, "")
+    .replace(/[^\w\- ]/g, "")
+    .replace(/\s+/g, "-");
 }
 
 /**
@@ -437,12 +437,12 @@ function slugify(text) {
  * @param {string} filePath
  */
 function stripRawAnchors(filePath) {
-	if (!existsSync(filePath)) return;
-	const content = readFileSync(filePath, "utf-8");
-	const updated = content
-		.replace(/^<a id="[^"]+"><\/a>\n+/gm, "")
-		.replace(/<a id="[^"]+"><\/a> ?/g, "");
-	if (updated !== content) writeFileSync(filePath, updated, "utf-8");
+  if (!existsSync(filePath)) return;
+  const content = readFileSync(filePath, "utf-8");
+  const updated = content
+    .replace(/^<a id="[^"]+"><\/a>\n+/gm, "")
+    .replace(/<a id="[^"]+"><\/a> ?/g, "");
+  if (updated !== content) writeFileSync(filePath, updated, "utf-8");
 }
 
 /**
@@ -459,29 +459,29 @@ function stripRawAnchors(filePath) {
  * @returns {Set<string>}
  */
 function pageAnchors(content) {
-	/** @type {Map<string, number>} */
-	const seen = new Map();
-	const ids = new Set();
+  /** @type {Map<string, number>} */
+  const seen = new Map();
+  const ids = new Set();
 
-	let inFence = false;
-	for (const line of content.split("\n")) {
-		if (/^\s*(```|~~~)/.test(line)) {
-			inFence = !inFence;
-			continue;
-		}
-		if (inFence) continue;
+  let inFence = false;
+  for (const line of content.split("\n")) {
+    if (/^\s*(```|~~~)/.test(line)) {
+      inFence = !inFence;
+      continue;
+    }
+    if (inFence) continue;
 
-		const m = line.match(/^#{2,6} (.+)$/);
-		if (!m) continue;
-		const base = slugify(m[1]);
-		if (!base) continue;
+    const m = line.match(/^#{2,6} (.+)$/);
+    if (!m) continue;
+    const base = slugify(m[1]);
+    if (!base) continue;
 
-		const count = seen.get(base) ?? 0;
-		seen.set(base, count + 1);
-		ids.add(count === 0 ? base : `${base}-${count}`);
-	}
+    const count = seen.get(base) ?? 0;
+    seen.set(base, count + 1);
+    ids.add(count === 0 ? base : `${base}-${count}`);
+  }
 
-	return ids;
+  return ids;
 }
 
 /**
@@ -496,45 +496,45 @@ function pageAnchors(content) {
  * @param {string[]} filePaths
  */
 function dropPageTitleFragments(filePaths) {
-	/** @type {Map<string, {title: string|undefined, anchors: Set<string>}>} */
-	const pages = new Map();
-	for (const filePath of filePaths) {
-		const content = readFileSync(filePath, "utf-8");
-		const m = content.match(/^# (.+)$/m);
-		pages.set(resolve(filePath), {
-			title: m ? slugify(m[1]) : undefined,
-			anchors: pageAnchors(content)
-		});
-	}
+  /** @type {Map<string, {title: string|undefined, anchors: Set<string>}>} */
+  const pages = new Map();
+  for (const filePath of filePaths) {
+    const content = readFileSync(filePath, "utf-8");
+    const m = content.match(/^# (.+)$/m);
+    pages.set(resolve(filePath), {
+      title: m ? slugify(m[1]) : undefined,
+      anchors: pageAnchors(content)
+    });
+  }
 
-	/**
-	 * A page title slug is only pointless when no heading claims it. On a page
-	 * whose title repeats as a property name, that property owns the anchor and
-	 * the link must keep it.
-	 * @param {{title: string|undefined, anchors: Set<string>}} page
-	 * @param {string} fragment
-	 */
-	const isDeadTitleLink = (page, fragment) =>
-		page?.title === fragment.toLowerCase() && !page.anchors.has(fragment.toLowerCase());
+  /**
+   * A page title slug is only pointless when no heading claims it. On a page
+   * whose title repeats as a property name, that property owns the anchor and
+   * the link must keep it.
+   * @param {{title: string|undefined, anchors: Set<string>}} page
+   * @param {string} fragment
+   */
+  const isDeadTitleLink = (page, fragment) =>
+    page?.title === fragment.toLowerCase() && !page.anchors.has(fragment.toLowerCase());
 
-	for (const filePath of filePaths) {
-		const content = readFileSync(filePath, "utf-8");
-		const own = pages.get(resolve(filePath));
+  for (const filePath of filePaths) {
+    const content = readFileSync(filePath, "utf-8");
+    const own = pages.get(resolve(filePath));
 
-		const updated = content
-			// Another page's title: keep the link, drop the fragment.
-			.replace(/\]\(([^)\s#]+)#([^)\s]+)\)/g, (full, rel, fragment) => {
-				const target = pages.get(resolve(dirname(filePath), rel));
-				return target && isDeadTitleLink(target, fragment) ? `](${rel})` : full;
-			})
-			// This page's own title: unlink it. Pointing the reader at the top of the
-			// page they are already reading is noise.
-			.replace(/\[([^\]]+)\]\(#([^)\s]+)\)/g, (full, label, fragment) =>
-				own && isDeadTitleLink(own, fragment) ? label : full
-			);
+    const updated = content
+      // Another page's title: keep the link, drop the fragment.
+      .replace(/\]\(([^)\s#]+)#([^)\s]+)\)/g, (full, rel, fragment) => {
+        const target = pages.get(resolve(dirname(filePath), rel));
+        return target && isDeadTitleLink(target, fragment) ? `](${rel})` : full;
+      })
+      // This page's own title: unlink it. Pointing the reader at the top of the
+      // page they are already reading is noise.
+      .replace(/\[([^\]]+)\]\(#([^)\s]+)\)/g, (full, label, fragment) =>
+        own && isDeadTitleLink(own, fragment) ? label : full
+      );
 
-		if (updated !== content) writeFileSync(filePath, updated, "utf-8");
-	}
+    if (updated !== content) writeFileSync(filePath, updated, "utf-8");
+  }
 }
 
 /**
@@ -544,25 +544,25 @@ function dropPageTitleFragments(filePaths) {
  * @param {string} filePath
  */
 function fixInPageAnchors(filePath) {
-	if (!existsSync(filePath)) return;
-	const original = readFileSync(filePath, "utf-8");
-	let content = original;
+  if (!existsSync(filePath)) return;
+  const original = readFileSync(filePath, "utf-8");
+  let content = original;
 
-	const ids = pageAnchors(content);
+  const ids = pageAnchors(content);
 
-	content = content.replace(/\]\(#([^)\s]+)\)/g, (full, anchor) => {
-		const target = anchor.toLowerCase();
-		if (ids.has(target)) return full;
-		// Only a suffix that matches nothing is stale: real repeats are in `ids`.
-		const stripped = target.replace(/-\d+$/, "");
-		if (stripped !== target && ids.has(stripped)) return `](#${stripped})`;
-		console.warn(
-			`[warn] Unresolved in-page anchor #${anchor} in ${basename(filePath)}`
-		);
-		return full;
-	});
+  content = content.replace(/\]\(#([^)\s]+)\)/g, (full, anchor) => {
+    const target = anchor.toLowerCase();
+    if (ids.has(target)) return full;
+    // Only a suffix that matches nothing is stale: real repeats are in `ids`.
+    const stripped = target.replace(/-\d+$/, "");
+    if (stripped !== target && ids.has(stripped)) return `](#${stripped})`;
+    console.warn(
+      `[warn] Unresolved in-page anchor #${anchor} in ${basename(filePath)}`
+    );
+    return full;
+  });
 
-	if (content !== original) writeFileSync(filePath, content, "utf-8");
+  if (content !== original) writeFileSync(filePath, content, "utf-8");
 }
 
 /**
@@ -583,33 +583,33 @@ function fixInPageAnchors(filePath) {
  * @param {string} filePath
  */
 function fixUnionPipeArtifacts(filePath) {
-	if (!existsSync(filePath)) return;
-	const lines = readFileSync(filePath, "utf-8").split("\n");
-	const isUnionLine = (/** @type {string} */ line) => /^\s*\\\| /.test(line);
+  if (!existsSync(filePath)) return;
+  const lines = readFileSync(filePath, "utf-8").split("\n");
+  const isUnionLine = (/** @type {string} */ line) => /^\s*\\\| /.test(line);
 
-	let inFence = false;
-	let changed = false;
-	// Tracked separately rather than re-read from `lines`: the previous line may
-	// already have had its pipe stripped, which would make the whole run look
-	// like a series of openers and strip every separator.
-	let prevWasUnion = false;
-	for (let i = 0; i < lines.length; i++) {
-		if (/^\s*(```|~~~)/.test(lines[i])) {
-			inFence = !inFence;
-			prevWasUnion = false;
-			continue;
-		}
-		const isUnion = !inFence && isUnionLine(lines[i]);
+  let inFence = false;
+  let changed = false;
+  // Tracked separately rather than re-read from `lines`: the previous line may
+  // already have had its pipe stripped, which would make the whole run look
+  // like a series of openers and strip every separator.
+  let prevWasUnion = false;
+  for (let i = 0; i < lines.length; i++) {
+    if (/^\s*(```|~~~)/.test(lines[i])) {
+      inFence = !inFence;
+      prevWasUnion = false;
+      continue;
+    }
+    const isUnion = !inFence && isUnionLine(lines[i]);
 
-		// Only the line that opens the run carries a stray pipe.
-		if (isUnion && !prevWasUnion) {
-			lines[i] = lines[i].replace(/^(\s*)\\\| /, "$1");
-			changed = true;
-		}
-		prevWasUnion = isUnion;
-	}
+    // Only the line that opens the run carries a stray pipe.
+    if (isUnion && !prevWasUnion) {
+      lines[i] = lines[i].replace(/^(\s*)\\\| /, "$1");
+      changed = true;
+    }
+    prevWasUnion = isUnion;
+  }
 
-	if (changed) writeFileSync(filePath, lines.join("\n"), "utf-8");
+  if (changed) writeFileSync(filePath, lines.join("\n"), "utf-8");
 }
 
 /**
@@ -618,26 +618,26 @@ function fixUnionPipeArtifacts(filePath) {
  * @param {string} filePath
  */
 function ensureBlankLineBeforeHeadings(filePath) {
-	if (!existsSync(filePath)) return;
-	const original = readFileSync(filePath, "utf-8");
-	const lines = original.split("\n");
-	/** @type {string[]} */
-	const out = [];
-	let inFence = false;
-	for (const line of lines) {
-		if (/^\s*(```|~~~)/.test(line)) inFence = !inFence;
-		if (
-			!inFence &&
-			/^#{1,6} /.test(line) &&
-			out.length > 0 &&
-			out[out.length - 1].trim() !== ""
-		) {
-			out.push("");
-		}
-		out.push(line);
-	}
-	const patched = out.join("\n");
-	if (patched !== original) writeFileSync(filePath, patched, "utf-8");
+  if (!existsSync(filePath)) return;
+  const original = readFileSync(filePath, "utf-8");
+  const lines = original.split("\n");
+  /** @type {string[]} */
+  const out = [];
+  let inFence = false;
+  for (const line of lines) {
+    if (/^\s*(```|~~~)/.test(line)) inFence = !inFence;
+    if (
+      !inFence &&
+      /^#{1,6} /.test(line) &&
+      out.length > 0 &&
+      out[out.length - 1].trim() !== ""
+    ) {
+      out.push("");
+    }
+    out.push(line);
+  }
+  const patched = out.join("\n");
+  if (patched !== original) writeFileSync(filePath, patched, "utf-8");
 }
 
 /**
@@ -645,10 +645,10 @@ function ensureBlankLineBeforeHeadings(filePath) {
  * @param {string} filePath
  */
 function stripTrailingHr(filePath) {
-	if (!existsSync(filePath)) return;
-	const content = readFileSync(filePath, "utf-8");
-	const updated = content.replace(/\n\*{3,}\s*$/, "\n");
-	if (updated !== content) writeFileSync(filePath, updated, "utf-8");
+  if (!existsSync(filePath)) return;
+  const content = readFileSync(filePath, "utf-8");
+  const updated = content.replace(/\n\*{3,}\s*$/, "\n");
+  if (updated !== content) writeFileSync(filePath, updated, "utf-8");
 }
 
 // Run.
@@ -656,20 +656,20 @@ function stripTrailingHr(filePath) {
 // index pages last — they read the final H1 titles and descriptions.
 
 const ALL_MD_FILES = existsSync(DOCS_DIR)
-	? readdirSync(DOCS_DIR, { recursive: true })
-			.filter(
-				(f) => typeof f === "string" && f.endsWith(".md") && !f.endsWith("index.md")
-			)
-			.map((f) => join(DOCS_DIR, /** @type {string} */ (f)))
-	: [];
+  ? readdirSync(DOCS_DIR, { recursive: true })
+      .filter(
+        (f) => typeof f === "string" && f.endsWith(".md") && !f.endsWith("index.md")
+      )
+      .map((f) => join(DOCS_DIR, /** @type {string} */ (f)))
+  : [];
 
 // 1. Per-file structural transforms
 for (const filePath of ALL_MD_FILES) {
-	hoistMainSection(filePath);
-	reorderExamplesLast(filePath);
-	resolvePluginImageTags(filePath);
-	promoteFirstH2toH1(filePath);
-	raiseMainSymbolSubtree(filePath);
+  hoistMainSection(filePath);
+  reorderExamplesLast(filePath);
+  resolvePluginImageTags(filePath);
+  promoteFirstH2toH1(filePath);
+  raiseMainSymbolSubtree(filePath);
 }
 
 // 2. Links to a page title lose their fragment. Needs every page's H1 at once,
@@ -679,32 +679,32 @@ dropPageTitleFragments(ALL_MD_FILES);
 
 // 3. Cleanup passes over the final content
 for (const filePath of ALL_MD_FILES) {
-	fixUnionPipeArtifacts(filePath);
-	stripRawAnchors(filePath);
-	fixInPageAnchors(filePath);
-	ensureBlankLineBeforeHeadings(filePath);
-	stripTrailingHr(filePath);
+  fixUnionPipeArtifacts(filePath);
+  stripRawAnchors(filePath);
+  fixInPageAnchors(filePath);
+  ensureBlankLineBeforeHeadings(filePath);
+  stripTrailingHr(filePath);
 }
 
 // 4. Section index pages (read the final page content)
 for (const section of SECTIONS) {
-	generateIndexPage(section);
+  generateIndexPage(section);
 }
 
 // Write _category_.json so docs:sync carries it into the coding-plugin folder
 writeFileSync(
-	join(DOCS_DIR, "_category_.json"),
-	JSON.stringify(
-		{
-			link: {
-				type: "doc",
-				id: "docspace/plugins-sdk/usage-sdk/coding-plugin"
-			}
-		},
-		null,
-		2
-	) + "\n",
-	"utf-8"
+  join(DOCS_DIR, "_category_.json"),
+  JSON.stringify(
+    {
+      link: {
+        type: "doc",
+        id: "docspace/plugins-sdk/usage-sdk/coding-plugin"
+      }
+    },
+    null,
+    2
+  ) + "\n",
+  "utf-8"
 );
 
 console.log("✅  All index pages generated.");
