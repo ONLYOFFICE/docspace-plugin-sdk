@@ -265,6 +265,43 @@ const toastButton = (
 	}
 });
 
+/** How many times the overview section has been refreshed. */
+let refreshCount = 0;
+
+/**
+ * A button that mutates the overview item and applies the change with
+ * the `updateArticleNavigationItems` action.
+ */
+const refreshButton = (id: string, label: string, marginProp: string): Component => ({
+	component: Components.box,
+	props: {
+		id,
+		marginProp,
+		children: [
+			{
+				component: Components.button,
+				props: {
+					label,
+					size: ButtonSize.normal,
+					scale: false,
+					onClick: async (): Promise<IMessage> => {
+						refreshCount += 1;
+
+						plugin.updateArticleNavigationItem({
+							...overviewItem,
+							label: `Sample Overview (${refreshCount})`
+						});
+
+						return {
+							actions: [Actions.updateArticleNavigationItems]
+						};
+					}
+				}
+			}
+		]
+	}
+});
+
 // --- Item definitions ----------------------------------------------------------
 
 /**
@@ -342,7 +379,6 @@ const overviewItem: IArticleNavigationItem = {
 	} as IBox,
 	onLoad: async (): Promise<{ section: IBox }> => {
 		// Stands in for the request a real plugin would make here.
-		await delay(LOADING_DELAY);
 
 		return {
 			section: {
@@ -379,6 +415,11 @@ const overviewItem: IArticleNavigationItem = {
 									"article-navigation-sample-overview-card-users",
 									"Visible to users",
 									"All user types"
+								),
+								infoCard(
+									"article-navigation-sample-overview-card-refreshes",
+									"Section refreshes",
+									String(refreshCount)
 								)
 							]
 						}
@@ -387,6 +428,11 @@ const overviewItem: IArticleNavigationItem = {
 						"article-navigation-sample-overview-button",
 						"Show toast",
 						"Hello from the article navigation sample!",
+						"12px 0 0 0"
+					),
+					refreshButton(
+						"article-navigation-sample-overview-refresh-button",
+						"Refresh section",
 						"12px 0 0 0"
 					)
 				]
