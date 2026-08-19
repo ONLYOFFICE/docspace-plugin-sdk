@@ -68,6 +68,12 @@ export enum Actions {
   updateEventListenerItems = "update-event-listener-items",
 
   /**
+   * Calls a function to update all the article navigation items.
+   * The sidebar is refreshed, and the open section is re-rendered via "onLoad".
+   */
+  updateArticleNavigationItems = "update-article-navigation-items",
+
+  /**
    * Calls a function to display a toast notification after the user actions.
    * It does not work if the "toastProps" parameter is not passed to the message.
    */

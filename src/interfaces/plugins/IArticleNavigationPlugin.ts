@@ -71,6 +71,7 @@ export interface IArticleNavigationPlugin {
 
 	/**
 	 * Update an existing navigation item in the plugin's collection.
+	 * Dispatch the "Actions.updateArticleNavigationItems" action afterwards to apply it.
 	 * @param item - The navigation item to update
 	 */
 	updateArticleNavigationItem(item: IArticleNavigationItem): void;

@@ -5,6 +5,8 @@
 ## Added
 
 - Add IArticleNavigationPlugin, IArticleNavigationItem, Section enum
+- Add `Actions.updateArticleNavigationItems` to refresh the article navigation
+  items and the open plugin section
 
 ## 2.1.0
 
