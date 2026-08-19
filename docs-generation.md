@@ -132,7 +132,6 @@ TypeDoc/plugin upgrade changes the output shape.
 | `raiseMainSymbolSubtree` | Shifts the main symbol's headings up one level, so its group lands on H2 and its members on H3 — within Docusaurus' TOC cutoff |
 | `fixUnionPipeArtifacts` | Strips TypeDoc's stray leading `\|` in union types, both across lines and inside a table cell |
 | `escapePipesInTableCells` | Escapes the `\|` a comment puts inside a cell's inline code, which Markdown would otherwise read as a cell separator |
-| `stripNonTableAnchors` | Removes `<a id>` anchors that sit outside a table, where the heading is already anchored natively |
 | `fixInPageAnchors` | Repairs in-page links whose target anchor does not exist, and warns about the ones it cannot resolve |
 | `dropPageTitleFragments` | Drops the fragment from links that target a page title, which is the one heading Docusaurus cannot anchor |
 | `ensureBlankLineBeforeHeadings` | Guarantees the blank line MDX needs before a heading |
@@ -147,11 +146,10 @@ promotion breaks them all silently.
 
 Members are rendered as table rows (see the `*Format` options below — enum members are the one
 exception), and a row cannot carry an anchor without HTML, so TypeDoc puts a
-`<a id="membername"></a>` in the first cell. Those stay —
-they are what `#label`, `#onclick` and every other deep link into a member resolve to. Anywhere
-else an `<a id>` shows up it is stripped (`stripNonTableAnchors`): outside a table the anchor sits
-next to a heading, and Docusaurus anchors headings natively, applying the sticky-navbar scroll
-offset (`.anchorTargetStickyNavbar`) an injected anchor does not get.
+`<a id="membername"></a>` in the first cell. Those are what `#label`, `#onclick` and every other
+deep link into a member resolve to. They are also the only HTML: heading anchors are off
+(`useHTMLAnchors` defaults to false) because Docusaurus anchors headings natively, applying the
+sticky-navbar scroll offset (`.anchorTargetStickyNavbar`) an injected anchor does not get.
 
 The one heading Docusaurus refuses to anchor is the page title (`Heading/index.js`:
 `if (As === 'h1' || !id)`), so links to it drop their fragment instead of growing an anchor.
