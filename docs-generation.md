@@ -80,8 +80,8 @@ npm run docs:sync   # generate + copy into a local docs-site checkout for previe
 [`package.json`](package.json)):
 
 1. **`tools/update-revision.mjs`** — reads the current Git branch (`git rev-parse --abbrev-ref HEAD`)
-   and writes it to `gitRevision` in `typedoc.config.mjs`, so the "Defined in:" source links point
-   to the branch you actually generated from. Exits early if the value is already correct.
+   and writes it to `gitRevision` in `typedoc.config.mjs`, so the "View source on GitHub" links
+   point to the branch you actually generated from. Exits early if the value is already correct.
 
 2. **`typedoc`** — parses all entry points, extracts JSDoc comments, and generates one Markdown
    file per symbol in `docs/`, plus `docs/typedoc-sidebar.cjs` and `docs/index.md`.
@@ -124,13 +124,15 @@ TypeDoc/plugin upgrade changes the output shape.
 
 | Transform | What it fixes |
 | --- | --- |
+| `convertSourceLinks` | Rewrites `Defined in: [file.ts:12](url)` → `[View source on GitHub](url)`, one per symbol; drops the member-level ones |
 | `resolvePluginImageTags` | Rewrites `<plugin-image src="x.png" [dark] />` → `![x](/assets/images/docspace/x.png)` (a `dark` attribute emits a light/dark pair) |
-| `reorderExamplesLast` | Moves `### Example(s)` sections after `### Properties` within each section |
+| `reorderExamplesFirst` | Moves `### Example(s)` sections ahead of `### Properties` / `### Methods` within each section |
 | `hoistMainSection` | In mixed-kind modules, moves the section matching the file name to the top (fixes Enum-before-Interface ordering) |
 | `promoteFirstH2toH1` | Promotes the main type's `## Heading` to `# H1`, or injects a title + module description (and a `sidebar_label`) for multi-type modules |
 | `raiseMainSymbolSubtree` | Shifts the main symbol's headings up one level, so its group lands on H2 and its members on H3 — within Docusaurus' TOC cutoff |
-| `fixUnionPipeArtifacts` | Strips TypeDoc's stray leading `\|` in union types |
-| `stripRawAnchors` | Removes the `<a id>` anchors TypeDoc leaves behind — every member is a heading and Docusaurus anchors it natively |
+| `fixUnionPipeArtifacts` | Strips TypeDoc's stray leading `\|` in union types, both across lines and inside a table cell |
+| `escapePipesInTableCells` | Escapes the `\|` a comment puts inside a cell's inline code, which Markdown would otherwise read as a cell separator |
+| `stripNonTableAnchors` | Removes `<a id>` anchors that sit outside a table, where the heading is already anchored natively |
 | `fixInPageAnchors` | Repairs in-page links whose target anchor does not exist, and warns about the ones it cannot resolve |
 | `dropPageTitleFragments` | Drops the fragment from links that target a page title, which is the one heading Docusaurus cannot anchor |
 | `ensureBlankLineBeforeHeadings` | Guarantees the blank line MDX needs before a heading |
@@ -141,14 +143,18 @@ is `true`. Several later steps key off that H1 (`raiseMainSymbolSubtree`, `dropP
 the sidebar labels in step 4, the index-page descriptions in step 3), so a change that stops the
 promotion breaks them all silently.
 
-### No raw HTML in the output
+### The only HTML in the output: table-row anchors
 
-The generated Markdown contains no HTML tags at all, and the pipeline should stay that way.
-Every symbol member is a heading, so Docusaurus generates its anchor and applies the sticky-navbar
-scroll offset (`.anchorTargetStickyNavbar`) natively — which is what the old injected
-`<a id … style={{scrollMarginTop}}>` anchors were reimplementing by hand. The one heading
-Docusaurus refuses to anchor is the page title (`Heading/index.js`: `if (As === 'h1' || !id)`),
-so links to it drop their fragment instead of growing an anchor.
+Members are rendered as table rows (see the `*Format` options below — enum members are the one
+exception), and a row cannot carry an anchor without HTML, so TypeDoc puts a
+`<a id="membername"></a>` in the first cell. Those stay —
+they are what `#label`, `#onclick` and every other deep link into a member resolve to. Anywhere
+else an `<a id>` shows up it is stripped (`stripNonTableAnchors`): outside a table the anchor sits
+next to a heading, and Docusaurus anchors headings natively, applying the sticky-navbar scroll
+offset (`.anchorTargetStickyNavbar`) an injected anchor does not get.
+
+The one heading Docusaurus refuses to anchor is the page title (`Heading/index.js`:
+`if (As === 'h1' || !id)`), so links to it drop their fragment instead of growing an anchor.
 
 ## TypeDoc Configuration
 
@@ -162,13 +168,15 @@ The full configuration is in [`typedoc.config.mjs`](typedoc.config.mjs). Key opt
 | `plugin` | markdown, frontmatter, docusaurus-theme | Output format and Docusaurus integration |
 | `out` | `"docs"` | Output directory |
 | `sort` | `["source-order"]` | Keep members in source order (not alphabetical) |
-| every `*Format` option | `"list"` | Render each member as its own heading — a table row cannot carry an anchor without raw HTML |
+| every `*Format` option | `"table"` | Render members as table rows, as in the [JavaScript SDK docs](https://github.com/ONLYOFFICE/docspace-sdk-js) — TypeDoc anchors each row with an `<a id>` |
+| `enumMembersFormat` | `"list"` | The exception: enum members document the message their action belongs in with an `@example`, and a fenced block flattens into an unreadable cell (see [`@example` first](#ordering-example-first)) |
+| `tableColumnSettings` | `{ hideSources: true }` | Drop the per-row source column; `convertSourceLinks` keeps one "View source on GitHub" link per symbol instead |
 | `useCodeBlocks` | `true` | Signatures as ` ```ts ` fences. The alternative, blockquotes, keeps type names linked but wraps long unions into a dense run of escaped braces |
 | `expandObjects` / `expandParameters` | `true` | Spell inline objects and parameters out in signatures. Collapsed they render as a bare `object`; the cost is that their fields repeat in the "Type Declaration" section below |
 | `excludePrivate` / `excludeProtected` / `excludeInternal` / `excludeExternals` | `true` | Exclude private/protected/`@internal`/external members |
 | `commentStyle` | `"jsdoc"` | Use `/** */` comment style |
 | `useTsLinkResolution` | `true` | Resolve `{@link}` tags via the TypeScript type checker |
-| `sourceLinkTemplate` / `gitRevision` | GitHub blob URL / current branch | Build the "Defined in:" source links (branch set in step 1, reverted in step 5) |
+| `sourceLinkTemplate` / `gitRevision` | GitHub blob URL / current branch | Build the "View source on GitHub" links (branch set in step 1, reverted in step 5) |
 | `cleanOutputDir` | `true` | Wipe and rebuild `docs/` on every run |
 | `sidebar` | `{ autoConfiguration: true }` | Auto-generate the Docusaurus sidebar |
 | `validation` | notExported, invalidLink, rewrittenLink | Validate documentation quality on generation |
@@ -358,10 +366,16 @@ rewrites to two images on one line:
 - Both files must exist in the site's `assets/images/docspace/` folder.
 - Without the `dark` attribute a single image is emitted.
 
-### Ordering: `@example` last
+### Ordering: `@example` first
 
 Write `@example` blocks wherever they read best in the source — step 3 moves every
-`### Example(s)` section to the bottom of the page, after the properties table.
+`### Example(s)` section ahead of the reference tables, so the page reads
+description → example → properties.
+
+An `@example` on a **member** rendered as a table row has nowhere to go: a fenced block cannot live
+in a table cell, so TypeDoc flattens it into a long `**Example** \`…\`` run inside the description
+cell. Keep those short (a literal, a type union) or move the example up to the symbol. Enum members
+are the exception — they are a list precisely so their examples stay fenced.
 
 ## JSDoc Tags Reference
 

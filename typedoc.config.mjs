@@ -114,13 +114,23 @@ export default {
   // is the overview, that section is the reference.
   expandObjects: true,
   expandParameters: true,
-  // List format throughout: every member becomes a heading, so Docusaurus gives
-  // it a native anchor and no HTML has to be injected into the output.
-  propertiesFormat: "list",
-  interfacePropertiesFormat: "list",
-  classPropertiesFormat: "list",
+  // Table format throughout, matching docspace-sdk-js: members are rows rather
+  // than headings, which keeps a long member list scannable. TypeDoc puts an
+  // <a id> anchor on every row, so deep links still work — that is the one place
+  // the output carries raw HTML.
+  propertiesFormat: "table",
+  interfacePropertiesFormat: "table",
+  classPropertiesFormat: "table",
+  // Enum members stay a list. Their descriptions carry the @example blocks that
+  // show the message an action belongs in, and a fenced block cannot live in a
+  // table cell — TypeDoc flattens it into one unreadable run of inline code.
   enumMembersFormat: "list",
-  typeDeclarationFormat: "list",
-  parametersFormat: "list",
-  propertyMembersFormat: "list"
+  typeDeclarationFormat: "table",
+  parametersFormat: "table",
+  propertyMembersFormat: "table",
+  // The per-member source link is dropped from the tables: generate-index-pages
+  // keeps one "View source on GitHub" link per symbol instead.
+  tableColumnSettings: {
+    hideSources: true
+  }
 };

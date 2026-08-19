@@ -8,6 +8,86 @@ const __filename = fileURLToPath(import.meta.url);
 const ROOT = join(__filename, "../..");
 const DOCS_DIR = join(ROOT, "docs");
 
+/** Label the "Defined in:" source reference is rewritten to. */
+const SOURCE_LINK_LABEL = "View source on GitHub";
+
+/**
+ * True for either shape of the source reference line — TypeDoc's raw
+ * "Defined in: [path](url)" and the "[View source on GitHub](url)" it is
+ * rewritten to. Callers that skip over it run both before and after
+ * {@link convertSourceLinks}.
+ * @param {string} line - Already-trimmed line
+ * @returns {boolean}
+ */
+function isSourceLine(line) {
+  return (
+    line.startsWith("Defined in:") || line.startsWith(`[${SOURCE_LINK_LABEL}](`)
+  );
+}
+
+/**
+ * Rewrites TypeDoc's "Defined in: [path/to/file.ts:12](https://github.com/...)"
+ * lines into a single `[View source on GitHub](...)` link per documented symbol,
+ * matching the JavaScript SDK docs.
+ *
+ * The file path and line number in the label carry no meaning for a reader of the
+ * reference — the link target does. One link per symbol is kept: the line that
+ * follows an H1 or H2 (the symbol itself). The member-level ones, under the H3+
+ * headings TypeDoc still emits for methods, are dropped rather than rewritten —
+ * a link per method turns the page into a wall of them.
+ *
+ * Must run before the heading levels are shifted (promoteFirstH2toH1,
+ * raiseMainSymbolSubtree), while symbols are still H2 and members H3+.
+ * @param {string} filePath
+ */
+function convertSourceLinks(filePath) {
+  if (!existsSync(filePath)) return;
+  const original = readFileSync(filePath, "utf-8");
+  const lines = original.split("\n");
+  /** @type {string[]} */
+  const out = [];
+
+  let inFence = false;
+  let underSymbolHeading = false;
+  for (const line of lines) {
+    if (/^\s*(```|~~~)/.test(line)) {
+      inFence = !inFence;
+      out.push(line);
+      continue;
+    }
+    if (inFence) {
+      out.push(line);
+      continue;
+    }
+
+    const heading = line.match(/^(#{1,6}) /);
+    if (heading) {
+      underSymbolHeading = heading[1].length <= 2;
+      out.push(line);
+      continue;
+    }
+
+    const source = line.match(
+      /^Defined in: \[[^\]]+\]\((https:\/\/github\.com\/[^)]+)\)$/
+    );
+    if (!source) {
+      out.push(line);
+      continue;
+    }
+
+    if (underSymbolHeading) {
+      out.push(`[${SOURCE_LINK_LABEL}](${source[1]})`);
+      underSymbolHeading = false;
+      continue;
+    }
+    // Member-level source line: drop it, and the blank line it leaves behind.
+    if (out[out.length - 1]?.trim() === "") out.pop();
+  }
+
+  const patched = out.join("\n");
+  if (patched !== original) writeFileSync(filePath, patched, "utf-8");
+}
+
 /**
  * Returns the first sentence of a text. Unlike a plain indexOf("."), it does not
  * break on periods inside parentheses ("(file, folder, etc.)"), after common
@@ -50,10 +130,10 @@ function pageTitle(mdFilePath, fallback) {
 
 /**
  * Extracts the description of the page's main symbol from a fully post-processed
- * markdown file: the first paragraph after the H1 (skipping "Defined in:" lines
- * and embedded images). Must run AFTER hoistMainSection/promoteFirstH2toH1 so the
+ * markdown file: the first paragraph after the H1 (skipping the source link and
+ * embedded images). Must run AFTER hoistMainSection/promoteFirstH2toH1 so the
  * H1 belongs to the symbol matching the file name (or to the module preamble).
- * Falls back to the paragraph after the first "Defined in:" for pages without H1.
+ * Falls back to the paragraph after the first source link for pages without H1.
  * @param {string} mdFilePath - Path to the generated .md file
  * @returns {string}
  */
@@ -62,7 +142,7 @@ function extractDescriptionFromMd(mdFilePath) {
   const body = content.replace(/^---\n[\s\S]*?---\n/, "");
   const lines = body.split("\n");
 
-  let sawContext = false; // set by the H1 or a "Defined in:" line
+  let sawContext = false; // set by the H1 or the source link line
   let inFence = false;
   const descLines = [];
 
@@ -76,7 +156,7 @@ function extractDescriptionFromMd(mdFilePath) {
     }
     if (inFence) continue;
 
-    if (/^# /.test(line) || trimmed.startsWith("Defined in:")) {
+    if (/^# /.test(line) || isSourceLine(trimmed)) {
       if (descLines.length > 0) break;
       sawContext = true;
       continue;
@@ -273,7 +353,10 @@ function hoistMainSection(filePath) {
 
 /**
  * Within each H2 section of a markdown file, moves all `### Example` / `### Examples`
- * subsections to the end (after `### Properties`, `### Enumeration Members`, etc.).
+ * subsections to the front, ahead of `### Properties`, `### Methods` and the rest —
+ * an example belongs with the prose that introduces the symbol, not below its
+ * reference tables. TypeDoc already emits them in that order for most symbols;
+ * this makes it hold for every page.
  * Safe to call on files that have no examples or no H3 subsections.
  * @param {string} filePath
  */
@@ -339,7 +422,7 @@ function resolvePluginImageTags(filePath) {
 }
 
 /** @param {string} filePath */
-function reorderExamplesLast(filePath) {
+function reorderExamplesFirst(filePath) {
   if (!existsSync(filePath)) return;
   const original = readFileSync(filePath, "utf-8");
 
@@ -358,7 +441,7 @@ function reorderExamplesLast(filePath) {
     const others = h3Sections.filter((s) => !/^### Examples?\b/.test(s));
 
     if (!examples.length) return section;
-    return before + others.join("") + examples.join("");
+    return before + examples.join("") + others.join("");
   });
 
   const patched = result.join("");
@@ -430,23 +513,30 @@ function slugify(text) {
 }
 
 /**
- * Strips the raw `<a id>` anchors TypeDoc leaves behind. Under list format every
- * member is a heading, so Docusaurus generates the anchor natively and these are
- * pure noise — the sole exception, the page title, is handled by
- * {@link dropPageTitleFragments}.
+ * Strips the raw `<a id>` anchors TypeDoc puts outside of tables.
+ *
+ * Under table format a member is a row, and its anchor is the only thing that can
+ * carry an id — those stay. Anywhere else the anchor sits next to a heading that
+ * Docusaurus anchors natively, so it is pure noise.
  * @param {string} filePath
  */
-function stripRawAnchors(filePath) {
+function stripNonTableAnchors(filePath) {
   if (!existsSync(filePath)) return;
   const content = readFileSync(filePath, "utf-8");
   const updated = content
-    .replace(/^<a id="[^"]+"><\/a>\n+/gm, "")
-    .replace(/<a id="[^"]+"><\/a> ?/g, "");
+    .split("\n")
+    .map((line) =>
+      line.startsWith("|") ? line : line.replace(/<a id="[^"]+"><\/a> ?/g, "")
+    )
+    .join("\n")
+    // An anchor that had a line to itself leaves it blank.
+    .replace(/\n{3,}/g, "\n\n");
   if (updated !== content) writeFileSync(filePath, updated, "utf-8");
 }
 
 /**
- * The anchors Docusaurus will generate for a page.
+ * The anchors a page offers: the ones Docusaurus generates from its headings,
+ * plus the `<a id>` anchors TypeDoc puts on table rows.
  *
  * Only H2–H6 count: the theme strips the id from the page title. Repeated
  * headings are disambiguated with a numeric suffix the same way github-slugger
@@ -470,6 +560,10 @@ function pageAnchors(content) {
       continue;
     }
     if (inFence) continue;
+
+    for (const [, id] of line.matchAll(/<a id="([^"]+)"><\/a>/g)) {
+      ids.add(id.toLowerCase());
+    }
 
     const m = line.match(/^#{2,6} (.+)$/);
     if (!m) continue;
@@ -566,10 +660,10 @@ function fixInPageAnchors(filePath) {
 }
 
 /**
- * Removes the leading pipe TypeDoc puts on the first line of a multi-line union.
+ * Removes the pipe TypeDoc puts in front of the first member of a union.
  *
  * TypeScript allows `type X = | A | B` for alignment, and TypeDoc emits unions
- * that way — one member per line, each opening with an escaped pipe:
+ * that way. Broken across lines it opens each member with an escaped pipe:
  *
  *     \| `void`
  *     \| `IMessage`
@@ -577,6 +671,9 @@ function fixInPageAnchors(filePath) {
  * Markdown joins those lines into one paragraph, so the reader sees
  * "| void | IMessage" with a pipe dangling at the front. Drop it from the line
  * that opens the run; the rest are genuine separators.
+ *
+ * Inside a table cell the same union is one line, and the stray pipe follows the
+ * `=>` of a function type: "onClick | () => \| `void` \| `IMessage`".
  *
  * Fenced blocks are skipped — there the union is source code, and the leading
  * pipe is valid TypeScript.
@@ -599,17 +696,62 @@ function fixUnionPipeArtifacts(filePath) {
       prevWasUnion = false;
       continue;
     }
-    const isUnion = !inFence && isUnionLine(lines[i]);
+    if (inFence) {
+      prevWasUnion = false;
+      continue;
+    }
+    const isUnion = isUnionLine(lines[i]);
 
     // Only the line that opens the run carries a stray pipe.
     if (isUnion && !prevWasUnion) {
       lines[i] = lines[i].replace(/^(\s*)\\\| /, "$1");
       changed = true;
     }
+    // Same union, collapsed into a table cell.
+    if (lines[i].includes("=> \\| ")) {
+      lines[i] = lines[i].replaceAll("=> \\| ", "=> ");
+      changed = true;
+    }
     prevWasUnion = isUnion;
   }
 
   if (changed) writeFileSync(filePath, lines.join("\n"), "utf-8");
+}
+
+/**
+ * Escapes the `|` characters inside a table cell's inline code.
+ *
+ * TypeDoc escapes the pipes it writes itself (union types), but not the ones that
+ * come from a comment — an `@example` of `"file" | "folder"` on a property lands
+ * in the description cell verbatim, and Markdown reads those pipes as cell
+ * separators, so the row grows phantom columns and the table breaks.
+ *
+ * Only inline code is touched: a pipe in prose is rare, and escaping the cell
+ * separators themselves would destroy the table.
+ *
+ * Fenced blocks are skipped — a union example may well open a line with `|`
+ * there, and inside a fence it is source code, not a separator.
+ * @param {string} filePath
+ */
+function escapePipesInTableCells(filePath) {
+  if (!existsSync(filePath)) return;
+  const original = readFileSync(filePath, "utf-8");
+  const lines = original.split("\n");
+
+  let inFence = false;
+  for (let i = 0; i < lines.length; i++) {
+    if (/^\s*(```|~~~)/.test(lines[i])) {
+      inFence = !inFence;
+      continue;
+    }
+    if (inFence || !lines[i].startsWith("|")) continue;
+    lines[i] = lines[i].replace(/`[^`]*`/g, (code) =>
+      code.replace(/(?<!\\)\|/g, "\\|")
+    );
+  }
+
+  const patched = lines.join("\n");
+  if (patched !== original) writeFileSync(filePath, patched, "utf-8");
 }
 
 /**
@@ -663,10 +805,12 @@ const ALL_MD_FILES = existsSync(DOCS_DIR)
       .map((f) => join(DOCS_DIR, /** @type {string} */ (f)))
   : [];
 
-// 1. Per-file structural transforms
+// 1. Per-file structural transforms. convertSourceLinks goes first: it reads the
+// heading levels TypeDoc emitted, before promoteFirstH2toH1 shifts them.
 for (const filePath of ALL_MD_FILES) {
+  convertSourceLinks(filePath);
   hoistMainSection(filePath);
-  reorderExamplesLast(filePath);
+  reorderExamplesFirst(filePath);
   resolvePluginImageTags(filePath);
   promoteFirstH2toH1(filePath);
   raiseMainSymbolSubtree(filePath);
@@ -680,7 +824,8 @@ dropPageTitleFragments(ALL_MD_FILES);
 // 3. Cleanup passes over the final content
 for (const filePath of ALL_MD_FILES) {
   fixUnionPipeArtifacts(filePath);
-  stripRawAnchors(filePath);
+  escapePipesInTableCells(filePath);
+  stripNonTableAnchors(filePath);
   fixInPageAnchors(filePath);
   ensureBlankLineBeforeHeadings(filePath);
   stripTrailingHr(filePath);
