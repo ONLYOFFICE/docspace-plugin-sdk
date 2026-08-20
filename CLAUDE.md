@@ -17,6 +17,7 @@ There are no test or lint commands — TypeScript compiler (`tsc`) is the primar
 This is `@onlyoffice/docspace-plugin-sdk` — a TypeScript type-definition package and CLI scaffolding tool for building plugins in ONLYOFFICE DocSpace.
 
 **The package ships two things:**
+
 1. **Types/interfaces** (`src/` → compiled to `dist/`) — imported by plugin developers
 2. **CLI tools** (`npx/`) — `create-docspace-plugin` and `build-docspace-plugin` binaries
 
@@ -24,18 +25,18 @@ This is `@onlyoffice/docspace-plugin-sdk` — a TypeScript type-definition packa
 
 All plugin types extend from `IPlugin` (base interface). Each plugin type corresponds to a UI extension point:
 
-| Interface | Extension point |
-|---|---|
-| `IContextMenuPlugin` | Right-click context menu |
-| `IInfoPanelPlugin` | File details sidebar |
-| `IMainButtonPlugin` | Main toolbar button |
-| `IProfileMenuPlugin` | User profile dropdown |
-| `IFilePlugin` | File-level actions |
-| `IApiPlugin` | Backend communication |
-| `ISettingsPlugin` | Admin settings block |
+| Interface              | Extension point            |
+| ---------------------- | -------------------------- |
+| `IContextMenuPlugin`   | Right-click context menu   |
+| `IInfoPanelPlugin`     | File details sidebar       |
+| `IMainButtonPlugin`    | Main toolbar button        |
+| `IProfileMenuPlugin`   | User profile dropdown      |
+| `IFilePlugin`          | File-level actions         |
+| `IApiPlugin`           | Backend communication      |
+| `ISettingsPlugin`      | Admin settings block       |
 | `IEventListenerPlugin` | Portal event subscriptions |
-| `IPostMessagePlugin` | Cross-frame messaging |
-| `IArticleButtonPlugin` | Article panel button |
+| `IPostMessagePlugin`   | Cross-frame messaging      |
+| `IArticleButtonPlugin` | Article panel button       |
 
 Each plugin type contains `*Item` interfaces (e.g., `IContextMenuItem`, `IInfoPanelItem`) which accept UI **components** as their content — `IButton`, `IInput`, `IBox`, `IModalDialog`, etc.
 
@@ -54,13 +55,7 @@ Each plugin type contains `*Item` interfaces (e.g., `IContextMenuItem`, `IInfoPa
 
 ### Docs pipeline
 
-`npm run docs` runs these steps in sequence (see `package.json` and `tools/`):
-1. `update-revision.mjs` — injects git revision
-2. TypeDoc — generates raw markdown from JSDoc comments
-3. `generate-index-pages.mjs` — builds summary tables per section
-4. `flatten-sidebar.mjs` + `update-sidebar.mjs` — prepares Docusaurus sidebar
-
-TypeDoc entry points are listed explicitly in `typedoc.config.mjs` (not all of `src/`).
+Documentation is generated from JSDoc comments by TypeDoc + post-processing scripts in `tools/` (`npm run docs`). The full pipeline description, TypeDoc configuration rationale, output structure, and JSDoc writing conventions live in [docs-generation.md](docs-generation.md). The invariants of the generated output (page skeleton, tables, sidebar shape) are enforced by the `docs-style` skill (`.claude/skills/docs-style/`) — consult it before changing anything in `tools/`, `typedoc.config.mjs`, or public JSDoc.
 
 ### Key constraints
 
@@ -86,7 +81,7 @@ This section applies when helping users **write plugins** that consume this SDK.
 onClick: () => ({
   actions: [Actions.showToast],
   toastProps: [{ type: ToastType.success, title: "Done" }],
-})
+});
 ```
 
 ### Plugin registration pattern
@@ -94,7 +89,11 @@ onClick: () => ({
 Every plugin must register itself on `window.Plugins`:
 
 ```typescript
-declare global { interface Window { Plugins: any } }
+declare global {
+  interface Window {
+    Plugins: any;
+  }
+}
 window.Plugins.PluginName = plugin || {};
 ```
 
@@ -112,6 +111,7 @@ my-plugin/
 ```
 
 Build command inside a plugin project:
+
 ```bash
 yarn build   # runs: webpack && npx build-docspace-plugin → dist/plugin.zip
 ```
@@ -141,6 +141,7 @@ yarn build   # runs: webpack && npx build-docspace-plugin → dist/plugin.zip
 ### Version compatibility
 
 SDK 2.0+ replaced `node scripts/createZip.js` with `npx build-docspace-plugin`. Plugin `package.json` build script must be:
+
 ```json
 "build": "webpack && npx build-docspace-plugin"
 ```
