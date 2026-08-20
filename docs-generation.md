@@ -30,7 +30,7 @@ npm run docs:sync   # full pipeline + copy into ../api.onlyoffice.com
 5. **`tools/update-sidebar.mjs`** — prefixes sidebar doc ids with the site path and reverts `gitRevision` back to `master`.
 
 `npm run docs:sync` additionally runs `tools/sync-docs.mjs`, which replaces
-`../api.onlyoffice.com/site/docspace/plugins-sdk/usage-sdk/coding-plugin` with the content of `docs/`, dropping the root `index.md` and writing a `_category_.json` (category link to the `coding-plugin` page) at the destination — that file exists only in the site repo, not in `docs/`.
+`../api.onlyoffice.com/site/docspace/plugins-sdk/usage-sdk/coding-plugin` with the content of `docs/`, dropping the root `index.md`.
 
 A healthy run introduces **no new TypeDoc warnings and no `[warn]` lines** from the post-processing scripts. A new warning usually means a broken `{@link}` target, an unresolved in-page anchor, or a malformed `<plugin-image>` tag. (A number of pre-existing TypeDoc warnings — relative `.md` links treated as file copies, `GroupItem` notExported — are known and harmless.)
 
