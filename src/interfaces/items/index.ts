@@ -59,15 +59,17 @@ import { IInfoPanelItem, IInfoPanelSubMenu } from "./IInfoPanelItem";
 import { IContextMenuItem } from "./IContextMenuItem";
 import { IMainButtonItem } from "./IMainButtonItem";
 import { IArticleButtonItem } from "./IArticleButtonItem";
+import { IArticleNavigationItem } from "./IArticleNavigationItem";
 
 export {
-  IContextMenuItem,
-  IInfoPanelItem,
-  IInfoPanelSubMenu,
-  IMainButtonItem,
-  IProfileMenuItem,
-  IEventListenerItem,
-  IFileItem,
-  File,
-  IArticleButtonItem,
+	IContextMenuItem,
+	IInfoPanelItem,
+	IInfoPanelSubMenu,
+	IMainButtonItem,
+	IProfileMenuItem,
+	IEventListenerItem,
+	IFileItem,
+	File,
+	IArticleButtonItem,
+	IArticleNavigationItem
 };

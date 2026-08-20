@@ -1,6 +1,6 @@
 {
   "name": "default",
-  "version": "2.1.0",
+  "version": "0.0.1",
   "author": "",
   "main": "index.ts",
   "private": true,
@@ -20,6 +20,6 @@
     "css-loader": "^6.8.1"
   },
   "dependencies": {
-    "@onlyoffice/docspace-plugin-sdk": "^2.1.0"
+    "@onlyoffice/docspace-plugin-sdk": "^3.0.0"
   }
 }
