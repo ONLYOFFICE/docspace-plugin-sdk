@@ -74,7 +74,7 @@ The full configuration is `typedoc.config.mjs`. The options that define the look
 | `sort` | `["source-order"]` | Members appear in source order, not alphabetically |
 | `useCodeBlocks` | `true` | Signatures as ` ```ts ` fences — long unions break across lines instead of wrapping into escaped braces |
 | `expandObjects` / `expandParameters` | `true` | Inline objects expanded in signatures; the signature is the overview, the "Type Declaration" table below is the reference |
-| `propertiesFormat` etc. | `"table"` | Members are table rows with an `<a id>` anchor per row — the one place output carries raw HTML |
+| `propertiesFormat` etc. | `"table"` | Members are table rows; TypeDoc's per-row `<a id>` anchors are later replaced by the `<APITable>` wrapper (see below) |
 | `enumMembersFormat` | `"list"` | Enum members stay a list: their descriptions carry `@example` fences, which cannot live in a table cell |
 | `tableColumnSettings` | `{ hideSources: true }` | No per-member source column; one "View source on GitHub" link per symbol instead |
 | `excludeInternal` / `excludePrivate` / `excludeProtected` | `true` | `@internal` symbols never appear in the output |
@@ -88,9 +88,10 @@ The full configuration is `typedoc.config.mjs`. The options that define the look
 Layout of `tools/`:
 
 - `shared/markdown.mjs` — shared primitives: `walkMarkdownLines` (line walker that flags code blocks), `transformFile`, `slugify`, `collectPageAnchors`
-- `generate-index-pages/index.mjs` — pipeline order only: structural transforms → cross-page links → cleanup transforms → section index pages
+- `generate-index-pages/index.mjs` — pipeline order only: structural transforms → cross-page links → cleanup transforms → APITable wrapping → section index pages
 - `generate-index-pages/page-transforms.mjs` — per-page transforms (`STRUCTURAL_TRANSFORMS`, `CLEANUP_TRANSFORMS`)
 - `generate-index-pages/cross-page-links.mjs` — drops dead page-title fragments (needs all pages at once)
+- `generate-index-pages/api-tables.mjs` — wraps member tables in `<APITable>`, swaps the anchor scheme (needs all pages at once)
 - `generate-index-pages/section-index.mjs` — `index.md` per section
 - `constants/sections.mjs` — section titles, prose and table config for the index pages
 - `flatten-sidebar.mjs`, `update-sidebar.mjs`, `update-revision.mjs`, `sync-docs.mjs` — sidebar, revision and sync steps
@@ -115,6 +116,17 @@ Layout of `tools/`:
 3. `fixInPageAnchors` — drops stale `-N` dedup suffixes from in-page hash links; warns about anchors that resolve to nothing.
 4. `ensureBlankLineBeforeHeadings` — restores the blank line MDX requires before a heading.
 5. `stripTrailingHorizontalRule` — removes a dangling `***` left at the end of a page by `hoistMainSection`.
+
+### APITable wrapping
+
+`applyApiTables` (`api-tables.mjs`) runs last, after the cleanup transforms have validated the original anchors. It wraps every member table (a table whose rows carry TypeDoc's `<a id>` anchors) in the docs site's `<APITable>` component via `mdx-code-block` fences, strips the `<a id>` anchors, and rewrites all fragment links to the ids the component derives at runtime:
+
+- the row id is the **literal text of the first cell** (case-sensitive, `?` included for optional members): `<a id="onclick">` becomes `#onClick`, `<a id="primary">` becomes `#primary?`;
+- on pages where row names collide across tables, every table gets a `name="Symbol"` prop and ids become `Symbol-member` (e.g. `#IMessage-actions` in `utils.md`);
+- the component makes rows clickable and highlights the row targeted by the URL hash;
+- enum pages are unaffected — enum members render as a list, their anchors stay heading slugs.
+
+The result carries no raw HTML: the only non-Markdown syntax in the output is the `mdx-code-block` fences around `<APITable>`.
 
 ### Section index pages
 

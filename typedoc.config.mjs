@@ -116,8 +116,9 @@ export default {
   expandParameters: true,
   // Table format throughout, matching docspace-sdk-js: members are rows rather
   // than headings, which keeps a long member list scannable. TypeDoc puts an
-  // <a id> anchor on every row, so deep links still work — that is the one place
-  // the output carries raw HTML.
+  // <a id> anchor on every row; generate-index-pages later strips those and
+  // wraps the tables in the site's <APITable> component, which derives the
+  // same row ids at runtime and adds hash navigation with row highlighting.
   propertiesFormat: "table",
   interfacePropertiesFormat: "table",
   classPropertiesFormat: "table",

@@ -7,6 +7,7 @@ import { SECTIONS } from "../constants/sections.mjs";
 import { transformFile } from "../shared/markdown.mjs";
 import { STRUCTURAL_TRANSFORMS, CLEANUP_TRANSFORMS } from "./page-transforms.mjs";
 import { dropPageTitleFragments } from "./cross-page-links.mjs";
+import { applyApiTables } from "./api-tables.mjs";
 import { generateIndexPage } from "./section-index.mjs";
 
 const ROOT = join(fileURLToPath(import.meta.url), "../../..");
@@ -49,6 +50,10 @@ for (const pagePath of generatedPages) {
     transformFile(pagePath, transform);
   }
 }
+
+// Last: replaces the `<a id>` anchor scheme the passes above validated
+// against with the ids the APITable component derives at runtime.
+applyApiTables(generatedPages);
 
 for (const section of SECTIONS) {
   generateIndexPage(section, DOCS_DIR);
