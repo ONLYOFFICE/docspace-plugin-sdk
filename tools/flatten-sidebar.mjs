@@ -33,6 +33,7 @@ function flattenSidebar(items) {
   if (!Array.isArray(items)) return items;
 
   const result = [];
+
   for (const item of items) {
     if (item.type !== "category") {
       result.push(item);
@@ -45,13 +46,16 @@ function flattenSidebar(items) {
     }
 
     const children = flattenSidebar(item.items ?? []);
+
     if (children.length === 0 && !item.link) continue;
+
     if (children.length === 1) {
       result.push(children[0]);
     } else {
       result.push({ ...item, items: children });
     }
   }
+
   return result;
 }
 
@@ -60,10 +64,11 @@ function flattenSidebar(items) {
  * @param {any[]} items
  */
 function sortItems(items) {
-  return items.sort((a, b) => {
-    if (a.type === "category" && b.type === "doc") return -1;
-    if (a.type === "doc" && b.type === "category") return 1;
-    return (a.label || "").localeCompare(b.label || "");
+  return items.sort((firstItem, secondItem) => {
+    if (firstItem.type === "category" && secondItem.type === "doc") return -1;
+    if (firstItem.type === "doc" && secondItem.type === "category") return 1;
+
+    return (firstItem.label || "").localeCompare(secondItem.label || "");
   });
 }
 
@@ -71,15 +76,37 @@ function sortItems(items) {
  * The GROUPS key an item belongs to, from the docs path in its id.
  * @param {any} item
  */
-function groupOf(item) {
-  const id = (item.id || item.link?.id || "").toLowerCase();
-  if (id.includes("/components/")) return "Components";
-  if (id.includes("/items/")) return "Items";
-  if (id.includes("/plugins/")) return "Plugins";
-  if (id.includes("/settings/")) return "Settings";
-  if (id.includes("/utils/") || id.endsWith("utils")) return "Utils";
-  if (id.includes("/enums/")) return "Enums";
+function groupNameOf(item) {
+  const docId = (item.id || item.link?.id || "").toLowerCase();
+
+  if (docId.includes("/components/")) return "Components";
+  if (docId.includes("/items/")) return "Items";
+  if (docId.includes("/plugins/")) return "Plugins";
+  if (docId.includes("/settings/")) return "Settings";
+  if (docId.includes("/utils/") || docId.endsWith("utils")) return "Utils";
+  if (docId.includes("/enums/")) return "Enums";
+
   return null;
+}
+
+/**
+ * The sidebar link of a group category: its index page when it has one, the
+ * single doc itself for Utils, a generated index otherwise.
+ * @param {string} groupName
+ * @param {any[]} groupItems
+ */
+function groupLink(groupName, groupItems) {
+  const indexPageId = GROUPS[groupName];
+  if (indexPageId) {
+    return { type: "doc", id: `${PATH_PREFIX}/${indexPageId}` };
+  }
+
+  const utilsDocId = groupItems[0]?.id ?? null;
+  if (groupName === "Utils" && utilsDocId) {
+    return { type: "doc", id: utilsDocId };
+  }
+
+  return { type: "generated-index" };
 }
 
 /**
@@ -90,14 +117,18 @@ function groupOf(item) {
  */
 function groupByTopLevel(items) {
   /** @type {Record<string, any[]>} */
-  const groups = Object.fromEntries(Object.keys(GROUPS).map((k) => [k, []]));
+  const itemsByGroup = Object.fromEntries(
+    Object.keys(GROUPS).map((groupName) => [groupName, []])
+  );
+
   for (const item of items) {
-    const name = groupOf(item);
-    if (name) groups[name].push(item);
+    const groupName = groupNameOf(item);
+    if (groupName) itemsByGroup[groupName].push(item);
   }
 
   const result = [];
-  for (const [groupName, groupItems] of Object.entries(groups)) {
+
+  for (const [groupName, groupItems] of Object.entries(itemsByGroup)) {
     if (groupItems.length === 0) continue;
 
     // Single-item group: no category wrapper needed.
@@ -107,19 +138,14 @@ function groupByTopLevel(items) {
       continue;
     }
 
-    const indexId = GROUPS[groupName];
-    const utilsDocId = groupItems[0]?.id ?? null;
     result.push({
       type: "category",
       label: groupName,
-      link: indexId
-        ? { type: "doc", id: `${PATH_PREFIX}/${indexId}` }
-        : groupName === "Utils" && utilsDocId
-          ? { type: "doc", id: utilsDocId }
-          : { type: "generated-index" },
+      link: groupLink(groupName, groupItems),
       items: sortedItems
     });
   }
+
   return result;
 }
 
@@ -134,29 +160,35 @@ function relabelFromPageTitles(items) {
       relabelFromPageTitles(item.items);
       continue;
     }
+
     if (item.type !== "doc" || !item.id || item.id.endsWith("/index")) continue;
 
-    const relPath = item.id.startsWith(`${PATH_PREFIX}/`)
+    const relativePath = item.id.startsWith(`${PATH_PREFIX}/`)
       ? item.id.slice(PATH_PREFIX.length + 1)
       : item.id;
+
     try {
-      const md = readFileSync(join(process.cwd(), "docs", `${relPath}.md`), "utf-8");
-      const h1 = md.match(/^# (.+)$/m);
-      if (h1 && h1[1].trim() && h1[1].trim() !== item.label) {
-        item.label = h1[1].trim();
-      }
+      const pagePath = join(process.cwd(), "docs", `${relativePath}.md`);
+      const pageContent = readFileSync(pagePath, "utf-8");
+
+      const titleMatch = pageContent.match(/^# (.+)$/m);
+      const pageTitle = titleMatch?.[1].trim();
+
+      if (pageTitle && pageTitle !== item.label) item.label = pageTitle;
     } catch {
       // No such file — keep the existing label.
     }
   }
 }
 
-try {
+function main() {
   let content = readFileSync(SIDEBAR_FILE, "utf-8");
 
   // Prefix doc ids with the site path (skip ids that already carry it).
-  content = content.replace(/id:\s*"([^"]+)"/g, (_, id) =>
-    id.startsWith(PATH_PREFIX) ? `id: "${id}"` : `id: "${PATH_PREFIX}/${id}"`
+  content = content.replace(/id:\s*"([^"]+)"/g, (_idField, docId) =>
+    docId.startsWith(PATH_PREFIX)
+      ? `id: "${docId}"`
+      : `id: "${PATH_PREFIX}/${docId}"`
   );
 
   const sidebarMatch = content.match(
@@ -164,16 +196,16 @@ try {
   );
 
   if (sidebarMatch) {
-    const sidebarObj = eval(`(${sidebarMatch[1]})`);
+    const sidebar = eval(`(${sidebarMatch[1]})`);
 
-    if (sidebarObj.items && Array.isArray(sidebarObj.items)) {
-      sidebarObj.items = groupByTopLevel(flattenSidebar(sidebarObj.items));
-      relabelFromPageTitles(sidebarObj.items);
+    if (sidebar.items && Array.isArray(sidebar.items)) {
+      sidebar.items = groupByTopLevel(flattenSidebar(sidebar.items));
+      relabelFromPageTitles(sidebar.items);
     }
 
     content = `// @ts-check
 /** @type {import("@docusaurus/plugin-content-docs").SidebarsConfig} */
-const typedocSidebar = ${JSON.stringify(sidebarObj, null, 2)};
+const typedocSidebar = ${JSON.stringify(sidebar, null, 2)};
 module.exports = typedocSidebar.items;
 `;
   }
@@ -182,6 +214,10 @@ module.exports = typedocSidebar.items;
 
   console.log(`✅ Sidebar flattened successfully!`);
   console.log(`📍 Updated: ${SIDEBAR_FILE}`);
+}
+
+try {
+  main();
 } catch (error) {
   console.error("Error flattening sidebar:", error);
   process.exit(1);
