@@ -46,7 +46,7 @@ import { IBox } from "../components/IBox";
  *       sandbox: "allow-scripts allow-same-origin allow-forms"
  *     }
  *   },
- *   usersTypes: [UsersType.owner, UsersType.docSpaceAdmin]
+ *   usersTypes: [UsersType.owner, UsersType.docSpaceAdmin],
  *   appears: [Section.Files]
  * };
  * ```
@@ -55,6 +55,9 @@ import { IBox } from "../components/IBox";
 export interface IArticleNavigationItem {
 	/**
 	 * The unique item identifier used to recognize the item.
+	 * It becomes a part of the plugin section URL, so it must be unique
+	 * across all the installed plugins: two items sharing the same key
+	 * override each other.
 	 */
 	key: string;
 

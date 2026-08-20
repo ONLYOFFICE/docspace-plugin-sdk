@@ -18,7 +18,7 @@
 
 /**
  * Defines the portal sections in which an article navigation item can appear.
- * Pass one or more values in the `sections` array on {@link IArticleNavigationItem}
+ * Pass one or more values in the `appears` array on {@link IArticleNavigationItem}
  * to restrict visibility. When omitted, the item is shown in all sections.
  *
  * @category Section
