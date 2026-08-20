@@ -7,7 +7,7 @@ import { SECTIONS } from "../constants/sections.mjs";
 import { transformFile } from "../shared/markdown.mjs";
 import { STRUCTURAL_TRANSFORMS, CLEANUP_TRANSFORMS } from "./page-transforms.mjs";
 import { dropPageTitleFragments } from "./cross-page-links.mjs";
-import { generateIndexPage, writeCategoryFile } from "./section-index.mjs";
+import { generateIndexPage } from "./section-index.mjs";
 
 const ROOT = join(fileURLToPath(import.meta.url), "../../..");
 const DOCS_DIR = join(ROOT, "docs");
@@ -53,7 +53,5 @@ for (const pagePath of generatedPages) {
 for (const section of SECTIONS) {
   generateIndexPage(section, DOCS_DIR);
 }
-
-writeCategoryFile(DOCS_DIR);
 
 console.log("✅  All index pages generated.");

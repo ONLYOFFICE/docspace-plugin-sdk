@@ -170,22 +170,3 @@ export function generateIndexPage(section, docsDir) {
     `✅  Generated: docs/${section.docsDir}/index.md  (${tableRows.length} entries)`
   );
 }
-
-/**
- * _category_.json so docs:sync carries it into the coding-plugin folder.
- * @param {string} docsDir
- */
-export function writeCategoryFile(docsDir) {
-  const category = {
-    link: {
-      type: "doc",
-      id: "docspace/plugins-sdk/usage-sdk/coding-plugin"
-    }
-  };
-
-  writeFileSync(
-    join(docsDir, "_category_.json"),
-    JSON.stringify(category, null, 2) + "\n",
-    "utf-8"
-  );
-}
