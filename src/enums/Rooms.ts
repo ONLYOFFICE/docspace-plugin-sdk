@@ -1,4 +1,9 @@
 /**
+ * Enumerations for DocSpace room types and search scopes.
+ * @packageDocumentation
+ */
+
+/**
  * Defines the available search scopes for rooms within a room selector.
  */
 export enum RoomSearchArea {

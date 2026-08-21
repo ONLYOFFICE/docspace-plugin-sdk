@@ -69,5 +69,5 @@ export {
   IEventListenerItem,
   IFileItem,
   File,
-  IArticleButtonItem,
+  IArticleButtonItem
 };

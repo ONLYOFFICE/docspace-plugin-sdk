@@ -19,15 +19,7 @@
 /**
  * A component that is used to embed an image not from the assets folder into a modal window or the settings page.
  *
- * @category Image
- *
- * @categoryDescription Content
- *
- * Here is a description of the category Content.
- *
- * @categoryDescription Appearance
- *
- * Here is a description of the category Appearance.
+ * <plugin-image src="image.png" dark />
  *
  * @example
  *
@@ -69,52 +61,36 @@
  */
 export interface IImage {
   /** Defines the full path to the image
-   *
-   * @category Content
    */
   src: string;
 
   /** Defines the image alt attribute
-   *
-   * @category Content
    */
   alt: string;
 
   /** Defines the image width
-   *
-   * @category Appearance
    */
   width?: string;
 
   /** Defines the image height
-   *
-   * @category Appearance
    */
   height?: string;
 
   /** Defines the image name
-   *
-   * @category Content
    */
   name?: string;
 
   /** Defines the image ID
-   *
-   * @category Content
    */
   id?: string;
 
   /** Defines the image style
-   *
-   * @category Appearance
    */
   style?: { [key: string]: string };
 
   /**
    * Defines the CSS class for styling the component.
    * Can be used to override or extend the default component styles.
-   *
-   * @category Appearance
    */
   className?: string;
 }

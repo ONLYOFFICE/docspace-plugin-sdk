@@ -29,6 +29,16 @@ import {
 } from "./IBaseSelector";
 
 /**
+ * Defines the properties for a room selector component.
+ *
+ * @see {@link TSelectorHeader} - Header configuration properties
+ * @see {@link TSelectorCancelButton} - Cancel button properties
+ * @see {@link TSelectorBaseProps} - Common base properties (id, className)
+ * @see {@link TSelectorLifecycleEvents} - Lifecycle callbacks (onLoad, onClose)
+ * @see {@link TSelectorEmptyScreen} - Empty state messages
+ * @see {@link TSelectorSearchCreate} - Search and create functionality
+ * @see {@link TSelectorSubmitButton} - Submit button properties (partial)
+ *
  * @example
  * ```typescript
  * // This example demonstrates how to create a room selector that allows users to
@@ -64,7 +74,7 @@ import {
  *   // Label for the create room button.
  *   createDefineRoomLabel: "Create a new collaboration room",
  *   // Default type for a newly created room.
- *   createDefineRoomType: RoomsType.Collaboration,
+ *   createDefineRoomType: RoomsType.EditingRoom,
  *
  *   // A callback function that is executed when the user clicks the submit button.
  *   onSubmit: (selectedIds) => {
@@ -82,10 +92,6 @@ import {
  *   },
  * };
  * ```
- */
-
-/**
- * Defines the properties for a room selector component.
  */
 export type TRoomSelector = TSelectorHeader &
     TSelectorCancelButton &

@@ -24,14 +24,12 @@ import { IPostMessageCallbackMessage } from "../utils";
  * and triggers portal-side actions (such as showing toasts, modals, or updating items)
  * by calling the postMessageCallback with an {@link IPostMessageCallbackMessage}.
  *
- * @category PostMessagePlugin
- *
  * @example
  *
  * PostMessage handler with toast notification
  *
  * ```typescript
- * class MyPlugin implements IPlugin, IInfoPanelPlugin, IPostMessagePlugin {
+ * class Plugin implements IPostMessagePlugin {
  *   postMessageCallback: (message: IPostMessageCallbackMessage) => void = () => {};
  *
  *   setPostMessageCallback = (callback: (message: IPostMessageCallbackMessage) => void): void => {
@@ -43,7 +41,7 @@ import { IPostMessageCallbackMessage } from "../utils";
  *   };
  * }
  *
- * const plugin = new MyPlugin();
+ * const plugin = new Plugin();
  *
  * window.parent.addEventListener("message", (event) => {
  *   try {

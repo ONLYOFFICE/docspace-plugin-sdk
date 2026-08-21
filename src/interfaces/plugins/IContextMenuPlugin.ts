@@ -21,164 +21,57 @@ import { IContextMenuItem } from "../items";
 /**
  * The plugin that is embedded in the context menu of files, folders, rooms, images, video (audio).
  *
- * @category ContextMenuPlugin
- *
  * @example
  *
- * Document sharing and export menu with status feedback
+ * The plugin class implements `IContextMenuPlugin` and registers a "Share Document"
+ * item in the constructor. DocSpace calls `getContextMenuItems` to embed the items
+ * into the context menu.
  *
  * ```typescript
- * const documentActions: IContextMenuPlugin = {
- *   contextMenuItems: new Map([
- *     ["doc-share", {
+ * import {
+ *   type IContextMenuItem,
+ *   type IContextMenuPlugin,
+ *   Actions,
+ *   ToastType,
+ * } from "@onlyoffice/docspace-plugin-sdk";
+ *
+ * class Plugin implements IContextMenuPlugin {
+ *   contextMenuItems: Map<string, IContextMenuItem> = new Map();
+ *
+ *   constructor() {
+ *     this.addContextMenuItem({
  *       key: "doc-share",
  *       label: "Share Document",
  *       icon: "share-icon.svg",
- *       onClick: async () => {
- *         try {
- *           await initiateDocumentSharing();
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "success",
- *               title: "Share Ready",
- *               message: "Share dialog opened | Recipients ready | Set permissions"
- *             }]
- *           };
- *         } catch (error) {
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "error",
- *               title: "Share Failed",
- *               message: "Unable to share | Check document status"
- *             }]
- *           };
- *         }
+ *       onItemClick: async (id) => {
+ *         await initiateDocumentSharing(id);
+ *         return {
+ *           actions: [Actions.showToast],
+ *           toastProps: [{
+ *             type: ToastType.success,
+ *             title: "Share dialog opened"
+ *           }]
+ *         };
  *       }
- *     }],
- *     ["doc-export", {
- *       key: "doc-export",
- *       label: "Export Document",
- *       icon: "export-icon.svg",
- *       onClick: async () => {
- *         try {
- *           await prepareDocumentExport();
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "success",
- *               title: "Export Ready",
- *               message: "Format selected | Options set | Choose destination"
- *             }]
- *           };
- *         } catch (error) {
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "error",
- *               title: "Export Failed",
- *               message: "Unable to export | Verify format support"
- *             }]
- *           };
- *         }
- *       }
- *     }]
- *   ]),
- *   addContextMenuItem(item) {
- *     this.contextMenuItems.set(item.key, item);
- *   },
- *   getContextMenuItems() {
- *     return this.contextMenuItems;
- *   },
- *   getContextMenuItemsKeys() {
- *     return Array.from(this.contextMenuItems.keys());
- *   },
- *   updateContextMenuItem(item) {
- *     if (this.contextMenuItems.has(item.key)) {
- *       this.contextMenuItems.set(item.key, item);
- *     }
+ *     });
  *   }
- * };
- * ```
  *
- * @example
- *
- * File compression and encryption tools
- *
- * ```typescript
- * const fileOperations: IContextMenuPlugin = {
- *   contextMenuItems: new Map([
- *     ["file-compress", {
- *       key: "file-compress",
- *       label: "Compress File",
- *       icon: "compress-icon.svg",
- *       onClick: async () => {
- *         try {
- *           await initiateFileCompression();
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "success",
- *               title: "Compression Started",
- *               message: "File processing | Size reducing | Please wait"
- *             }]
- *           };
- *         } catch (error) {
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "error",
- *               title: "Compression Failed",
- *               message: "Unable to compress | Check file size"
- *             }]
- *           };
- *         }
- *       }
- *     }],
- *     ["file-encrypt", {
- *       key: "file-encrypt",
- *       label: "Encrypt File",
- *       icon: "encrypt-icon.svg",
- *       onClick: async () => {
- *         try {
- *           await initiateFileEncryption();
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "success",
- *               title: "Encryption Ready",
- *               message: "Key generated | File secured | Access protected"
- *             }]
- *           };
- *         } catch (error) {
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "error",
- *               title: "Encryption Failed",
- *               message: "Unable to encrypt | Check key management"
- *             }]
- *           };
- *         }
- *       }
- *     }]
- *   ]),
- *   addContextMenuItem(item) {
+ *   addContextMenuItem = (item: IContextMenuItem): void => {
  *     this.contextMenuItems.set(item.key, item);
- *   },
- *   getContextMenuItems() {
+ *   };
+ *
+ *   getContextMenuItems = (): Map<string, IContextMenuItem> => {
  *     return this.contextMenuItems;
- *   },
- *   getContextMenuItemsKeys() {
+ *   };
+ *
+ *   getContextMenuItemsKeys = (): string[] => {
  *     return Array.from(this.contextMenuItems.keys());
- *   },
- *   updateContextMenuItem(item) {
- *     if (this.contextMenuItems.has(item.key)) {
- *       this.contextMenuItems.set(item.key, item);
- *     }
- *   }
- * };
+ *   };
+ *
+ *   updateContextMenuItem = (item: IContextMenuItem): void => {
+ *     this.contextMenuItems.set(item.key, item);
+ *   };
+ * }
  * ```
  */
 export interface IContextMenuPlugin {

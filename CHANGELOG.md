@@ -1,5 +1,12 @@
 # Change Log
 
+## 2.1.1
+
+## Added
+
+- Add markdown documentation generation with TypeDoc
+- Add LLM instructions for DocSpace Plugin SDK development
+
 ## 2.1.0
 
 ## Changed

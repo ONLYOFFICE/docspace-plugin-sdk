@@ -37,18 +37,18 @@ import { SelectorType } from "./Selector";
 import { RoomSearchArea, RoomsType } from "./Rooms";
 
 export {
-	Actions,
-	Components,
-	Events,
-	FilesExst,
-	FilesType,
-	FilesSecurity,
-	PluginStatus,
-	UsersType,
-	Devices,
-	Security,
-	PluginLocale,
-	SelectorType,
-	RoomSearchArea,
-	RoomsType
+  Actions,
+  Components,
+  Events,
+  FilesExst,
+  FilesType,
+  FilesSecurity,
+  PluginStatus,
+  UsersType,
+  Devices,
+  Security,
+  PluginLocale,
+  SelectorType,
+  RoomSearchArea,
+  RoomsType
 };
