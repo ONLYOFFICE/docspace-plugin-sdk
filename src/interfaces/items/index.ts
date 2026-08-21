@@ -62,14 +62,14 @@ import { IArticleButtonItem } from "./IArticleButtonItem";
 import { IArticleNavigationItem } from "./IArticleNavigationItem";
 
 export {
-	IContextMenuItem,
-	IInfoPanelItem,
-	IInfoPanelSubMenu,
-	IMainButtonItem,
-	IProfileMenuItem,
-	IEventListenerItem,
-	IFileItem,
-	File,
-	IArticleButtonItem,
-	IArticleNavigationItem
+  IContextMenuItem,
+  IInfoPanelItem,
+  IInfoPanelSubMenu,
+  IMainButtonItem,
+  IProfileMenuItem,
+  IEventListenerItem,
+  IFileItem,
+  File,
+  IArticleButtonItem,
+  IArticleNavigationItem
 };
