@@ -8,6 +8,13 @@
 - Add `Actions.updateArticleNavigationItems` to refresh the article navigation
   items and the open plugin section
 
+## 2.1.1
+
+## Added
+
+- Add markdown documentation generation with TypeDoc
+- Add LLM instructions for DocSpace Plugin SDK development
+
 ## 2.1.0
 
 ## Changed

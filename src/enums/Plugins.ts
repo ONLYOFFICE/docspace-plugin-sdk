@@ -17,6 +17,11 @@
  */
 
 /**
+ * Enumerations for plugin status and supported locales.
+ * @packageDocumentation
+ */
+
+/**
  * Defines the supported plugin statuses.
  */
 export enum PluginStatus {
@@ -28,40 +33,105 @@ export enum PluginStatus {
 }
 
 /**
- * Defines the supported plugin languages.
+ * Defines the supported plugin locales.
  */
 export enum PluginLocale {
+  /** Azerbaijani */
   AZ = "az",
+
+  /** Czech */
   CS = "cs",
+
+  /** German */
   DE = "de",
+
+  /** English (United Kingdom) */
   EN_GB = "en-GB",
+
+  /** English (United States) */
   EN_US = "en-US",
+
+  /** Spanish */
   ES = "es",
+
+  /** French */
   FR = "fr",
+
+  /** Italian */
   IT = "it",
+
+  /** Latvian */
   LV = "lv",
+
+  /** Dutch */
   NL = "nl",
+
+  /** Polish */
   PL = "pl",
+
+  /** Portuguese (Brazil) */
   PT_BR = "pt-BR",
+
+  /** Portuguese */
   PT = "pt",
+
+  /** Romanian */
   RO = "ro",
+
+  /** Slovak */
   SK = "sk",
+
+  /** Slovenian */
   SL = "sl",
+
+  /** Albanian (Albania) */
   SQ_AL = "sq-AL",
+
+  /** Finnish */
   FI = "fi",
+
+  /** Vietnamese */
   VI = "vi",
+
+  /** Turkish */
   TR = "tr",
+
+  /** Greek (Greece) */
   EL_GR = "el-GR",
+
+  /** Bulgarian */
   BG = "bg",
+
+  /** Russian */
   RU = "ru",
+
+  /** Serbian (Cyrillic, Serbia) */
   SR_CYRL_RS = "sr-Cyrl-RS",
+
+  /** Serbian (Latin, Serbia) */
   SR_LATN_RS = "sr-Latn-RS",
+
+  /** Ukrainian (Ukraine) */
   UK_UA = "uk-UA",
+
+  /** Armenian (Armenia) */
   HY_AM = "hy-AM",
+
+  /** Arabic (Saudi Arabia) */
   AR_SA = "ar-SA",
+
+  /** Sinhala */
   SI = "si",
+
+  /** Lao (Laos) */
   LO_LA = "lo-LA",
+
+  /** Chinese (Simplified, China) */
   ZH_CN = "zh-CN",
+
+  /** Japanese (Japan) */
   JA_JP = "ja-JP",
+
+  /** Korean (Korea) */
   KO_KR = "ko-KR",
 }

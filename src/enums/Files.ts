@@ -17,6 +17,11 @@
  */
 
 /**
+ * Enumerations for file types, supported extensions, and security permissions.
+ * @packageDocumentation
+ */
+
+/**
  * Defines the supported file types.
  */
 export enum FilesType {

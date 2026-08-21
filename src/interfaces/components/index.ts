@@ -20,75 +20,6 @@
  * @packageDocumentation
  *
  * Here is a description of the module Components.
- *
- * @categoryDescription Button
- *
- * Here is a description of the category Button.
- *
- * @categoryDescription Box
- *
- * Here is a description of the category Box.
- *
- * @categoryDescription Checkbox
- *
- * Here is a description of the category Checkbox.
- *
- * @categoryDescription ComboBox
- *
- * Here is a description of the category ComboBox.
- *
- * @categoryDescription CreateDialog
- *
- * Here is a description of the category CreateDialog.
- *
- * @categoryDescription Frame
- *
- * Here is a description of the category Frame.
- *
- * @categoryDescription Image
- *
- * Here is a description of the category Image.
- *
- * @categoryDescription Input
- *
- * Here is a description of the category Input.
- *
- * @categoryDescription Label
- *
- * Here is a description of the category Label.
- *
- * @categoryDescription ModalDialog
- *
- * Here is a description of the category ModalDialog.
- *
- * @categoryDescription Skeleton
- *
- * Here is a description of the category Skeleton.
- *
- * @categoryDescription Text
- *
- * Here is a description of the category Text.
- *
- * @categoryDescription TextArea
- *
- * Here is a description of the category TextArea.
- *
- * @categoryDescription Toast
- * Here is a description of the category Toast.
- *
- * @categoryDescription ToggleButton
- *
- * Here is a description of the category ToggleButton.
- *
- * @categoryDescription IconButton
- *
- * Here is a description of the category IconButton.
- *
- * @categoryDescription Link
- *
- * Here is a description of the category Link.
- *
- * @module Components
  */
 
 import { ICreateDialog } from "./ICreateDialog";
@@ -115,7 +46,7 @@ import {
   TextAreaGroup,
   ToggleButtonGroup,
   IconButtonGroup,
-  LinkGroup,
+  LinkGroup
 } from "./Component";
 import { IInput, InputSize, InputType, InputAutocomplete } from "./IInput";
 import { ICheckbox } from "./ICheckbox";
@@ -132,9 +63,27 @@ import {
   TRoomSelector,
   TGroupsSelector,
   TPeopleSelector,
-  TSelectorItem
-} from './Selector/ISelector';
-import { IFloatingOperationsButton, FloatingOperationType, IFloatingOperation } from "./IFloatingOperationsButton";
+  TSelectorItem,
+  TSelectorItemFile,
+  TSelectorItemInput,
+  TSelectorItemNew,
+  TBreadCrumbItem,
+  TSelectorBreadCrumbs,
+  TSelectorPagination,
+  TSelectorHeader,
+  TSelectorCheckbox,
+  TSelectorCancelButton,
+  TSelectorBaseProps,
+  TSelectorLifecycleEvents,
+  TSelectorEmptyScreen,
+  TSelectorSearchCreate,
+  TSelectorSubmitButton
+} from "./Selector";
+import {
+  IFloatingOperationsButton,
+  FloatingOperationType,
+  IFloatingOperation
+} from "./IFloatingOperationsButton";
 import { IMediaViewer } from "./IMediaViewer";
 
 export {
@@ -187,8 +136,22 @@ export {
   TGroupsSelector,
   TRoomSelector,
   TSelectorItem,
+  TSelectorItemFile,
+  TSelectorItemInput,
+  TSelectorItemNew,
+  TBreadCrumbItem,
+  TSelectorBreadCrumbs,
+  TSelectorPagination,
+  TSelectorHeader,
+  TSelectorCheckbox,
+  TSelectorCancelButton,
+  TSelectorBaseProps,
+  TSelectorLifecycleEvents,
+  TSelectorEmptyScreen,
+  TSelectorSearchCreate,
+  TSelectorSubmitButton,
   IFloatingOperationsButton,
   FloatingOperationType,
   IFloatingOperation,
-  IMediaViewer,
+  IMediaViewer
 };

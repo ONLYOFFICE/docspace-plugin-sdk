@@ -22,7 +22,10 @@ import { IMessage } from "../utils";
 /**
  * Describes an item that will be embedded in the profile menu.
  *
- * @category ProfileMenuItem
+ * Items are registered by a plugin implementing
+ * [`IProfileMenuPlugin`](../plugins/IProfileMenuPlugin.md).
+ *
+ * <plugin-image src="profilemenuitem.png" dark />
  *
  * @example
  *
@@ -39,18 +42,16 @@ import { IMessage } from "../utils";
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "success",
- *           title: "API Keys Status",
- *           message: "Keys retrieved successfully | Usage within limits | No expiring keys"
+ *           type: ToastType.success,
+ *           title: "Keys retrieved successfully | Usage within limits | No expiring keys"
  *         }]
  *       };
  *     } catch (error) {
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "error",
- *           title: "Failed to fetch API keys",
- *           message: "Unable to retrieve keys | Check permissions"
+ *           type: ToastType.error,
+ *           title: "Unable to retrieve keys | Check permissions"
  *         }]
  *       };
  *     }
@@ -73,18 +74,16 @@ import { IMessage } from "../utils";
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "success",
- *           title: "Integration Status",
- *           message: "All integrations active | Services connected | Sync complete"
+ *           type: ToastType.success,
+ *           title: "All integrations active | Services connected | Sync complete"
  *         }]
  *       };
  *     } catch (error) {
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "error",
- *           title: "Failed to check integrations",
- *           message: "Unable to verify integrations | Check connection"
+ *           type: ToastType.error,
+ *           title: "Unable to verify integrations | Check connection"
  *         }]
  *       };
  *     }

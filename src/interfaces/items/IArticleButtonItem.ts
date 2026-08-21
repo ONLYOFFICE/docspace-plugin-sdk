@@ -24,7 +24,10 @@ import { IBox } from "../components/IBox";
  * Article button items are displayed as custom plugin components above the DevTools section.
  * Maximum 5 items can be displayed at once.
  *
- * @category ArticleButtonItem
+ * Items are registered by a plugin implementing
+ * [`IArticleButtonPlugin`](../plugins/IArticleButtonPlugin.md).
+ *
+ * <plugin-image src="articlebuttonitem.png" dark />
  *
  * @example
  *

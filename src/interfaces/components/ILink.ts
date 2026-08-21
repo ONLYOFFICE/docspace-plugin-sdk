@@ -20,33 +20,9 @@ import { TReturnMessage } from '../utils'
 import { IText } from './IText'
 
 /**
- * Defines the link type.
- */
-export enum LinkType {
-  /** Regular page link */
-  page = "page",
-  /** Action link (clickable but not navigating) */
-  action = "action",
-}
-
-/**
- * Defines the link target attribute.
- */
-export enum LinkTarget {
-  /** Opens in a new tab */
-  blank = "_blank",
-  /** Opens in the same frame */
-  self = "_self",
-  /** Opens in the parent frame */
-  parent = "_parent",
-  /** Opens in the full body of the window */
-  top = "_top",
-}
-
-/**
  * Defines the link component properties.
  *
- * @category Link
+ * <plugin-image src="link.png" dark />
  *
  * @example
  * ```typescript
@@ -54,7 +30,7 @@ export enum LinkTarget {
  *
  * const link: ILink = {
  *   href: "https://example.com",
- *   children: "Visit Example",
+ *   text: "Visit Example",
  *   type: LinkType.page,
  *   target: LinkTarget.blank,
  *   isBold: false,
@@ -102,4 +78,28 @@ export interface ILink extends IText {
 
   /** Click handler (for action type links) */
   onClick?: () => TReturnMessage;
+}
+
+/**
+ * Defines the link type.
+ */
+export enum LinkType {
+  /** Regular page link */
+  page = "page",
+  /** Action link (clickable but not navigating) */
+  action = "action",
+}
+
+/**
+ * Defines the link target attribute.
+ */
+export enum LinkTarget {
+  /** Opens in a new tab */
+  blank = "_blank",
+  /** Opens in the same frame */
+  self = "_self",
+  /** Opens in the parent frame */
+  parent = "_parent",
+  /** Opens in the full body of the window */
+  top = "_top",
 }

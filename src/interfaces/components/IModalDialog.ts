@@ -20,46 +20,42 @@ import { IMessage } from "../utils";
 import { IBox } from "./IBox";
 
 /**
- * The supported modal dialog types.
- *
- * @category ModalDialog
- */
-export const enum ModalDisplayType {
-  /** Modal dialog displayed in the center of the screen */
-  modal = "modal",
-  /** Modal dialog displayed as a side panel */
-  aside = "aside",
-}
-
-/**
  * Modal dialog.
  *
- * @category ModalDialog
+ * To display the dialog, return an [`IMessage`](../utils.md#imessage) with
+ * [`Actions.showModal`](../../enums/Actions.md#showmodal) in `actions`
+ * and pass the dialog configuration in `modalDialogProps`.
+ * Use [`Actions.closeModal`](../../enums/Actions.md#closemodal) to close it.
  *
- * @categoryDescription Content
+ * <plugin-image src="modal-dialog.png" dark />
  *
- * Here is a description of the category Content.
- *
- * @categoryDescription Appearance
- *
- * Here is a description of the category Appearance.
- *
- * @categoryDescription Behavior
- *
- * Here is a description of the category Behavior.
+ * :::info
+ * `dialogBody` and `dialogFooter` are rendered in separate contexts.
+ * Components in `dialogFooter` cannot update components in `dialogBody` using
+ * `Actions.updateContext`, and vice versa.
+ * :::
  *
  * @example
  *
  * Interactive document preview modal with dynamic content loading
  *
  * ```typescript
+ * import {
+ *   IModalDialog,
+ *   ModalDisplayType,
+ *   Components,
+ *   ButtonSize,
+ *   Actions,
+ *   ToastType,
+ * } from "@onlyoffice/docspace-plugin-sdk";
+ *
  * const filePreviewModal: IModalDialog = {
  *   displayType: ModalDisplayType.modal,
  *   dialogHeader: "Document Preview",
  *   dialogBody: {
  *     children: [
  *       {
- *         component: "iframe",
+ *         component: Components.iFrame,
  *         props: {
  *           src: "https://example.com/preview/doc.pdf",
  *           width: "100%",
@@ -71,13 +67,13 @@ export const enum ModalDisplayType {
  *   dialogFooter: {
  *     children: [
  *       {
- *         component: "button",
+ *         component: Components.button,
  *         props: {
- *           label: "Download",
+ *           label: "Close",
+ *           size: ButtonSize.normal,
  *           onClick: () => {
  *             return {
- *               actions: [Actions.downloadFile],
- *               fileUrl: "https://example.com/download/doc.pdf"
+ *               actions: [Actions.closeModal]
  *             };
  *           }
  *         }
@@ -95,9 +91,8 @@ export const enum ModalDisplayType {
  *         return {
  *           actions: [Actions.showToast],
  *           toastProps: [{
- *             title: "Success",
- *             type: "success",
- *             message: "Document loaded successfully"
+ *             type: ToastType.success,
+ *             title: "Document loaded successfully"
  *           }]
  *         };
  *       }
@@ -105,10 +100,7 @@ export const enum ModalDisplayType {
  *   ],
  *   onClose: () => {
  *     return {
- *       actions: [Actions.updateProps],
- *       newProps: {
- *         visible: false
- *       }
+ *       actions: [Actions.closeModal]
  *     };
  *   },
  *   onLoad: async () => {
@@ -118,25 +110,11 @@ export const enum ModalDisplayType {
  *       newDialogBody: {
  *         children: [
  *           {
- *             component: "iframe",
+ *             component: Components.iFrame,
  *             props: {
  *               src: documentDetails.previewUrl,
  *               width: "100%",
  *               height: "600px"
- *             }
- *           }
- *         ]
- *       },
- *       newDialogFooter: {
- *         children: [
- *           {
- *             component: "button",
- *             props: {
- *               label: "Download",
- *               onClick: () => ({
- *                 actions: [Actions.downloadFile],
- *                 fileUrl: documentDetails.downloadUrl
- *               })
  *             }
  *           }
  *         ]
@@ -151,22 +129,28 @@ export const enum ModalDisplayType {
  * Side panel settings dialog with API key configuration
  *
  * ```typescript
+ * const apiKeyInput: IInput = {
+ *   value: "",
+ *   type: InputType.password,
+ *   placeholder: "Enter your API key",
+ *   onChange: (value) => ({
+ *     actions: [Actions.updateProps],
+ *     newProps: { ...apiKeyInput, value }
+ *   })
+ * };
+ *
  * const settingsPanel: IModalDialog = {
  *   displayType: ModalDisplayType.aside,
  *   dialogHeader: "Plugin Settings",
  *   dialogBody: {
  *     children: [
  *       {
- *         component: "input",
- *         props: {
- *           label: "API Key",
- *           type: "password",
- *           value: "",
- *           onChange: (value) => ({
- *             actions: [Actions.updateProps],
- *             newProps: { value }
- *           })
- *         }
+ *         component: Components.label,
+ *         props: { text: "API Key" }
+ *       },
+ *       {
+ *         component: Components.input,
+ *         props: apiKeyInput
  *       }
  *     ]
  *   },
@@ -175,8 +159,7 @@ export const enum ModalDisplayType {
  *   withFooterBorder: true,
  *   fullScreen: false,
  *   onClose: () => ({
- *     actions: [Actions.updateProps],
- *     newProps: { visible: false }
+ *     actions: [Actions.closeModal]
  *   }),
  *   onLoad: async () => {
  *     const settings = await loadSettings();
@@ -184,12 +167,12 @@ export const enum ModalDisplayType {
  *       newDialogBody: {
  *         children: [
  *           {
- *             component: "input",
- *             props: {
- *               label: "API Key",
- *               type: "password",
- *               value: settings.apiKey
- *             }
+ *             component: Components.label,
+ *             props: { text: "API Key" }
+ *           },
+ *           {
+ *             component: Components.input,
+ *             props: { ...apiKeyInput, value: settings.apiKey }
  *           }
  *         ]
  *       }
@@ -200,69 +183,47 @@ export const enum ModalDisplayType {
  */
 export interface IModalDialog {
   /** Defines the modal dialog display type
-   *
-   * @category Appearance
    */
   displayType: ModalDisplayType;
 
   /** Defines the modal dialog header
-   *
-   * @category Content
    */
   dialogHeader?: string;
 
   /** Defines the modal dialog body
-   *
-   * @category Content
    */
   dialogBody: IBox;
 
   /** Defines the modal dialog footer
-   *
-   * @category Content
    */
   dialogFooter?: IBox;
 
   /** Specifies whether the "max-width: auto" property is set
-   *
-   * @category Appearance
    */
   autoMaxWidth?: boolean;
 
   /** Specifies whether the "max-height: auto" property is set
-   *
-   * @category Appearance
    */
   autoMaxHeight?: boolean;
 
   /** Specifies whether the modal dialog body has no paddings
-   *
-   * @category Appearance
    */
   withoutBodyPadding?: boolean;
 
   /** Specifies whether the modal dialog header has no bottom margins
-   *
-   * @category Appearance
    */
   withoutHeaderMargin?: boolean;
 
   /** Specifies whether the border betweeen the body and footer is displayed
-   *
-   * @category Appearance
    */
   withFooterBorder?: boolean;
 
   /** Specifies whether to display the modal dialog body in the full screen mode without paddings
-   *
-   * @category Appearance
    */
   fullScreen?: boolean;
 
   /**
    * Defines the event listeners.
-   *
-   * @category Behavior
    */
   eventListeners?: {
     /**
@@ -276,15 +237,11 @@ export interface IModalDialog {
   }[];
 
   /** Sets a function which is triggered whenever the "Close" button in the modal dialog is clicked
-   *
-   * @category Behavior
    */
   onClose: () => Promise<IMessage> | IMessage | Promise<void> | void;
 
   /**
    * Sets a function which is triggered whenever the modal dialog is loaded.
-   *
-   * @category Behavior
    */
   onLoad: () => Promise<{
     /**
@@ -300,4 +257,14 @@ export interface IModalDialog {
      */
     newDialogFooter?: IBox;
   }>;
+}
+
+/**
+ * The supported modal dialog types.
+ */
+export const enum ModalDisplayType {
+  /** Modal dialog displayed in the center of the screen */
+  modal = "modal",
+  /** Modal dialog displayed as a side panel */
+  aside = "aside",
 }
