@@ -252,6 +252,20 @@ export interface PluginActions {
 
 	/** Update an existing floating operations button. */
 	updateFloatingOperationsButton(props: IFloatingOperationsButton): void;
+
+	/**
+	 * Redraw the article navigation items in the sidebar.
+	 * Call it after mutating an item through
+	 * `IArticleNavigationPlugin.updateArticleNavigationItem` so the new `label`
+	 * or `icon` reaches the sidebar.
+	 *
+	 * @example
+	 * ```ts
+	 * plugin.updateArticleNavigationItem({ ...item, label: "Reports (3)" });
+	 * updateArticleNavigationItems();
+	 * ```
+	 */
+	updateArticleNavigationItems(): void;
 }
 
 /**

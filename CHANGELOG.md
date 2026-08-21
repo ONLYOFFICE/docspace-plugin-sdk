@@ -17,11 +17,15 @@
   footer content within the component instead
 - **DEPRECATED** `onLoad` in `IModalDialog` — use a React component with `useEffect` for
   data loading instead
+- **DEPRECATED** `body` in `IArticleButtonItem` — use `component` (React component)
+  instead
+- **DEPRECATED** `onLoad` in `IArticleButtonItem` — use a React component with
+  `useEffect` for data loading instead
 
 ## Added
 
 - Bump `react` peer dependency to `>=19.0.0`
-- Add `@onlyoffice/docspace-plugin-sdk/react` subpath with full React 18+ support
+- Add `@onlyoffice/docspace-plugin-sdk/react` subpath with hooks for React plugin UI
 - Add `useCurrentFile` hook — returns metadata of the currently selected file, folder or
   room
 - Add `useCurrentUser` hook — returns the authenticated user's profile
@@ -40,9 +44,14 @@
   alternative to `dialogBody`
 - Add `runtime: "module"` field support in `build-docspace-plugin` — emitted to
   `config.json` so the portal loads the bundle as an ES module
-- Add IArticleNavigationPlugin, IArticleNavigationItem, Section enum
+- Add IArticleNavigationPlugin, IArticleNavigationItem, Section enum — the item renders
+  its plugin section page from a React component passed in `sectionComponent`
 - Add `Actions.updateArticleNavigationItems` to refresh the article navigation
   items and the open plugin section
+- Add `component` prop to `IArticleButtonItem` — accepts a React component as an
+  alternative to `body`
+- Add `updateArticleNavigationItems` to `PluginActions`, so a React section can redraw
+  the sidebar after renaming its own navigation item
 
 ## Changed
 

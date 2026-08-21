@@ -23,15 +23,19 @@ import { IArticleNavigationItem } from "../items/IArticleNavigationItem";
  * Each registered item appears as a first-class navigation entry (icon + label)
  * alongside built-in sections like Rooms and Documents.
  * Clicking the item navigates to a dedicated plugin section page
- * where the item's `section` content is rendered.
- *
- * @category ArticleNavigationPlugin
+ * where the item's `sectionComponent` is rendered.
  *
  * @example
  *
  * Plugin with an article navigation item
  *
  * ```typescript
+ * import {
+ *   type IArticleNavigationItem,
+ *   type IArticleNavigationPlugin,
+ *   type IPlugin,
+ * } from "@onlyoffice/docspace-plugin-sdk";
+ *
  * class MyPlugin implements IPlugin, IArticleNavigationPlugin {
  *   articleNavigationItems: Map<string, IArticleNavigationItem> = new Map();
  *
@@ -51,28 +55,28 @@ import { IArticleNavigationItem } from "../items/IArticleNavigationItem";
  */
 
 export interface IArticleNavigationPlugin {
-	/**
-	 * Stores a collection of navigation items where the keys are the `key` values
-	 * from the IArticleNavigationItem objects.
-	 */
-	articleNavigationItems: Map<string, IArticleNavigationItem>;
+  /**
+   * Stores a collection of navigation items where the keys are the `key` values
+   * from the IArticleNavigationItem objects.
+   */
+  articleNavigationItems: Map<string, IArticleNavigationItem>;
 
-	/**
-	 * Add a new navigation item to the plugin's collection.
-	 * @param item - The navigation item to add
-	 */
-	addArticleNavigationItem(item: IArticleNavigationItem): void;
+  /**
+   * Add a new navigation item to the plugin's collection.
+   * @param item - The navigation item to add
+   */
+  addArticleNavigationItem(item: IArticleNavigationItem): void;
 
-	/**
-	 * Get all the navigation items provided by the plugin.
-	 * @returns A Map containing all registered navigation items
-	 */
-	getArticleNavigationItems(): Map<string, IArticleNavigationItem>;
+  /**
+   * Get all the navigation items provided by the plugin.
+   * @returns A Map containing all registered navigation items
+   */
+  getArticleNavigationItems(): Map<string, IArticleNavigationItem>;
 
-	/**
-	 * Update an existing navigation item in the plugin's collection.
-	 * Dispatch the "Actions.updateArticleNavigationItems" action afterwards to apply it.
-	 * @param item - The navigation item to update
-	 */
-	updateArticleNavigationItem(item: IArticleNavigationItem): void;
+  /**
+   * Update an existing navigation item in the plugin's collection.
+   * Dispatch the "Actions.updateArticleNavigationItems" action afterwards to apply it.
+   * @param item - The navigation item to update
+   */
+  updateArticleNavigationItem(item: IArticleNavigationItem): void;
 }
