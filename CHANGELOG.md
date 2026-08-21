@@ -1,5 +1,12 @@
 # Change Log
 
+##
+
+## Added
+
+- Add markdown documentation generation with TypeDoc
+- Add LLM instructions for DocSpace Plugin SDK development
+
 ## 2.1.0
 
 ## Changed
@@ -46,8 +53,6 @@
   closeMediaViewer)
 - Add placement prop to IContextMenuItem
 - Add `itemId` prop to IContextMenuItem
-- Add markdown documentation generation with TypeDoc
-- Add LLM instructions for DocSpace Plugin SDK development
 
 ## Fixed
 
