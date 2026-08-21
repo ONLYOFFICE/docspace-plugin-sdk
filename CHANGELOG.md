@@ -54,6 +54,8 @@
   the sidebar after renaming its own navigation item
 - Docs: the React API is generated as its own documentation section — `Hooks` and
   `Types` pages plus a section index, and a seventh sidebar group
+- Sample: `samples/article-navigation` rewritten on Vite + React 19 and
+  `@docspace/ui-kit`, replacing the Webpack + IBox version
 
 ## Changed
 
