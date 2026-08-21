@@ -40,6 +40,9 @@
   alternative to `dialogBody`
 - Add `runtime: "module"` field support in `build-docspace-plugin` — emitted to
   `config.json` so the portal loads the bundle as an ES module
+- Add IArticleNavigationPlugin, IArticleNavigationItem, Section enum
+- Add `Actions.updateArticleNavigationItems` to refresh the article navigation
+  items and the open plugin section
 
 ## Changed
 
@@ -58,6 +61,13 @@
 - Template: upgraded prettier from 2.x to **3.x**
 - Template: removed `window.Plugins` registration from generated `src/index.ts` — not
   needed for ES module plugins
+
+## 2.1.1
+
+## Added
+
+- Add markdown documentation generation with TypeDoc
+- Add LLM instructions for DocSpace Plugin SDK development
 
 ## 2.1.0
 
@@ -104,6 +114,7 @@
 - Add IMediaViewer component, actions (showMediaViewer, updateMediaViewer,
   closeMediaViewer)
 - Add placement prop to IContextMenuItem
+- Add `itemId` prop to IContextMenuItem
 
 ## Fixed
 

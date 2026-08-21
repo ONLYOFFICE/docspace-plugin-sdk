@@ -22,45 +22,33 @@ import { IMessage } from "../utils";
 import { IBox } from "./IBox";
 
 /**
- * The supported modal dialog types.
- *
- * @category ModalDialog
- */
-export enum ModalDisplayType {
-  /** Modal dialog displayed in the center of the screen */
-  modal = "modal",
-  /** Modal dialog displayed as a side panel */
-  aside = "aside",
-}
-
-/**
  * Modal dialog.
  *
- * @category ModalDialog
+ * To display the dialog, return an [`IMessage`](../utils.md#imessage) with
+ * [`Actions.showModal`](../../enums/Actions.md#showmodal) in `actions`
+ * and pass the dialog configuration in `modalDialogProps`.
+ * Use [`Actions.closeModal`](../../enums/Actions.md#closemodal) to close it.
  *
- * @categoryDescription Content
+ * <plugin-image src="modal-dialog.png" dark />
  *
- * Here is a description of the category Content.
- *
- * @categoryDescription Appearance
- *
- * Here is a description of the category Appearance.
- *
- * @categoryDescription Behavior
- *
- * Here is a description of the category Behavior.
+ * :::info
+ * `dialogBody` and `dialogFooter` are rendered in separate contexts.
+ * Components in `dialogFooter` cannot update components in `dialogBody` using
+ * `Actions.updateContext`, and vice versa.
+ * :::
  *
  * @example
  *
- * Document preview modal with React component
+ * Document preview modal with a React component
  *
  * ```tsx
  * import { useEffect, useState } from "react";
  * import { usePluginActions, useCurrentFile } from "@onlyoffice/docspace-plugin-sdk/react";
+ * import { IModalDialog, ModalDisplayType } from "@onlyoffice/docspace-plugin-sdk";
  *
  * function PreviewBody() {
  *   const file = useCurrentFile();
- *   const { closeModal, showToast } = usePluginActions();
+ *   const { closeModal } = usePluginActions();
  *   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
  *
  *   useEffect(() => {
@@ -89,11 +77,12 @@ export enum ModalDisplayType {
  *
  * @example
  *
- * Side panel that lists files in the current user's folder via API
+ * Side panel that lists the files in the current user's folder via API
  *
  * ```tsx
  * import { useEffect, useState } from "react";
  * import { usePluginAPI, usePluginActions } from "@onlyoffice/docspace-plugin-sdk/react";
+ * import { IModalDialog, ModalDisplayType, ToastType } from "@onlyoffice/docspace-plugin-sdk";
  *
  * type FileEntry = { id: number; title: string; fileExst?: string };
  *
@@ -109,7 +98,7 @@ export enum ModalDisplayType {
  *   }, []);
  *
  *   const handleSelect = (file: FileEntry) => {
- *     showToast({ type: "success", title: `Selected: ${file.title}` });
+ *     showToast({ type: ToastType.success, title: `Selected: ${file.title}` });
  *     closeModal();
  *   };
  *
@@ -134,14 +123,10 @@ export enum ModalDisplayType {
  */
 export interface IModalDialog {
   /** Defines the modal dialog display type
-   *
-   * @category Appearance
    */
   displayType?: ModalDisplayType;
 
   /** Defines the modal dialog header
-   *
-   * @category Content
    */
   dialogHeader?: string;
 
@@ -149,7 +134,6 @@ export interface IModalDialog {
    * Defines the modal dialog body rendered via the IBox component tree.
    * Use either `dialogBody` or `dialogBodyComponent`, not both.
    *
-   * @category Content
    * @deprecated Use `dialogBodyComponent` instead — accepts a React component and supports hooks from `@onlyoffice/docspace-plugin-sdk/react`.
    */
   dialogBody?: IBox;
@@ -159,59 +143,42 @@ export interface IModalDialog {
    * Use either `dialogBodyComponent` or `dialogBody`, not both.
    * The component can use `usePluginActions` and other hooks
    * from `@onlyoffice/docspace-plugin-sdk/react`.
-   *
-   * @category Content
    */
   dialogBodyComponent?: ComponentType;
 
   /**
    * Defines the modal dialog footer rendered via the IBox component tree.
    *
-   * @category Content
    * @deprecated Use `dialogBodyComponent` to render footer content within the component instead.
    */
   dialogFooter?: IBox;
 
   /** Specifies whether the "max-width: auto" property is set
-   *
-   * @category Appearance
    */
   autoMaxWidth?: boolean;
 
   /** Specifies whether the "max-height: auto" property is set
-   *
-   * @category Appearance
    */
   autoMaxHeight?: boolean;
 
   /** Specifies whether the modal dialog body has no paddings
-   *
-   * @category Appearance
    */
   withoutBodyPadding?: boolean;
 
   /** Specifies whether the modal dialog header has no bottom margins
-   *
-   * @category Appearance
    */
   withoutHeaderMargin?: boolean;
 
   /** Specifies whether the border betweeen the body and footer is displayed
-   *
-   * @category Appearance
    */
   withFooterBorder?: boolean;
 
   /** Specifies whether to display the modal dialog body in the full screen mode without paddings
-   *
-   * @category Appearance
    */
   fullScreen?: boolean;
 
   /**
    * Defines the event listeners.
-   *
-   * @category Behavior
    */
   eventListeners?: {
     /**
@@ -225,15 +192,12 @@ export interface IModalDialog {
   }[];
 
   /** Sets a function which is triggered whenever the "Close" button in the modal dialog is clicked
-   *
-   * @category Behavior
    */
   onClose?: () => Promise<IMessage> | IMessage | Promise<void> | void;
 
   /**
    * Sets a function which is triggered whenever the modal dialog is loaded.
    *
-   * @category Behavior
    * @deprecated Use a React component via `dialogBodyComponent` with `useEffect` for data loading instead.
    */
   onLoad?: () => Promise<{
@@ -250,4 +214,14 @@ export interface IModalDialog {
      */
     newDialogFooter?: IBox;
   }>;
+}
+
+/**
+ * The supported modal dialog types.
+ */
+export enum ModalDisplayType {
+  /** Modal dialog displayed in the center of the screen */
+  modal = "modal",
+  /** Modal dialog displayed as a side panel */
+  aside = "aside",
 }

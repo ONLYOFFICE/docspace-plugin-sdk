@@ -22,138 +22,84 @@ import { ISettings } from "../settings/ISettings";
  * The plugin that manages settings for the administrator or owner.
  * The plugin that can interact with the settings panel.
  *
- * @category SettingsPlugin
+ * <plugin-image src="settings-block.png" dark />
  *
  * @example
  *
- * Theme customization settings with error handling
+ * The plugin class implements `ISettingsPlugin`: `adminPluginSettings` describes the
+ * settings block (a webhook URL input and a save button) shown in the modal window
+ * with the plugin description. DocSpace calls `getAdminPluginSettings` to render the
+ * block and `setAdminPluginSettingsValue` to pass the saved value back to the plugin.
  *
  * ```typescript
- * const themeSettings: ISettingsPlugin = {
- *   adminPluginSettings: new Map([
- *     ["theme", {
- *       key: "theme",
- *       label: "Theme Settings",
- *       icon: "theme-icon.svg",
- *       onClick: async () => {
- *         try {
- *           await loadThemeSettings();
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "success",
- *               title: "Theme Settings",
- *               message: "Preferences loaded | Colors ready | Panel opened"
- *             }]
- *           };
- *         } catch (error) {
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "error",
- *               title: "Settings Failed",
- *               message: "Unable to load theme | Check configuration"
- *             }]
- *           };
- *         }
- *       }
- *     }]
- *   ]),
- *   setAdminPluginSettings(settings) {
- *     this.adminPluginSettings = settings;
- *   },
- *   setAdminPluginSettingsValue(settings) {
- *     try {
- *       this.adminPluginSettings.set("theme", settings);
+ * import {
+ *   type IInput,
+ *   type ISettings,
+ *   type ISettingsPlugin,
+ *   Components,
+ *   InputSize,
+ *   ButtonSize,
+ *   Actions,
+ *   ToastType,
+ * } from "@onlyoffice/docspace-plugin-sdk";
+ *
+ * class Plugin implements ISettingsPlugin {
+ *   webhookUrlInput: IInput = {
+ *     value: "",
+ *     placeholder: "https://example.com/webhook",
+ *     size: InputSize.base,
+ *     scale: true,
+ *     onChange: (value) => {
+ *       this.webhookUrlInput.value = value;
  *       return {
- *         actions: [Actions.showToast],
- *         toastProps: [{
- *           type: "success",
- *           title: "Setting Updated",
- *           message: "Value saved | Config updated | Changes applied"
- *         }]
- *       };
- *     } catch (error) {
- *       return {
- *         actions: [Actions.showToast],
- *         toastProps: [{
- *           type: "error",
- *           title: "Update Failed",
- *           message: "Unable to save setting | Check value format"
- *         }]
+ *         actions: [Actions.updateProps],
+ *         newProps: { ...this.webhookUrlInput, value }
  *       };
  *     }
- *   },
- *   getAdminPluginSettings() {
- *     return this.adminPluginSettings;
- *   }
- * };
- * ```
+ *   };
  *
- * @example
- *
- * Multi-language support configuration
- *
- * ```typescript
- * const languageSettings: ISettingsPlugin = {
- *   adminPluginSettings: new Map([
- *     ["language", {
- *       key: "language",
- *       label: "Language Settings",
- *       icon: "language-icon.svg",
- *       onClick: async () => {
- *         try {
- *           await loadLanguageOptions();
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "success",
- *               title: "Language Options",
- *               message: "Languages loaded | List ready | Choose option"
- *             }]
- *           };
- *         } catch (error) {
- *           return {
- *             actions: [Actions.showToast],
- *             toastProps: [{
- *               type: "error",
- *               title: "Options Failed",
- *               message: "Unable to load languages | Check connection"
- *             }]
- *           };
+ *   adminPluginSettings: ISettings | null = {
+ *     settings: {
+ *       children: [
+ *         {
+ *           component: Components.label,
+ *           props: { text: "Webhook URL", isRequired: true }
+ *         },
+ *         {
+ *           component: Components.input,
+ *           props: this.webhookUrlInput
  *         }
+ *       ]
+ *     },
+ *     saveButton: {
+ *       component: Components.button,
+ *       props: {
+ *         label: "Save",
+ *         size: ButtonSize.normal,
+ *         primary: true,
+ *         onClick: () => ({
+ *           actions: [Actions.saveSettings, Actions.showToast],
+ *           settings: JSON.stringify({ webhookUrl: this.webhookUrlInput.value }),
+ *           toastProps: [{ type: ToastType.success, title: "Settings saved" }]
+ *         })
  *       }
- *     }]
- *   ]),
- *   setAdminPluginSettings(settings) {
- *     this.adminPluginSettings = settings;
- *   },
- *   setAdminPluginSettingsValue(settings) {
- *     try {
- *       this.adminPluginSettings.set("language", settings);
- *       return {
- *         actions: [Actions.showToast],
- *         toastProps: [{
- *           type: "success",
- *           title: "Language Changed",
- *           message: "Language updated | UI translated | Ready to use"
- *         }]
- *       };
- *     } catch (error) {
- *       return {
- *         actions: [Actions.showToast],
- *         toastProps: [{
- *           type: "error",
- *           title: "Change Failed",
- *           message: "Unable to change language | Try again"
- *         }]
- *       };
  *     }
- *   },
- *   getAdminPluginSettings() {
+ *   };
+ *
+ *   setAdminPluginSettings = (settings: ISettings | null): void => {
+ *     this.adminPluginSettings = settings;
+ *   };
+ *
+ *   setAdminPluginSettingsValue = (settings: string | null): void => {
+ *     if (!settings) return;
+ *     const { webhookUrl } = JSON.parse(settings);
+ *     this.webhookUrlInput.value = webhookUrl;
+ *   };
+ *
+ *   getAdminPluginSettings = (): ISettings | null => {
  *     return this.adminPluginSettings;
- *   }
- * };
+ *   };
+ * }
  * ```
  */
 export interface ISettingsPlugin {

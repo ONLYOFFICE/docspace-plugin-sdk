@@ -19,19 +19,7 @@
 /**
  * A component that is used to embed a third-party website into a modal window or the settings page.
  *
- * @category Frame
- *
- * @categoryDescription Content
- *
- * Here is a description of the category Content.
- *
- * @categoryDescription Appearance
- *
- * Here is a description of the category Appearance.
- *
- * @categoryDescription Behavior
- *
- * Here is a description of the category Behavior.
+ * <plugin-image src="iframe.png" dark />
  *
  * @example
  *
@@ -75,52 +63,36 @@
  */
 export interface IFrame {
   /** Defines the base URL to a modal window or the settings page. It is used to generate links
-   *
-   * @category Content
    */
   src: string;
 
   /** Defines the frame width measured in percent
-   *
-   * @category Appearance
    */
   width?: string;
 
   /** Defines the frame height measured in percent
-   *
-   * @category Appearance
    */
   height?: string;
 
   /** Defines the name of the object inserted into the page
-   *
-   * @category Content
    */
   name?: string;
 
   /** Defines the frame sandbox
-   *
-   * @category Behavior
    */
   sandbox?: string;
 
   /** Defines the element ID
-   *
-   * @category Content
    */
   id?: string;
 
   /** Defines the frame style
-   *
-   * @category Appearance
    */
   style?: { [key: string]: string };
 
   /**
    * Defines the CSS class for styling the component.
    * Can be used to override or extend the default component styles.
-   *
-   * @category Appearance
    */
   className?: string;
 }

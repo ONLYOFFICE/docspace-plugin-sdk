@@ -20,12 +20,6 @@
  * @packageDocumentation
  *
  * Here is a description of the module Settings.
- *
- * @categoryDescription Settings
- *
- * Here is a description of the category Settings.
- *
- * @module Settings
  */
 
 import { ISettings } from "./ISettings";

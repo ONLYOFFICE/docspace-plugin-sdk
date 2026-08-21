@@ -17,37 +17,13 @@
  */
 
 /**
- * The supported toast types.
+ * A brief notification that appears on the screen.
  *
- * @category Toast
- */
-export enum ToastType {
-  /** Success toast with green color scheme */
-  success = "success",
-  /** Error toast with red color scheme */
-  error = "error",
-  /** Warning toast with yellow color scheme */
-  warning = "warning",
-  /** Info toast with blue color scheme */
-  info = "info",
-}
-
-/**
- * Toast notification component for displaying temporary messages.
+ * To display a toast, return an [`IMessage`](../utils.md#imessage) with
+ * [`Actions.showToast`](../../enums/Actions.md#showtoast) in `actions`
+ * and pass the toast configuration in the `toastProps` array.
  *
- * @category Toast
- *
- * @categoryDescription Content
- *
- * Here is a description of the category Content.
- *
- * @categoryDescription Appearance
- *
- * Here is a description of the category Appearance.
- *
- * @categoryDescription Behavior
- *
- * Here is a description of the category Behavior.
+ * <plugin-image src="toast.png" dark />
  *
  * @example
  *
@@ -103,14 +79,10 @@ export enum ToastType {
  */
 export interface IToast {
   /** Defines the toast type, which determines the toast color and icon
-   *
-   * @category Appearance
    */
   type: ToastType;
 
   /** Defines the toast title
-   *
-   * @category Content
    */
   title: string;
 
@@ -123,8 +95,20 @@ export interface IToast {
   /**
    * Defines the time (in milliseconds) for showing the toast.
    * Setting the value to 0 allows the toast to be displayed continuously until clicking on it.
-   *
-   * @category Behavior
    */
   timeout?: number;
+}
+
+/**
+ * The supported toast types.
+ */
+export enum ToastType {
+  /** Success toast with green color scheme */
+  success = "success",
+  /** Error toast with red color scheme */
+  error = "error",
+  /** Warning toast with yellow color scheme */
+  warning = "warning",
+  /** Info toast with blue color scheme */
+  info = "info"
 }

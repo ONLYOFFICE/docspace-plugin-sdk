@@ -11,7 +11,7 @@ import type {
 	IModalDialog,
 	ModalDisplayType,
 } from "../interfaces/components/IModalDialog";
-import type { TSelector } from "../interfaces/components/Selector/ISelector";
+import type { TSelector } from "../interfaces/components/Selector";
 import type { IMediaViewer } from "../interfaces/components/IMediaViewer";
 import type { IFloatingOperationsButton } from "../interfaces/components/IFloatingOperationsButton";
 import type { ButtonGroup } from "../interfaces/components/Component";

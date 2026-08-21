@@ -19,63 +19,9 @@
 import { IMessage } from "../utils";
 
 /**
- * Custom combo box option.
- *
- * @example
- *
- * Basic language option with icon
- *
- * ```typescript
- * const languageOption: IComboBoxItem = {
- *   key: "en-US",
- *   label: "English (US)",
- *   icon: "language-en.svg",
- *   disabled: false
- * }
- * ```
- *
- * @category ComboBox
- *
- * @categoryDescription Content
- *
- * Here is a description of the category Content.
- *
- * @categoryDescription State
- *
- * Here is a description of the category State.
- */
-export interface IComboBoxItem {
-  /**
-   * Unique identifier for the option
-   *
-   * @category Options
-   */
-  key: string;
-
-  /**
-   * Display text for the option
-   *
-   * @category Content
-   */
-  label: string;
-
-  /**
-   * Optional icon for the option
-   *
-   * @category Content
-   */
-  icon?: string;
-
-  /**
-   * Specifies if the combo box option is disabled or not
-   *
-   * @category State
-   */
-  disabled?: boolean;
-}
-
-/**
  * Custom combo box input.
+ *
+ * <plugin-image src="combobox.png" dark />
  *
  * @example
  *
@@ -113,9 +59,8 @@ export interface IComboBoxItem {
  *         selectedOption: item
  *       },
  *       toastProps: [{
- *         title: "Language Changed",
- *         type: "success",
- *         message: `Interface language changed to ${item.label}`
+ *         title: `Interface language changed to ${item.label}`,
+ *         type: ToastType.success
  *       }]
  *     };
  *   },
@@ -133,139 +78,130 @@ export interface IComboBoxItem {
  *   modernView: true
  * }
  * ```
- *
- * @category ComboBox
- *
- * @categoryDescription Options
- *
- * Here is a description of the category Options.
- *
- * @categoryDescription State
- *
- * Here is a description of the category State.
- *
- * @categoryDescription Behavior
- *
- * Here is a description of the category Behavior.
  */
 export interface IComboBox {
   /**
    * Defines the combo box options
-   *
-   * @category Options
    */
   options: IComboBoxItem[];
 
   /**
    * Defines the combo box selected option
-   *
-   * @category State
    */
   selectedOption: IComboBoxItem;
 
   /**
    * Sets a function which is triggered whenever the combo box is selected
-   *
-   * @category Behavior
    */
   onSelect?: (item: IComboBoxItem) => IMessage | void;
 
   /**
    * Specifies that the combo box is scaled by its parent
-   *
-   * @category Appearance
    */
   scaled?: boolean;
 
   /**
    * Defines the position of the combo box in the X direction
-   *
-   * @category Appearance
    */
   directionX?: "left" | "right";
 
   /**
    * Defines the position of the combo box in the Y direction
-   *
-   * @category Appearance
    */
   directionY?: "bottom" | "top" | "both";
 
   /**
    * Defines the combo box display type
-   *
-   * @category Appearance
    */
   displayType?: "default" | "toggle";
 
   /**
    * Specifies whether to display the combo box in the modern view
-   *
-   * @category Appearance
    */
   modernView?: boolean;
 
   /**
    * Specifies if the combo box is disabled or not
-   *
-   * @category State
    */
   isDisabled?: boolean;
 
   /**
    * Whether to show disabled combo box options
-   *
-   * @category State
    */
   showDisabledItems?: boolean;
 
   /**
    * Specifies whether to open the combo box
-   *
-   * @category State
    */
   opened?: boolean;
 
   /**
    * Specifies whether the combo box options are scaled by the combo box button
-   *
-   * @category Appearance
    */
   scaledOptions?: boolean;
 
   /**
    * Sets a function which is triggered whenever the combo box is clicked when "displayType == toggle"
-   *
-   * @category Behavior
    */
   onToggle?: () => IMessage | void;
 
   /**
    * Specifies whether to display the combo box without borders
-   *
-   * @category Appearance
    */
   noBorder?: boolean;
 
   /**
    * Specifies whether the combo box contains a backdrop
-   *
-   * @category Appearance
    */
   withBackdrop?: boolean;
 
   /**
    * Defines the maximum height of the dropdown list
-   *
-   * @category Appearance
    */
   dropDownMaxHeight?: number;
 
   /**
    * Defines the CSS class for styling the component.
    * Can be used to override or extend the default component styles.
-   *
-   * @category Appearance
    */
   className?: string;
+}
+
+/**
+ * Custom combo box option.
+ *
+ * @example
+ *
+ * Basic language option with icon
+ *
+ * ```typescript
+ * const languageOption: IComboBoxItem = {
+ *   key: "en-US",
+ *   label: "English (US)",
+ *   icon: "language-en.svg",
+ *   disabled: false
+ * }
+ * ```
+ */
+export interface IComboBoxItem {
+  /**
+   * Unique identifier for the option
+   */
+  key: string;
+
+  /**
+   * Display text for the option
+   */
+  label: string;
+
+  /**
+   * The option display icon. The icon image must be uploaded to the assets folder.
+   * Only the image name with the extension must be specified in this field.
+   */
+  icon?: string;
+
+  /**
+   * Specifies if the combo box option is disabled or not
+   */
+  disabled?: boolean;
 }

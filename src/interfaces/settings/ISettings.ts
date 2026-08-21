@@ -23,7 +23,7 @@ import { ButtonGroup, IBox } from "../components";
 /**
  * Defines the administrator or owner settings block that is embedded in the modal window with the plugin description.
  *
- * @category Settings
+ * <plugin-image src="settings-block.png" dark />
  *
  * @example
  *
@@ -32,7 +32,7 @@ import { ButtonGroup, IBox } from "../components";
  * ```tsx
  * import { useEffect, useState } from "react";
  * import { usePluginSettings } from "@onlyoffice/docspace-plugin-sdk/react";
- * import { Components, ButtonSize } from "@onlyoffice/docspace-plugin-sdk";
+ * import { ISettings, Components, ButtonSize } from "@onlyoffice/docspace-plugin-sdk";
  *
  * type Config = { apiKey: string };
  *
@@ -65,7 +65,6 @@ import { ButtonGroup, IBox } from "../components";
  *   settingsComponent: ApiKeySettings,
  * };
  * ```
- *
  */
 export interface ISettings {
   /**

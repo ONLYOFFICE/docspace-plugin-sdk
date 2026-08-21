@@ -21,77 +21,53 @@ import { PluginLocale, PluginStatus } from "../../enums";
  * The default plugin.
  * This interface must be implemented in each plugin because without the plugin status it will not be built in.
  *
- * @category Plugin
- *
  * @example
  *
- * Document analyzer plugin with lifecycle management
+ * Every plugin class implements `IPlugin` (usually together with one or more
+ * type-specific interfaces such as `IContextMenuPlugin`). DocSpace reads the
+ * plugin status via `getStatus` and runs `onLoadCallback` when the plugin is
+ * uploaded to the portal. The optional `language` field and its `setLanguage`/
+ * `getLanguage` methods let the portal keep the plugin in sync with the current
+ * portal language.
  *
  * ```typescript
- * const documentAnalyzer: IPlugin = {
- *   status: PluginStatus.Active,
+ * import { type IPlugin, PluginStatus, PluginLocale } from "@onlyoffice/docspace-plugin-sdk";
  *
- *   async onLoadCallback() {
+ * class Plugin implements IPlugin {
+ *   status: PluginStatus = PluginStatus.active;
+ *   language: PluginLocale = PluginLocale.EN_US;
+ *
+ *   onLoadCallback = async (): Promise<void> => {
  *     try {
  *       await initializeAnalyzer();
- *       console.log("Document analyzer initialized successfully");
  *     } catch (error) {
- *       console.error("Failed to initialize document analyzer:", error);
- *       this.status = PluginStatus.Hide;
+ *       // Hide the plugin if it cannot be initialized
+ *       this.status = PluginStatus.hide;
  *     }
- *   },
+ *   };
  *
- *   updateStatus(status) {
+ *   updateStatus = (status: PluginStatus): void => {
  *     this.status = status;
- *     console.log(`Plugin status updated to: ${status}`);
- *   },
+ *   };
  *
- *   getStatus() {
+ *   getStatus = (): PluginStatus => {
  *     return this.status;
- *   },
+ *   };
  *
- *   setOnLoadCallback(callback) {
+ *   // Called by the portal when the portal language changes
+ *   setLanguage = (language: PluginLocale): void => {
+ *     this.language = language;
+ *   };
+ *
+ *   // Called by the portal to read the current plugin language
+ *   getLanguage = (): PluginLocale => {
+ *     return this.language;
+ *   };
+ *
+ *   setOnLoadCallback = (callback: () => Promise<void>): void => {
  *     this.onLoadCallback = callback;
- *   }
- * };
- * ```
- *
- * @example
- *
- * Auto-backup plugin with error recovery
- *
- * ```typescript
- * const backupPlugin: IPlugin = {
- *   status: PluginStatus.Active,
- *
- *   async onLoadCallback() {
- *     try {
- *       await validateBackupConfig();
- *       await initializeBackupService();
- *       console.log("Backup service started successfully");
- *     } catch (error) {
- *       console.error("Backup service initialization failed:", error);
- *       this.status = PluginStatus.Hide;
- *     }
- *   },
- *
- *   updateStatus(status) {
- *     const prevStatus = this.status;
- *     this.status = status;
- *
- *     if (prevStatus !== status) {
- *       console.log(`Backup service transitioned from ${prevStatus} to ${status}`);
- *     }
- *   },
- *
- *   getStatus() {
- *     return this.status;
- *   },
- *
- *   setOnLoadCallback(callback) {
- *     this.onLoadCallback = callback;
- *   }
- * };
+ *   };
+ * }
  * ```
  */
 export interface IPlugin {

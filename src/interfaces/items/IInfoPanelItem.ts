@@ -25,8 +25,6 @@ import { IMessage } from "../utils";
 
 /**
  * Describes the item submenu.
- *
- * @category InfoPanelItem
  */
 export interface IInfoPanelSubMenu {
   /** The tab display name */
@@ -42,28 +40,30 @@ export interface IInfoPanelSubMenu {
 /**
  * The info panel item that is displayed in the info panel.
  *
- * @category InfoPanelItem
+ * <plugin-image src="infopanelitem.png" dark />
  *
  * @example
  *
  * AI-powered document analysis panel
  *
  * ```tsx
+ * import { useEffect, useState } from "react";
  * import { useCurrentFile, usePluginActions } from "@onlyoffice/docspace-plugin-sdk/react";
+ * import { IInfoPanelItem, FilesType, ToastType } from "@onlyoffice/docspace-plugin-sdk";
  *
  * function AnalysisPanel() {
  *   const file = useCurrentFile();
- *   const actions = usePluginActions();
- *   const [result, setResult] = React.useState<string | null>(null);
+ *   const { showToast } = usePluginActions();
+ *   const [result, setResult] = useState<string | null>(null);
  *
- *   React.useEffect(() => {
+ *   useEffect(() => {
  *     if (!file) return;
  *     analyzeDocument(file.id).then(setResult).catch(() => setResult("Error"));
  *   }, [file?.id]);
  *
  *   const handleExport = async () => {
  *     await exportAnalysis(file!.id, result!);
- *     actions.showToast({ type: "success", title: "Exported" });
+ *     showToast({ type: ToastType.success, title: "Exported" });
  *   };
  *
  *   return (
@@ -78,7 +78,8 @@ export interface IInfoPanelSubMenu {
  *   key: "ai-analysis",
  *   subMenu: { name: "AI Analysis" },
  *   component: AnalysisPanel,
- * };
+ *   filesType: [FilesType.file]
+ * }
  * ```
  *
  * @example
@@ -86,13 +87,15 @@ export interface IInfoPanelSubMenu {
  * Image metadata viewer with file type restrictions
  *
  * ```tsx
+ * import { useEffect, useState } from "react";
  * import { useCurrentFile } from "@onlyoffice/docspace-plugin-sdk/react";
+ * import { IInfoPanelItem, FilesType, Devices } from "@onlyoffice/docspace-plugin-sdk";
  *
  * function ImageMetadataPanel() {
  *   const file = useCurrentFile();
- *   const [metadata, setMetadata] = React.useState<Record<string, string> | null>(null);
+ *   const [metadata, setMetadata] = useState<Record<string, string> | null>(null);
  *
- *   React.useEffect(() => {
+ *   useEffect(() => {
  *     if (!file) return;
  *     getImageMetadata(file.id).then(setMetadata);
  *   }, [file?.id]);
@@ -110,21 +113,21 @@ export interface IInfoPanelSubMenu {
  *   key: "image-metadata",
  *   subMenu: { name: "Image Info" },
  *   component: ImageMetadataPanel,
- *   filesType: [FilesType.Files],
- *   filesExsts: [FilesExst.jpeg, FilesExst.jpg, FilesExst.png, FilesExst.gif, FilesExst.bmp],
- * };
+ *   isHeaderVisible: true,
+ *   filesType: [FilesType.image],
+ *   filesExsts: [".jpeg", ".jpg", ".png", ".gif", ".bmp"],
+ *   devices: [Devices.desktop, Devices.tablet]
+ * }
  * ```
  */
 export interface IInfoPanelItem {
   /**
    * The unique item identifier used by the service to recognize the item
-   *
    */
   key: string;
 
   /**
    * The item submenu
-   *
    */
   subMenu: IInfoPanelSubMenu;
 
@@ -147,7 +150,6 @@ export interface IInfoPanelItem {
   /**
    * The property that controls whether the header is visible in the info panel.
    * By default, the header is visible.
-   *
    */
   isHeaderVisible?: boolean;
 
@@ -163,15 +165,13 @@ export interface IInfoPanelItem {
    * The types of files where the current item will be displayed in the info panel.
    * Presently the following file types are available: room, file, folder, image, video.
    * If this parameter is not specified, then the current info panel item will be displayed in any file type.
-   *
    */
   filesType?: FilesType[];
 
   /**
    * The extensions of files where the current item will be displayed in the info panel.
-   * It only works if the FilesType.Files is specified in the fileType parameter.
+   * It only works if the FilesType.file is specified in the filesType parameter.
    * If this parameter is not specified, then the current info panel item will be displayed in any file extension.
-   *
    */
   filesExsts?: (FilesExst | string)[];
 
@@ -179,7 +179,6 @@ export interface IInfoPanelItem {
    * The types of users who will see the current item in the info panel.
    * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
    * If this parameter is not specified, then the current info panel item will be displayed for all user types.
-   *
    */
   usersTypes?: UsersType[];
 
@@ -187,7 +186,6 @@ export interface IInfoPanelItem {
    * The types of devices where the current item will be displayed in the info panel.
    * At the moment the following device types are available: mobile, tablet, desktop.
    * If this parameter is not specified, then the current info panel item will be displayed in any device types.
-   *
    */
   devices?: Devices[];
 }
