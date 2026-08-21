@@ -1,6 +1,6 @@
 {
   "name": "@onlyoffice/docspace-plugin-sdk",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "minDocSpaceVersion": "3.5.0",
   "description": "Simple plugin system for onlyoffice docspace",
   "license": "Apache-2.0",
