@@ -10,22 +10,64 @@
 // client so that the plugin bundle uses the host's copy of this module —
 // provider and consumer therefore share the same context reference.
 
+/**
+ * React hooks for plugin components rendered inside the DocSpace application tree.
+ *
+ * A plugin component is passed to the SDK through one of the `*Component` props —
+ * [`IInfoPanelItem.component`](../interfaces/items/IInfoPanelItem.md#component),
+ * [`IArticleButtonItem.component`](../interfaces/items/IArticleButtonItem.md#component),
+ * [`IArticleNavigationItem.sectionComponent`](../interfaces/items/IArticleNavigationItem.md#sectioncomponent),
+ * [`IModalDialog.dialogBodyComponent`](../interfaces/components/IModalDialog.md#dialogbodycomponent)
+ * or [`ISettings.settingsComponent`](../interfaces/settings/ISettings.md#settingscomponent).
+ * DocSpace renders it with the plugin runtime in context, and these hooks read
+ * that context.
+ *
+ * The hooks are published from the `@onlyoffice/docspace-plugin-sdk/react`
+ * subpath, which requires `react` 19 or later as a peer dependency:
+ *
+ * ```tsx
+ * import { useCurrentFile, usePluginActions } from "@onlyoffice/docspace-plugin-sdk/react";
+ * ```
+ *
+ * :::info Bundling
+ * `react`, `react/jsx-runtime`, `@onlyoffice/docspace-plugin-sdk` and
+ * `@onlyoffice/docspace-plugin-sdk/react` must stay **external** in the plugin
+ * bundle — DocSpace supplies its own copies at load time. A plugin that bundles
+ * its own React gets a second React instance with its own context objects, and
+ * every hook below then throws. The generated plugin template already lists
+ * these four specifiers in `build.rollupOptions.external`. The same rule applies
+ * to any UI library shared with the host, `@docspace/ui-kit` included.
+ * :::
+ *
+ * @packageDocumentation
+ */
+
 import React, { createContext, useContext } from "react";
 
 import type {
-	PluginRuntime,
-	TCurrentFile,
-	PluginActions,
-	PluginAPIClient,
-	PluginSettingsClient,
-	TCurrentUser,
+  PluginRuntime,
+  TCurrentFile,
+  PluginActions,
+  PluginAPIClient,
+  PluginSettingsClient,
+  TCurrentUser,
 } from "./types";
 
+/**
+ * The context that carries the plugin runtime from the DocSpace client into the
+ * plugin component tree.
+ *
+ * @remarks
+ * **Internal.** Plugin authors never touch it — the client provides it through
+ * `withPluginRuntime`, and the hooks below read it.
+ *
+ * @internal
+ */
 export const LocalRuntimeContext = createContext<PluginRuntime | null>(null);
 
 /**
  * Wraps a plugin component so that the DocSpace client can inject the
- * {@link PluginRuntime} via a prop.
+ * [`PluginRuntime`](types.md#pluginruntime) via a prop.
  *
  * @remarks
  * This is an **internal** helper used by the DocSpace client — plugin authors
@@ -40,28 +82,26 @@ export const LocalRuntimeContext = createContext<PluginRuntime | null>(null);
  * @internal
  */
 export function withPluginRuntime(Component: React.ComponentType) {
-	function WithRuntime({ runtime }: { runtime: PluginRuntime }) {
-		return React.createElement(
-			LocalRuntimeContext.Provider,
-			{ value: runtime },
-			React.createElement(Component, null),
-		);
-	}
-	WithRuntime.displayName = `WithRuntime(${Component.displayName ?? Component.name ?? "Component"})`;
-	return WithRuntime;
+  function WithRuntime({ runtime }: { runtime: PluginRuntime }) {
+    return React.createElement(
+      LocalRuntimeContext.Provider,
+      { value: runtime },
+      React.createElement(Component, null),
+    );
+  }
+  WithRuntime.displayName = `WithRuntime(${Component.displayName ?? Component.name ?? "Component"})`;
+  return WithRuntime;
 }
 
 /**
- * Returns the full {@link PluginRuntime} context for the current plugin component.
+ * Returns the full [`PluginRuntime`](types.md#pluginruntime) context for the current plugin component.
  *
  * @remarks
- * Prefer the focused hooks ({@link useCurrentFile}, {@link usePluginActions},
+ * Prefer the focused hooks ([`useCurrentFile`](#usecurrentfile), [`usePluginActions`](#usepluginactions),
  * etc.) when you only need a single slice of the runtime — they are more
  * readable and produce narrower TypeScript types.
  *
  * @throws {Error} When called outside a plugin component rendered by DocSpace.
- *
- * @category React
  *
  * @example
  * ```tsx
@@ -74,19 +114,17 @@ export function withPluginRuntime(Component: React.ComponentType) {
  * ```
  */
 export function usePluginRuntime(): PluginRuntime {
-	const ctx = useContext(LocalRuntimeContext);
-	if (!ctx)
-		throw new Error(
-			"usePluginRuntime must be used inside a plugin component rendered by DocSpace",
-		);
-	return ctx;
+  const ctx = useContext(LocalRuntimeContext);
+  if (!ctx)
+    throw new Error(
+      "usePluginRuntime must be used inside a plugin component rendered by DocSpace",
+    );
+  return ctx;
 }
 
 /**
  * Returns metadata of the file, folder or room currently selected in the
  * DocSpace UI, or `null` when nothing is selected.
- *
- * @category React
  *
  * @example
  * ```tsx
@@ -108,13 +146,11 @@ export function usePluginRuntime(): PluginRuntime {
  * ```
  */
 export function useCurrentFile(): TCurrentFile | null {
-	return usePluginRuntime().currentFile;
+  return usePluginRuntime().currentFile;
 }
 
 /**
  * Returns all portal-side UI actions available to the plugin.
- *
- * @category React
  *
  * @example
  * ```tsx
@@ -138,15 +174,13 @@ export function useCurrentFile(): TCurrentFile | null {
  * ```
  */
 export function usePluginActions(): PluginActions {
-	return usePluginRuntime().actions;
+  return usePluginRuntime().actions;
 }
 
 /**
  * Returns a typed HTTP client scoped to the current portal.
  * Authentication is applied automatically — no credentials need to be handled
  * by the plugin. Paths are relative to the API base URL, e.g. `"/files/@my"`.
- *
- * @category React
  *
  * @example
  * ```tsx
@@ -165,14 +199,12 @@ export function usePluginActions(): PluginActions {
  * ```
  */
 export function usePluginAPI(): PluginAPIClient {
-	return usePluginRuntime().api;
+  return usePluginRuntime().api;
 }
 
 /**
  * Returns the profile of the user currently authenticated in the portal,
  * or `null` while the profile is loading.
- *
- * @category React
  *
  * @example
  * ```tsx
@@ -192,14 +224,12 @@ export function usePluginAPI(): PluginAPIClient {
  * ```
  */
 export function useCurrentUser(): TCurrentUser | null {
-	return usePluginRuntime().currentUser;
+  return usePluginRuntime().currentUser;
 }
 
 /**
  * Returns the client for loading, saving and controlling the Save button of
  * the plugin settings dialog.
- *
- * @category React
  *
  * @example
  * ```tsx
@@ -239,5 +269,5 @@ export function useCurrentUser(): TCurrentUser | null {
  * ```
  */
 export function usePluginSettings(): PluginSettingsClient {
-	return usePluginRuntime().settings;
+  return usePluginRuntime().settings;
 }

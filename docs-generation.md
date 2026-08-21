@@ -45,6 +45,7 @@ src/interfaces/plugins/*.ts
 src/interfaces/settings/*.ts
 src/interfaces/utils/index.ts
 src/enums/*.ts
+src/react/*.ts
 ```
 
 Generated output:
@@ -81,6 +82,7 @@ The full configuration is `typedoc.config.mjs`. The options that define the look
 | `sourceLinkTemplate` | GitHub blob URL with `{gitRevision}` | Source links; revision is set by `update-revision.mjs`, reverted to `master` by `update-sidebar.mjs` |
 | `githubPages` | `false` | Keeps TypeDoc from dropping a `.nojekyll` that `docs:sync` would carry into the site repo |
 | `commentStyle` | `"jsdoc"` | Only `/** */` comments are picked up |
+| `tsconfig` | `"tsconfig.docs.json"` | The build splits `src` across two projects (`tsconfig.json` excludes `src/react`, which `tsconfig.react.json` builds on its own). TypeDoc cannot document files outside its project, so the docs run uses a third project that covers all of `src` and emits nothing |
 | `validation` | notExported, invalidLink, rewrittenLink, unusedMergeModuleWith | Link and export validation on every run |
 
 ## Post-processing
@@ -140,7 +142,7 @@ For every section in `tools/constants/sections.mjs` (`components`, `items`, `plu
 `flatten-sidebar.mjs` reshapes the auto-generated `typedoc-sidebar.cjs`:
 
 - drops TypeDoc's wrapper levels (directory names, "Interfaces", "Type Aliases", …);
-- regroups everything under six top-level categories — **Components, Items, Plugins, Settings, Utils, Enums** — each linking to its section `index.md` (Utils, a single page, links to the page itself);
+- regroups everything under seven top-level categories — **Components, Items, Plugins, Settings, Utils, React, Enums** — each linking to its section `index.md` (Utils, a single page, links to the page itself);
 - sorts categories before docs, alphabetically within each;
 - relabels items with the H1 of the generated page when it differs from the file name (e.g. `Utility` → `FilterType`).
 

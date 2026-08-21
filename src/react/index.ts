@@ -7,20 +7,20 @@
 //     http://www.apache.org/licenses/LICENSE-2.0
 
 export type {
-	TCurrentFile,
-	TCurrentUser,
-	PluginActions,
-	PluginAPIClient,
-	PluginSettingsClient,
-	PluginRuntime,
+  TCurrentFile,
+  TCurrentUser,
+  PluginActions,
+  PluginAPIClient,
+  PluginSettingsClient,
+  PluginRuntime,
 } from "./types";
 
 export {
-	withPluginRuntime,
-	usePluginRuntime,
-	useCurrentFile,
-	usePluginActions,
-	usePluginAPI,
-	useCurrentUser,
-	usePluginSettings,
-} from "./runtime";
+  withPluginRuntime,
+  usePluginRuntime,
+  useCurrentFile,
+  usePluginActions,
+  usePluginAPI,
+  useCurrentUser,
+  usePluginSettings,
+} from "./hooks";

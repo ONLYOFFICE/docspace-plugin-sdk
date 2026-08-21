@@ -52,6 +52,8 @@
   alternative to `body`
 - Add `updateArticleNavigationItems` to `PluginActions`, so a React section can redraw
   the sidebar after renaming its own navigation item
+- Docs: the React API is generated as its own documentation section — `Hooks` and
+  `Types` pages plus a section index, and a seventh sidebar group
 
 ## Changed
 
