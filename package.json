@@ -22,6 +22,15 @@
     "docspace",
     "plugin"
   ],
+  "files": [
+    "dist",
+    "npx",
+    "template",
+    "README.md",
+    "CHANGELOG.md",
+    "AUTHORS.md",
+    "LICENSE"
+  ],
   "bin": {
     "build-docspace-plugin": "./npx/buildPlugin.js",
     "create-docspace-plugin": "./npx/index.js"

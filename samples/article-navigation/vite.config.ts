@@ -18,11 +18,13 @@ export default defineConfig({
       // plugin, so the bundle must not carry duplicates. A second React or a
       // second UI kit would arrive with its own contexts, and every hook — and
       // every themed component — would break.
+      //
+      // The SDK root is bundled like any other dependency: it holds string
+      // enums and types and no module state, so a second copy is harmless.
       external: [
         "react",
         "react-dom",
         "react/jsx-runtime",
-        "@onlyoffice/docspace-plugin-sdk",
         "@onlyoffice/docspace-plugin-sdk/react",
         /^@docspace\/ui-kit(\/.*)?$/,
       ],
