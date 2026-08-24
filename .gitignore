@@ -7,4 +7,3 @@ node_modules
 .yarnrc.yml
 package.tgz
 install-state.gz
-samples/**/*.tgz
