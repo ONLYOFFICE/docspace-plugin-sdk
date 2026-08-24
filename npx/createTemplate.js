@@ -270,11 +270,7 @@ export default plugin;
           .replaceAll("NameIns", nameIns)
           .replaceAll("contentIns", contentIns);
 
-        const srcDir = writePath.replace("index.ts", "src");
-
-        fs.mkdirSync(srcDir);
-
-        fs.writeFileSync(`${srcDir}/index.ts`, template, "utf8");
+        fs.writeFileSync(writePath, template, "utf8");
 
         break;
       default:
