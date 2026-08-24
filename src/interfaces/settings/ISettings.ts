@@ -62,26 +62,26 @@ import { ButtonGroup, IBox } from "../components";
  * }
  *
  * const apiKeySettings: ISettings = {
- *   settingsComponent: ApiKeySettings,
+ *   component: ApiKeySettings,
  * };
  * ```
  */
 export interface ISettings {
   /**
    * Defines the administrator or owner settings rendered via the IBox component tree.
-   * Use either `settings` or `settingsComponent`, not both.
+   * Use either `settings` or `component`, not both.
    *
-   * @deprecated Use `settingsComponent` instead — accepts a React component and supports hooks from `@onlyoffice/docspace-plugin-sdk/react`.
+   * @deprecated Use `component` instead — accepts a React component and supports hooks from `@onlyoffice/docspace-plugin-sdk/react`.
    */
   settings?: IBox;
 
   /**
    * A React component rendered as the settings UI.
-   * Use either `settingsComponent` or `settings`, not both.
+   * Use either `component` or `settings`, not both.
    * The component can use `usePluginActions` and other hooks
    * from `@onlyoffice/docspace-plugin-sdk/react`.
    */
-  settingsComponent?: ComponentType;
+  component?: ComponentType;
 
   /** Defines the button to save the settings */
   saveButton?: ButtonGroup;
@@ -93,7 +93,7 @@ export interface ISettings {
    * Defines a function that is triggered whenever the settings block is loaded.
    * Returns a promise with the updated settings box and optional save button.
    *
-   * @deprecated Use a React component via `settingsComponent` with `useEffect` for data loading instead.
+   * @deprecated Use a React component via `component` with `useEffect` for data loading instead.
    */
   onLoad?: () => Promise<{ settings: IBox; saveButton?: ButtonGroup }>;
 }

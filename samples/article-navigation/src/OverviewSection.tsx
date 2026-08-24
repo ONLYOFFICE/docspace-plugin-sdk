@@ -29,6 +29,7 @@ import {
   usePluginActions,
   usePluginAPI,
   useCurrentUser,
+  isPluginApiError,
 } from "@onlyoffice/docspace-plugin-sdk/react";
 import { ToastType } from "@onlyoffice/docspace-plugin-sdk";
 
@@ -76,20 +77,23 @@ const OverviewSection = () => {
   const [renames, setRenames] = useState(0);
 
   useEffect(() => {
-    let cancelled = false;
+    // Aborting on unmount, rather than dropping a late answer with a flag, so
+    // that leaving the page also stops the request. The abort comes back as a
+    // rejection like any other failure, and is the one kind of failure the
+    // page has nothing to say about.
+    const controller = new AbortController();
 
     api
-      .get<{ response: { folders: Room[] } }>("/files/rooms")
-      .then((res) => {
-        if (!cancelled) setRooms(res.response.folders);
+      .get<{ folders: Room[] }>("/files/rooms", undefined, {
+        signal: controller.signal,
       })
-      .catch(() => {
-        if (!cancelled) setError("Could not load the room list.");
+      .then((folder) => setRooms(folder.folders))
+      .catch((error: unknown) => {
+        if (isPluginApiError(error) && error.code === "ABORTED") return;
+        setError("Could not load the room list.");
       });
 
-    return () => {
-      cancelled = true;
-    };
+    return () => controller.abort();
   }, [api]);
 
   /**

@@ -78,8 +78,8 @@ import { IBox } from "../components/IBox";
  *
  *   useEffect(() => {
  *     api
- *       .get<{ response: { total: number } }>("/people/invites")
- *       .then((res) => setCount(res.response.total));
+ *       .get<{ total: number }>("/people/invites")
+ *       .then((invites) => setCount(invites.total));
  *   }, []);
  *
  *   if (count === null) return <span>…</span>;

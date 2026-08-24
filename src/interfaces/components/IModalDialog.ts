@@ -92,8 +92,8 @@ import { IBox } from "./IBox";
  *   const [files, setFiles] = useState<FileEntry[]>([]);
  *
  *   useEffect(() => {
- *     api.get<{ response: { files: FileEntry[] } }>("/files/@my").then((res) => {
- *       setFiles(res.response.files);
+ *     api.get<{ files: FileEntry[] }>("/files/@my").then((folder) => {
+ *       setFiles(folder.files);
  *     });
  *   }, []);
  *

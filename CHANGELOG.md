@@ -4,76 +4,56 @@
 
 ## Deprecated
 
-- **DEPRECATED** `body` in `IInfoPanelItem` — use `component` (React component) instead
-- **DEPRECATED** `onLoad` in `IInfoPanelItem` — use a React component with `useEffect`
-  for data loading instead
-- **DEPRECATED** `settings` in `ISettings` — use `settingsComponent` (React component)
-  instead
-- **DEPRECATED** `onLoad` in `ISettings` — use a React component with `useEffect` for
-  data loading instead
-- **DEPRECATED** `dialogBody` in `IModalDialog` — use `dialogBodyComponent` (React
-  component) instead
-- **DEPRECATED** `dialogFooter` in `IModalDialog` — use `dialogBodyComponent` to render
-  footer content within the component instead
-- **DEPRECATED** `onLoad` in `IModalDialog` — use a React component with `useEffect` for
-  data loading instead
-- **DEPRECATED** `body` in `IArticleButtonItem` — use `component` (React component)
-  instead
-- **DEPRECATED** `onLoad` in `IArticleButtonItem` — use a React component with
-  `useEffect` for data loading instead
+- **DEPRECATED** `body` in `IInfoPanelItem` and `IArticleButtonItem`, `settings` in
+  `ISettings`, `content` in `IMediaViewer`, `dialogBody` and `dialogFooter` in
+  `IModalDialog` — use the React `component` prop (`dialogBodyComponent` in
+  `IModalDialog`)
+- **DEPRECATED** `onLoad` in `IInfoPanelItem`, `IArticleButtonItem`, `IMediaViewer`,
+  `ISettings`, `IModalDialog` — load data with `useEffect` in the React component
 
 ## Added
 
 - Bump `react` peer dependency to `>=19.0.0`
-- Add `@onlyoffice/docspace-plugin-sdk/react` subpath with hooks for React plugin UI
-- Add `useCurrentFile` hook — returns metadata of the currently selected file, folder or
-  room
-- Add `useCurrentUser` hook — returns the authenticated user's profile
-- Add `usePluginActions` hook — provides `showToast`, `showModal`, `showSelector`,
-  `navigate` and all other portal-side actions
-- Add `usePluginAPI` hook — typed proxy for `GET`/`POST`/`PUT`/`DELETE` portal API calls
-- Add `usePluginSettings` hook — load, save settings and control the Save button state
-- Add `usePluginRuntime` hook — low-level access to the full `PluginRuntime` context
-- Add `withPluginRuntime` HOC — used internally by the client to inject runtime into
-  plugin components
-- Add `component` prop to `IInfoPanelItem` — accepts a React component as an alternative
-  to `body`
-- Add `settingsComponent` prop to `ISettings` — accepts a React component as an
-  alternative to `settings`
-- Add `dialogBodyComponent` prop to `IModalDialog` — accepts a React component as an
-  alternative to `dialogBody`
-- Add `runtime: "module"` field support in `build-docspace-plugin` — emitted to
-  `config.json` so the portal loads the bundle as an ES module
-- Add IArticleNavigationPlugin, IArticleNavigationItem, Section enum — the item renders
-  its plugin section page from a React component passed in `sectionComponent`
-- Add `Actions.updateArticleNavigationItems` to refresh the article navigation
-  items and the open plugin section
-- Add `component` prop to `IArticleButtonItem` — accepts a React component as an
-  alternative to `body`
-- Add `updateArticleNavigationItems` to `PluginActions`, so a React section can redraw
-  the sidebar after renaming its own navigation item
-- Docs: the React API is generated as its own documentation section — `Hooks` and
-  `Types` pages plus a section index, and a seventh sidebar group
+- Add `@onlyoffice/docspace-plugin-sdk/react` subpath for React plugin UI — modules
+  `api`, `actions`, `settings`, `runtime`, `hooks`
+- Add hooks `useCurrentFile`, `useCurrentUser`, `usePluginActions`, `usePluginAPI`,
+  `usePluginSettings`, `usePluginRuntime` and the `withPluginRuntime` HOC
+- Add `component` prop to `IInfoPanelItem`, `IArticleButtonItem`, `IMediaViewer`,
+  `ISettings` and `dialogBodyComponent` to `IModalDialog`
+- Add IArticleNavigationPlugin, IArticleNavigationItem, Section enum
+- Add `PluginAPIClient` — `request` plus `get`, `post`, `put`, `patch`, `delete`; body
+  on `delete`; `headers` and `AbortSignal` options; the portal's `response` wrapper
+  unwrapped (`{ total, items }` for lists); Authorization, public-room `Request-Token`
+  and OAuth bearer applied; absolute and `..` paths refused with `INVALID_PATH`
+- Add `PluginApiError` and the `isPluginApiError` guard — `status`, portal message,
+  failed `request`, error body in `details`
+- Add to `PluginActions`: `showCreateDialog`, `updateSelector`, a tab argument for
+  `openInfoPanel`, and the `update*Items` family for context menu, info panel, main
+  button, profile menu, file, event listener, article button and article navigation
+  items
+- Add `Actions.updateArticleButtonItems` and `Actions.updateArticleNavigationItems`
+- Add `runtime: "module"` support in `build-docspace-plugin` — written to `config.json`
+  so the portal loads the bundle as an ES module
+- Docs: separate React API section; `TCurrentFile.fileExst` documented with the dot
+  (`".docx"`), as `FilesExst` spells it
 - Sample: `samples/article-navigation` rewritten on Vite + React 19 and
-  `@docspace/ui-kit`, replacing the Webpack + IBox version
+  `@docspace/ui-kit`
 
 ## Changed
 
-- Template: replaced Webpack 5 + ts-loader with **Vite 8** + `@vitejs/plugin-react`
-- Template: upgraded TypeScript from 4.x to **5.6**, target changed from `es5` to
-  `ES2017`
-- Template: `moduleResolution` changed from `node` to `bundler`
-- Template: added `jsx: react-jsx` (automatic JSX runtime, no manual `React` import
-  needed)
-- Template: added `react` and `react-dom ^19` as dependencies
-- Template: React and SDK marked as `external` in Vite config — provided by the host at
-  runtime, not bundled into `plugin.js`
-- Template: CSS output renamed to `plugin.css` via `assetFileNames` in Vite rollup
-  options
-- Template: added `"runtime": "module"` field to `package.json`
-- Template: upgraded prettier from 2.x to **3.x**
-- Template: removed `window.Plugins` registration from generated `src/index.ts` — not
+- Template: Webpack 5 + ts-loader replaced with **Vite 8** + `@vitejs/plugin-react`,
+  CSS output renamed to `plugin.css`
+- Template: TypeScript 4.x to **5.6**, target `es5` to `ES2017`, `moduleResolution`
+  `node` to `bundler`, `jsx: react-jsx` added
+- Template: `react` and `react-dom ^19` added as dependencies; react, react-dom,
+  `@onlyoffice/docspace-plugin-sdk/react` and `@docspace/ui-kit` marked `external` —
+  the SDK root stays bundled
+- Template: `"runtime": "module"` added to `package.json`
+- Template: prettier 2.x to **3.x**
+- Template: `window.Plugins` registration removed from generated `src/index.ts` — not
   needed for ES module plugins
+- Packaging: `.npmignore` denylist replaced with a `files` allowlist — `dist`, `npx`,
+  `template`
 
 ## 2.1.1
 

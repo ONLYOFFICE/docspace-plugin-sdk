@@ -33,13 +33,13 @@ import SettingsSection from "./SettingsSection";
  * Key API features demonstrated:
  * - `appears` omitted    - the item is visible in all sections.
  * - `usersTypes` omitted - the item is visible to all user types.
- * - `sectionComponent`   - the React component rendered on the plugin page.
+ * - `component`   - the React component rendered on the plugin page.
  */
 export const overviewItem: IArticleNavigationItem = {
   key: OVERVIEW_KEY,
   label: "Sample Overview",
   icon: "docspace-icon.svg",
-  sectionComponent: OverviewSection,
+  component: OverviewSection,
 };
 
 /**
@@ -56,7 +56,7 @@ export const settingsItem: IArticleNavigationItem = {
   key: SETTINGS_KEY,
   label: "Sample Settings",
   icon: "docspace-icon.svg",
-  sectionComponent: SettingsSection,
+  component: SettingsSection,
   appears: [Section.Settings],
   usersTypes: [UsersType.owner, UsersType.docSpaceAdmin],
 };

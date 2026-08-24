@@ -23,7 +23,7 @@ import { IArticleNavigationItem } from "../items/IArticleNavigationItem";
  * Each registered item appears as a first-class navigation entry (icon + label)
  * alongside built-in sections like Rooms and Documents.
  * Clicking the item navigates to a dedicated plugin section page
- * where the item's `sectionComponent` is rendered.
+ * where the item's `component` is rendered.
  *
  * @example
  *

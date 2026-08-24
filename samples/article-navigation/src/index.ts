@@ -35,7 +35,7 @@ import { attachPlugin } from "./navigation";
  * 2. "Sample Settings" - visible only in the portal Settings section
  *                        (`appears: [Section.Settings]`) and only to admins.
  *
- * Each item points at a React component through `sectionComponent`. The
+ * Each item points at a React component through `component`. The
  * component owns its own loading state and reads the portal through the hooks
  * from `@onlyoffice/docspace-plugin-sdk/react`, so neither item needs the
  * deprecated `section` IBox tree or an `onLoad` callback.

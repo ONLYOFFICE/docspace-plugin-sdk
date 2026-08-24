@@ -24,7 +24,7 @@ import { Section } from "../../enums/Section";
 /**
  * Describes a navigation item that will be embedded in the article sidebar as a first-class
  * navigation entry. When the user clicks the item, DocSpace navigates to a dedicated plugin
- * section page where the `sectionComponent` is rendered.
+ * section page where the `component` is rendered.
  *
  * Items are registered by a plugin implementing
  * [`IArticleNavigationPlugin`](../plugins/IArticleNavigationPlugin.md). After changing an
@@ -37,7 +37,7 @@ import { Section } from "../../enums/Section";
  * The section page is a full portal page, not a panel. The component is
  * rendered inside the DocSpace application tree, so it can use the portal theme and the
  * [`@docspace/ui-kit`](https://github.com/ONLYOFFICE/DocSpace-client/tree/master/libs/ui-kit)
- * components — provided the plugin bundle leaves React, the SDK and the UI kit external
+ * components — provided the plugin bundle leaves React, the SDK's React entry and the UI kit external
  * and lets the client supply them. See the
  * [`article-navigation` sample](https://github.com/ONLYOFFICE/docspace-plugin-sdk/tree/master/samples/article-navigation)
  * for a working build configuration.
@@ -60,8 +60,8 @@ import { Section } from "../../enums/Section";
  *
  *   useEffect(() => {
  *     api
- *       .get<{ response: { folders: Room[] } }>("/files/rooms")
- *       .then((res) => setRooms(res.response.folders));
+ *       .get<{ folders: Room[] }>("/files/rooms")
+ *       .then((rooms) => setRooms(rooms.folders));
  *   }, []);
  *
  *   if (!rooms) return <p>Loading rooms…</p>;
@@ -83,7 +83,7 @@ import { Section } from "../../enums/Section";
  *   key: "my-plugin-overview",
  *   label: "Rooms overview",
  *   icon: "icon.svg",
- *   sectionComponent: RoomsOverview,
+ *   component: RoomsOverview,
  *   usersTypes: [UsersType.owner, UsersType.docSpaceAdmin],
  *   appears: [Section.Files]
  * };
@@ -118,7 +118,7 @@ import { Section } from "../../enums/Section";
  *   key: "my-plugin-counter",
  *   label: "Visits (0)",
  *   icon: "icon.svg",
- *   sectionComponent: CounterSection
+ *   component: CounterSection
  * };
  * ```
  */
@@ -150,7 +150,7 @@ export interface IArticleNavigationItem {
    * from `@onlyoffice/docspace-plugin-sdk/react`, and owns its own loading state —
    * fetch in a `useEffect` and render a placeholder until the data arrives.
    */
-  sectionComponent: ComponentType;
+  component: ComponentType;
 
   /**
    * The types of users who will see this navigation item.
