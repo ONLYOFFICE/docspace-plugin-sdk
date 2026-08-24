@@ -16,9 +16,9 @@
  * A plugin component is passed to the SDK through one of the `*Component` props —
  * [`IInfoPanelItem.component`](../interfaces/items/IInfoPanelItem.md#component),
  * [`IArticleButtonItem.component`](../interfaces/items/IArticleButtonItem.md#component),
- * [`IArticleNavigationItem.sectionComponent`](../interfaces/items/IArticleNavigationItem.md#sectioncomponent),
+ * [`IArticleNavigationItem.component`](../interfaces/items/IArticleNavigationItem.md#component),
  * [`IModalDialog.dialogBodyComponent`](../interfaces/components/IModalDialog.md#dialogbodycomponent)
- * or [`ISettings.settingsComponent`](../interfaces/settings/ISettings.md#settingscomponent).
+ * or [`ISettings.component`](../interfaces/settings/ISettings.md#component).
  * DocSpace renders it with the plugin runtime in context, and these hooks read
  * that context.
  *
@@ -30,13 +30,21 @@
  * ```
  *
  * :::info Bundling
- * `react`, `react/jsx-runtime`, `@onlyoffice/docspace-plugin-sdk` and
- * `@onlyoffice/docspace-plugin-sdk/react` must stay **external** in the plugin
- * bundle — DocSpace supplies its own copies at load time. A plugin that bundles
- * its own React gets a second React instance with its own context objects, and
- * every hook below then throws. The generated plugin template already lists
- * these four specifiers in `build.rollupOptions.external`. The same rule applies
- * to any UI library shared with the host, `@docspace/ui-kit` included.
+ * `react`, `react-dom`, `react/jsx-runtime`,
+ * `@onlyoffice/docspace-plugin-sdk/react` and `@docspace/ui-kit` must stay
+ * **external** in the plugin bundle — DocSpace supplies its own copies at load
+ * time. A plugin that bundles its own React gets a second React instance with
+ * its own context objects, and every hook below then throws; the same goes for
+ * a second copy of this subpath, which owns the context those hooks read. A
+ * bundled `@docspace/ui-kit` fails more quietly: its components read the theme
+ * and the interface direction from contexts the portal fills in, so a second
+ * copy falls back to the light theme and left-to-right regardless of the
+ * portal.
+ *
+ * The SDK root, `@onlyoffice/docspace-plugin-sdk`, is **not** on that list. It
+ * carries string enums and types and no module state, so it is bundled like
+ * any other dependency. The generated plugin template lists exactly the shared
+ * packages in `build.rollupOptions.external`.
  * :::
  *
  * @packageDocumentation
@@ -44,14 +52,10 @@
 
 import React, { createContext, useContext } from "react";
 
-import type {
-  PluginRuntime,
-  TCurrentFile,
-  PluginActions,
-  PluginAPIClient,
-  PluginSettingsClient,
-  TCurrentUser,
-} from "./types";
+import type { PluginRuntime, TCurrentFile, TCurrentUser } from "./runtime";
+import type { PluginActions } from "./actions";
+import type { PluginAPIClient } from "./api";
+import type { PluginSettingsClient } from "./settings";
 
 /**
  * The context that carries the plugin runtime from the DocSpace client into the
@@ -67,7 +71,7 @@ export const LocalRuntimeContext = createContext<PluginRuntime | null>(null);
 
 /**
  * Wraps a plugin component so that the DocSpace client can inject the
- * [`PluginRuntime`](types.md#pluginruntime) via a prop.
+ * [`PluginRuntime`](runtime.md#pluginruntime) via a prop.
  *
  * @remarks
  * This is an **internal** helper used by the DocSpace client — plugin authors
@@ -94,7 +98,7 @@ export function withPluginRuntime(Component: React.ComponentType) {
 }
 
 /**
- * Returns the full [`PluginRuntime`](types.md#pluginruntime) context for the current plugin component.
+ * Returns the full [`PluginRuntime`](runtime.md#pluginruntime) context for the current plugin component.
  *
  * @remarks
  * Prefer the focused hooks ([`useCurrentFile`](#usecurrentfile), [`usePluginActions`](#usepluginactions),
@@ -180,7 +184,9 @@ export function usePluginActions(): PluginActions {
 /**
  * Returns a typed HTTP client scoped to the current portal.
  * Authentication is applied automatically — no credentials need to be handled
- * by the plugin. Paths are relative to the API base URL, e.g. `"/files/@my"`.
+ * by the plugin. Paths are relative to the API base URL, e.g. `"/files/@my"`,
+ * and each call resolves to the payload itself rather than to the envelope the
+ * portal wraps it in.
  *
  * @example
  * ```tsx
@@ -191,7 +197,7 @@ export function usePluginActions(): PluginActions {
  *   const [rooms, setRooms] = useState([]);
  *
  *   useEffect(() => {
- *     api.get("/files/rooms").then((res) => setRooms(res.response));
+ *     api.get("/files/rooms").then((folder) => setRooms(folder.folders));
  *   }, []);
  *
  *   return <ul>{rooms.map((r) => <li key={r.id}>{r.title}</li>)}</ul>;

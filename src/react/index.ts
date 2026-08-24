@@ -6,14 +6,18 @@
 //
 //     http://www.apache.org/licenses/LICENSE-2.0
 
+export type { TCurrentFile, TCurrentUser, PluginRuntime } from "./runtime";
+export type { PluginActions } from "./actions";
+export type { PluginSettingsClient } from "./settings";
 export type {
-  TCurrentFile,
-  TCurrentUser,
-  PluginActions,
   PluginAPIClient,
-  PluginSettingsClient,
-  PluginRuntime,
-} from "./types";
+  PluginApiMethod,
+  PluginApiOptions,
+  PluginApiRequest,
+  PluginApiError,
+} from "./api";
+
+export { isPluginApiError } from "./api";
 
 export {
   withPluginRuntime,
