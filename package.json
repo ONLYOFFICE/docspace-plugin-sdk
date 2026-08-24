@@ -48,8 +48,8 @@
     }
   },
   "scripts": {
-    "build": "tsc && tsc -p tsconfig.react.json",
-    "prepublish": "tsc && tsc -p tsconfig.react.json",
+    "build": "tsc -p tsconfig.react.json && tsc",
+    "prepublish": "tsc -p tsconfig.react.json && tsc",
     "docs": "ts-node tools/update-revision.mjs && typedoc --options typedoc.config.mjs && node tools/generate-index-pages/index.mjs && ts-node tools/flatten-sidebar.mjs && ts-node tools/update-sidebar.mjs",
     "docs:sync": "npm run docs && node tools/sync-docs.mjs"
   },
