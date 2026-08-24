@@ -20,69 +20,40 @@ import { Devices, FilesSecurity, Security, UsersType } from "../../enums";
 import { IMessage } from "../utils";
 
 /**
- * Describes the file properties.
- *
- * @category File
- */
-export interface File {
-  /** The folder ID where the current file is located */
-  folderId: number;
-
-  /** The file extension */
-  fileExst: string;
-
-  /** The file ID */
-  id: number;
-
-  /** The root folder type of the current file */
-  rootFolderType: number;
-
-  /** The root folder ID of the current file */
-  rootFolderId: number;
-
-  /** The file title */
-  title: string;
-
-  /** The URL to open the current file in the viewer */
-  viewUrl: string;
-
-  /** The absolute URL where the source viewed or edited document is stored */
-  webUrl: string;
-}
-
-/**
  * Describes an item that will be embedded in the file list.
  * The file item can be displayed as a file or a folder.
  *
- * @category FileItem
+ * <plugin-image src="file-icon.png" dark />
  *
  * @example
  *
  * 3D model viewer with format validation
  *
  * ```typescript
+ * import { IFileItem, Actions, ToastType, Devices } from "@onlyoffice/docspace-plugin-sdk";
+ *
  * const modelViewer: IFileItem = {
- *   key: "3d-model",
- *   extensions: [".obj", ".stl", ".fbx"],
+ *   extension: ".obj",
+ *   fileTypeName: "3D Model",
+ *   fileRowIcon: "3d-model-32.svg",
+ *   fileTileIcon: "3d-model-96.svg",
+ *   devices: [Devices.desktop],
  *   onClick: async (file) => {
  *     try {
- *       const modelData = await load3DModel(file.id);
- *       await downloadModel(file.id);
+ *       await load3DModel(file.id);
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "success",
- *           title: "3D Model Info",
- *           message: "Model loaded successfully | Rendering started | Processing complete"
+ *           type: ToastType.success,
+ *           title: "3D model loaded successfully"
  *         }]
  *       };
  *     } catch (error) {
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "error",
- *           title: "Failed to load 3D model",
- *           message: "Unable to process 3D model | Check file format"
+ *           type: ToastType.error,
+ *           title: "Unable to process the 3D model"
  *         }]
  *       };
  *     }
@@ -96,8 +67,9 @@ export interface File {
  *
  * ```typescript
  * const markdownPreview: IFileItem = {
- *   key: "markdown",
- *   extensions: [".md", ".markdown"],
+ *   extension: ".md",
+ *   fileTypeName: "Markdown",
+ *   fileRowIcon: "markdown-32.svg",
  *   onClick: async (file) => {
  *     try {
  *       const content = await fetchMarkdownContent(file.id);
@@ -105,18 +77,16 @@ export interface File {
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "success",
- *           title: "Markdown File Processed",
- *           message: "File processed successfully | Content saved | Ready to view"
+ *           type: ToastType.success,
+ *           title: "Markdown file processed"
  *         }]
  *       };
  *     } catch (error) {
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "error",
- *           title: "Failed to process markdown",
- *           message: "Unable to process markdown file | Check file format"
+ *           type: ToastType.error,
+ *           title: "Unable to process the markdown file"
  *         }]
  *       };
  *     }
@@ -126,38 +96,32 @@ export interface File {
  *
  * @example
  *
- * Interactive audio player with metadata support
+ * Audio player with access restrictions
  *
  * ```typescript
  * const audioPlayer: IFileItem = {
- *   key: "audio-player",
- *   extensions: [".mp3", ".wav", ".ogg"],
+ *   extension: ".mp3",
+ *   fileTypeName: "Audio",
+ *   fileRowIcon: "audio-32.svg",
+ *   fileTileIcon: "audio-96.svg",
+ *   usersType: [UsersType.docSpaceAdmin, UsersType.roomAdmin, UsersType.user],
+ *   fileSecurity: [FilesSecurity.Read, FilesSecurity.Download],
  *   onClick: async (file) => {
  *     try {
- *       const audioMetadata = await getAudioMetadata(file.id);
- *       await playAudio(file.id);
+ *       await playAudio(file.viewUrl);
  *       return {
- *         actions: [Actions.showToast, Actions.updateContext],
+ *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "success",
- *           title: "Audio Playback",
- *           message: "Audio file loaded | Playback started | Ready to stream"
- *         }],
- *         contextProps: [{
- *           name: "audio-player",
- *           props: {
- *             isPlaying: true,
- *             currentTime: 0
- *           }
+ *           type: ToastType.success,
+ *           title: `Playing ${file.title}`
  *         }]
  *       };
  *     } catch (error) {
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "error",
- *           title: "Failed to play audio file",
- *           message: "Unable to play audio file | Check file format"
+ *           type: ToastType.error,
+ *           title: "Unable to play the audio file"
  *         }]
  *       };
  *     }
@@ -192,15 +156,60 @@ export interface IFileItem {
   /** A file type which is displayed in the list (for example, Document/Folder) */
   fileTypeName?: string;
 
-  /** A file icon which is displayed in the table format. The preferred icon size is 32x32 px */
+  /**
+   * A file icon which is displayed in the table format. The icon image must be uploaded
+   * to the assets folder. Only the image name with the extension must be specified in this field.
+   * The preferred icon size is 32x32 px.
+   */
   fileRowIcon?: string;
 
-  /** A file icon which is displayed in the tile format. The preferred icon size is 96x96 px */
+  /**
+   * A file icon which is displayed in the tile format. The icon image must be uploaded
+   * to the assets folder. Only the image name with the extension must be specified in this field.
+   * The preferred icon size is 96x96 px.
+   */
   fileTileIcon?: string;
 
-  /** The security parameters of the file that will be checked. */
+  /**
+   * The security parameters of the file that will be checked.
+   * If all the parameters are true, the onClick event will be triggered.
+   * If this parameter is not specified, the security settings are ignored.
+   */
   fileSecurity?: FilesSecurity[];
 
-  /** The security parameters of the parent folder or room that will be checked. */
+  /**
+   * The security parameters of the parent folder or room that will be checked.
+   * If all the parameters are true, the onClick event will be triggered.
+   * If this parameter is not specified, the security settings are ignored.
+   */
   security?: Security[];
+}
+
+/**
+ * Describes the file properties.
+ */
+export interface File {
+  /** The folder ID where the current file is located */
+  folderId: number;
+
+  /** The file extension */
+  fileExst: string;
+
+  /** The file ID */
+  id: number;
+
+  /** The root folder type of the current file */
+  rootFolderType: number;
+
+  /** The root folder ID of the current file */
+  rootFolderId: number;
+
+  /** The file title */
+  title: string;
+
+  /** The URL to open the current file in the viewer */
+  viewUrl: string;
+
+  /** The absolute URL where the source viewed or edited document is stored */
+  webUrl: string;
 }

@@ -23,21 +23,25 @@ import { IArticleButtonItem } from "../items/IArticleButtonItem";
  * Article button items appear as custom plugin components above the DevTools section.
  * Maximum 5 items can be displayed across all plugins.
  *
- * @category ArticleButtonPlugin
- *
  * @example
  *
- * Plugin with article button items
+ * The plugin class implements `IArticleButtonPlugin`. DocSpace calls
+ * `getArticleButtonItems` to embed the buttons into the article sidebar.
  *
  * ```typescript
- * class MyPlugin implements IPlugin, IArticleButtonPlugin {
+ * import {
+ *   type IArticleButtonItem,
+ *   type IArticleButtonPlugin,
+ * } from "@onlyoffice/docspace-plugin-sdk";
+ *
+ * class Plugin implements IArticleButtonPlugin {
  *   articleButtonItems: Map<string, IArticleButtonItem> = new Map();
  *
  *   addArticleButtonItem = (item: IArticleButtonItem): void => {
  *     this.articleButtonItems.set(item.key, item);
  *   };
  *
- *   getArticleButtonItems = () => {
+ *   getArticleButtonItems = (): Map<string, IArticleButtonItem> => {
  *     return this.articleButtonItems;
  *   };
  *

@@ -20,9 +20,12 @@ import { Devices, UsersType } from "../../enums";
 import { IMessage } from "../utils";
 
 /**
- *Describes an item that will be embedded in the main button menu
+ * Describes an item that will be embedded in the More item of the main button menu. It is available only inside a room (folder) and is not available for the room list.
  *
- * @category MainButtonItem
+ * Items are registered by a plugin implementing
+ * [`IMainButtonPlugin`](../plugins/IMainButtonPlugin.md).
+ *
+ * <plugin-image src="main-button-plugin.png" dark />
  *
  * @example
  *
@@ -39,18 +42,16 @@ import { IMessage } from "../utils";
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "success",
- *           title: "Export Complete",
- *           message: "Files exported to PDF | Processing complete | Ready to download"
+ *           type: ToastType.success,
+ *           title: "Files exported to PDF | Processing complete | Ready to download"
  *         }]
  *       };
  *     } catch (error) {
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "error",
- *           title: "Export Failed",
- *           message: "Unable to export files | Check file permissions"
+ *           type: ToastType.error,
+ *           title: "Unable to export files | Check file permissions"
  *         }]
  *       };
  *     }
@@ -73,18 +74,16 @@ import { IMessage } from "../utils";
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "success",
- *           title: "Backup Complete",
- *           message: "Backup created successfully | Files archived | Ready for storage"
+ *           type: ToastType.success,
+ *           title: "Backup created successfully | Files archived | Ready for storage"
  *         }]
  *       };
  *     } catch (error) {
  *       return {
  *         actions: [Actions.showToast],
  *         toastProps: [{
- *           type: "error",
- *           title: "Backup Failed",
- *           message: "Unable to create backup | Check storage space"
+ *           type: ToastType.error,
+ *           title: "Unable to create backup | Check storage space"
  *         }]
  *       };
  *     }
@@ -95,13 +94,11 @@ import { IMessage } from "../utils";
 export interface IMainButtonItem {
   /**
    * The unique item identifier used by the service to recognize the item
-   *
    */
   key: string;
 
   /**
    * The item display name
-   *
    */
   label: string;
 
@@ -109,7 +106,6 @@ export interface IMainButtonItem {
    * The item display icon. The icon image must be uploaded to the assets folder.
    * Only the image name with the extension must be specified in this field.
    * The required icon size is 16x16 px. Otherwise, it will be compressed to this size.
-   *
    */
   icon: string;
 
@@ -131,7 +127,9 @@ export interface IMainButtonItem {
    * @remarks
    * This is the preferred method over the deprecated `onClick`.
    */
-  onItemClick?: (id: number | string) => Promise<IMessage> | Promise<void> | IMessage | void;
+  onItemClick?: (
+    id: number | string
+  ) => Promise<IMessage> | Promise<void> | IMessage | void;
 
   /**
    * The types of users who will see the current item in the main button menu.
@@ -142,8 +140,8 @@ export interface IMainButtonItem {
 
   /**
    * The main button items that are added to the current item as a drop-down list.
-   * In this case, the onClick event does not work.
-   *   */
+   * In this case, the `onItemClick` (and the deprecated `onClick`) event does not work.
+   */
   items?: IMainButtonItem[];
 
   /**

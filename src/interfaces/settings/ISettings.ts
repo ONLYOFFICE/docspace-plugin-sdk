@@ -21,7 +21,7 @@ import { ButtonGroup, IBox } from "../components";
 /**
  * Defines the administrator or owner settings block that is embedded in the modal window with the plugin description.
  *
- * @category Settings
+ * <plugin-image src="settings-block.png" dark />
  *
  * @example
  *
@@ -57,18 +57,16 @@ import { ButtonGroup, IBox } from "../components";
  *         return {
  *           actions: [Actions.showToast],
  *           toastProps: [{
- *             type: "success",
- *             title: "Theme Updated",
- *             message: "Theme settings saved | Changes applied | Refresh to see updates"
+ *             type: ToastType.success,
+ *             title: "Theme settings saved | Changes applied | Refresh to see updates"
  *           }]
  *         };
  *       } catch (error) {
  *         return {
  *           actions: [Actions.showToast],
  *           toastProps: [{
- *             type: "error",
- *             title: "Save Failed",
- *             message: "Unable to save theme | Check your changes"
+ *             type: ToastType.error,
+ *             title: "Unable to save theme | Check your changes"
  *           }]
  *         };
  *       }
@@ -139,18 +137,16 @@ import { ButtonGroup, IBox } from "../components";
  *         return {
  *           actions: [Actions.showToast],
  *           toastProps: [{
- *             type: "success",
- *             title: "Language Updated",
- *             message: "Language settings saved | Changes applied | Refresh to see updates"
+ *             type: ToastType.success,
+ *             title: "Language settings saved | Changes applied | Refresh to see updates"
  *           }]
  *         };
  *       } catch (error) {
  *         return {
  *           actions: [Actions.showToast],
  *           toastProps: [{
- *             type: "error",
- *             title: "Save Failed",
- *             message: "Unable to save language settings | Check your changes"
+ *             type: ToastType.error,
+ *             title: "Unable to save language settings | Check your changes"
  *           }]
  *         };
  *       }

@@ -19,15 +19,7 @@
 /**
  * Field name in the form.
  *
- * @category Label
- *
- * @categoryDescription Content
- *
- * Here is a description of the category Content.
- *
- * @categoryDescription Appearance
- *
- * Here is a description of the category Appearance.
+ * <plugin-image src="label.png" dark />
  *
  * @example
  *
@@ -38,7 +30,6 @@
  *   text: "Email Address",
  *   isRequired: true,
  *   error: false,
- *   isInline: true,
  *   title: "Enter your email address",
  *   htmlFor: "email-input",
  *   display: "flex"
@@ -63,55 +54,36 @@
  */
 export interface ILabel {
   /** Defines the element text
-   *
-   * @category Content
    */
   text: string;
 
   /** Specifies whether the field to which the label is attached is required
-   *
-   * @category Appearance
    */
   isRequired?: boolean;
 
   /** Specifies whether the field to which the label is attached is incorrect
-   *
-   * @category Content
    */
   error?: boolean;
 
-  /** Specifies whether the "display: inline-block" property is set
-  isInline?: boolean;
-
   /** Defines the label title
-   *
-   * @category Content
    */
   title?: string;
 
   /** Specifies whether the word wrapping is disabled
-   *
-   * @category Appearance
    */
   truncate?: boolean;
 
   /** Defines the field ID to which the label is attached
-   *
-   * @category Appearance
    */
   htmlFor?: string;
 
   /** Specifies whether the "display" property is set
-   *
-   * @category Appearance
    */
   display?: string;
 
   /**
    * Defines the CSS class for styling the component.
    * Can be used to override or extend the default component styles.
-   *
-   * @category Appearance
    */
   className?: string;
 }

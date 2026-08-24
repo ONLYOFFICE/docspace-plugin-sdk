@@ -26,6 +26,15 @@ import {
 } from "./IBaseSelector";
 
 /**
+ * Defines the properties for a user and group selector component.
+ *
+ * @see {@link TSelectorHeader} - Header configuration properties
+ * @see {@link TSelectorCancelButton} - Cancel button properties
+ * @see {@link TSelectorSubmitButton} - Submit button properties
+ * @see {@link TSelectorBaseProps} - Common base properties (id, className)
+ * @see {@link TSelectorLifecycleEvents} - Lifecycle callbacks (onLoad, onClose)
+ * @see {@link TSelectorEmptyScreen} - Empty state messages
+ *
  * @example
  * ```typescript
  * // This example demonstrates how to configure a selector for choosing users and groups.
@@ -71,12 +80,6 @@ import {
  *   },
  * };
  * ```
- */
-
-
-
-/**
- * Defines the properties for a user and group selector component.
  */
 export type TPeopleSelector = TSelectorHeader &
     TSelectorCancelButton &

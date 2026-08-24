@@ -19,9 +19,7 @@
 /**
  * A component that is used to hide components during uploading.
  *
- * @category Skeleton
- *
- * @categoryDescription Appearance
+ * <plugin-image src="skeleton.png" dark />
  *
  * @example
  *
@@ -61,28 +59,20 @@
  */
 export interface ISkeleton {
   /** Defines the skeleton width
-   *
-   * @category Appearance
    */
   width: string;
 
   /** Defines the skeleton height
-   *
-   * @category Appearance
    */
   height: string;
 
   /** Defines the skeleton border radius
-   *
-   * @category Appearance
    */
   borderRadius?: string;
 
   /**
    * Defines the CSS class for styling the component.
    * Can be used to override or extend the default component styles.
-   *
-   * @category Appearance
    */
   className?: string;
 }

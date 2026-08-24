@@ -20,6 +20,12 @@ import { TReturnMessage } from "../../utils";
 import { TSelectorBaseProps, TSelectorHeader, TSelectorLifecycleEvents } from "./IBaseSelector";
 
 /**
+ * Defines the properties for a group selector component.
+ *
+ * @see {@link TSelectorHeader} - Header configuration properties
+ * @see {@link TSelectorBaseProps} - Common base properties (id, className)
+ * @see {@link TSelectorLifecycleEvents} - Lifecycle callbacks (onLoad, onClose)
+ *
  * @example
  * ```typescript
  * // This example shows how to set up a group selector with a custom header and submit logic.
@@ -48,9 +54,18 @@ import { TSelectorBaseProps, TSelectorHeader, TSelectorLifecycleEvents } from ".
  * };
  * ```
  */
+export type TGroupsSelector = TSelectorHeader &
+    TSelectorBaseProps &
+    TSelectorLifecycleEvents & {
+        /**
+         * A callback function that is triggered when the submit button is clicked.
+         */
+        onSubmit: (params: TOnSubmitParams) => TReturnMessage;
+    }
 
 /**
  * Defines the parameters passed to the `onSubmit` callback for the group selector.
+ * @inline
  */
 type TOnSubmitParams = {
     /**
@@ -66,15 +81,3 @@ type TOnSubmitParams = {
      */
     isFooterCheckboxChecked?: boolean;
 }
-
-/**
- * Defines the properties for a group selector component.
- */
-export type TGroupsSelector = TSelectorHeader &
-    TSelectorBaseProps &
-    TSelectorLifecycleEvents & {
-        /**
-         * A callback function that is triggered when the submit button is clicked.
-         */
-        onSubmit: (params: TOnSubmitParams) => TReturnMessage;
-    }

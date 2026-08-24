@@ -1,6 +1,6 @@
 {
   "name": "@onlyoffice/docspace-plugin-sdk",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "minDocSpaceVersion": "3.5.0",
   "description": "Simple plugin system for onlyoffice docspace",
   "license": "Apache-2.0",
@@ -31,11 +31,18 @@
   "scripts": {
     "build": "tsc",
     "build:samples": "node scripts/build-samples.mjs",
-    "prepublish": "tsc"
+    "prepublish": "tsc",
+    "docs": "ts-node tools/update-revision.mjs && typedoc --options typedoc.config.mjs && node tools/generate-index-pages/index.mjs && ts-node tools/flatten-sidebar.mjs && ts-node tools/update-sidebar.mjs",
+    "docs:sync": "npm run docs && node tools/sync-docs.mjs"
   },
   "devDependencies": {
     "@babel/core": "^7.18.10",
-    "typedoc": "^0.27.5",
+    "@types/node": "22.10.1",
+    "ts-node": "10.9.2",
+    "typedoc": "0.28.14",
+    "typedoc-docusaurus-theme": "1.4.2",
+    "typedoc-plugin-frontmatter": "1.3.0",
+    "typedoc-plugin-markdown": "4.8.1",
     "typescript": "^5.6.0"
   },
   "dependencies": {

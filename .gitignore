@@ -2,6 +2,9 @@ lib
 dist
 node_modules
 .DS_Store
+/docs/
+.yarn/*
+.yarnrc.yml
 package.tgz
 install-state.gz
 
