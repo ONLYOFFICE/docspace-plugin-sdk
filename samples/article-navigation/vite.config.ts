@@ -8,19 +8,20 @@ export default defineConfig({
   plugins: [react()],
   build: {
     lib: {
-      entry: `${__dirname}src/index.ts`,
+      entry: `${__dirname}src/index.tsx`,
       formats: ["es"],
       fileName: () => "plugin.js",
     },
     rollupOptions: {
-      // Everything the DocSpace client already has loaded stays external: the
-      // client rewrites these specifiers to its own copies when it imports the
-      // plugin, so the bundle must not carry duplicates. A second React or a
-      // second UI kit would arrive with its own contexts, and every hook — and
-      // every themed component — would break.
+      // Kept out of the bundle: DocSpace supplies its own copies at load time
+      // and rewrites these specifiers to them. A second React arrives with its
+      // own contexts, so every SDK hook throws; a second ui-kit fails more
+      // quietly, reading an empty theme context and rendering light and
+      // left-to-right whatever the portal is set to.
       //
-      // The SDK root is bundled like any other dependency: it holds string
-      // enums and types and no module state, so a second copy is harmless.
+      // The SDK root is bundled like any other dependency: string enums and
+      // types, no module state. Only its React entry, which owns the runtime
+      // context, has to be shared.
       external: [
         "react",
         "react-dom",

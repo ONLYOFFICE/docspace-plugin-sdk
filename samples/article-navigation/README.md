@@ -1,62 +1,51 @@
 # Article navigation sample
 
-Two article navigation items whose section pages are React components:
+The smallest useful `ArticleNavigation` plugin: two sidebar entries, each opening
+a plugin page built from [`@docspace/ui-kit`](https://github.com/ONLYOFFICE/DocSpace-client).
+Everything lives in [`src/index.tsx`](src/index.tsx).
 
-| Item              | Visible in       | Visible to               | Section page                                     |
-| ----------------- | ---------------- | ------------------------ | ------------------------------------------------ |
-| `Sample Overview` | all sections     | all user types           | [`OverviewSection.tsx`](src/OverviewSection.tsx) |
-| `Sample Settings` | Settings section | owner, DocSpace admin    | [`SettingsSection.tsx`](src/SettingsSection.tsx) |
+| Sidebar entry     | Appears in       | Visible to            | Page shows                    |
+| ----------------- | ---------------- | --------------------- | ----------------------------- |
+| `Sample files`    | Files section    | all user types        | signed-in user, toast button  |
+| `Sample settings` | Settings section | owner, DocSpace admin | a toggle                      |
 
-Between them they cover the whole React path of the `ArticleNavigation` scope:
-
-- `component` instead of the deprecated `section` IBox tree and `onLoad`;
-- `usePluginAPI` for portal data, `useCurrentUser` for the signed-in user,
-  `usePluginSettings` for persisted plugin settings, `usePluginActions` for toasts;
-- `updateArticleNavigationItems` to redraw the sidebar after an item is renamed
-  from inside its own page;
-- [`@docspace/ui-kit`](https://github.com/ONLYOFFICE/DocSpace-client/tree/master/libs/ui-kit)
-  components (`Heading`, `Text`, `Button`, `TextInput`, `RectangleSkeleton`), so the
-  page matches the portal's own look and theme.
+A navigation item is four lines of data — `key`, `label`, `icon`, `component` —
+plus the optional `appears` and `usersTypes` filters that decide where it shows
+up. Clicking it opens a full portal page, not a dialog, and DocSpace renders
+`component` on that page inside its own React tree. So the page is a plain
+component: `useCurrentUser` and `usePluginActions` reach the portal through
+context, and the UI kit picks up the portal theme.
 
 ## Build
 
 ```bash
-yarn install
-yarn build     # vite build && npx build-docspace-plugin → dist/plugin.zip
+npm install
+npm run build   # vite build && npx build-docspace-plugin → dist/plugin.zip
 ```
 
-`@docspace/ui-kit` is not published to npm. Drop the packed tarball next to this
-`package.json` as `docspace-ui-kit-0.0.1.tgz` — the `dependencies` entry already
-points at it — or repoint that entry at your local checkout:
+`@docspace/ui-kit` is not published to npm. Two packed tarballs have to sit next
+to this `package.json` before the install:
+
+- `docspace-ui-kit-0.0.1.tgz` — the UI kit itself, which the `dependencies` entry
+  already points at;
+- `onlyoffice-docspace-api-sdk-3.7.0.tgz` — the UI kit depends on it as
+  `file:onlyoffice-docspace-api-sdk-3.7.0.tgz`, a path npm resolves against the
+  project root rather than the tarball, so the install fails with `ENOENT` when
+  it is missing.
 
 ```bash
-# from libs/ui-kit in the DocSpace-client repo
+# the UI kit: from libs/ui-kit in a DocSpace-client checkout
 pnpm build && pnpm pack
+
+# the API SDK is on npm, so packing it needs no checkout
+npm pack @onlyoffice/docspace-api-sdk@3.7.0
 ```
 
-## Why everything shared is external
+## Why react and the ui kit stay external
 
 `vite.config.ts` keeps `react`, `react-dom`, `react/jsx-runtime`, the SDK's
-React entry and every `@docspace/ui-kit` specifier out of the bundle. This is
-not a size optimisation — it is the only way the plugin can work:
-
-- the plugin is loaded as an ES module and rendered **inside** the DocSpace React
-  tree. A bundled copy of React would create a second React instance with its own
-  context objects, and every SDK hook would throw
-  "must be used inside a plugin component rendered by DocSpace";
-- `@onlyoffice/docspace-plugin-sdk/react` owns the context those hooks read, so
-  a bundled copy of it fails the same way even when React itself is shared;
-- the UI kit reads the portal theme, locale and direction through its own React
-  contexts, which the client mounts once at the application root. A bundled copy
-  of the UI kit gets empty contexts — unthemed, untranslated components;
-- `styled-components`, `i18next` and `mobx`, which the UI kit builds on, all
-  require a single instance per page.
-
-The SDK root, `@onlyoffice/docspace-plugin-sdk`, is bundled like any other
-dependency. It is string enums and type declarations with no module state, so a
-second copy behaves exactly like the host's.
-
-The client resolves the external specifiers when it loads the plugin. See
-`packages/client/src/helpers/plugins/react/shim.ts` in DocSpace-client: it
-registers the host's copies on `window`, wraps each one in a blob-URL module and
-rewrites the plugin's bare specifiers to those URLs before executing it.
+React entry and every `@docspace/ui-kit` specifier out of the bundle. The client
+rewrites those specifiers to its own copies when it loads the plugin. A bundled
+React would be a second React instance with its own context objects, and every
+SDK hook would throw; a bundled UI kit would read empty theme and direction
+contexts and render light and left-to-right regardless of the portal.

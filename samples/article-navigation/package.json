@@ -3,7 +3,7 @@
   "pluginName": "ArticleNavigationSample",
   "version": "1.0.0",
   "author": "",
-  "description": "Sample plugin demonstrating article navigation items for DocSpace",
+  "description": "Sample plugin adding two sidebar entries with React section pages",
   "descriptionLocale": {},
   "nameLocale": {},
   "private": true,
