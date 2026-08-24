@@ -20,9 +20,8 @@ export type PluginApiMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
 /**
  * Typed HTTP client scoped to the current portal.
- * All requests go through the portal's own HTTP layer — authentication,
- * including the public-room key and the token used inside an OAuth frame, is
- * applied automatically and no credentials need to be handled by the plugin.
+ * All requests go through the portal's own HTTP layer, which authenticates them,
+ * so no credentials need to be handled by the plugin.
  * The base URL already includes the API prefix, so paths are relative to it,
  * e.g. `"/files/@my"` not `"/api/2.0/files/@my"`.
  * Returned by [`usePluginAPI`](hooks.md#usepluginapi).
