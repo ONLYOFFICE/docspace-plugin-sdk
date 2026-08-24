@@ -273,6 +273,16 @@ export default plugin;
         fs.writeFileSync(writePath, template, "utf8");
 
         break;
+      // npm strips files named `.gitignore` from the published package, so the
+      // template carries it undotted and it is renamed back on copy.
+      case "gitignore":
+        fs.writeFileSync(
+          writePath.replace(/gitignore$/, ".gitignore"),
+          contents,
+          "utf8",
+        );
+
+        break;
       default:
         fs.writeFileSync(writePath, contents, "utf8");
     }
