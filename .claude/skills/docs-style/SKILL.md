@@ -26,9 +26,9 @@ If a change would — stop and confirm with the user first.
    ` ```ts ` fences. **Enum members stay a list** — their example fences
    can't live in table cells.
 3. **Section `index.md`** per section (prose from `tools/constants/sections.mjs`
-   + Overview table from page H1s and first sentences). **Sidebar:** six flat
-   groups — Components, Items, Plugins, Settings, Utils, Enums — linking to
-   those index pages, labels from page H1s.
+   + Overview table from page H1s and first sentences). **Sidebar:** seven flat
+   groups — Components, Items, Plugins, Settings, Utils, React, Enums — linking
+   to those index pages, labels from page H1s.
 4. **No links to page titles by `#fragment`** (Docusaurus strips H1 ids);
    `gitRevision` ends every run as `"master"`; no stray files in `docs/`
    (no `_category_.json`, no `.nojekyll`).

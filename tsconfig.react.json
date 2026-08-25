@@ -1,0 +1,15 @@
+{
+  "//": "The React entry, built on its own because tsconfig.json excludes src/react. The compiler options have to stay identical to the root project: both passes emit the sources they share, so a difference here leaves dist half CommonJS and half something else, depending on which pass ran last.",
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "lib": ["es2017", "es7", "es6", "dom"],
+    "jsx": "react",
+    "declaration": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "strict": true,
+    "esModuleInterop": true
+  },
+  "include": ["./src/react"]
+}

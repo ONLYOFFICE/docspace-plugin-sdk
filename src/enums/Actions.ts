@@ -150,9 +150,29 @@ export enum Actions {
 
   /**
    * Calls a function to update all the article navigation items.
-   * The sidebar is refreshed, and the open section is re-rendered via "onLoad".
+   * The sidebar is refreshed, so a new "label" or "icon" set through
+   * "IArticleNavigationPlugin.updateArticleNavigationItem" becomes visible.
+   *
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   actions: [Actions.updateArticleNavigationItems],
+   * }
+   * ```
    */
   updateArticleNavigationItems = "update-article-navigation-items",
+
+  /**
+   * Calls a function to update all the article button items.
+   *
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   actions: [Actions.updateArticleButtonItems],
+   * }
+   * ```
+   */
+  updateArticleButtonItems = "update-article-button-items",
 
   /**
    * Calls a function to display a toast notification after the user actions.

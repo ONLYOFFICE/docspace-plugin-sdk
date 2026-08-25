@@ -235,7 +235,7 @@ export interface IInput {
 /**
  * The supported input sizes.
  */
-export const enum InputSize {
+export enum InputSize {
   /**
    * Base size of the input field.
    */
@@ -261,7 +261,7 @@ export const enum InputSize {
 /**
  * The input autocomplete feature.
  */
-export const enum InputAutocomplete {
+export enum InputAutocomplete {
   /**
    * Autocomplete is enabled.
    */
@@ -275,7 +275,7 @@ export const enum InputAutocomplete {
 /**
  * The supported input types.
  */
-export const enum InputType {
+export enum InputType {
   /**
    * Text input type.
    */
