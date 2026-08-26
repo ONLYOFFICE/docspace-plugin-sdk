@@ -83,7 +83,7 @@ Documentation is generated from JSDoc comments by TypeDoc + post-processing scri
 
 - Targets ES5 / CommonJS output (see `tsconfig.json`, `tsconfig.react.json`)
 - Minimum DocSpace version: 4.0.0 (enforced by SDK version 3.0.0). `build-docspace-plugin` reads it from the **installed SDK's** `package.json` and writes it into the plugin's `config.json` — a plugin author cannot set it.
-- Package manager: npm (`package-lock.json`) — CI installs with `npm ci`. The leftover `packageManager: yarn@4.6.0` field and `.yarnrc.yml` are stale; do not use yarn.
+- Package manager: npm (`package-lock.json`) — CI installs with `npm ci`
 
 ---
 
