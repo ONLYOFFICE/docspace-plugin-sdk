@@ -35,11 +35,8 @@ import { Section } from "../../enums/Section";
  *
  * :::info
  * The section page is a full portal page, not a panel. The component is
- * rendered inside the DocSpace application tree, so it can use the portal theme and the
- * [`@docspace/ui-kit`](https://github.com/ONLYOFFICE/DocSpace-client/tree/master/libs/ui-kit)
- * components — provided the plugin bundle leaves React, the SDK's React entry and the UI kit external
- * and lets the client supply them. See the
- * [`article-navigation` sample](https://github.com/ONLYOFFICE/docspace-plugin-sdk/tree/master/samples/article-navigation)
+ * rendered inside the DocSpace application tree, so it inherits the portal theme.
+ * See the [`article-navigation` sample](https://github.com/ONLYOFFICE/docspace-plugin-sdk/tree/master/samples/article-navigation)
  * for a working build configuration.
  * :::
  *

@@ -46,7 +46,7 @@ The component is rendered inside the DocSpace application tree and reaches the p
 
 *react* is an optional peer dependency of the SDK (version 19 or higher). Plugins that use no React components do not need it.
 
-React, react-dom and the SDK React entry must be left out of the plugin bundle — the portal supplies its own copies at load time. The [article-navigation](https://github.com/ONLYOFFICE/docspace-plugin-sdk/tree/master/samples/article-navigation) sample contains a working build configuration, including the [@docspace/ui-kit](https://github.com/ONLYOFFICE/DocSpace-client/tree/master/libs/ui-kit) components which the portal supplies the same way.
+React, react-dom and the SDK React entry must be left out of the plugin bundle — the portal supplies its own copies at load time. The [article-navigation](https://github.com/ONLYOFFICE/docspace-plugin-sdk/tree/master/samples/article-navigation) sample contains a working build configuration, including the *@docspace/ui-kit* components which the portal supplies the same way.
 
 ## Building a plugin
 
@@ -78,7 +78,7 @@ The *dist* folder will be created in the root plugin folder and the plugin archi
 
 For plugins created with an SDK 2.x template:
 
-* Replace the Webpack build with Vite. Take [vite.config.ts](https://github.com/ONLYOFFICE/docspace-plugin-sdk/blob/master/template/vite.config.ts) from the template — it keeps *react*, *react-dom*, *react/jsx-runtime*, *@onlyoffice/docspace-plugin-sdk/react* and *@docspace/ui-kit* external and names the CSS output *plugin.css*.
+* Replace the Webpack build with Vite. Take [vite.config.ts](https://github.com/ONLYOFFICE/docspace-plugin-sdk/blob/master/template/vite.config.ts) from the template — it already lists the modules that must stay external and names the CSS output *plugin.css*.
 * Change the build script in *package.json*:
 
 ```json
