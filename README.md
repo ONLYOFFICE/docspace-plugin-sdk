@@ -46,7 +46,7 @@ The component is rendered inside the DocSpace application tree and reaches the p
 
 *react* is an optional peer dependency of the SDK (version 19 or higher). Plugins that use no React components do not need it.
 
-React, react-dom and the SDK React entry must be left out of the plugin bundle — the portal supplies its own copies at load time. The [article-navigation](https://github.com/ONLYOFFICE/docspace-plugin-sdk/tree/master/samples/article-navigation) sample contains a working build configuration, including the *@docspace/ui-kit* components which the portal supplies the same way.
+React, react-dom and the SDK React entry must be left out of the plugin bundle — the portal supplies its own copies at load time. The [article-navigation](https://github.com/ONLYOFFICE/docspace-plugin-sdk/tree/master/samples/article-navigation) sample contains a working build configuration, including the [@docspace/ui-kit](https://github.com/ONLYOFFICE/docspace-ui-kit-react) components which the portal supplies the same way.
 
 ## Building a plugin
 

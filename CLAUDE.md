@@ -126,7 +126,7 @@ window.Plugins.PluginName = plugin || {};
 
 ### React pages and the UI kit
 
-React components are rendered inside the DocSpace application tree, so they can use the portal theme and the `@docspace/ui-kit` components — **provided the bundle leaves the shared modules external** and lets the client supply them:
+React components are rendered inside the DocSpace application tree, so they can use the portal theme and the [`@docspace/ui-kit`](https://github.com/ONLYOFFICE/docspace-ui-kit-react) components — **provided the bundle leaves the shared modules external** and lets the client supply them:
 
 ```javascript
 external: [
@@ -206,3 +206,4 @@ Plugin `package.json` build script by SDK generation:
 - Plugin examples: https://github.com/ONLYOFFICE/docspace-plugins
 - React + ui-kit reference build: [samples/article-navigation](samples/article-navigation)
 - DocSpace client plugin runtime: https://github.com/ONLYOFFICE/DocSpace-client/tree/master/packages/client/src/helpers/plugins
+- DocSpace UI kit: https://github.com/ONLYOFFICE/docspace-ui-kit-react

@@ -1,7 +1,7 @@
 # Article navigation sample
 
 The smallest useful `ArticleNavigation` plugin: two sidebar entries, each opening
-a plugin page built from [`@docspace/ui-kit`](https://github.com/ONLYOFFICE/DocSpace-client).
+a plugin page built from [`@docspace/ui-kit`](https://github.com/ONLYOFFICE/docspace-ui-kit-react).
 Everything lives in [`src/index.tsx`](src/index.tsx).
 
 | Sidebar entry     | Appears in       | Visible to            | Page shows                    |
@@ -34,7 +34,7 @@ to this `package.json` before the install:
   it is missing.
 
 ```bash
-# the UI kit: from libs/ui-kit in a DocSpace-client checkout
+# the UI kit: from a docspace-ui-kit-react checkout
 pnpm build && pnpm pack
 
 # the API SDK is on npm, so packing it needs no checkout
