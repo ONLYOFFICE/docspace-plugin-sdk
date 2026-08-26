@@ -35,11 +35,7 @@
  * **external** in the plugin bundle — DocSpace supplies its own copies at load
  * time. A plugin that bundles its own React gets a second React instance with
  * its own context objects, and every hook below then throws; the same goes for
- * a second copy of this subpath, which owns the context those hooks read. A
- * bundled `@docspace/ui-kit` fails more quietly: its components read the theme
- * and the interface direction from contexts the portal fills in, so a second
- * copy falls back to the light theme and left-to-right regardless of the
- * portal.
+ * a second copy of this subpath, which owns the context those hooks read.
  *
  * The SDK root, `@onlyoffice/docspace-plugin-sdk`, is **not** on that list. It
  * carries string enums and types and no module state, so it is bundled like

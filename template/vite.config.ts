@@ -16,10 +16,7 @@ export default defineConfig({
       // Kept out of the bundle: DocSpace supplies its own copies at load
       // time and rewrites these specifiers to them. A second React or a
       // second react-dom arrives with its own contexts and its own event
-      // system, and every hook breaks. A second ui-kit is quieter and just as
-      // wrong: its components read the theme and the interface direction from
-      // contexts the portal fills in, so a bundled copy renders light and
-      // left-to-right whatever the portal is set to.
+      // system, and every hook breaks.
       //
       // The SDK root is deliberately absent: it holds string enums and types
       // and no module state, so a bundled copy behaves exactly like the
