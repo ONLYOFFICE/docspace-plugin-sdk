@@ -10,11 +10,16 @@ To install the *@onlyoffice/docspace-plugin-sdk* npm package globally, run the f
 npm i -g @onlyoffice/docspace-plugin-sdk
 ```
 
+:::note
+Plugins built with SDK 3.0.0 require DocSpace 4.0.0 or higher. On an earlier portal the plugin is installed but does not work: the portal marks it as incompatible and does not supply the module runtime it needs.
+:::
+
 ## Functionality
 
 - Creating base plugins with the [npx](https://github.com/ONLYOFFICE/docspace-plugin-sdk/tree/master/npx) command.
-- Embedding plugins in context menu, info panel, profile menu, main button using the corresponding [interfaces](https://github.com/ONLYOFFICE/docspace-plugin-sdk/tree/master/src/interfaces).
+- Embedding plugins in context menu, info panel, profile menu, main button, article panel and the article sidebar using the corresponding [interfaces](https://github.com/ONLYOFFICE/docspace-plugin-sdk/tree/master/src/interfaces).
 - Configuring plugin UI using the DocSpace plugins [components](https://github.com/ONLYOFFICE/docspace-plugin-sdk/tree/master/src/interfaces/components).
+- Writing plugin UI as React components and connecting them to the portal with the hooks from the [@onlyoffice/docspace-plugin-sdk/react](https://github.com/ONLYOFFICE/docspace-plugin-sdk/tree/master/src/react) entry.
 
 ## npx
 
@@ -27,19 +32,21 @@ You can find a list of all the dialog questions [here](https://github.com/ONLYOF
 ## Developing a plugin
 
 * Write code for each [plugin type](https://github.com/ONLYOFFICE/docspace-plugin-sdk/tree/master/src/interfaces/plugins) using the corresponding variables, methods and [items](https://github.com/ONLYOFFICE/docspace-plugin-sdk/tree/master/src/interfaces/items). Put the scripts into the *src* folder. Specify the required [Plugin](https://github.com/ONLYOFFICE/docspace-plugin-sdk/blob/master/src/interfaces/plugins/IPlugin.ts) interface for each plugin to be embedded in the portal.
+* Export the plugin instance as the module default export. The portal imports the plugin bundle as an ES module and takes its `default` export.
 * Specify [plugin messages](https://github.com/ONLYOFFICE/docspace-plugin-sdk/blob/master/src/interfaces/utils/index.ts) that will be returned by the items. Use the appropriate events that will be processed on the portal side.
-* Configure the plugin UI using the [plugin components](https://github.com/ONLYOFFICE/docspace-plugin-sdk/tree/master/src/interfaces/components).
+* Configure the plugin UI either with the declarative [plugin components](https://github.com/ONLYOFFICE/docspace-plugin-sdk/tree/master/src/interfaces/components) or with your own React components passed to the item `component` property.
 
-Code samples are available at [https://github.com/ONLYOFFICE/docspace-plugins](https://github.com/ONLYOFFICE/docspace-plugins).
+Code samples are available at [https://github.com/ONLYOFFICE/docspace-plugins](https://github.com/ONLYOFFICE/docspace-plugins) and in the [samples](https://github.com/ONLYOFFICE/docspace-plugin-sdk/tree/master/samples) folder of this repository.
 
-For plugins created with the old template (SDK 1.1.1), replace the build script in *package.json* with the following:
-```json
-"build": "webpack && npx build-docspace-plugin"
-```
+## React components
 
-:::note
-To ensure the new npx command works correctly, you need to update the globally installed *@onlyoffice/docspace-plugin-sdk* package to version 2.0.0 or higher.
-:::
+An item can render a React component instead of a declarative component tree: `component` in [IInfoPanelItem](https://github.com/ONLYOFFICE/docspace-plugin-sdk/blob/master/src/interfaces/items/IInfoPanelItem.ts), [IArticleButtonItem](https://github.com/ONLYOFFICE/docspace-plugin-sdk/blob/master/src/interfaces/items/IArticleButtonItem.ts), [IArticleNavigationItem](https://github.com/ONLYOFFICE/docspace-plugin-sdk/blob/master/src/interfaces/items/IArticleNavigationItem.ts), [IMediaViewer](https://github.com/ONLYOFFICE/docspace-plugin-sdk/blob/master/src/interfaces/components/IMediaViewer.ts), [ISettings](https://github.com/ONLYOFFICE/docspace-plugin-sdk/blob/master/src/interfaces/settings/ISettings.ts), and `dialogBodyComponent` in [IModalDialog](https://github.com/ONLYOFFICE/docspace-plugin-sdk/blob/master/src/interfaces/components/IModalDialog.ts).
+
+The component is rendered inside the DocSpace application tree and reaches the portal through the hooks exported from the *@onlyoffice/docspace-plugin-sdk/react* entry: `usePluginAPI`, `usePluginActions`, `usePluginSettings`, `useCurrentFile`, `useCurrentUser`, `usePluginRuntime`, and the `withPluginRuntime` HOC.
+
+*react* is an optional peer dependency of the SDK (version 19 or higher). Plugins that use no React components do not need it.
+
+React, react-dom and the SDK React entry must be left out of the plugin bundle — the portal supplies its own copies at load time. The [article-navigation](https://github.com/ONLYOFFICE/docspace-plugin-sdk/tree/master/samples/article-navigation) sample contains a working build configuration, including the [@docspace/ui-kit](https://github.com/ONLYOFFICE/DocSpace-client/tree/master/libs/ui-kit) components which the portal supplies the same way.
 
 ## Building a plugin
 
@@ -63,8 +70,22 @@ npm install
 npm run build
 ```
 
-This command generates the obfuscated code from the entire project and collects it into the *plugin.js* file using the *webpack* npm package.
+This command bundles the entire project into the *plugin.js* ES module using the *vite* npm package and then packs it with *npx build-docspace-plugin*.
 
 The *dist* folder will be created in the root plugin folder and the plugin archive will be placed in it. This archive is the completed plugin that can be uploaded to the DocSpace portal.
 
-The old *createZip* script is no longer required and can be safely removed.
+## Updating a plugin to SDK 3.0.0
+
+For plugins created with an SDK 2.x template:
+
+* Replace the Webpack build with Vite. Take [vite.config.ts](https://github.com/ONLYOFFICE/docspace-plugin-sdk/blob/master/template/vite.config.ts) from the template — it keeps *react*, *react-dom*, *react/jsx-runtime*, *@onlyoffice/docspace-plugin-sdk/react* and *@docspace/ui-kit* external and names the CSS output *plugin.css*.
+* Change the build script in *package.json*:
+
+```json
+"build": "vite build && npx build-docspace-plugin"
+```
+
+* Add `"runtime": "module"` to *package.json*, export the plugin instance as the default export and remove the *window.Plugins* registration from *src/index.ts*.
+* Replace the deprecated `body`, `content`, `settings`, `dialogBody` and `dialogFooter` properties with `component` (`dialogBodyComponent` in *IModalDialog*), and move the work done in `onLoad` into a `useEffect` inside the component.
+
+For plugins created with the old template (SDK 1.1.1), the *createZip* script is no longer required and can be safely removed.

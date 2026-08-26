@@ -35,6 +35,8 @@
 
 ## Changed
 
+- Raise `minDocSpaceVersion` to 4.0.0 — plugins built with this SDK need the module
+  runtime and the React entry the portal supplies from 4.0.0 on
 - Template: Vite 8 + `@vitejs/plugin-react` instead of Webpack 5 + ts-loader, CSS
   output renamed to `plugin.css`
 - Template: TypeScript 5.6, target `ES2017`, `moduleResolution: bundler`,
