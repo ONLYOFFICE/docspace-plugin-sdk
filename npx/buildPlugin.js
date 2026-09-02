@@ -23,7 +23,7 @@ import { fileURLToPath } from "url";
 
 /**
  * Dynamically reads information from the installed SDK package.
- * @returns {{minDocSpaceVersion: string}}
+ * @returns {{minPortalVersion: string}}
  */
 function getSdkInfo() {
   try {
@@ -33,9 +33,9 @@ function getSdkInfo() {
 
     const sdkPackage = JSON.parse(fs.readFileSync(sdkPackagePath, "utf8"));
 
-    const minDocSpaceVersion = sdkPackage.minDocSpaceVersion;
+    const minPortalVersion = sdkPackage.minPortalVersion;
 
-    return { minDocSpaceVersion };
+    return { minPortalVersion };
   } catch (error) {
     console.error(
       `❌ Error: Could not read information from '@onlyoffice/docspace-plugin-sdk'.`
@@ -88,7 +88,9 @@ async function buildPlugin() {
     name: jsonDataObj.name.toLowerCase(),
     nameLocale: jsonDataObj.nameLocale || {},
     version: jsonDataObj.version || DEFAULT_PLUGIN_VERSION,
-    minDocSpaceVersion: sdkInfo.minDocSpaceVersion || "",
+    // The key stays `minDocSpaceVersion`: the portal reads config.json through
+    // WebPluginDto, so it cannot be renamed from this side.
+    minDocSpaceVersion: sdkInfo.minPortalVersion || "",
     description: jsonDataObj.description || "",
     descriptionLocale: jsonDataObj.descriptionLocale || {},
     license: jsonDataObj.license || "",

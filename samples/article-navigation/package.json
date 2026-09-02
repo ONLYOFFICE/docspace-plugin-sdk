@@ -8,14 +8,14 @@
   "nameLocale": {},
   "private": true,
   "runtime": "module",
-  "logo": "docspace-icon.svg",
+  "logo": "plugin-icon.svg",
   "license": "Apache-2.0",
   "homepage": "",
   "scopes": [
     "ArticleNavigation"
   ],
   "scripts": {
-    "build": "vite build && npx build-docspace-plugin",
+    "build": "vite build && npx build-plugin",
     "format": "npx prettier --write ."
   },
   "devDependencies": {

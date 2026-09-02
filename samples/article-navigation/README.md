@@ -20,7 +20,7 @@ context, and the UI kit picks up the portal theme.
 
 ```bash
 npm install
-npm run build   # vite build && npx build-docspace-plugin → dist/plugin.zip
+npm run build   # vite build && npx build-plugin → dist/plugin.zip
 ```
 
 `@docspace/ui-kit` is not published to npm. Two packed tarballs have to sit next

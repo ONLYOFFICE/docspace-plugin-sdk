@@ -161,7 +161,7 @@ const SettingsPage = () => {
 const filesItem: IArticleNavigationItem = {
   key: "article-navigation-sample-files",
   label: "Sample files",
-  icon: "docspace-icon.svg",
+  icon: "plugin-icon.svg",
   component: FilesPage,
   appears: [Section.Files],
 };
@@ -170,7 +170,7 @@ const filesItem: IArticleNavigationItem = {
 const settingsItem: IArticleNavigationItem = {
   key: "article-navigation-sample-settings",
   label: "Sample settings",
-  icon: "docspace-icon.svg",
+  icon: "plugin-icon.svg",
   component: SettingsPage,
   appears: [Section.Settings],
   usersTypes: [UsersType.owner, UsersType.docSpaceAdmin],

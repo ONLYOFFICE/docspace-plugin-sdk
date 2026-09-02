@@ -1,7 +1,7 @@
 {
   "name": "@onlyoffice/docspace-plugin-sdk",
   "version": "3.0.0",
-  "minDocSpaceVersion": "4.0.0",
+  "minPortalVersion": "4.0.0",
   "description": "Simple plugin system for ONLYOFFICE Apps",
   "license": "Apache-2.0",
   "homepage": "https://www.onlyoffice.com",
@@ -32,6 +32,8 @@
     "LICENSE"
   ],
   "bin": {
+    "build-plugin": "./npx/buildPlugin.js",
+    "create-plugin": "./npx/index.js",
     "build-docspace-plugin": "./npx/buildPlugin.js",
     "create-docspace-plugin": "./npx/index.js"
   },

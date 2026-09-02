@@ -1,1 +1,1 @@
-// Replaced by create-docspace-plugin with the generated plugin class.
+// Replaced by create-plugin with the generated plugin class.

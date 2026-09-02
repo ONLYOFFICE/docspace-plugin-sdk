@@ -9,6 +9,9 @@
   `IModalDialog` — use `component` (`dialogBodyComponent` in `IModalDialog`)
 - **DEPRECATED** `onLoad` in `IInfoPanelItem`, `IArticleButtonItem`, `IMediaViewer`,
   `ISettings`, `IModalDialog` — load data with `useEffect` in the component
+- **DEPRECATED** the `create-docspace-plugin` and `build-docspace-plugin` commands —
+  use `create-plugin` and `build-plugin`. The old names stay as aliases to the same
+  scripts, so an existing plugin keeps building unchanged
 
 ## Added
 
@@ -27,7 +30,11 @@
 - Add to `PluginActions`: `showCreateDialog`, `updateSelector`, a tab argument for
   `openInfoPanel` and the `update*Items` family
 - Add `Actions.updateArticleButtonItems` and `Actions.updateArticleNavigationItems`
-- Add `runtime: "module"` support in `build-docspace-plugin`, written to `config.json`
+- Add the `create-plugin` and `build-plugin` commands
+- Rename the SDK's own `package.json` field `minDocSpaceVersion` to `minPortalVersion`.
+  Nothing outside the package could read it — `exports` never exposed `./package.json` —
+  and the key written into a plugin's `config.json` stays `minDocSpaceVersion`
+- Add `runtime: "module"` support in `build-plugin`, written to `config.json`
 - Bump `react` peer dependency to `>=19.0.0`
 - Docs: separate React API section
 - Sample: `samples/article-navigation` rewritten on Vite + React 19 and
@@ -35,8 +42,12 @@
 
 ## Changed
 
-- Raise `minDocSpaceVersion` to 4.0.0 — plugins built with this SDK need the module
+- Raise `minPortalVersion` to 4.0.0 — plugins built with this SDK need the module
   runtime and the React entry the portal supplies from 4.0.0 on
+- Rename DocSpace to ONLYOFFICE Apps throughout the documentation, JSDoc and CLI
+  output. Package names, import specifiers, the `minDocSpaceVersion` key written into
+  a plugin's `config.json` and the `"DocSpaceAdmin"` user type value are unchanged —
+  the portal reads them
 - Template: Vite 8 + `@vitejs/plugin-react` instead of Webpack 5 + ts-loader, CSS
   output renamed to `plugin.css`
 - Template: TypeScript 5.6, target `ES2017`, `moduleResolution: bundler`,
