@@ -16,7 +16,7 @@
  * @license
  */
 
-import { Devices, Events, UsersType } from "../../enums";
+import { Devices, Events, UserRole, UsersType } from "../../enums";
 import { IMessage } from "../utils";
 
 /**
@@ -53,7 +53,7 @@ import { IMessage } from "../utils";
  *       };
  *     }
  *   },
- *   usersTypes: [UsersType.docSpaceAdmin, UsersType.roomAdmin],
+ *   usersTypes: [UserRole.fullAdmin, UserRole.roomAdmin],
  *   devices: [Devices.desktop]
  * }
  * ```
@@ -78,10 +78,10 @@ import { IMessage } from "../utils";
  *     }
  *   },
  *   usersTypes: [
- *     UsersType.owner,
- *     UsersType.docSpaceAdmin,
- *     UsersType.roomAdmin,
- *     UsersType.collaborator
+ *     UserRole.owner,
+ *     UserRole.fullAdmin,
+ *     UserRole.roomAdmin,
+ *     UserRole.user
  *   ]
  * }
  * ```
@@ -128,10 +128,10 @@ export interface IEventListenerItem {
 
   /**
    * The types of users who have the access to the current item.
-   * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
+   * Currently the following user types are available: owner, fullAdmin, roomAdmin, user, guest.
    * If this parameter is not specified, then the current item will be available for all user types.
    */
-  usersTypes?: UsersType[];
+  usersTypes?: (UserRole | UsersType)[];
 
   /**
    * The types of devices where the current item will be available.

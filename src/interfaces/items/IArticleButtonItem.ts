@@ -18,7 +18,7 @@
 
 import type { ComponentType } from "react";
 
-import { Devices, UsersType } from "../../enums";
+import { Devices, UserRole, UsersType } from "../../enums";
 import { IBox } from "../components/IBox";
 
 /**
@@ -37,7 +37,7 @@ import { IBox } from "../components/IBox";
  *
  * ```tsx
  * import { usePluginActions } from "@onlyoffice/docspace-plugin-sdk/react";
- * import { IArticleButtonItem, ToastType, UsersType } from "@onlyoffice/docspace-plugin-sdk";
+ * import { IArticleButtonItem, ToastType, UserRole } from "@onlyoffice/docspace-plugin-sdk";
  *
  * function NotificationsButton() {
  *   const { showToast } = usePluginActions();
@@ -55,7 +55,7 @@ import { IBox } from "../components/IBox";
  * const notificationItem: IArticleButtonItem = {
  *   key: "notifications-item",
  *   component: NotificationsButton,
- *   usersTypes: [UsersType.owner, UsersType.docSpaceAdmin]
+ *   usersTypes: [UserRole.owner, UserRole.fullAdmin]
  * };
  * ```
  *
@@ -69,7 +69,7 @@ import { IBox } from "../components/IBox";
  * ```tsx
  * import { useEffect, useState } from "react";
  * import { usePluginAPI, usePluginActions } from "@onlyoffice/docspace-plugin-sdk/react";
- * import { IArticleButtonItem, Devices, UsersType } from "@onlyoffice/docspace-plugin-sdk";
+ * import { IArticleButtonItem, Devices, UserRole } from "@onlyoffice/docspace-plugin-sdk";
  *
  * function PendingInvitesButton() {
  *   const api = usePluginAPI();
@@ -94,7 +94,7 @@ import { IBox } from "../components/IBox";
  * const invitesItem: IArticleButtonItem = {
  *   key: "pending-invites-item",
  *   component: PendingInvitesButton,
- *   usersTypes: [UsersType.owner, UsersType.docSpaceAdmin],
+ *   usersTypes: [UserRole.owner, UserRole.fullAdmin],
  *   devices: [Devices.desktop, Devices.tablet]
  * };
  * ```
@@ -135,10 +135,10 @@ export interface IArticleButtonItem {
 
   /**
    * The types of users who will see the current button item in the article.
-   * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
+   * Currently the following user types are available: owner, fullAdmin, roomAdmin, user, guest.
    * If this parameter is not specified, then the item will be displayed for all user types.
    */
-  usersTypes?: UsersType[];
+  usersTypes?: (UserRole | UsersType)[];
 
   /**
    * The types of devices where the current button item will be displayed.

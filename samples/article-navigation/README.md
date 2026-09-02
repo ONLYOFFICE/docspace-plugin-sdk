@@ -4,10 +4,10 @@ The smallest useful `ArticleNavigation` plugin: two sidebar entries, each openin
 a plugin page built from [`@docspace/ui-kit`](https://github.com/ONLYOFFICE/docspace-ui-kit-react).
 Everything lives in [`src/index.tsx`](src/index.tsx).
 
-| Sidebar entry     | Appears in       | Visible to                   | Page shows                   |
-| ----------------- | ---------------- | ---------------------------- | ---------------------------- |
-| `Sample files`    | Files section    | all user types               | signed-in user, toast button |
-| `Sample settings` | Settings section | owner, ONLYOFFICE Apps admin | a toggle                     |
+| Sidebar entry     | Appears in       | Visible to        | Page shows                   |
+| ----------------- | ---------------- | ----------------- | ---------------------------- |
+| `Sample files`    | Files section    | all user types    | signed-in user, toast button |
+| `Sample settings` | Settings section | owner, full admin | a toggle                     |
 
 A navigation item is four lines of data — `key`, `label`, `icon`, `component` —
 plus the optional `appears` and `usersTypes` filters that decide where it shows

@@ -18,7 +18,7 @@
 
 import type { ComponentType } from "react";
 
-import { Devices, UsersType } from "../../enums";
+import { Devices, UserRole, UsersType } from "../../enums";
 import { Section } from "../../enums/Section";
 
 /**
@@ -47,7 +47,7 @@ import { Section } from "../../enums/Section";
  * ```tsx
  * import { useEffect, useState } from "react";
  * import { usePluginAPI } from "@onlyoffice/docspace-plugin-sdk/react";
- * import { IArticleNavigationItem, Section, UsersType } from "@onlyoffice/docspace-plugin-sdk";
+ * import { IArticleNavigationItem, Section, UserRole } from "@onlyoffice/docspace-plugin-sdk";
  *
  * type Room = { id: number; title: string };
  *
@@ -81,7 +81,7 @@ import { Section } from "../../enums/Section";
  *   label: "Rooms overview",
  *   icon: "icon.svg",
  *   component: RoomsOverview,
- *   usersTypes: [UsersType.owner, UsersType.docSpaceAdmin],
+ *   usersTypes: [UserRole.owner, UserRole.fullAdmin],
  *   appears: [Section.Files]
  * };
  * ```
@@ -153,7 +153,7 @@ export interface IArticleNavigationItem {
    * The types of users who will see this navigation item.
    * If omitted, the item is visible to all user types.
    */
-  usersTypes?: UsersType[];
+  usersTypes?: (UserRole | UsersType)[];
 
   /**
    * The device types on which this navigation item is displayed.

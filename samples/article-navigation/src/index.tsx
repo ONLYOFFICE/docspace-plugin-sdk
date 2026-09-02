@@ -51,7 +51,7 @@ import {
   PluginStatus,
   Section,
   ToastType,
-  UsersType,
+  UserRole,
 } from "@onlyoffice/docspace-plugin-sdk";
 
 // --- Pages -------------------------------------------------------------------
@@ -173,7 +173,7 @@ const settingsItem: IArticleNavigationItem = {
   icon: "plugin-icon.svg",
   component: SettingsPage,
   appears: [Section.Settings],
-  usersTypes: [UsersType.owner, UsersType.docSpaceAdmin],
+  usersTypes: [UserRole.owner, UserRole.fullAdmin],
 };
 
 // --- Plugin -----------------------------------------------------------------

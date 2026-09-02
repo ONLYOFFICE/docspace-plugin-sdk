@@ -12,6 +12,11 @@
 - **DEPRECATED** the `create-docspace-plugin` and `build-docspace-plugin` commands —
   use `create-plugin` and `build-plugin`. The old names stay as aliases to the same
   scripts, so an existing plugin keeps building unchanged
+- **DEPRECATED** the whole `UsersType` enum — use `UserRole`, whose members carry the
+  names the portal uses: `docSpaceAdmin` is `fullAdmin`, `collaborator` is `user`, and
+  the old `user` (the guest type) is `guest`. The values differ as well, so the enums
+  are not interchangeable; the portal matches a role against the old value too, which
+  is what keeps a plugin built against an earlier SDK showing for the right people
 
 ## Added
 
@@ -31,6 +36,8 @@
   `openInfoPanel` and the `update*Items` family
 - Add `Actions.updateArticleButtonItems` and `Actions.updateArticleNavigationItems`
 - Add the `create-plugin` and `build-plugin` commands
+- Add the `UserRole` enum: `owner`, `fullAdmin`, `roomAdmin`, `user`, `guest`. Item
+  fields widen to `(UserRole | UsersType)[]`, so existing plugin sources still compile
 - Rename the SDK's own `package.json` field `minDocSpaceVersion` to `minPortalVersion`.
   Nothing outside the package could read it — `exports` never exposed `./package.json` —
   and the key written into a plugin's `config.json` stays `minDocSpaceVersion`

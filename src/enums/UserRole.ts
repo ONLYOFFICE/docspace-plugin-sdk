@@ -17,34 +17,38 @@
  */
 
 /**
- * Defines the supported user types.
+ * Defines the supported user types, named as the portal names them.
  *
- * @deprecated Use [`UserRole`](UserRole.md) instead — its members carry the names the
- * portal itself uses, and `docSpaceAdmin` is gone from them. Every member here
- * keeps its value, and the portal matches a role against both the old and the
- * new value, so an item that still lists these appears for the right people.
+ * Replaces the deprecated `UsersType`. An item may list members of either
+ * enum — the portal matches a role against the old value as well as the new
+ * one — but new code should use this one.
  *
- * | This enum       | `UserRole`  | The portal shows |
- * | --------------- | ----------- | ---------------- |
- * | `owner`         | `owner`     | Owner            |
- * | `docSpaceAdmin` | `fullAdmin` | Full admin       |
- * | `roomAdmin`     | `roomAdmin` | Room admin       |
- * | `collaborator`  | `user`      | User             |
- * | `user`          | `guest`     | Guest            |
+ * @example
+ *
+ * ```typescript
+ * import { IArticleButtonItem, UserRole } from "@onlyoffice/docspace-plugin-sdk";
+ *
+ * const adminOnly: IArticleButtonItem = {
+ *   key: "reports",
+ *   label: "Reports",
+ *   usersTypes: [UserRole.owner, UserRole.fullAdmin],
+ *   onClick: () => ({ actions: [] }),
+ * };
+ * ```
  */
-export enum UsersType {
+export enum UserRole {
   /** System owner with full administrative rights and control over the entire ONLYOFFICE Apps instance */
   owner = "Owner",
 
   /** Administrator with system-wide management capabilities but limited compared to owner */
-  docSpaceAdmin = "DocSpaceAdmin",
+  fullAdmin = "FullAdmin",
 
   /** User with administrative rights within specific rooms or workspaces */
   roomAdmin = "RoomAdmin",
 
   /** User with enhanced permissions for content creation and modification */
-  collaborator = "Collaborator",
+  user = "PortalUser",
 
   /** Regular user with basic access rights for viewing and interacting with content */
-  user = "User",
+  guest = "Guest",
 }

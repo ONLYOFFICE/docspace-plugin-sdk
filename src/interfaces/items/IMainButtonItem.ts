@@ -16,7 +16,7 @@
  * @license
  */
 
-import { Devices, UsersType } from "../../enums";
+import { Devices, UserRole, UsersType } from "../../enums";
 import { IMessage } from "../utils";
 
 /**
@@ -133,10 +133,10 @@ export interface IMainButtonItem {
 
   /**
    * The types of users who will see the current item in the main button menu.
-   * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
+   * Currently the following user types are available: owner, fullAdmin, roomAdmin, user, guest.
    * If this parameter is not specified, then the current main button item will be displayed for all user types.
    */
-  usersType?: UsersType[];
+  usersType?: (UserRole | UsersType)[];
 
   /**
    * The main button items that are added to the current item as a drop-down list.

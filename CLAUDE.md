@@ -84,7 +84,7 @@ Documentation is generated from JSDoc comments by TypeDoc + post-processing scri
 - Targets ES5 / CommonJS output (see `tsconfig.json`, `tsconfig.react.json`)
 - Minimum ONLYOFFICE Apps version: 4.0.0 (enforced by SDK version 3.0.0). `build-plugin` reads it from the **installed SDK's** `package.json` field `minPortalVersion` and writes it into the plugin's `config.json` under the key `minDocSpaceVersion`. A plugin author cannot set it.
 - Package manager: npm (`package-lock.json`) — CI installs with `npm ci`
-- **The DocSpace name survives only where something outside this repo reads it**, and those spellings must not be "fixed": the package name `@onlyoffice/docspace-plugin-sdk` and its `/react` subpath, the external `@docspace/ui-kit` and `@onlyoffice/docspace-api-sdk`, the `minDocSpaceVersion` key inside a generated `config.json` (the portal reads it through `WebPluginDto`), the `UsersType` member `docSpaceAdmin` and its value `"DocSpaceAdmin"` (sent by the portal), the `github.com/ONLYOFFICE/docspace-*` URLs and the `docspace/plugins-sdk/usage-sdk` docs-site paths. Everything else says ONLYOFFICE Apps.
+- **The DocSpace name survives only where something outside this repo reads it**, and those spellings must not be "fixed": the package name `@onlyoffice/docspace-plugin-sdk` and its `/react` subpath, the external `@docspace/ui-kit` and `@onlyoffice/docspace-api-sdk`, the `minDocSpaceVersion` key inside a generated `config.json` (the portal reads it through `WebPluginDto`), the deprecated `UsersType` enum with its `docSpaceAdmin` member and `"DocSpaceAdmin"` value (still matched by the portal for older plugins), the `github.com/ONLYOFFICE/docspace-*` URLs and the `docspace/plugins-sdk/usage-sdk` docs-site paths. Everything else says ONLYOFFICE Apps.
 
 ---
 
@@ -100,6 +100,7 @@ This section applies when helping users **write plugins** that consume this SDK.
 - Every plugin class must implement `IPlugin` at minimum; additional scope interfaces are additive
 - Item callbacks must return an `IMessage` object with an `actions` array
 - Prefer `component` over the deprecated `body`/`content`/`settings`/`dialogBody` props, and `useEffect` over `onLoad`
+- Use `UserRole`, not the deprecated `UsersType` enum. The member names differ where the portal renamed the type: `docSpaceAdmin` → `fullAdmin`, `collaborator` → `user`, `user` → `guest`. Values differ too, so the two enums are not interchangeable — the portal matches a role against the old value as well as the new one, which is what keeps older plugins working. Item fields accept `(UserRole | UsersType)[]`
 
 ```typescript
 // Correct callback return

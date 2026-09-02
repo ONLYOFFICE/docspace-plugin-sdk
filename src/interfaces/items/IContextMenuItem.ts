@@ -22,6 +22,7 @@ import {
   FilesType,
   FilesSecurity,
   Security,
+  UserRole,
   UsersType
 } from "../../enums";
 
@@ -263,10 +264,10 @@ export interface IContextMenuItem {
 
   /**
    * The types of users who will see the current item in the context menu.
-   * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
+   * Currently the following user types are available: owner, fullAdmin, roomAdmin, user, guest.
    * If this parameter is not specified, then the current context menu item will be displayed for all user types.
    */
-  usersTypes?: UsersType[];
+  usersTypes?: (UserRole | UsersType)[];
 
   /**
    * The types of devices where the current item will be displayed in the context menu.
