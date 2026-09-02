@@ -25,7 +25,7 @@ import { IArticleButtonItem } from "../items/IArticleButtonItem";
  *
  * @example
  *
- * The plugin class implements `IArticleButtonPlugin`. DocSpace calls
+ * The plugin class implements `IArticleButtonPlugin`. ONLYOFFICE Apps calls
  * `getArticleButtonItems` to embed the buttons into the article sidebar.
  *
  * ```typescript

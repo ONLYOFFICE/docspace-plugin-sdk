@@ -24,7 +24,7 @@ import type { TPeopleSelector } from "./IPeopleSelector";
 import type { TRoomSelector } from "./IRoomSelector";
 
 /**
- * Provides selector components for choosing files, rooms, users, and groups within DocSpace.
+ * Provides selector components for choosing files, rooms, users, and groups within ONLYOFFICE Apps.
  *
  * Set `type` to the desired {@link SelectorType} value and `props` to the matching
  * selector props interface ({@link TBaseSelector}, {@link TFilesSelector},

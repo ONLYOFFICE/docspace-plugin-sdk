@@ -16,7 +16,7 @@ There are no test or lint commands — TypeScript compiler (`tsc`) is the primar
 
 ## Architecture
 
-This is `@onlyoffice/docspace-plugin-sdk` — a TypeScript type-definition package, a small React runtime, and a CLI scaffolding tool for building plugins in ONLYOFFICE DocSpace.
+This is `@onlyoffice/docspace-plugin-sdk` — a TypeScript type-definition package, a small React runtime, and a CLI scaffolding tool for building plugins in ONLYOFFICE Apps.
 
 **The package ships three things:**
 
@@ -82,7 +82,7 @@ Documentation is generated from JSDoc comments by TypeDoc + post-processing scri
 ### Key constraints
 
 - Targets ES5 / CommonJS output (see `tsconfig.json`, `tsconfig.react.json`)
-- Minimum DocSpace version: 4.0.0 (enforced by SDK version 3.0.0). `build-docspace-plugin` reads it from the **installed SDK's** `package.json` and writes it into the plugin's `config.json` — a plugin author cannot set it.
+- Minimum ONLYOFFICE Apps version: 4.0.0 (enforced by SDK version 3.0.0). `build-docspace-plugin` reads it from the **installed SDK's** `package.json` and writes it into the plugin's `config.json` — a plugin author cannot set it.
 - Package manager: npm (`package-lock.json`) — CI installs with `npm ci`
 
 ---
@@ -126,7 +126,7 @@ window.Plugins.PluginName = plugin || {};
 
 ### React pages and the UI kit
 
-React components are rendered inside the DocSpace application tree, so they can use the portal theme and the [`@docspace/ui-kit`](https://github.com/ONLYOFFICE/docspace-ui-kit-react) components — **provided the bundle leaves the shared modules external** and lets the client supply them:
+React components are rendered inside the ONLYOFFICE Apps application tree, so they can use the portal theme and the [`@docspace/ui-kit`](https://github.com/ONLYOFFICE/docspace-ui-kit-react) components — **provided the bundle leaves the shared modules external** and lets the client supply them:
 
 ```javascript
 external: [
@@ -191,7 +191,7 @@ Inside a React component the same actions are methods on `usePluginActions()` in
 
 ### Version compatibility
 
-- **SDK 3.0+** — template moved from Webpack 5 to Vite 8 + `@vitejs/plugin-react`, plugins ship as ES modules (`"runtime": "module"`) registered by default export, React 19 is an optional peer dependency, and `component` supersedes the declarative `body`/`onLoad` props. Requires DocSpace 4.0.0.
+- **SDK 3.0+** — template moved from Webpack 5 to Vite 8 + `@vitejs/plugin-react`, plugins ship as ES modules (`"runtime": "module"`) registered by default export, React 19 is an optional peer dependency, and `component` supersedes the declarative `body`/`onLoad` props. Requires ONLYOFFICE Apps 4.0.0.
 - **SDK 2.0+** — replaced `node scripts/createZip.js` with `npx build-docspace-plugin`.
 
 Plugin `package.json` build script by SDK generation:
@@ -205,5 +205,5 @@ Plugin `package.json` build script by SDK generation:
 
 - Plugin examples: https://github.com/ONLYOFFICE/docspace-plugins
 - React + ui-kit reference build: [samples/article-navigation](samples/article-navigation)
-- DocSpace client plugin runtime: https://github.com/ONLYOFFICE/DocSpace-client/tree/master/packages/client/src/helpers/plugins
-- DocSpace UI kit: https://github.com/ONLYOFFICE/docspace-ui-kit-react
+- ONLYOFFICE Apps client plugin runtime: https://github.com/ONLYOFFICE/DocSpace-client/tree/master/packages/client/src/helpers/plugins
+- ONLYOFFICE Apps UI kit: https://github.com/ONLYOFFICE/docspace-ui-kit-react

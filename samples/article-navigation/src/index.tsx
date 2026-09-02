@@ -18,7 +18,7 @@
  * Article navigation sample — the whole plugin in one file.
  *
  * The `ArticleNavigation` scope adds entries to the portal sidebar. Clicking an
- * entry opens a full plugin page — not a dialog — and DocSpace renders the
+ * entry opens a full plugin page — not a dialog — and ONLYOFFICE Apps renders the
  * item's `component` on it, inside its own React tree. That is why the pages
  * below are ordinary components built from `@docspace/ui-kit`: they get the
  * portal theme for free, and the SDK hooks reach the portal through context.
@@ -183,7 +183,7 @@ class ArticleNavigationSample implements IPlugin, IArticleNavigationPlugin {
 
   status: PluginStatus = PluginStatus.active;
 
-  /** Called by DocSpace once the plugin is loaded: register the items here. */
+  /** Called by ONLYOFFICE Apps once the plugin is loaded: register the items here. */
   onLoadCallback = async (): Promise<void> => {
     this.addArticleNavigationItem(filesItem);
     this.addArticleNavigationItem(settingsItem);

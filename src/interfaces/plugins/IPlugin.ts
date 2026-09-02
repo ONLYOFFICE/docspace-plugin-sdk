@@ -24,7 +24,7 @@ import { PluginLocale, PluginStatus } from "../../enums";
  * @example
  *
  * Every plugin class implements `IPlugin` (usually together with one or more
- * type-specific interfaces such as `IContextMenuPlugin`). DocSpace reads the
+ * type-specific interfaces such as `IContextMenuPlugin`). ONLYOFFICE Apps reads the
  * plugin status via `getStatus` and runs `onLoadCallback` when the plugin is
  * uploaded to the portal. The optional `language` field and its `setLanguage`/
  * `getLanguage` methods let the portal keep the plugin in sync with the current

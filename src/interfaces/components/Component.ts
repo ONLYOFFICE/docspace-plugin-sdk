@@ -449,7 +449,7 @@ type SkeletonGroup = {
  * import { IText, Components, Component } from "@onlyoffice/docspace-plugin-sdk";
  *
  * const text: IText = {
- *   text: "Welcome to DocSpace Plugin",
+ *   text: "Welcome to ONLYOFFICE Apps Plugin",
  *   fontSize: "18px",
  *   fontWeight: 500,
  *   lineHeight: "24px",
@@ -457,7 +457,7 @@ type SkeletonGroup = {
  *   isBold: false,
  *   textAlign: "left",
  *   truncate: true,
- *   title: "Welcome to DocSpace Plugin"
+ *   title: "Welcome to ONLYOFFICE Apps Plugin"
  * };
  *
  * const textGroup: Component = {

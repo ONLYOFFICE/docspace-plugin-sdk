@@ -25,7 +25,7 @@
  * Defines the supported file types.
  */
 export enum FilesType {
-  /** DocSpace room or workspace */
+  /** ONLYOFFICE Apps room or workspace */
   room = "room",
 
   /** Generic file type */

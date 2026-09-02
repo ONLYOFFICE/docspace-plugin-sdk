@@ -244,7 +244,7 @@ export interface PluginActions {
    * Redraw the plugin's context menu items.
    *
    * Every `update*Items` action below works the same way: mutate the item on the
-   * plugin instance first, then call this so DocSpace re-reads the collection.
+   * plugin instance first, then call this so ONLYOFFICE Apps re-reads the collection.
    * They exist because item metadata — labels, icons, visibility — lives on the
    * plugin class, outside the React tree, where `setState` cannot reach it.
    *

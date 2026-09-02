@@ -176,7 +176,7 @@ export interface PluginApiOptions {
   params?: Record<string, unknown>;
 
   /**
-   * Extra request headers. Authentication headers are added by DocSpace and
+   * Extra request headers. Authentication headers are added by ONLYOFFICE Apps and
    * cannot be overridden here.
    */
   headers?: Record<string, string>;

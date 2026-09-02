@@ -21,7 +21,7 @@ import { IMessage, TReturnMessage } from "../utils";
 /**
  * Configuration for the floating operations button.
  * Used to display progress of long-running operations (upload, conversion, backup, etc.)
- * The button appears as a floating action button in the bottom-right corner of DocSpace.
+ * The button appears as a floating action button in the bottom-right corner of ONLYOFFICE Apps.
  *
  * To display the button, return an [`IMessage`](../utils.md#imessage) with
  * [`Actions.addFloatingOperationsButton`](../../enums/Actions.md#addfloatingoperationsbutton) in `actions`
@@ -222,9 +222,9 @@ export interface IFloatingOperationsButton {
 
    /**
     * Lifecycle callback executed once when floating operations button with given id is displayed for the first time.
-    * Receives a dispatchMessage function to send updates back to DocSpace.
+    * Receives a dispatchMessage function to send updates back to ONLYOFFICE Apps.
     * Use this to initialize progress tracking or update.
-    * @param dispatchMessage - Function to send progress updates to DocSpace
+    * @param dispatchMessage - Function to send progress updates to ONLYOFFICE Apps
     */
    onLoad?: (dispatchMessage: (message: IMessage) => void) => TReturnMessage;
 }

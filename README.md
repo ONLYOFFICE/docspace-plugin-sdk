@@ -1,8 +1,8 @@
-# ONLYOFFICE DocSpace Plugins SDK
+# ONLYOFFICE Apps Plugins SDK
 
 ## Overview
 
-ONLYOFFICE DocSpace Plugins SDK is an npm package based on TypeScript engines which provides interfaces to create your own plugins for embedding in the DocSpace portal.
+ONLYOFFICE Apps Plugins SDK is an npm package based on TypeScript engines which provides interfaces to create your own plugins for embedding in the ONLYOFFICE Apps portal.
 
 To install the *@onlyoffice/docspace-plugin-sdk* npm package globally, run the following command in the terminal:
 
@@ -11,14 +11,14 @@ npm i -g @onlyoffice/docspace-plugin-sdk
 ```
 
 :::note
-Plugins built with SDK 3.0.0 require DocSpace 4.0.0 or higher. On an earlier portal the plugin is installed but does not work: the portal marks it as incompatible and does not supply the module runtime it needs.
+Plugins built with SDK 3.0.0 require ONLYOFFICE Apps 4.0.0 or higher. On an earlier portal the plugin is installed but does not work: the portal marks it as incompatible and does not supply the module runtime it needs.
 :::
 
 ## Functionality
 
 - Creating base plugins with the [npx](https://github.com/ONLYOFFICE/docspace-plugin-sdk/tree/master/npx) command.
 - Embedding plugins in context menu, info panel, profile menu, main button, article panel and the article sidebar using the corresponding [interfaces](https://github.com/ONLYOFFICE/docspace-plugin-sdk/tree/master/src/interfaces).
-- Configuring plugin UI using the DocSpace plugins [components](https://github.com/ONLYOFFICE/docspace-plugin-sdk/tree/master/src/interfaces/components).
+- Configuring plugin UI using the ONLYOFFICE Apps plugins [components](https://github.com/ONLYOFFICE/docspace-plugin-sdk/tree/master/src/interfaces/components).
 - Writing plugin UI as React components and connecting them to the portal with the hooks from the [@onlyoffice/docspace-plugin-sdk/react](https://github.com/ONLYOFFICE/docspace-plugin-sdk/tree/master/src/react) entry.
 
 ## npx
@@ -42,7 +42,7 @@ Code samples are available at [https://github.com/ONLYOFFICE/docspace-plugins](h
 
 An item can render a React component instead of a declarative component tree: `component` in [IInfoPanelItem](https://github.com/ONLYOFFICE/docspace-plugin-sdk/blob/master/src/interfaces/items/IInfoPanelItem.ts), [IArticleButtonItem](https://github.com/ONLYOFFICE/docspace-plugin-sdk/blob/master/src/interfaces/items/IArticleButtonItem.ts), [IArticleNavigationItem](https://github.com/ONLYOFFICE/docspace-plugin-sdk/blob/master/src/interfaces/items/IArticleNavigationItem.ts), [IMediaViewer](https://github.com/ONLYOFFICE/docspace-plugin-sdk/blob/master/src/interfaces/components/IMediaViewer.ts), [ISettings](https://github.com/ONLYOFFICE/docspace-plugin-sdk/blob/master/src/interfaces/settings/ISettings.ts), and `dialogBodyComponent` in [IModalDialog](https://github.com/ONLYOFFICE/docspace-plugin-sdk/blob/master/src/interfaces/components/IModalDialog.ts).
 
-The component is rendered inside the DocSpace application tree and reaches the portal through the hooks exported from the *@onlyoffice/docspace-plugin-sdk/react* entry: `usePluginAPI`, `usePluginActions`, `usePluginSettings`, `useCurrentFile`, `useCurrentUser`, `usePluginRuntime`, and the `withPluginRuntime` HOC.
+The component is rendered inside the ONLYOFFICE Apps application tree and reaches the portal through the hooks exported from the *@onlyoffice/docspace-plugin-sdk/react* entry: `usePluginAPI`, `usePluginActions`, `usePluginSettings`, `useCurrentFile`, `useCurrentUser`, `usePluginRuntime`, and the `withPluginRuntime` HOC.
 
 *react* is an optional peer dependency of the SDK (version 19 or higher). Plugins that use no React components do not need it.
 
@@ -72,7 +72,7 @@ npm run build
 
 This command bundles the entire project into the *plugin.js* ES module using the *vite* npm package and then packs it with *npx build-docspace-plugin*.
 
-The *dist* folder will be created in the root plugin folder and the plugin archive will be placed in it. This archive is the completed plugin that can be uploaded to the DocSpace portal.
+The *dist* folder will be created in the root plugin folder and the plugin archive will be placed in it. This archive is the completed plugin that can be uploaded to the ONLYOFFICE Apps portal.
 
 ## Updating a plugin to SDK 3.0.0
 

@@ -24,7 +24,7 @@ import { IContextMenuItem } from "../items";
  * @example
  *
  * The plugin class implements `IContextMenuPlugin` and registers a "Share Document"
- * item in the constructor. DocSpace calls `getContextMenuItems` to embed the items
+ * item in the constructor. ONLYOFFICE Apps calls `getContextMenuItems` to embed the items
  * into the context menu.
  *
  * ```typescript

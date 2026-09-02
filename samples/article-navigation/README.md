@@ -4,14 +4,14 @@ The smallest useful `ArticleNavigation` plugin: two sidebar entries, each openin
 a plugin page built from [`@docspace/ui-kit`](https://github.com/ONLYOFFICE/docspace-ui-kit-react).
 Everything lives in [`src/index.tsx`](src/index.tsx).
 
-| Sidebar entry     | Appears in       | Visible to            | Page shows                    |
-| ----------------- | ---------------- | --------------------- | ----------------------------- |
-| `Sample files`    | Files section    | all user types        | signed-in user, toast button  |
-| `Sample settings` | Settings section | owner, DocSpace admin | a toggle                      |
+| Sidebar entry     | Appears in       | Visible to                   | Page shows                   |
+| ----------------- | ---------------- | ---------------------------- | ---------------------------- |
+| `Sample files`    | Files section    | all user types               | signed-in user, toast button |
+| `Sample settings` | Settings section | owner, ONLYOFFICE Apps admin | a toggle                     |
 
 A navigation item is four lines of data — `key`, `label`, `icon`, `component` —
 plus the optional `appears` and `usersTypes` filters that decide where it shows
-up. Clicking it opens a full portal page, not a dialog, and DocSpace renders
+up. Clicking it opens a full portal page, not a dialog, and ONLYOFFICE Apps renders
 `component` on that page inside its own React tree. So the page is a plain
 component: `useCurrentUser` and `usePluginActions` reach the portal through
 context, and the UI kit picks up the portal theme.

@@ -56,7 +56,7 @@
 ## Added
 
 - Add markdown documentation generation with TypeDoc
-- Add LLM instructions for DocSpace Plugin SDK development
+- Add LLM instructions for ONLYOFFICE Apps Plugin SDK development
 
 ## 2.1.0
 

@@ -71,7 +71,7 @@ export interface PluginSettingsClient {
 
   /**
    * Persist plugin settings to the server.
-   * After saving, DocSpace calls `setAdminPluginSettingsValue` on the plugin
+   * After saving, ONLYOFFICE Apps calls `setAdminPluginSettingsValue` on the plugin
    * class instance so any module-scope cache stays in sync.
    *
    * @param data - Plain JSON-serialisable object to store as plugin settings.
@@ -88,7 +88,7 @@ export interface PluginSettingsClient {
    * Call this inside a `useEffect` whenever the form values change to keep the
    * button's `isDisabled` state in sync with form validity.
    *
-   * @param props - A `ButtonGroup` component descriptor from the DocSpace SDK.
+   * @param props - A `ButtonGroup` component descriptor from the ONLYOFFICE Apps SDK.
    *
    * @example
    * ```ts

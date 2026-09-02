@@ -20,7 +20,7 @@
  * Defines the supported user types.
  */
 export enum UsersType {
-  /** System owner with full administrative rights and control over the entire DocSpace instance */
+  /** System owner with full administrative rights and control over the entire ONLYOFFICE Apps instance */
   owner = "Owner",
 
   /** Administrator with system-wide management capabilities but limited compared to owner */

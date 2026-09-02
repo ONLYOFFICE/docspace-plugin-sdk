@@ -6,7 +6,7 @@ description: >
   regenerating docs.
 ---
 
-# DocSpace Plugin SDK docs style
+# ONLYOFFICE Apps Plugin SDK docs style
 
 Full guide: `docs-generation.md` (pipeline, TypeDoc config rationale, JSDoc
 conventions). Never edit `docs/` by hand — it is regenerated on every run and

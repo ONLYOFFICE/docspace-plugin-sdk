@@ -23,7 +23,7 @@ import { Section } from "../../enums/Section";
 
 /**
  * Describes a navigation item that will be embedded in the article sidebar as a first-class
- * navigation entry. When the user clicks the item, DocSpace navigates to a dedicated plugin
+ * navigation entry. When the user clicks the item, ONLYOFFICE Apps navigates to a dedicated plugin
  * section page where the `component` is rendered.
  *
  * Items are registered by a plugin implementing
@@ -35,7 +35,7 @@ import { Section } from "../../enums/Section";
  *
  * :::info
  * The section page is a full portal page, not a panel. The component is
- * rendered inside the DocSpace application tree, so it inherits the portal theme.
+ * rendered inside the ONLYOFFICE Apps application tree, so it inherits the portal theme.
  * See the [`article-navigation` sample](https://github.com/ONLYOFFICE/docspace-plugin-sdk/tree/master/samples/article-navigation)
  * for a working build configuration.
  * :::
@@ -90,7 +90,7 @@ import { Section } from "../../enums/Section";
  *
  * Renaming the item from inside its own section
  *
- * The component mutates the item through the plugin instance and then asks DocSpace
+ * The component mutates the item through the plugin instance and then asks ONLYOFFICE Apps
  * to redraw the sidebar with `Actions.updateArticleNavigationItems`.
  *
  * ```tsx

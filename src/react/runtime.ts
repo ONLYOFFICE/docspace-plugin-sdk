@@ -7,7 +7,7 @@
 //     http://www.apache.org/licenses/LICENSE-2.0
 
 /**
- * What DocSpace hands a React plugin component: the current selection, the
+ * What ONLYOFFICE Apps hands a React plugin component: the current selection, the
  * current user, and the clients the component reaches the portal with.
  *
  * These are the return types of the hooks in [Hooks](hooks.md) — a plugin rarely
@@ -21,7 +21,7 @@ import type { PluginAPIClient } from "./api";
 import type { PluginSettingsClient } from "./settings";
 
 /**
- * Metadata of the file, folder or room currently selected in the DocSpace UI.
+ * Metadata of the file, folder or room currently selected in the ONLYOFFICE Apps UI.
  * Returned by [`useCurrentFile`](hooks.md#usecurrentfile).
  */
 export interface TCurrentFile {
@@ -56,14 +56,14 @@ export interface TCurrentUser {
   email: string;
   /** `true` for the portal owner account. */
   isOwner: boolean;
-  /** `true` for DocSpace administrators. */
+  /** `true` for ONLYOFFICE Apps administrators. */
   isAdmin: boolean;
   /** `true` for room administrators. */
   isRoomAdmin: boolean;
 }
 
 /**
- * The full runtime context injected into every React plugin component by DocSpace.
+ * The full runtime context injected into every React plugin component by ONLYOFFICE Apps.
  * Access it directly via [`usePluginRuntime`](hooks.md#usepluginruntime) or use the focused hooks
  * ([`useCurrentFile`](hooks.md#usecurrentfile), [`usePluginActions`](hooks.md#usepluginactions), etc.) for better readability.
  */
