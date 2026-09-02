@@ -56,7 +56,7 @@ export interface TCurrentUser {
   email: string;
   /** `true` for the portal owner account. */
   isOwner: boolean;
-  /** `true` for ONLYOFFICE Apps administrators. */
+  /** `true` for full administrators. */
   isAdmin: boolean;
   /** `true` for room administrators. */
   isRoomAdmin: boolean;
