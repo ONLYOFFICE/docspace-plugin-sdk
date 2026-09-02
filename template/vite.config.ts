@@ -13,15 +13,6 @@ export default defineConfig({
       fileName: () => "plugin.js",
     },
     rollupOptions: {
-      // Kept out of the bundle: ONLYOFFICE Apps supplies its own copies at load
-      // time and rewrites these specifiers to them. A second React or a
-      // second react-dom arrives with its own contexts and its own event
-      // system, and every hook breaks.
-      //
-      // The SDK root is deliberately absent: it holds string enums and types
-      // and no module state, so a bundled copy behaves exactly like the
-      // host's. Only the React entry, which owns the runtime context, has to
-      // be shared.
       external: [
         "react",
         "react-dom",
