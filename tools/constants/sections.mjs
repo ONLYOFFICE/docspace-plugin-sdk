@@ -55,7 +55,7 @@ export const SECTIONS = [
     docsDir: "interfaces/settings",
     title: "Settings",
     description:
-      "Interfaces for configuring plugin settings displayed in the full admin and user settings panels.",
+      "Interfaces for configuring plugin settings displayed in the ONLYOFFICE Apps admin and user settings panels.",
     usage:
       "Implement `ISettingsPlugin` and use `ISettings` to describe each configurable field.",
     tableCaption: "Settings interfaces:"
