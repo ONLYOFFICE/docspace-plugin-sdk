@@ -19,9 +19,12 @@
 /**
  * Defines the supported user types, named as the portal names them.
  *
- * Replaces the deprecated `UsersType`. An item may list members of either
- * enum — the portal matches a role against the old value as well as the new
- * one — but new code should use this one.
+ * Replaces the deprecated `UsersType`. An item may list members of either enum —
+ * the portal matches a role against the old value as well as the new one — but
+ * new code should use this one.
+ *
+ * The values are not simply the member names: `user` is `"PortalUser"` because
+ * `"User"` is the value the portal matches for a guest.
  *
  * @example
  *
@@ -40,15 +43,15 @@ export enum UserRole {
   /** System owner with full administrative rights and control over the entire ONLYOFFICE Apps instance */
   owner = "Owner",
 
-  /** Administrator with system-wide management capabilities but limited compared to owner */
+  /** Administrator with system-wide management capabilities but limited compared to owner — shown as `Full admin` in the portal */
   fullAdmin = "FullAdmin",
 
   /** User with administrative rights within specific rooms or workspaces */
   roomAdmin = "RoomAdmin",
 
-  /** User with enhanced permissions for content creation and modification */
+  /** Member who creates and edits content in the rooms they are invited to, without managing the portal — shown as `User` in the portal */
   user = "PortalUser",
 
-  /** Regular user with basic access rights for viewing and interacting with content */
+  /** External member with view and interaction rights only — shown as `Guest` in the portal */
   guest = "Guest",
 }
