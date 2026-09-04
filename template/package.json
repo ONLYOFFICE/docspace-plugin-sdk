@@ -6,7 +6,7 @@
   "runtime": "module",
   "scopes": [],
   "scripts": {
-    "build": "vite build && npx build-plugin",
+    "build": "vite build && npx build-onlyoffice-plugin",
     "format": "npx prettier --write ."
   },
   "devDependencies": {

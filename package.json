@@ -32,10 +32,10 @@
     "LICENSE"
   ],
   "bin": {
-    "build-plugin": "./npx/buildPlugin.js",
-    "create-plugin": "./npx/index.js",
-    "build-docspace-plugin": "./npx/buildPlugin.js",
-    "create-docspace-plugin": "./npx/index.js"
+    "build-onlyoffice-plugin": "./npx/buildPlugin.js",
+    "create-onlyoffice-plugin": "./npx/index.js",
+    "build-docspace-plugin": "./npx/buildDocspacePlugin.js",
+    "create-docspace-plugin": "./npx/createDocspacePlugin.js"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

@@ -10,8 +10,9 @@
 - **DEPRECATED** `onLoad` in `IInfoPanelItem`, `IArticleButtonItem`, `IMediaViewer`,
   `ISettings`, `IModalDialog` — load data with `useEffect` in the component
 - **DEPRECATED** the `create-docspace-plugin` and `build-docspace-plugin` commands —
-  use `create-plugin` and `build-plugin`. The old names stay as aliases to the same
-  scripts, so an existing plugin keeps building unchanged
+  use `create-onlyoffice-plugin` and `build-onlyoffice-plugin`. The old names stay as
+  aliases that print a deprecation warning and hand over to the same scripts, so an
+  existing plugin keeps building unchanged
 - **DEPRECATED** the whole `UsersType` enum — use `UserRole`, whose members carry the
   names the portal uses: `docSpaceAdmin` is `fullAdmin`, `collaborator` is `user`, and
   the old `user` (the guest type) is `guest`. The values differ as well, so the enums
@@ -35,13 +36,13 @@
 - Add to `PluginActions`: `showCreateDialog`, `updateSelector`, a tab argument for
   `openInfoPanel` and the `update*Items` family
 - Add `Actions.updateArticleButtonItems` and `Actions.updateArticleNavigationItems`
-- Add the `create-plugin` and `build-plugin` commands
+- Add the `create-onlyoffice-plugin` and `build-onlyoffice-plugin` commands
 - Add the `UserRole` enum: `owner`, `fullAdmin`, `roomAdmin`, `user`, `guest`. Item
   fields widen to `(UserRole | UsersType)[]`, so existing plugin sources still compile
 - Rename the SDK's own `package.json` field `minDocSpaceVersion` to `minPortalVersion`.
   Nothing outside the package could read it — `exports` never exposed `./package.json` —
   and the key written into a plugin's `config.json` stays `minDocSpaceVersion`
-- Add `runtime: "module"` support in `build-plugin`, written to `config.json`
+- Add `runtime: "module"` support in `build-onlyoffice-plugin`, written to `config.json`
 - Bump `react` peer dependency to `>=19.0.0`
 - Docs: separate React API section
 - Sample: `samples/article-navigation` rewritten on Vite + React 19 and

@@ -23,14 +23,14 @@ Plugins built with SDK 3.0.0 require ONLYOFFICE Apps 4.0.0 or higher. On an earl
 
 ## npx
 
-After installing the npm package, the *npx create-plugin* command becomes available and allows you to create a plugin template with the pre-installed plugin types and the implementation of basic methods.
+After installing the npm package, the *npx create-onlyoffice-plugin* command becomes available and allows you to create a plugin template with the pre-installed plugin types and the implementation of basic methods.
 
 This command displays a dialog which allows you to configure the plugin settings and select the required scopes.
 
 You can find a list of all the dialog questions [here](https://github.com/ONLYOFFICE/docspace-plugin-sdk/blob/master/npx/dialog.js).
 
 :::note
-The former command names *create-docspace-plugin* and *build-docspace-plugin* still work as aliases and are deprecated. Both resolve to the same scripts, so an existing plugin keeps building unchanged.
+The former command names *create-docspace-plugin* and *build-docspace-plugin* still work as aliases and are deprecated. Both print a deprecation warning and hand over to the same scripts, so an existing plugin keeps building unchanged.
 :::
 
 ## Developing a plugin
@@ -74,7 +74,7 @@ npm install
 npm run build
 ```
 
-This command bundles the entire project into the *plugin.js* ES module using the *vite* npm package and then packs it with *npx build-plugin*.
+This command bundles the entire project into the *plugin.js* ES module using the *vite* npm package and then packs it with *npx build-onlyoffice-plugin*.
 
 The *dist* folder will be created in the root plugin folder and the plugin archive will be placed in it. This archive is the completed plugin that can be uploaded to the ONLYOFFICE Apps portal.
 
@@ -86,7 +86,7 @@ For plugins created with an SDK 2.x template:
 * Change the build script in *package.json*:
 
 ```json
-"build": "vite build && npx build-plugin"
+"build": "vite build && npx build-onlyoffice-plugin"
 ```
 
 * Add `"runtime": "module"` to *package.json*, export the plugin instance as the default export and remove the *window.Plugins* registration from *src/index.ts*.
