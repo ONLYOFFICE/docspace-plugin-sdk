@@ -2,11 +2,54 @@
 
 ## 3.0.0
 
+## Deprecated
+
+- **DEPRECATED** `body` in `IInfoPanelItem` and `IArticleButtonItem`, `settings` in
+  `ISettings`, `content` in `IMediaViewer`, `dialogBody` and `dialogFooter` in
+  `IModalDialog` — use `component` (`dialogBodyComponent` in `IModalDialog`)
+- **DEPRECATED** `onLoad` in `IInfoPanelItem`, `IArticleButtonItem`, `IMediaViewer`,
+  `ISettings`, `IModalDialog` — load data with `useEffect` in the component
+
 ## Added
 
-- Add IArticleNavigationPlugin, IArticleNavigationItem, Section enum
-- Add `Actions.updateArticleNavigationItems` to refresh the article navigation
-  items and the open plugin section
+- Add `@onlyoffice/docspace-plugin-sdk/react` subpath — modules `api`, `actions`,
+  `settings`, `runtime`, `hooks`
+- Add hooks `useCurrentFile`, `useCurrentUser`, `usePluginActions`, `usePluginAPI`,
+  `usePluginSettings`, `usePluginRuntime` and the `withPluginRuntime` HOC
+- Add `component` prop to `IInfoPanelItem`, `IArticleButtonItem`, `IMediaViewer`,
+  `ISettings` and `dialogBodyComponent` to `IModalDialog`
+- Add `IArticleNavigationPlugin`, `IArticleNavigationItem`, `Section` enum
+- Add `PluginAPIClient` — `request` plus `get`, `post`, `put`, `patch`, `delete`, body
+  on `delete`, `headers` and `AbortSignal` options, the portal's `response` wrapper
+  unwrapped (`{ total, items }` for lists), `..` and absolute paths refused
+- Add `PluginApiError` and the `isPluginApiError` guard — `status`, portal message,
+  failed `request`, error body in `details`
+- Add to `PluginActions`: `showCreateDialog`, `updateSelector`, a tab argument for
+  `openInfoPanel` and the `update*Items` family
+- Add `Actions.updateArticleButtonItems` and `Actions.updateArticleNavigationItems`
+- Add `runtime: "module"` support in `build-docspace-plugin`, written to `config.json`
+- Bump `react` peer dependency to `>=19.0.0`
+- Docs: separate React API section
+- Sample: `samples/article-navigation` rewritten on Vite + React 19 and
+  `@docspace/ui-kit`
+
+## Changed
+
+- Raise `minDocSpaceVersion` to 4.0.0 — plugins built with this SDK need the module
+  runtime and the React entry the portal supplies from 4.0.0 on
+- Template: Vite 8 + `@vitejs/plugin-react` instead of Webpack 5 + ts-loader, CSS
+  output renamed to `plugin.css`
+- Template: TypeScript 5.6, target `ES2017`, `moduleResolution: bundler`,
+  `jsx: react-jsx`, prettier 3.x
+- Template: `react` and `react-dom ^19` added as dependencies; react, react-dom, the
+  SDK React subpath and `@docspace/ui-kit` marked `external` — the SDK root stays
+  bundled
+- Template: `"runtime": "module"` added to `package.json`, `window.Plugins`
+  registration dropped from `src/index.ts`
+- Packaging: `.npmignore` denylist replaced with a `files` allowlist — `dist`, `npx`,
+  `template`
+- Packaging: the React `tsc` pass runs before the root pass, so `dist` keeps the
+  CommonJS emit the package declares
 
 ## 2.1.1
 

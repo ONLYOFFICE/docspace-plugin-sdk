@@ -16,6 +16,8 @@
  * @license
  */
 
+import type { ComponentType } from "react";
+
 import { IMessage } from "../utils";
 import { IBox } from "./IBox";
 
@@ -37,164 +39,117 @@ import { IBox } from "./IBox";
  *
  * @example
  *
- * Interactive document preview modal with dynamic content loading
+ * Document preview modal with a React component
  *
- * ```typescript
- * import {
- *   IModalDialog,
- *   ModalDisplayType,
- *   Components,
- *   ButtonSize,
- *   Actions,
- *   ToastType,
- * } from "@onlyoffice/docspace-plugin-sdk";
+ * ```tsx
+ * import { useEffect, useState } from "react";
+ * import { usePluginActions, useCurrentFile } from "@onlyoffice/docspace-plugin-sdk/react";
+ * import { IModalDialog, ModalDisplayType } from "@onlyoffice/docspace-plugin-sdk";
  *
- * const filePreviewModal: IModalDialog = {
+ * function PreviewBody() {
+ *   const file = useCurrentFile();
+ *   const { closeModal } = usePluginActions();
+ *   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+ *
+ *   useEffect(() => {
+ *     if (!file) return;
+ *     fetchPreviewUrl(file.id).then(setPreviewUrl);
+ *   }, [file?.id]);
+ *
+ *   return (
+ *     <div>
+ *       {previewUrl
+ *         ? <iframe src={previewUrl} width="100%" height="500px" />
+ *         : <p>Loading preview...</p>}
+ *       <button onClick={closeModal}>Close</button>
+ *     </div>
+ *   );
+ * }
+ *
+ * const previewModal: IModalDialog = {
  *   displayType: ModalDisplayType.modal,
  *   dialogHeader: "Document Preview",
- *   dialogBody: {
- *     children: [
- *       {
- *         component: Components.iFrame,
- *         props: {
- *           src: "https://example.com/preview/doc.pdf",
- *           width: "100%",
- *           height: "600px"
- *         }
- *       }
- *     ]
- *   },
- *   dialogFooter: {
- *     children: [
- *       {
- *         component: Components.button,
- *         props: {
- *           label: "Close",
- *           size: ButtonSize.normal,
- *           onClick: () => {
- *             return {
- *               actions: [Actions.closeModal]
- *             };
- *           }
- *         }
- *       }
- *     ]
- *   },
+ *   dialogBodyComponent: PreviewBody,
  *   autoMaxWidth: true,
  *   autoMaxHeight: true,
- *   withFooterBorder: true,
- *   fullScreen: false,
- *   eventListeners: [
- *     {
- *       name: "documentLoaded",
- *       onAction: async () => {
- *         return {
- *           actions: [Actions.showToast],
- *           toastProps: [{
- *             type: ToastType.success,
- *             title: "Document loaded successfully"
- *           }]
- *         };
- *       }
- *     }
- *   ],
- *   onClose: () => {
- *     return {
- *       actions: [Actions.closeModal]
- *     };
- *   },
- *   onLoad: async () => {
- *     const documentDetails = await fetchDocumentDetails();
- *     return {
- *       newDialogHeader: `Preview: ${documentDetails.name}`,
- *       newDialogBody: {
- *         children: [
- *           {
- *             component: Components.iFrame,
- *             props: {
- *               src: documentDetails.previewUrl,
- *               width: "100%",
- *               height: "600px"
- *             }
- *           }
- *         ]
- *       }
- *     };
- *   }
- * }
+ * };
  * ```
  *
  * @example
  *
- * Side panel settings dialog with API key configuration
+ * Side panel that lists the files in the current user's folder via API
  *
- * ```typescript
- * const apiKeyInput: IInput = {
- *   value: "",
- *   type: InputType.password,
- *   placeholder: "Enter your API key",
- *   onChange: (value) => ({
- *     actions: [Actions.updateProps],
- *     newProps: { ...apiKeyInput, value }
- *   })
- * };
+ * ```tsx
+ * import { useEffect, useState } from "react";
+ * import { usePluginAPI, usePluginActions } from "@onlyoffice/docspace-plugin-sdk/react";
+ * import { IModalDialog, ModalDisplayType, ToastType } from "@onlyoffice/docspace-plugin-sdk";
  *
- * const settingsPanel: IModalDialog = {
- *   displayType: ModalDisplayType.aside,
- *   dialogHeader: "Plugin Settings",
- *   dialogBody: {
- *     children: [
- *       {
- *         component: Components.label,
- *         props: { text: "API Key" }
- *       },
- *       {
- *         component: Components.input,
- *         props: apiKeyInput
- *       }
- *     ]
- *   },
- *   autoMaxWidth: false,
- *   autoMaxHeight: true,
- *   withFooterBorder: true,
- *   fullScreen: false,
- *   onClose: () => ({
- *     actions: [Actions.closeModal]
- *   }),
- *   onLoad: async () => {
- *     const settings = await loadSettings();
- *     return {
- *       newDialogBody: {
- *         children: [
- *           {
- *             component: Components.label,
- *             props: { text: "API Key" }
- *           },
- *           {
- *             component: Components.input,
- *             props: { ...apiKeyInput, value: settings.apiKey }
- *           }
- *         ]
- *       }
- *     };
- *   }
+ * type FileEntry = { id: number; title: string; fileExst?: string };
+ *
+ * function FilesListPanel() {
+ *   const api = usePluginAPI();
+ *   const { closeModal, showToast } = usePluginActions();
+ *   const [files, setFiles] = useState<FileEntry[]>([]);
+ *
+ *   useEffect(() => {
+ *     api.get<{ files: FileEntry[] }>("/files/@my").then((folder) => {
+ *       setFiles(folder.files);
+ *     });
+ *   }, []);
+ *
+ *   const handleSelect = (file: FileEntry) => {
+ *     showToast({ type: ToastType.success, title: `Selected: ${file.title}` });
+ *     closeModal();
+ *   };
+ *
+ *   return (
+ *     <ul>
+ *       {files.map((f) => (
+ *         <li key={f.id} onClick={() => handleSelect(f)} style={{ cursor: "pointer" }}>
+ *           {f.title}{f.fileExst ? `.${f.fileExst}` : ""}
+ *         </li>
+ *       ))}
+ *     </ul>
+ *   );
  * }
+ *
+ * const filesPanel: IModalDialog = {
+ *   displayType: ModalDisplayType.aside,
+ *   dialogHeader: "My Files",
+ *   dialogBodyComponent: FilesListPanel,
+ *   autoMaxHeight: true,
+ * };
  * ```
  */
 export interface IModalDialog {
   /** Defines the modal dialog display type
    */
-  displayType: ModalDisplayType;
+  displayType?: ModalDisplayType;
 
   /** Defines the modal dialog header
    */
   dialogHeader?: string;
 
-  /** Defines the modal dialog body
+  /**
+   * Defines the modal dialog body rendered via the IBox component tree.
+   * Use either `dialogBody` or `dialogBodyComponent`, not both.
+   *
+   * @deprecated Use `dialogBodyComponent` instead — accepts a React component and supports hooks from `@onlyoffice/docspace-plugin-sdk/react`.
    */
-  dialogBody: IBox;
+  dialogBody?: IBox;
 
-  /** Defines the modal dialog footer
+  /**
+   * A React component rendered as the modal dialog body.
+   * Use either `dialogBodyComponent` or `dialogBody`, not both.
+   * The component can use `usePluginActions` and other hooks
+   * from `@onlyoffice/docspace-plugin-sdk/react`.
+   */
+  dialogBodyComponent?: ComponentType;
+
+  /**
+   * Defines the modal dialog footer rendered via the IBox component tree.
+   *
+   * @deprecated Use `dialogBodyComponent` to render footer content within the component instead.
    */
   dialogFooter?: IBox;
 
@@ -238,12 +193,14 @@ export interface IModalDialog {
 
   /** Sets a function which is triggered whenever the "Close" button in the modal dialog is clicked
    */
-  onClose: () => Promise<IMessage> | IMessage | Promise<void> | void;
+  onClose?: () => Promise<IMessage> | IMessage | Promise<void> | void;
 
   /**
    * Sets a function which is triggered whenever the modal dialog is loaded.
+   *
+   * @deprecated Use a React component via `dialogBodyComponent` with `useEffect` for data loading instead.
    */
-  onLoad: () => Promise<{
+  onLoad?: () => Promise<{
     /**
      * Defines a new modal dialog header.
      */
@@ -262,7 +219,7 @@ export interface IModalDialog {
 /**
  * The supported modal dialog types.
  */
-export const enum ModalDisplayType {
+export enum ModalDisplayType {
   /** Modal dialog displayed in the center of the screen */
   modal = "modal",
   /** Modal dialog displayed as a side panel */

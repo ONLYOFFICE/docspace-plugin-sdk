@@ -13,16 +13,22 @@ export default {
     "src/interfaces/plugins/*.ts",
     "src/interfaces/settings/*.ts",
     "src/interfaces/utils/index.ts",
-    "src/enums/*.ts"
+    "src/enums/*.ts",
+    "src/react/*.ts"
   ],
   exclude: [
     "src/interfaces/components/index.ts",
     "src/interfaces/items/index.ts",
     "src/interfaces/plugins/index.ts",
     "src/interfaces/settings/index.ts",
-    "src/enums/index.ts"
+    "src/enums/index.ts",
+    "src/react/index.ts"
   ],
   entryPointStrategy: "expand",
+  // tsconfig.json excludes src/react (tsconfig.react.json builds it separately
+  // with jsx/bundler resolution), and TypeDoc cannot document files outside its
+  // project — so the docs run uses a project that covers the whole of src.
+  tsconfig: "tsconfig.docs.json",
   plugin: [
     "typedoc-plugin-markdown",
     "typedoc-plugin-frontmatter",

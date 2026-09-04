@@ -1,7 +1,7 @@
 {
   "name": "@onlyoffice/docspace-plugin-sdk",
   "version": "3.0.0",
-  "minDocSpaceVersion": "3.5.0",
+  "minDocSpaceVersion": "4.0.0",
   "description": "Simple plugin system for onlyoffice docspace",
   "license": "Apache-2.0",
   "homepage": "https://www.onlyoffice.com",
@@ -22,22 +22,50 @@
     "docspace",
     "plugin"
   ],
+  "files": [
+    "dist",
+    "npx",
+    "template",
+    "README.md",
+    "CHANGELOG.md",
+    "AUTHORS.md",
+    "LICENSE"
+  ],
   "bin": {
     "build-docspace-plugin": "./npx/buildPlugin.js",
     "create-docspace-plugin": "./npx/index.js"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "default": "./dist/react/index.js"
+    }
+  },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p tsconfig.react.json && tsc",
     "build:samples": "node scripts/build-samples.mjs",
-    "prepublish": "tsc",
+    "prepublish": "tsc -p tsconfig.react.json && tsc",
     "docs": "ts-node tools/update-revision.mjs && typedoc --options typedoc.config.mjs && node tools/generate-index-pages/index.mjs && ts-node tools/flatten-sidebar.mjs && ts-node tools/update-sidebar.mjs",
     "docs:sync": "npm run docs && node tools/sync-docs.mjs"
+  },
+  "peerDependencies": {
+    "react": ">=19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@babel/core": "^7.18.10",
     "@types/node": "22.10.1",
+    "@types/react": "^19.0.0",
     "ts-node": "10.9.2",
     "typedoc": "0.28.14",
     "typedoc-docusaurus-theme": "1.4.2",
@@ -54,6 +82,5 @@
       "tmp": "^0.2.4"
     },
     "lodash": "^4.17.23"
-  },
-  "packageManager": "yarn@4.6.0+sha224.acd0786f07ffc6c933940eb65fc1d627131ddf5455bddcc295dc90fd"
+  }
 }

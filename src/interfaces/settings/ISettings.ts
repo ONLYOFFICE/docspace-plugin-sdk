@@ -16,6 +16,8 @@
  * @license
  */
 
+import type { ComponentType } from "react";
+
 import { ButtonGroup, IBox } from "../components";
 
 /**
@@ -25,170 +27,64 @@ import { ButtonGroup, IBox } from "../components";
  *
  * @example
  *
- * Theme customization settings with color picker
+ * API key settings panel
  *
- * ```typescript
- * const themeSettings: ISettings = {
- *   settings: {
- *     type: "box",
- *     children: [
- *       {
- *         type: "colorPicker",
- *         id: "primary-color",
- *         label: "Primary Color",
- *         value: "#007BFF",
- *         onChange: (color) => updateThemeColor(color)
+ * ```tsx
+ * import { useEffect, useState } from "react";
+ * import { usePluginSettings } from "@onlyoffice/docspace-plugin-sdk/react";
+ * import { ISettings, Components, ButtonSize } from "@onlyoffice/docspace-plugin-sdk";
+ *
+ * type Config = { apiKey: string };
+ *
+ * function ApiKeySettings() {
+ *   const settings = usePluginSettings();
+ *   const [apiKey, setApiKey] = useState("");
+ *
+ *   useEffect(() => {
+ *     settings.load<Config>().then((saved) => {
+ *       if (saved) setApiKey(saved.apiKey);
+ *     });
+ *   }, []);
+ *
+ *   useEffect(() => {
+ *     settings.setSaveButton({
+ *       component: Components.button,
+ *       props: {
+ *         label: "Save",
+ *         size: ButtonSize.small,
+ *         isDisabled: !apiKey.trim(),
+ *         onClick: async () => { await settings.save({ apiKey }); },
  *       },
- *       {
- *         type: "toggle",
- *         id: "dark-mode",
- *         label: "Dark Mode",
- *         value: false,
- *         onChange: (enabled) => toggleDarkMode(enabled)
- *       }
- *     ]
- *   },
- *   saveButton: {
- *     type: "button",
- *     label: "Save Theme",
- *     onClick: async () => {
- *       try {
- *         await saveThemeSettings();
- *         return {
- *           actions: [Actions.showToast],
- *           toastProps: [{
- *             type: ToastType.success,
- *             title: "Theme settings saved | Changes applied | Refresh to see updates"
- *           }]
- *         };
- *       } catch (error) {
- *         return {
- *           actions: [Actions.showToast],
- *           toastProps: [{
- *             type: ToastType.error,
- *             title: "Unable to save theme | Check your changes"
- *           }]
- *         };
- *       }
- *     }
- *   },
- *   isLoading: false,
- *   onLoad: async () => {
- *     const savedSettings = await loadThemeSettings();
- *     return {
- *       settings: {
- *         type: "box",
- *         children: [
- *           {
- *             type: "colorPicker",
- *             id: "primary-color",
- *             label: "Primary Color",
- *             value: savedSettings.primaryColor
- *           },
- *           {
- *             type: "toggle",
- *             id: "dark-mode",
- *             label: "Dark Mode",
- *             value: savedSettings.darkMode
- *           }
- *         ]
- *       }
- *     };
- *   }
- * };
- * ```
+ *     });
+ *   }, [apiKey]);
  *
- * @example
+ *   return <input type="password" value={apiKey} onChange={(e) => setApiKey(e.target.value)} />;
+ * }
  *
- * Language configuration settings with validation
- *
- * ```typescript
- * const languageSettings: ISettings = {
- *   settings: {
- *     type: "box",
- *     children: [
- *       {
- *         type: "select",
- *         id: "default-language",
- *         label: "Default Language",
- *         options: [
- *           { value: "en", label: "English" },
- *           { value: "es", label: "Spanish" },
- *           { value: "fr", label: "French" }
- *         ],
- *         value: "en",
- *         onChange: (lang) => updateDefaultLanguage(lang)
- *       },
- *       {
- *         type: "toggle",
- *         id: "auto-detect",
- *         label: "Auto-detect User Language",
- *         value: true,
- *         onChange: (enabled) => toggleAutoDetect(enabled)
- *       }
- *     ]
- *   },
- *   saveButton: {
- *     type: "button",
- *     label: "Save Language Settings",
- *     onClick: async () => {
- *       try {
- *         await saveLanguageSettings();
- *         return {
- *           actions: [Actions.showToast],
- *           toastProps: [{
- *             type: ToastType.success,
- *             title: "Language settings saved | Changes applied | Refresh to see updates"
- *           }]
- *         };
- *       } catch (error) {
- *         return {
- *           actions: [Actions.showToast],
- *           toastProps: [{
- *             type: ToastType.error,
- *             title: "Unable to save language settings | Check your changes"
- *           }]
- *         };
- *       }
- *     }
- *   },
- *   isLoading: false,
- *   onLoad: async () => {
- *     const savedSettings = await loadLanguageSettings();
- *     return {
- *       settings: {
- *         type: "box",
- *         children: [
- *           {
- *             type: "select",
- *             id: "default-language",
- *             label: "Default Language",
- *             options: [
- *               { value: "en", label: "English" },
- *               { value: "es", label: "Spanish" },
- *               { value: "fr", label: "French" }
- *             ],
- *             value: savedSettings.defaultLanguage
- *           },
- *           {
- *             type: "toggle",
- *             id: "auto-detect",
- *             label: "Auto-detect User Language",
- *             value: savedSettings.autoDetect
- *           }
- *         ]
- *       }
- *     };
- *   }
+ * const apiKeySettings: ISettings = {
+ *   component: ApiKeySettings,
  * };
  * ```
  */
 export interface ISettings {
-  /** Defines the administrator or owner settings */
-  settings: IBox;
+  /**
+   * Defines the administrator or owner settings rendered via the IBox component tree.
+   * Use either `settings` or `component`, not both.
+   *
+   * @deprecated Use `component` instead — accepts a React component and supports hooks from `@onlyoffice/docspace-plugin-sdk/react`.
+   */
+  settings?: IBox;
+
+  /**
+   * A React component rendered as the settings UI.
+   * Use either `component` or `settings`, not both.
+   * The component can use `usePluginActions` and other hooks
+   * from `@onlyoffice/docspace-plugin-sdk/react`.
+   */
+  component?: ComponentType;
 
   /** Defines the button to save the settings */
-  saveButton: ButtonGroup;
+  saveButton?: ButtonGroup;
 
   /** Specifies if the settings block will be displayed as a loader icon or not */
   isLoading?: boolean;
@@ -196,6 +92,8 @@ export interface ISettings {
   /**
    * Defines a function that is triggered whenever the settings block is loaded.
    * Returns a promise with the updated settings box and optional save button.
+   *
+   * @deprecated Use a React component via `component` with `useEffect` for data loading instead.
    */
   onLoad?: () => Promise<{ settings: IBox; saveButton?: ButtonGroup }>;
 }

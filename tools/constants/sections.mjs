@@ -61,6 +61,23 @@ export const SECTIONS = [
     tableCaption: "Settings interfaces:"
   },
   {
+    docsDir: "react",
+    title: "React",
+    description:
+      "Hooks and runtime types for plugin UI written as React components. " +
+      "A component is handed to DocSpace through one of the `*Component` props on an " +
+      "[item](../interfaces/items/index.md), a " +
+      "[modal dialog](../interfaces/components/IModalDialog.md) or the " +
+      "[settings block](../interfaces/settings/ISettings.md), and reads the portal " +
+      "selection, user, API and actions through these hooks.",
+    usage:
+      "Import from the `@onlyoffice/docspace-plugin-sdk/react` subpath, and keep `react` and " +
+      "both SDK entry points external in the plugin bundle — DocSpace supplies its own copies, " +
+      "and a second React instance breaks every hook.",
+    tableCaption: "The React API is split across these pages:",
+    tableHeaderName: "Page"
+  },
+  {
     docsDir: "enums",
     title: "Enums",
     description:

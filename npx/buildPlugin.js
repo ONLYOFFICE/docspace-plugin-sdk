@@ -98,6 +98,7 @@ async function buildPlugin() {
     image: jsonDataObj.logo || "",
     scopes: jsonDataObj.scopes ? jsonDataObj.scopes.join(",") : "",
     cspDomains: (jsonDataObj.cspDomains && jsonDataObj.cspDomains.join(",")) || "",
+    ...(jsonDataObj.runtime ? { runtime: jsonDataObj.runtime } : {}),
   };
 
   // Add files to zip

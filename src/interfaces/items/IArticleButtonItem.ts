@@ -16,6 +16,8 @@
  * @license
  */
 
+import type { ComponentType } from "react";
+
 import { Devices, UsersType } from "../../enums";
 import { IBox } from "../components/IBox";
 
@@ -31,53 +33,67 @@ import { IBox } from "../components/IBox";
  *
  * @example
  *
- * Article button item with custom component
+ * Article button item with a React component
  *
- * ```typescript
+ * ```tsx
+ * import { usePluginActions } from "@onlyoffice/docspace-plugin-sdk/react";
+ * import { IArticleButtonItem, ToastType, UsersType } from "@onlyoffice/docspace-plugin-sdk";
+ *
+ * function NotificationsButton() {
+ *   const { showToast } = usePluginActions();
+ *
+ *   return (
+ *     <button
+ *       type="button"
+ *       onClick={() => showToast({ type: ToastType.info, title: "No new notifications" })}
+ *     >
+ *       Notifications
+ *     </button>
+ *   );
+ * }
+ *
  * const notificationItem: IArticleButtonItem = {
  *   key: "notifications-item",
- *   body: {
- *     component: Components.box,
- *     props: {
- *       children: [
- *         {
- *           component: Components.button,
- *           props: {
- *             label: "Notifications",
- *             onClick: async () => {
- *               // Handle click
- *             }
- *           }
- *         }
- *       ]
- *     }
- *   },
+ *   component: NotificationsButton,
  *   usersTypes: [UsersType.owner, UsersType.docSpaceAdmin]
  * };
  * ```
  *
  * @example
  *
- * Plugin settings access button item with onLoad
+ * Article button item that loads its own state
  *
- * ```typescript
- * const settingsItem: IArticleButtonItem = {
- *   key: "plugin-settings-item",
- *   body: {
- *     component: Components.skeleton,
- *     props: { width: "100%", height: "32px" }
- *   },
- *   onLoad: async () => {
- *     return {
- *       body: {
- *         component: Components.button,
- *         props: {
- *           label: "Settings",
- *           onClick: async () => { }
- *         }
- *       }
- *     };
- *   },
+ * The component owns its loading state, so no `onLoad` callback is needed:
+ * fetch inside `useEffect` and render a placeholder until the data arrives.
+ *
+ * ```tsx
+ * import { useEffect, useState } from "react";
+ * import { usePluginAPI, usePluginActions } from "@onlyoffice/docspace-plugin-sdk/react";
+ * import { IArticleButtonItem, Devices, UsersType } from "@onlyoffice/docspace-plugin-sdk";
+ *
+ * function PendingInvitesButton() {
+ *   const api = usePluginAPI();
+ *   const { navigate } = usePluginActions();
+ *   const [count, setCount] = useState<number | null>(null);
+ *
+ *   useEffect(() => {
+ *     api
+ *       .get<{ total: number }>("/people/invites")
+ *       .then((invites) => setCount(invites.total));
+ *   }, []);
+ *
+ *   if (count === null) return <span>…</span>;
+ *
+ *   return (
+ *     <button type="button" onClick={() => navigate("/accounts/people")}>
+ *       Invites ({count})
+ *     </button>
+ *   );
+ * }
+ *
+ * const invitesItem: IArticleButtonItem = {
+ *   key: "pending-invites-item",
+ *   component: PendingInvitesButton,
  *   usersTypes: [UsersType.owner, UsersType.docSpaceAdmin],
  *   devices: [Devices.desktop, Devices.tablet]
  * };
@@ -91,14 +107,29 @@ export interface IArticleButtonItem {
   key: string;
 
   /**
-   * The body of the article button item. This is the main content that will be displayed.
+   * The body of the article button item rendered via the IBox component tree.
+   * This is the main content that will be displayed.
    * Recommended size: 32x32 pixels to fit properly in the article sidebar.
+   * Use either `body` or `component`, not both.
+   *
+   * @deprecated Use `component` instead — accepts a React component and supports hooks from `@onlyoffice/docspace-plugin-sdk/react`.
    */
-  body: IBox;
+  body?: IBox;
+
+  /**
+   * A React component rendered as the article button item.
+   * Recommended size: 32x32 pixels to fit properly in the article sidebar.
+   * Use either `component` or `body`, not both.
+   * The component can use `usePluginActions`, `usePluginAPI` and other hooks
+   * from `@onlyoffice/docspace-plugin-sdk/react`.
+   */
+  component?: ComponentType;
 
   /**
    * A function that is executed after the article button item is loaded.
    * It returns a new body. If this functionality is not needed, the old body value is returned.
+   *
+   * @deprecated Use a React component via `component` with `useEffect` for data loading instead.
    */
   onLoad?: () => Promise<{ body: IBox }>;
 

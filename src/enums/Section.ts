@@ -18,18 +18,18 @@
 
 /**
  * Defines the portal sections in which an article navigation item can appear.
- * Pass one or more values in the `appears` array on {@link IArticleNavigationItem}
+ * Pass one or more values in the `appears` array on [`IArticleNavigationItem`](../interfaces/items/IArticleNavigationItem.md)
  * to restrict visibility. When omitted, the item is shown in all sections.
  *
  * @category Section
  */
 export enum Section {
-	/** The main Files section of the portal */
-	Files = "Files",
+  /** The main Files section of the portal */
+  Files = "Files",
 
-	/** The Accounts / People section of the portal */
-	Accounts = "Accounts",
+  /** The Accounts / People section of the portal */
+  Accounts = "Accounts",
 
-	/** The Portal Settings section */
-	Settings = "Settings"
+  /** The Portal Settings section */
+  Settings = "Settings"
 }

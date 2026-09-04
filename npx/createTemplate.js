@@ -107,14 +107,6 @@ class NameIns implements PluginsIns {
 
 const plugin = new NameIns();
 
-declare global {
-  interface Window {
-    Plugins: any;
-  }
-}
-
-window.Plugins.NameIns = plugin || {};
-
 export default plugin;
 `;
 
@@ -278,11 +270,17 @@ export default plugin;
           .replaceAll("NameIns", nameIns)
           .replaceAll("contentIns", contentIns);
 
-        const srcDir = writePath.replace("index.ts", "src");
+        fs.writeFileSync(writePath, template, "utf8");
 
-        fs.mkdirSync(srcDir);
-
-        fs.writeFileSync(`${srcDir}/index.ts`, template, "utf8");
+        break;
+      // npm strips files named `.gitignore` from the published package, so the
+      // template carries it undotted and it is renamed back on copy.
+      case "gitignore":
+        fs.writeFileSync(
+          writePath.replace(/gitignore$/, ".gitignore"),
+          contents,
+          "utf8",
+        );
 
         break;
       default:
