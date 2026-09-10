@@ -20,8 +20,6 @@
  * Defines the portal sections in which an article navigation item can appear.
  * Pass one or more values in the `appears` array on [`IArticleNavigationItem`](../interfaces/items/IArticleNavigationItem.md)
  * to restrict visibility. When omitted, the item is shown in all sections.
- *
- * @category Section
  */
 export enum Section {
   /** The main Files section of the portal */
