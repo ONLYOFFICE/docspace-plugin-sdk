@@ -30,7 +30,7 @@
  * ```
  *
  * :::info Bundling
- * `react`, `react-dom`, `react/jsx-runtime`, `react/jsx-dev-runtime`,
+ * `react`, `react-dom`, `react/jsx-runtime`,
  * `@onlyoffice/docspace-plugin-sdk/react` and `@docspace/ui-kit` must stay
  * **external** in the plugin bundle — DocSpace supplies its own copies at load
  * time. A plugin that bundles its own React gets a second React instance with
@@ -41,7 +41,7 @@
  * carries string enums and types and no module state, so it is bundled like
  * any other dependency.
  *
- * DocSpace substitutes exactly the specifiers above, spelled exactly that way.
+ * DocSpace substitutes exactly those specifiers, spelled exactly that way.
  * `@docspace/ui-kit` is today the package root only: a subpath import left
  * external reaches the portal unresolved and the plugin then fails to load,
  * naming the specifier in the console.

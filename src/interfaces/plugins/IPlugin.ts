@@ -27,8 +27,9 @@ import { PluginLocale, PluginStatus } from "../../enums";
  * type-specific interfaces such as `IContextMenuPlugin`). DocSpace reads the
  * plugin status via `getStatus` and runs `onLoadCallback` when the plugin is
  * uploaded to the portal. The optional `language` field and its `setLanguage`/
- * `getLanguage` methods let the portal keep the plugin in sync with the current
- * portal language.
+ * `getLanguage` methods record the portal language: `setLanguage` is called
+ * once while the plugin loads, and `getLanguage` is what the portal reads to
+ * pick the plugin name and description from the manifest.
  *
  * ```typescript
  * import { type IPlugin, PluginStatus, PluginLocale } from "@onlyoffice/docspace-plugin-sdk";

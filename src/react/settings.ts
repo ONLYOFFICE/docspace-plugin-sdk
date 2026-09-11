@@ -28,11 +28,15 @@ export type { ButtonGroup };
  * function SettingsPanel() {
  *   const settings = usePluginSettings();
  *   const [apiKey, setApiKey] = useState("");
+ *   const [savedKey, setSavedKey] = useState("");
  *   const [loaded, setLoaded] = useState(false);
  *
  *   useEffect(() => {
  *     settings.load<Config>().then((saved) => {
- *       if (saved) setApiKey(saved.apiKey);
+ *       if (saved) {
+ *         setApiKey(saved.apiKey);
+ *         setSavedKey(saved.apiKey);
+ *       }
  *       setLoaded(true);
  *     });
  *   }, []);
@@ -44,11 +48,15 @@ export type { ButtonGroup };
  *       props: {
  *         label: "Save",
  *         size: ButtonSize.small,
- *         isDisabled: !apiKey.trim(),
- *         onClick: async () => { await settings.save({ apiKey }); },
+ *         // disabled until the user changes something valid
+ *         isDisabled: apiKey === savedKey || !apiKey.trim(),
+ *         onClick: async () => {
+ *           await settings.save({ apiKey });
+ *           setSavedKey(apiKey);
+ *         },
  *       },
  *     });
- *   }, [apiKey, loaded]);
+ *   }, [apiKey, savedKey, loaded]);
  *
  *   return <input value={apiKey} onChange={(e) => setApiKey(e.target.value)} />;
  * }
@@ -97,7 +105,7 @@ export interface PluginSettingsClient {
    * ```ts
    * settings.setSaveButton({
    *   component: Components.button,
-   *   props: { label: "Save", size: ButtonSize.small, isDisabled: !isValid },
+   *   props: { label: "Save", size: ButtonSize.small, isDisabled: !isDirty || !isValid },
    * });
    * ```
    */

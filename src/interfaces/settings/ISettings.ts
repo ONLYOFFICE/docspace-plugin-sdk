@@ -42,10 +42,14 @@ import { ButtonGroup, IBox } from "../components";
  * function ApiKeySettings() {
  *   const settings = usePluginSettings();
  *   const [apiKey, setApiKey] = useState("");
+ *   const [savedKey, setSavedKey] = useState("");
  *
  *   useEffect(() => {
  *     settings.load<Config>().then((saved) => {
- *       if (saved) setApiKey(saved.apiKey);
+ *       if (saved) {
+ *         setApiKey(saved.apiKey);
+ *         setSavedKey(saved.apiKey);
+ *       }
  *     });
  *   }, []);
  *
@@ -55,11 +59,14 @@ import { ButtonGroup, IBox } from "../components";
  *       props: {
  *         label: "Save",
  *         size: ButtonSize.small,
- *         isDisabled: !apiKey.trim(),
- *         onClick: async () => { await settings.save({ apiKey }); },
+ *         isDisabled: apiKey === savedKey || !apiKey.trim(),
+ *         onClick: async () => {
+ *           await settings.save({ apiKey });
+ *           setSavedKey(apiKey);
+ *         },
  *       },
  *     });
- *   }, [apiKey]);
+ *   }, [apiKey, savedKey]);
  *
  *   return <input type="password" value={apiKey} onChange={(e) => setApiKey(e.target.value)} />;
  * }

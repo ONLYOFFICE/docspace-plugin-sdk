@@ -164,7 +164,7 @@ export interface PluginActions {
    *
    * @example
    * ```ts
-   * <button onClick={() => openInfoPanel()}>Show details</button>
+   * <button onClick={() => openInfoPanel("info_details")}>Show details</button>
    * <button onClick={() => openInfoPanel("info_history")}>Show history</button>
    * ```
    */
