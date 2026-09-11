@@ -56,10 +56,12 @@ export type { ButtonGroup };
  */
 export interface PluginSettingsClient {
   /**
-   * Load the plugin's persisted settings from the server.
+   * Load the plugin's persisted settings — the value the portal delivered with
+   * the plugin, so no request is made.
    *
    * @typeParam T - Expected shape of the settings object.
-   * @returns The parsed settings object, or `null` if no settings have been saved yet.
+   * @returns The parsed settings object, or `null` when nothing has been saved
+   *   yet or the stored value is not valid JSON.
    *
    * @example
    * ```ts
@@ -84,9 +86,11 @@ export interface PluginSettingsClient {
   save(data: Record<string, unknown>): Promise<void>;
 
   /**
-   * Set or update the Save button rendered in the plugin settings dialog footer.
-   * Call this inside a `useEffect` whenever the form values change to keep the
-   * button's `isDisabled` state in sync with form validity.
+   * Set or update the Save button rendered in the plugin settings panel footer.
+   * Call this inside a `useEffect` whenever the form values change, and gate
+   * `isDisabled` on what the user has changed rather than on validity alone —
+   * the portal cannot tell a touched form from an untouched one, so a button
+   * gated on validity is already active over a form nobody has edited.
    *
    * @param props - A `ButtonGroup` component descriptor from the DocSpace SDK.
    *

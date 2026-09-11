@@ -30,7 +30,7 @@
  * ```
  *
  * :::info Bundling
- * `react`, `react-dom`, `react/jsx-runtime`,
+ * `react`, `react-dom`, `react/jsx-runtime`, `react/jsx-dev-runtime`,
  * `@onlyoffice/docspace-plugin-sdk/react` and `@docspace/ui-kit` must stay
  * **external** in the plugin bundle — DocSpace supplies its own copies at load
  * time. A plugin that bundles its own React gets a second React instance with
@@ -39,8 +39,12 @@
  *
  * The SDK root, `@onlyoffice/docspace-plugin-sdk`, is **not** on that list. It
  * carries string enums and types and no module state, so it is bundled like
- * any other dependency. The generated plugin template lists exactly the shared
- * packages in `build.rollupOptions.external`.
+ * any other dependency.
+ *
+ * DocSpace substitutes exactly the specifiers above, spelled exactly that way.
+ * `@docspace/ui-kit` is today the package root only: a subpath import left
+ * external reaches the portal unresolved and the plugin then fails to load,
+ * naming the specifier in the console.
  * :::
  *
  * @packageDocumentation
@@ -124,7 +128,10 @@ export function usePluginRuntime(): PluginRuntime {
 
 /**
  * Returns metadata of the file, folder or room currently selected in the
- * DocSpace UI, or `null` when nothing is selected.
+ * DocSpace UI, or `null` when nothing is selected. It is also `null` on
+ * surfaces that have no selection of their own — an article navigation page,
+ * the settings panel, and a dialog opened from a class-side callback — so pass
+ * the id the click knew through a module variable or a factory closure.
  *
  * @example
  * ```tsx
