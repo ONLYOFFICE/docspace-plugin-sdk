@@ -25,7 +25,7 @@ import { IBox } from "../components/IBox";
  * Describes a button item that will be embedded in the article sidebar.
  * Article button items are displayed as custom plugin components above the DevTools section.
  * Maximum 5 items can be displayed at once across all the installed plugins,
- * in registration order; the same items appear in the apps sidebar too.
+ * in registration order.
  * Each one is drawn in a fixed 32x32 box with `overflow: hidden`, so a label
  * does not fit — use an icon and put the words in its `title`.
  *

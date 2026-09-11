@@ -56,8 +56,7 @@ export type { ButtonGroup };
  */
 export interface PluginSettingsClient {
   /**
-   * Load the plugin's persisted settings — the value the portal delivered with
-   * the plugin, so no request is made.
+   * Load the plugin's persisted settings.
    *
    * @typeParam T - Expected shape of the settings object.
    * @returns The parsed settings object, or `null` when nothing has been saved
