@@ -41,7 +41,7 @@
  * carries string enums and types and no module state, so it is bundled like
  * any other dependency.
  *
- * DocSpace substitutes exactly those specifiers, spelled exactly that way.
+ * DocSpace substitutes these specifiers, spelled exactly that way.
  * `@docspace/ui-kit` is today the package root only: a subpath import left
  * external reaches the portal unresolved and the plugin then fails to load,
  * naming the specifier in the console.

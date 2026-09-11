@@ -104,7 +104,7 @@ import { IMessage } from "../utils";
  *   fileTypeName: "Audio",
  *   fileRowIcon: "audio-32.svg",
  *   fileTileIcon: "audio-96.svg",
- *   usersType: [UsersType.docSpaceAdmin, UsersType.roomAdmin, UsersType.user],
+ *   usersType: [UsersType.docSpaceAdmin, UsersType.roomAdmin, UsersType.collaborator],
  *   fileSecurity: [FilesSecurity.Read, FilesSecurity.Download],
  *   onClick: async (file) => {
  *     try {
