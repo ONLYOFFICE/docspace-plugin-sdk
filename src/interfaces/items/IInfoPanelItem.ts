@@ -32,7 +32,11 @@ export interface IInfoPanelSubMenu {
 
   /**
    * A function that takes the file/folder/room id as an argument.
-   * This function can be asynchronous. It will be executed when clicking on the tab.
+   * This function can be asynchronous.
+   *
+   * @remarks
+   * Called when the tab opens and again on every selection change. A React tab
+   * rarely needs it: `component` reads the selection with `useCurrentFile()`.
    */
   onClick?: (id: number) => Promise<IMessage> | IMessage | void;
 }
@@ -165,6 +169,10 @@ export interface IInfoPanelItem {
    * The types of files where the current item will be displayed in the info panel.
    * Presently the following file types are available: room, file, folder, image, video.
    * If this parameter is not specified, then the current info panel item will be displayed in any file type.
+   *
+   * @remarks
+   * Unlike the context menu, `file` matches images and videos too, so
+   * `[FilesType.file]` is already "any file".
    */
   filesType?: FilesType[];
 

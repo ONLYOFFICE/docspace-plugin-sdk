@@ -21,7 +21,10 @@ import type { ComponentType } from "react";
 import { ButtonGroup, IBox } from "../components";
 
 /**
- * Defines the administrator or owner settings block that is embedded in the modal window with the plugin description.
+ * Defines the administrator or owner settings block that is embedded in the side panel of the plugin.
+ *
+ * The portal owns the panel around it: the plugin name in the header, the
+ * description and metadata below the block, and a Save/Cancel footer.
  *
  * <plugin-image src="settings-block.png" dark />
  *

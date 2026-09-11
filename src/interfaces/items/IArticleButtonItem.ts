@@ -24,7 +24,10 @@ import { IBox } from "../components/IBox";
 /**
  * Describes a button item that will be embedded in the article sidebar.
  * Article button items are displayed as custom plugin components above the DevTools section.
- * Maximum 5 items can be displayed at once.
+ * Maximum 5 items can be displayed at once across all the installed plugins,
+ * in registration order; the same items appear in the apps sidebar too.
+ * Each one is drawn in a fixed 32x32 box with `overflow: hidden`, so a label
+ * does not fit — use an icon and put the words in its `title`.
  *
  * Items are registered by a plugin implementing
  * [`IArticleButtonPlugin`](../plugins/IArticleButtonPlugin.md).
@@ -45,9 +48,13 @@ import { IBox } from "../components/IBox";
  *   return (
  *     <button
  *       type="button"
+ *       title="Notifications"
+ *       style={{ width: 32, height: 32, border: "none", background: "none", cursor: "pointer" }}
  *       onClick={() => showToast({ type: ToastType.info, title: "No new notifications" })}
  *     >
- *       Notifications
+ *       <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden>
+ *         <path fill="currentColor" d="M8 2a4 4 0 0 0-4 4v3l-1 2h10l-1-2V6a4 4 0 0 0-4-4Z" />
+ *       </svg>
  *     </button>
  *   );
  * }
@@ -82,11 +89,16 @@ import { IBox } from "../components/IBox";
  *       .then((invites) => setCount(invites.total));
  *   }, []);
  *
- *   if (count === null) return <span>…</span>;
+ *   if (count === null) return null;
  *
  *   return (
- *     <button type="button" onClick={() => navigate("/accounts/people")}>
- *       Invites ({count})
+ *     <button
+ *       type="button"
+ *       title={`Invites (${count})`}
+ *       style={{ width: 32, height: 32, border: "none", background: "none", cursor: "pointer" }}
+ *       onClick={() => navigate("/accounts/people")}
+ *     >
+ *       {count}
  *     </button>
  *   );
  * }
@@ -109,7 +121,6 @@ export interface IArticleButtonItem {
   /**
    * The body of the article button item rendered via the IBox component tree.
    * This is the main content that will be displayed.
-   * Recommended size: 32x32 pixels to fit properly in the article sidebar.
    * Use either `body` or `component`, not both.
    *
    * @deprecated Use `component` instead — accepts a React component and supports hooks from `@onlyoffice/docspace-plugin-sdk/react`.
@@ -118,7 +129,7 @@ export interface IArticleButtonItem {
 
   /**
    * A React component rendered as the article button item.
-   * Recommended size: 32x32 pixels to fit properly in the article sidebar.
+   * The slot has no click handler of its own.
    * Use either `component` or `body`, not both.
    * The component can use `usePluginActions`, `usePluginAPI` and other hooks
    * from `@onlyoffice/docspace-plugin-sdk/react`.

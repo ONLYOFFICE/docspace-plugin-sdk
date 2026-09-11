@@ -241,8 +241,12 @@ export interface IContextMenuItem {
 
   /**
    * The extensions of files where the current item will be displayed in the context menu.
-   * It only works if FilesType.file is specified in the fileType parameter.
+   * Specify each extension with the dot (`".md"`).
    * If this parameter is not specified, then the current context menu item will be displayed in any file extension.
+   *
+   * @remarks
+   * Independent of `fileType`: it applies to every entity that has an
+   * extension, images and videos included.
    */
   fileExt?: (FilesExst | string)[];
 
@@ -250,6 +254,12 @@ export interface IContextMenuItem {
    * The types of files where the current item will be displayed in the context menu.
    * Presently the following file types are available: room, file, folder, image, video.
    * If this parameter is not specified, then the current context menu item will be displayed in any file type.
+   *
+   * @remarks
+   * The five values are mutually exclusive here — an image is tested as
+   * `image`, a video as `video` — so "any file" is
+   * `[FilesType.file, FilesType.image, FilesType.video]`. The info panel reads
+   * them differently: see [`IInfoPanelItem`](IInfoPanelItem.md).
    */
   fileType?: FilesType[];
 
