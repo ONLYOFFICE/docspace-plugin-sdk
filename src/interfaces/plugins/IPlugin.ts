@@ -27,8 +27,9 @@ import { PluginLocale, PluginStatus } from "../../enums";
  * type-specific interfaces such as `IContextMenuPlugin`). ONLYOFFICE Apps reads the
  * plugin status via `getStatus` and runs `onLoadCallback` when the plugin is
  * uploaded to the portal. The optional `language` field and its `setLanguage`/
- * `getLanguage` methods let the portal keep the plugin in sync with the current
- * portal language.
+ * `getLanguage` methods record the portal language: `setLanguage` is called
+ * once while the plugin loads, and `getLanguage` is what the portal reads to
+ * pick the plugin name and description from the manifest.
  *
  * ```typescript
  * import { type IPlugin, PluginStatus, PluginLocale } from "@onlyoffice/docspace-plugin-sdk";
@@ -54,7 +55,7 @@ import { PluginLocale, PluginStatus } from "../../enums";
  *     return this.status;
  *   };
  *
- *   // Called by the portal when the portal language changes
+ *   // Called by the portal once while the plugin is loading
  *   setLanguage = (language: PluginLocale): void => {
  *     this.language = language;
  *   };
@@ -77,7 +78,11 @@ export interface IPlugin {
   /** The plugin language */
   language?: PluginLocale;
 
-  /** The method is called on the portal side when the portal language is changed. */
+  /**
+   * The method is called on the portal side once per plugin instance, right
+   * before `onLoadCallback`. It is not a change notification: switching the
+   * interface language reloads the plugin.
+   */
   setLanguage?: (language: PluginLocale) => void;
 
   /** The method is called on the portal side to get the plugin language. */

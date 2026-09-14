@@ -69,10 +69,10 @@ import { IMessage } from "../utils";
  *   eventHandler: async () => {
  *     try {
  *       await auditService.logFileRename();
- *       return {
- *         actions: [Actions.updateItems],
- *         itemList: await getUpdatedFileList()
- *       };
+ *
+ *       // The plugin has already updated its own items; ask the portal
+ *       // to re-read the collection.
+ *       return { actions: [Actions.updateContextMenuItems] };
  *     } catch (error) {
  *       console.error("Failed to log file rename:", error);
  *     }
@@ -122,7 +122,11 @@ export interface IEventListenerItem {
   /**
    * A function that will be executed when the event is triggered.
    * This function can be asynchronous.
-   * After the event is executed, only updating the items or displaying toast is possible, other actions are blocked.
+   *
+   * @remarks
+   * The returned message goes through the same dispatcher as any other
+   * class-side callback, so every action is honoured. Prefer item updates and
+   * toasts: the event fires over a dialog the portal has just opened.
    */
   eventHandler: () => Promise<IMessage> |  Promise<void> | IMessage | void;
 

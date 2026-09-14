@@ -106,7 +106,7 @@ export interface IProfileMenuItem {
   icon: string;
 
   /**
-   * A function that takes the file/folder/room id as an argument.
+   * A function that is executed when the item is clicked.
    * This function can be asynchronous.
    */
   onClick: () => Promise<IMessage> | Promise<void> | IMessage | void;
