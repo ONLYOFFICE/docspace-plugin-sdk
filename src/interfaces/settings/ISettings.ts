@@ -41,17 +41,8 @@ import { ButtonGroup, IBox } from "../components";
  *
  * function ApiKeySettings() {
  *   const settings = usePluginSettings();
- *   const [apiKey, setApiKey] = useState("");
- *   const [savedKey, setSavedKey] = useState("");
- *
- *   useEffect(() => {
- *     settings.load<Config>().then((saved) => {
- *       if (saved) {
- *         setApiKey(saved.apiKey);
- *         setSavedKey(saved.apiKey);
- *       }
- *     });
- *   }, []);
+ *   const [apiKey, setApiKey] = useState(() => settings.load<Config>()?.apiKey ?? "");
+ *   const [savedKey, setSavedKey] = useState(apiKey);
  *
  *   useEffect(() => {
  *     settings.setSaveButton({

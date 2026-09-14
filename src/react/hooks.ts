@@ -250,18 +250,9 @@ export function useCurrentUser(): TCurrentUser | null {
  *
  * function SettingsPanel() {
  *   const settings = usePluginSettings();
- *   const [apiKey, setApiKey] = useState("");
- *   const [loaded, setLoaded] = useState(false);
+ *   const [apiKey, setApiKey] = useState(() => settings.load<Config>()?.apiKey ?? "");
  *
  *   useEffect(() => {
- *     settings.load<Config>().then((saved) => {
- *       if (saved) setApiKey(saved.apiKey);
- *       setLoaded(true);
- *     });
- *   }, []);
- *
- *   useEffect(() => {
- *     if (!loaded) return;
  *     settings.setSaveButton({
  *       component: Components.button,
  *       props: {
@@ -271,7 +262,7 @@ export function useCurrentUser(): TCurrentUser | null {
  *         onClick: async () => { await settings.save({ apiKey }); },
  *       },
  *     });
- *   }, [apiKey, loaded]);
+ *   }, [apiKey]);
  *
  *   return <input value={apiKey} onChange={(e) => setApiKey(e.target.value)} />;
  * }

@@ -27,22 +27,10 @@ export type { ButtonGroup };
  *
  * function SettingsPanel() {
  *   const settings = usePluginSettings();
- *   const [apiKey, setApiKey] = useState("");
- *   const [savedKey, setSavedKey] = useState("");
- *   const [loaded, setLoaded] = useState(false);
+ *   const [apiKey, setApiKey] = useState(() => settings.load<Config>()?.apiKey ?? "");
+ *   const [savedKey, setSavedKey] = useState(apiKey);
  *
  *   useEffect(() => {
- *     settings.load<Config>().then((saved) => {
- *       if (saved) {
- *         setApiKey(saved.apiKey);
- *         setSavedKey(saved.apiKey);
- *       }
- *       setLoaded(true);
- *     });
- *   }, []);
- *
- *   useEffect(() => {
- *     if (!loaded) return;
  *     settings.setSaveButton({
  *       component: Components.button,
  *       props: {
@@ -56,7 +44,7 @@ export type { ButtonGroup };
  *         },
  *       },
  *     });
- *   }, [apiKey, savedKey, loaded]);
+ *   }, [apiKey, savedKey]);
  *
  *   return <input value={apiKey} onChange={(e) => setApiKey(e.target.value)} />;
  * }
@@ -64,7 +52,9 @@ export type { ButtonGroup };
  */
 export interface PluginSettingsClient {
   /**
-   * Load the plugin's persisted settings.
+   * Read the plugin's persisted settings. The portal already holds them by the
+   * time a plugin component renders, so this reads them synchronously and
+   * suits a lazy `useState` initialiser.
    *
    * @typeParam T - Expected shape of the settings object.
    * @returns The parsed settings object, or `null` when nothing has been saved
@@ -72,11 +62,11 @@ export interface PluginSettingsClient {
    *
    * @example
    * ```ts
-   * const saved = await settings.load<{ apiKey: string }>();
+   * const saved = settings.load<{ apiKey: string }>();
    * if (saved) setApiKey(saved.apiKey);
    * ```
    */
-  load<T = unknown>(): Promise<T | null>;
+  load<T = unknown>(): T | null;
 
   /**
    * Persist plugin settings to the server.
