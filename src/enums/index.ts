@@ -35,6 +35,7 @@ import { Components } from "./Components";
 import { Devices } from "./Devices";
 import { Security } from "./Security";
 import { SelectorType } from "./Selector";
+import { FilterType } from "./Utility";
 import { RoomSearchArea, RoomsType } from "./Rooms";
 import { Section } from "./Section";
 
@@ -52,6 +53,7 @@ export {
   Security,
   PluginLocale,
   SelectorType,
+  FilterType,
   RoomSearchArea,
   RoomsType,
   Section

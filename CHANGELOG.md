@@ -36,6 +36,8 @@
 - Add to `PluginActions`: `showCreateDialog`, `updateSelector`, a tab argument for
   `openInfoPanel` and the `update*Items` family
 - Add `Actions.updateArticleButtonItems` and `Actions.updateArticleNavigationItems`
+- Export `FilterType` from the package root — `IFilesSelector.filterParam` is typed with it, but
+  the enum was reachable only through a deep import that the `exports` map blocks
 - Add the `create-onlyoffice-plugin` and `build-onlyoffice-plugin` commands
 - Add the `UserRole` enum: `owner`, `fullAdmin`, `roomAdmin`, `user`, `guest`. Item
   fields widen to `(UserRole | UsersType)[]`, so existing plugin sources still compile
