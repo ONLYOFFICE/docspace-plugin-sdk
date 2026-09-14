@@ -141,6 +141,10 @@ export interface IMainButtonItem {
   /**
    * The main button items that are added to the current item as a drop-down list.
    * In this case, the `onItemClick` (and the deprecated `onClick`) event does not work.
+   *
+   * @remarks
+   * One level deep, and `usersType`/`devices` are read on the parent only —
+   * sub-items are copied in as they are.
    */
   items?: IMainButtonItem[];
 

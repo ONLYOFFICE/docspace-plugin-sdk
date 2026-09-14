@@ -95,7 +95,7 @@ This section applies when helping users **write plugins** that consume this SDK.
 
 - Always import types from `@onlyoffice/docspace-plugin-sdk` — never redefine interfaces that exist in the SDK
 - Import hooks from `@onlyoffice/docspace-plugin-sdk/react`, never from the root
-- Use enums, never raw strings: `Actions.showToast`, not `"show-toast"`; `PluginStatus.Active`, not `"active"`
+- Use enums, never raw strings: `Actions.showToast`, not `"show-toast"`; `PluginStatus.active`, not `"active"`
 - Every plugin class must implement `IPlugin` at minimum; additional scope interfaces are additive
 - Item callbacks must return an `IMessage` object with an `actions` array
 - Prefer `component` over the deprecated `body`/`content`/`settings`/`dialogBody` props, and `useEffect` over `onLoad`
@@ -178,7 +178,7 @@ npm run build   # runs: vite build && npx build-docspace-plugin → dist/plugin.
 { actions: [Actions.showSelector], selectorProps: { type: SelectorType.Files, /* ... */ } }
 
 // Settings persistence
-{ actions: [Actions.saveSettings], settings: { key: "value" } }
+{ actions: [Actions.saveSettings], settings: JSON.stringify({ key: "value" }) }  // IMessage.settings is a string
 
 // Redraw a changed item list (one action per scope)
 { actions: [Actions.updateArticleNavigationItems] }

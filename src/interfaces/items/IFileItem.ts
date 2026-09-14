@@ -104,7 +104,7 @@ import { IMessage } from "../utils";
  *   fileTypeName: "Audio",
  *   fileRowIcon: "audio-32.svg",
  *   fileTileIcon: "audio-96.svg",
- *   usersType: [UsersType.docSpaceAdmin, UsersType.roomAdmin, UsersType.user],
+ *   usersType: [UsersType.docSpaceAdmin, UsersType.roomAdmin, UsersType.collaborator],
  *   fileSecurity: [FilesSecurity.Read, FilesSecurity.Download],
  *   onClick: async (file) => {
  *     try {
@@ -150,6 +150,11 @@ export interface IFileItem {
    * The types of devices where the current item will be available.
    * At the moment the following device types are available: mobile, tablet, desktop.
    * If this parameter is not specified, then the current item will be available in any device types.
+   *
+   * @remarks
+   * Checked when the file is clicked, like `security` and `fileSecurity`: the
+   * row keeps the plugin's icons and `fileTypeName` everywhere, and outside
+   * this list the click never reaches `onClick`.
    */
   devices?: Devices[];
 
