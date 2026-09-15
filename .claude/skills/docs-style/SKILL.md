@@ -20,7 +20,7 @@ If a change would — stop and confirm with the user first.
 1. **Page skeleton:** H1 (main symbol) → one `[View source on GitHub]` link →
    description → optional light/dark image pair → Examples → reference tables.
 2. **Members are table rows** in source order, each table wrapped in the
-   site's `<APITable>` component (mdx-code-block fences); row anchors are the
+   site's `<APITable>` component (plain JSX + import); row anchors are the
    literal first-cell text (case-sensitive, `?` included), `Symbol-`-prefixed
    on pages with colliding names. No raw HTML in the output. Signatures are
    ` ```ts ` fences. **Enum members stay a list** — their example fences

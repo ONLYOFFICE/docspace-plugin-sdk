@@ -121,14 +121,14 @@ Layout of `tools/`:
 
 ### APITable wrapping
 
-`applyApiTables` (`api-tables.mjs`) runs last, after the cleanup transforms have validated the original anchors. It wraps every member table (a table whose rows carry TypeDoc's `<a id>` anchors) in the docs site's `<APITable>` component via `mdx-code-block` fences, strips the `<a id>` anchors, and rewrites all fragment links to the ids the component derives at runtime:
+`applyApiTables` (`api-tables.mjs`) runs last, after the cleanup transforms have validated the original anchors. It wraps every member table (a table whose rows carry TypeDoc's `<a id>` anchors) in the docs site's `<APITable>` component (a plain JSX tag pair plus a one-line import), strips the `<a id>` anchors, and rewrites all fragment links to the ids the component derives at runtime:
 
 - the row id is the **literal text of the first cell** (case-sensitive, `?` included for optional members): `<a id="onclick">` becomes `#onClick`, `<a id="primary">` becomes `#primary?`;
 - on pages where row names collide across tables, every table gets a `name="Symbol"` prop and ids become `Symbol-member` (e.g. `#IMessage-actions` in `utils.md`);
 - the component makes rows clickable and highlights the row targeted by the URL hash;
 - enum pages are unaffected — enum members render as a list, their anchors stay heading slugs.
 
-The result carries no raw HTML: the only non-Markdown syntax in the output is the `mdx-code-block` fences around `<APITable>`.
+The result carries no raw HTML: the only non-Markdown syntax in the output is the `<APITable>` tags and their import.
 
 ### Section index pages
 
