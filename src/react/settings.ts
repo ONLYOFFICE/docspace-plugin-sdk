@@ -82,6 +82,9 @@ export interface PluginSettingsClient {
    * Persist plugin settings to the server.
    * After saving, DocSpace calls `setAdminPluginSettingsValue` on the plugin
    * class instance so any module-scope cache stays in sync.
+   * `data` is serialized into the one string the portal caps at 255 characters —
+   * see [`ISettingsPlugin`](../interfaces/plugins/ISettingsPlugin.md) for what
+   * fits into it.
    *
    * @param data - Plain JSON-serialisable object to store as plugin settings.
    *

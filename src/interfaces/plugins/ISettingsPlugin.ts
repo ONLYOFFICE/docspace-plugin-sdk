@@ -22,6 +22,10 @@ import { ISettings } from "../settings/ISettings";
  * The plugin that manages settings for the administrator or owner.
  * The plugin that can interact with the settings panel.
  *
+ * Everything the plugin saves is serialized into a single string that the portal caps at 255 characters,
+ * and a longer one is refused rather than truncated. Keep the settings object to a few short scalar fields
+ * and hold anything bulkier in a file or a portal entity the plugin refers to by ID.
+ *
  * <plugin-image src="settings-block.png" dark />
  *
  * @example
