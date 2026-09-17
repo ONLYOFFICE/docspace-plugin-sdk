@@ -81,7 +81,10 @@ export interface PluginSettingsClient {
   /**
    * Persist plugin settings to the server.
    * After saving, DocSpace calls `setAdminPluginSettingsValue` on the plugin
-   * class instance so any module-scope cache stays in sync.
+   * class instance so any module-scope cache stays in sync, and then re-reads
+   * [`getStatus`](../interfaces/plugins/IPlugin.md#getstatus): a plugin can
+   * hide or show itself from its own settings, and this is the only moment the
+   * React runtime re-reads the status — it has no status action of its own.
    * `data` is serialized into the one string the portal caps at 255 characters —
    * see [`ISettingsPlugin`](../interfaces/plugins/ISettingsPlugin.md) for what
    * fits into it.

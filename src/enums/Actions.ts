@@ -63,14 +63,16 @@ export enum Actions {
   updateContext = "update-context",
 
   /**
-   * Calls a function to update the plugin status.
+   * Makes the portal re-read the plugin status through
+   * [`getStatus`](../interfaces/plugins/IPlugin.md#getstatus) and apply
+   * it: `active` registers the items of every scope the plugin declares and
+   * loads its CSS, `hide` unregisters them and unloads the CSS again.
    *
    * @example
    * ```typescript
+   * // the plugin has just set its own status to PluginStatus.hide
    * const message: IMessage = {
-   *   newProps: {...acceptButton, isDisabled: true},
-   *   actions: [Actions.showToast, Actions.updateProps, Actions.updateStatus],
-   *   toastProps,
+   *   actions: [Actions.updateStatus],
    * }
    * ```
    */

@@ -113,7 +113,14 @@ export interface ISettingsPlugin {
   /** Update the administrator or owner plugin settings */
   setAdminPluginSettings(settings: ISettings | null): void;
 
-  /** Transfer the administrator or owner plugin settings to all the portal users. It functions on the DocSpace side */
+  /**
+   * Transfer the administrator or owner plugin settings to all the portal
+   * users. It functions on the DocSpace side: the portal calls it with the
+   * stored settings while the plugin loads, and again after a save through the
+   * React settings client, re-reading [`getStatus`](IPlugin.md#getstatus)
+   * straight after — so a plugin can hide itself according to its own
+   * configuration.
+   */
   setAdminPluginSettingsValue(settings: string | null): void;
 
   /** Get the administrator or owner plugin settings */
