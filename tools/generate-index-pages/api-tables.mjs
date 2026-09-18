@@ -87,11 +87,11 @@ function findMemberTables(lines, insideCode) {
 }
 
 /**
- * Wraps the member tables of one page in `<APITable>` (via mdx-code-block
- * fences, import once per page) and strips the `<a id>` row anchors — the
- * component derives the same row ids at runtime and adds hash navigation
- * with row highlighting. Tables get a `name` prefix when the page's row
- * names collide across tables. Returns the old anchor → new id map.
+ * Wraps the member tables of one page in `<APITable>` (JSX in MDX, import
+ * once per page) and strips the `<a id>` row anchors — the component derives
+ * the same row ids at runtime and adds hash navigation with row highlighting.
+ * Tables get a `name` prefix when the page's row names collide across tables.
+ * Returns the old anchor → new id map.
  * @param {string} filePath
  * @returns {Map<string, string>}
  */
@@ -133,13 +133,11 @@ function wrapMemberTables(filePath) {
       ? ` name="${tables[i].symbolName.replace(/[^\w.-]/g, "")}"`
       : "";
     const opener = [
-      "```mdx-code-block",
       ...(i === 0 ? [APITABLE_IMPORT, ""] : []),
       `<APITable${nameAttribute}>`,
-      "```",
       ""
     ];
-    const closer = ["", "```mdx-code-block", "</APITable>", "```"];
+    const closer = ["", "</APITable>"];
     lines.splice(end, 0, ...closer);
     lines.splice(start, 0, ...opener);
   }

@@ -164,14 +164,16 @@ export interface IFileItem {
   /**
    * A file icon which is displayed in the table format. The icon image must be uploaded
    * to the assets folder. Only the image name with the extension must be specified in this field.
-   * The preferred icon size is 32x32 px.
+   * The preferred icon size is 32x32 px. Without it the file is listed with no
+   * icon of its own.
    */
   fileRowIcon?: string;
 
   /**
    * A file icon which is displayed in the tile format. The icon image must be uploaded
    * to the assets folder. Only the image name with the extension must be specified in this field.
-   * The preferred icon size is 96x96 px.
+   * The preferred icon size is 96x96 px. Left out, the tile falls back to
+   * `fileRowIcon`.
    */
   fileTileIcon?: string;
 

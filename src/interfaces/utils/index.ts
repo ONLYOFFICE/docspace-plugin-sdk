@@ -229,6 +229,8 @@ export interface IMessage {
   /**
    * Defines a parameter that is used to save and transfer the administrator or owner plugin settings to all the portal users.
    * This parameter is used only with Actions.saveSettings.
+   * This is the one string the portal caps at 255 characters — see
+   * [`ISettingsPlugin`](plugins/ISettingsPlugin.md) for what fits into it.
    */
   settings?: string;
 
