@@ -48,7 +48,7 @@
 - Bump `react` peer dependency to `>=19.0.0`
 - Docs: separate React API section
 - Sample: `samples/article-navigation` rewritten on Vite + React 19 and
-  `@docspace/ui-kit`
+  `@onlyoffice/apps-ui-kit`
 
 ## Changed
 
@@ -63,7 +63,7 @@
 - Template: TypeScript 5.6, target `ES2017`, `moduleResolution: bundler`,
   `jsx: react-jsx`, prettier 3.x
 - Template: `react` and `react-dom ^19` added as dependencies; react, react-dom, the
-  SDK React subpath and `@docspace/ui-kit` marked `external` — the SDK root stays
+  SDK React subpath and `@onlyoffice/apps-ui-kit` marked `external` — the SDK root stays
   bundled
 - Template: `"runtime": "module"` added to `package.json`, `window.Plugins`
   registration dropped from `src/index.ts`

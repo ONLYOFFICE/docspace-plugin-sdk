@@ -1,7 +1,7 @@
 # Article navigation sample
 
 The smallest useful `ArticleNavigation` plugin: two sidebar entries, each opening
-a plugin page built from [`@docspace/ui-kit`](https://github.com/ONLYOFFICE/docspace-ui-kit-react).
+a plugin page built from [`@onlyoffice/apps-ui-kit`](https://github.com/ONLYOFFICE/docspace-ui-kit-react).
 Everything lives in [`src/index.tsx`](src/index.tsx).
 
 | Sidebar entry     | Appears in       | Visible to        | Page shows                   |
@@ -23,28 +23,22 @@ npm install
 npm run build   # vite build && npx build-onlyoffice-plugin → dist/plugin.zip
 ```
 
-`@docspace/ui-kit` is not published to npm. Two packed tarballs have to sit next
-to this `package.json` before the install:
-
-- `docspace-ui-kit-0.0.1.tgz` — the UI kit itself, which the `dependencies` entry
-  already points at;
-- `onlyoffice-docspace-api-sdk-3.7.0.tgz` — the UI kit depends on it as
-  `file:onlyoffice-docspace-api-sdk-3.7.0.tgz`, a path npm resolves against the
-  project root rather than the tarball, so the install fails with `ENOENT` when
-  it is missing.
+`@onlyoffice/apps-ui-kit` is not published to npm. The packed tarball has to sit
+next to this `package.json` before the install: `onlyoffice-apps-ui-kit-4.0.0.tgz`,
+which the `dependencies` entry already points at. It is the same build the
+ONLYOFFICE Apps client ships as `onlyoffice-apps-ui-kit.tgz` in its repository root, so
+the components the plugin imports are the ones the portal substitutes at load
+time.
 
 ```bash
-# the UI kit: from a docspace-ui-kit-react checkout
+# from a docspace-ui-kit-react checkout
 pnpm build && pnpm pack
-
-# the API SDK is on npm, so packing it needs no checkout
-npm pack @onlyoffice/docspace-api-sdk@3.7.0
 ```
 
 ## Why react and the ui kit stay external
 
 `vite.config.ts` keeps `react`, `react-dom`, `react/jsx-runtime`, the SDK's
-React entry and every `@docspace/ui-kit` specifier out of the bundle. The client
+React entry and every `@onlyoffice/apps-ui-kit` specifier out of the bundle. The client
 rewrites those specifiers to its own copies when it loads the plugin. A bundled
 React would be a second React instance with its own context objects, and every
 SDK hook would throw; a bundled UI kit would read empty theme and direction

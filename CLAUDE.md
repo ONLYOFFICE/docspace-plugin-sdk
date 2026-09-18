@@ -72,7 +72,7 @@ Each plugin type contains `*Item` interfaces (e.g., `IContextMenuItem`, `IInfoPa
 - `src/index.ts` — barrel re-export of everything public (root entry; `src/react/index.ts` is the `/react` entry)
 - `npx/` — CLI source (Inquirer.js prompts, template cloning, build tools)
 - `template/` — boilerplate used by `create-onlyoffice-plugin`
-- `samples/` — working plugins, one per scope; `samples/article-navigation` is the reference React + `@docspace/ui-kit` build
+- `samples/` — working plugins, one per scope; `samples/article-navigation` is the reference React + `@onlyoffice/apps-ui-kit` build
 - `tools/` — documentation pipeline scripts (TypeDoc post-processing for Docusaurus)
 
 ### Docs pipeline
@@ -84,7 +84,7 @@ Documentation is generated from JSDoc comments by TypeDoc + post-processing scri
 - Targets ES5 / CommonJS output (see `tsconfig.json`, `tsconfig.react.json`)
 - Minimum ONLYOFFICE Apps version: 4.0.0 (enforced by SDK version 3.0.0). `build-onlyoffice-plugin` reads it from the **installed SDK's** `package.json` field `minPortalVersion` and writes it into the plugin's `config.json` under the key `minDocSpaceVersion`. A plugin author cannot set it.
 - Package manager: npm (`package-lock.json`) — CI installs with `npm ci`
-- **The DocSpace name survives only where something outside this repo reads it**, and those spellings must not be "fixed": the package name `@onlyoffice/docspace-plugin-sdk` and its `/react` subpath, the external `@docspace/ui-kit` and `@onlyoffice/docspace-api-sdk`, the `minDocSpaceVersion` key inside a generated `config.json` (the portal reads it through `WebPluginDto`), the deprecated `UsersType` enum with its `docSpaceAdmin` member and `"DocSpaceAdmin"` value (still matched by the portal for older plugins), the `github.com/ONLYOFFICE/docspace-*` URLs and the `docspace/plugins-sdk/usage-sdk` docs-site paths. Everything else says ONLYOFFICE Apps.
+- **The DocSpace name survives only where something outside this repo reads it**, and those spellings must not be "fixed": the package name `@onlyoffice/docspace-plugin-sdk` and its `/react` subpath, the external `@onlyoffice/apps-ui-kit` and `@onlyoffice/docspace-api-sdk`, the `minDocSpaceVersion` key inside a generated `config.json` (the portal reads it through `WebPluginDto`), the deprecated `UsersType` enum with its `docSpaceAdmin` member and `"DocSpaceAdmin"` value (still matched by the portal for older plugins), the `github.com/ONLYOFFICE/docspace-*` URLs and the `docspace/plugins-sdk/usage-sdk` docs-site paths. Everything else says ONLYOFFICE Apps.
 
 ---
 
@@ -128,7 +128,7 @@ window.Plugins.PluginName = plugin || {};
 
 ### React pages and the UI kit
 
-React components are rendered inside the ONLYOFFICE Apps application tree, so they can use the portal theme and the [`@docspace/ui-kit`](https://github.com/ONLYOFFICE/docspace-ui-kit-react) components — **provided the bundle leaves the shared modules external** and lets the client supply them:
+React components are rendered inside the ONLYOFFICE Apps application tree, so they can use the portal theme and the [`@onlyoffice/apps-ui-kit`](https://github.com/ONLYOFFICE/docspace-ui-kit-react) components — **provided the bundle leaves the shared modules external** and lets the client supply them:
 
 ```javascript
 external: [
@@ -136,7 +136,7 @@ external: [
   "react-dom",
   "react/jsx-runtime",
   "@onlyoffice/docspace-plugin-sdk/react",
-  /^@docspace\/ui-kit(\/.*)?$/,
+  /^@onlyoffice\/apps-ui-kit(\/.*)?$/,
 ];
 ```
 

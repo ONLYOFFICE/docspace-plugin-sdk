@@ -31,7 +31,7 @@
  *
  * :::info Bundling
  * `react`, `react-dom`, `react/jsx-runtime`,
- * `@onlyoffice/docspace-plugin-sdk/react` and `@docspace/ui-kit` must stay
+ * `@onlyoffice/docspace-plugin-sdk/react` and `@onlyoffice/apps-ui-kit` must stay
  * **external** in the plugin bundle — ONLYOFFICE Apps supplies its own copies at load
  * time. A plugin that bundles its own React gets a second React instance with
  * its own context objects, and every hook below then throws; the same goes for
@@ -42,7 +42,7 @@
  * any other dependency.
  *
  * ONLYOFFICE Apps substitutes these specifiers, spelled exactly that way.
- * `@docspace/ui-kit` is today the package root only: a subpath import left
+ * `@onlyoffice/apps-ui-kit` is today the package root only: a subpath import left
  * external reaches the portal unresolved and the plugin then fails to load,
  * naming the specifier in the console.
  * :::

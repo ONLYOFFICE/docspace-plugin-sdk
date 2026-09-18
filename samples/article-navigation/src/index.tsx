@@ -20,7 +20,7 @@
  * The `ArticleNavigation` scope adds entries to the portal sidebar. Clicking an
  * entry opens a full plugin page — not a dialog — and ONLYOFFICE Apps renders the
  * item's `component` on it, inside its own React tree. That is why the pages
- * below are ordinary components built from `@docspace/ui-kit`: they get the
+ * below are ordinary components built from `@onlyoffice/apps-ui-kit`: they get the
  * portal theme for free, and the SDK hooks reach the portal through context.
  *
  * Two items, to show how `appears` places an entry:
@@ -39,7 +39,7 @@ import {
   HeadingSize,
   Text,
   ToggleButton,
-} from "@docspace/ui-kit";
+} from "@onlyoffice/apps-ui-kit";
 import {
   useCurrentUser,
   usePluginActions,

@@ -27,7 +27,7 @@
     "vite": "^8.0.0"
   },
   "dependencies": {
-    "@docspace/ui-kit": "file:./docspace-ui-kit-0.0.1.tgz",
+    "@onlyoffice/apps-ui-kit": "file:./onlyoffice-apps-ui-kit-4.0.0.tgz",
     "@onlyoffice/docspace-plugin-sdk": "file:../..",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
