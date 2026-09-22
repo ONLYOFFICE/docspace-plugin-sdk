@@ -17,16 +17,15 @@
  */
 
 // @ts-check
-import { execSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const CONFIG_FILE = join(process.cwd(), "typedoc.config.mjs");
 
 try {
-  const gitBranch = execSync("git rev-parse --abbrev-ref HEAD", {
-    encoding: "utf-8",
-  }).trim();
+  // Docs preview branch: the sources are the master state, so the edit links
+  // point at master and not at this branch, which only exists to generate them.
+  const gitBranch = "master";
 
   let configContent = readFileSync(CONFIG_FILE, "utf-8");
 

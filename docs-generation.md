@@ -23,7 +23,7 @@ npm run docs:sync   # full pipeline + copy into ../api.onlyoffice.com
 
 `npm run docs` executes five steps in sequence (see `package.json`):
 
-1. **`tools/update-revision.mjs`** — reads the current Git branch and writes it into `typedoc.config.mjs` → `gitRevision`, so the `custom_edit_url` of every page points at the branch being documented.
+1. **`tools/update-revision.mjs`** — writes the documented revision into `typedoc.config.mjs` → `gitRevision`. On this preview branch it is pinned to `master`: the sources are the master state, and the branch itself is not published, so the `custom_edit_url` of every page has to point at `master`.
 2. **`typedoc`** — parses the entry points and generates raw Markdown into `docs/`.
 3. **`tools/generate-index-pages/index.mjs`** — rewrites every generated page (see [Post-processing](#post-processing)) and builds an `index.md` per section.
 4. **`tools/flatten-sidebar.mjs`** — flattens and regroups the Docusaurus sidebar (see [Sidebar](#sidebar)).
@@ -203,7 +203,7 @@ Conventions:
 
 - `docs/` is regenerated from scratch (`cleanOutputDir: true`) and gitignored — manual edits are lost; fix the JSDoc or a `tools/` script.
 - The `tools/` transforms are regex-based rewrites of TypeDoc's Markdown; a TypeDoc/plugin version bump can silently change the output shape and break them — diff `docs/` against a pre-bump run.
-- `update-revision.mjs` mutates `typedoc.config.mjs` and `update-sidebar.mjs` reverts it. An interrupted run can leave `gitRevision` on your branch name — re-run `npm run docs` or reset it to `master` before committing.
+- `update-revision.mjs` mutates `typedoc.config.mjs` and `update-sidebar.mjs` reverts it; on this branch both values are `master`, so an interrupted run leaves the config as it was.
 - Barrel `index.ts` files are excluded on purpose; adding one as an entry point duplicates every symbol.
 - `docs:sync` requires the `api.onlyoffice.com` checkout as a sibling directory of the repo.
 
