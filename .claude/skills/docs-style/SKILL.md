@@ -17,8 +17,9 @@ published to `api.onlyoffice.com`.
 Changes to JSDoc, `typedoc.config.mjs`, or `tools/` must not break these.
 If a change would — stop and confirm with the user first.
 
-1. **Page skeleton:** H1 (main symbol) → one `[View source on GitHub]` link →
-   description → optional light/dark image pair → Examples → reference tables.
+1. **Page skeleton:** `custom_edit_url` front matter (the main symbol's source
+   file — no in-page source links) → H1 (main symbol) → description → optional
+   light/dark image pair → Examples → reference tables.
 2. **Members are table rows** in source order, each table wrapped in the
    site's `<APITable>` component (plain JSX + import); row anchors are the
    literal first-cell text (case-sensitive, `?` included), `Symbol-`-prefixed

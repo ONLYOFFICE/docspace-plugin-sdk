@@ -2,16 +2,15 @@
 import { readFileSync, writeFileSync, readdirSync, existsSync } from "node:fs";
 import { join, basename } from "node:path";
 import { walkMarkdownLines } from "../shared/markdown.mjs";
-import { SOURCE_LINK_LABEL } from "./page-transforms.mjs";
+import { EDIT_URL_KEY } from "./page-transforms.mjs";
 
 /**
- * True for a source reference line, raw ("Defined in:") or rewritten.
+ * True for a raw TypeDoc source reference line (the transforms move the page's
+ * own into front matter and drop the rest).
  * @param {string} line
  */
 function isSourceReferenceLine(line) {
-  return (
-    line.startsWith("Defined in:") || line.startsWith(`[${SOURCE_LINK_LABEL}](`)
-  );
+  return line.startsWith("Defined in:");
 }
 
 /**
@@ -109,11 +108,14 @@ function readPageDescription(pagePath) {
 
 /**
  * Generates index.md for one section: title, prose from sections.mjs, and an
- * overview table built from the final page titles and descriptions.
+ * overview table built from the final page titles and descriptions. With
+ * `editUrl` the page gets `custom_edit_url` front matter, so the site's "Edit
+ * this page" link opens the file the prose lives in.
  * @param {import("../constants/sections.mjs").Section} section
  * @param {string} docsDir
+ * @param {string} [editUrl]
  */
-export function generateIndexPage(section, docsDir) {
+export function generateIndexPage(section, docsDir, editUrl) {
   const sectionPath = join(docsDir, section.docsDir);
 
   if (!existsSync(sectionPath)) {
@@ -152,6 +154,7 @@ export function generateIndexPage(section, docsDir) {
     : `| ${headerName} | Description |\n| --- | --- |`;
 
   const content = [
+    ...(editUrl ? ["---", `${EDIT_URL_KEY}: ${editUrl}`, "---", ``] : []),
     `# ${section.title}`,
     ``,
     section.description,
