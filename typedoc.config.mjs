@@ -80,8 +80,10 @@ export default {
   },
   treatValidationWarningsAsErrors: false,
   disableSources: false,
+  // No line anchor: the page-level reference becomes the "Edit this page"
+  // link, which points at the file, not at a line inside it.
   sourceLinkTemplate:
-    "https://github.com/ONLYOFFICE/docspace-plugin-sdk/blob/{gitRevision}/{path}#L{line}",
+    "https://github.com/ONLYOFFICE/docspace-plugin-sdk/blob/{gitRevision}/{path}",
   gitRevision: "master",
   // Keeps TypeDoc from dropping a .nojekyll into docs/, which docs:sync would
   // then carry into the site repository.
@@ -130,7 +132,8 @@ export default {
   parametersFormat: "table",
   propertyMembersFormat: "table",
   // The per-member source link is dropped from the tables: generate-index-pages
-  // keeps one "View source on GitHub" link per symbol instead.
+  // moves the page-level source reference into `custom_edit_url` front matter
+  // instead.
   tableColumnSettings: {
     hideSources: true
   }

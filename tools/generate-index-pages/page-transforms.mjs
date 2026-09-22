@@ -2,7 +2,8 @@
 import { basename } from "node:path";
 import { collectPageAnchors, walkMarkdownLines } from "../shared/markdown.mjs";
 
-export const SOURCE_LINK_LABEL = "View source on GitHub";
+/** Docusaurus front matter key that overrides the "Edit this page" link. */
+export const EDIT_URL_KEY = "custom_edit_url";
 
 const IMAGE_BASE = "/assets/images/docspace";
 
@@ -23,16 +24,21 @@ function mainSymbolNames(pageName) {
 }
 
 /**
- * Rewrites "Defined in: [file.ts:12](url)" to "[View source on GitHub](url)" —
- * one link per symbol (the line under an H1/H2). Member-level ones are dropped.
- * Runs before the heading shifts, while symbols are still H1/H2.
+ * Moves the page's own source reference — the "Defined in: [file.ts:12](url)"
+ * line under the main symbol's heading — into `custom_edit_url` front matter,
+ * so the site's "Edit this page" link opens the source file on GitHub. Every
+ * other source line (secondary symbols and members) is dropped.
+ * Runs after `hoistMainSection`, so the main symbol is the page's first, and
+ * before the heading shifts, while symbols are still H1/H2.
  * @param {string} content
  */
-function convertSourceLinks(content) {
+function moveSourceLinkToFrontmatter(content) {
   /** @type {string[]} */
   const resultLines = [];
 
   let isUnderSymbolHeading = false;
+  /** @type {string | undefined} */
+  let editUrl;
 
   for (const { line, insideCodeBlock } of walkMarkdownLines(content)) {
     if (insideCodeBlock) {
@@ -53,17 +59,19 @@ function convertSourceLinks(content) {
       continue;
     }
 
-    if (isUnderSymbolHeading) {
-      resultLines.push(`[${SOURCE_LINK_LABEL}](${sourceMatch[1]})`);
+    if (isUnderSymbolHeading && editUrl === undefined) {
+      editUrl = sourceMatch[1];
       isUnderSymbolHeading = false;
-      continue;
     }
 
-    // Member-level source line: drop it and the blank line it leaves behind.
+    // Drop the source line and the blank line it leaves behind.
     if (resultLines[resultLines.length - 1]?.trim() === "") resultLines.pop();
   }
 
-  return resultLines.join("\n");
+  const body = resultLines.join("\n");
+  return editUrl === undefined
+    ? body
+    : `---\n${EDIT_URL_KEY}: ${editUrl}\n---\n\n${body}`;
 }
 
 /**
@@ -352,8 +360,8 @@ function stripTrailingHorizontalRule(content) {
 }
 
 export const STRUCTURAL_TRANSFORMS = [
-  convertSourceLinks,
   hoistMainSection,
+  moveSourceLinkToFrontmatter,
   reorderExamplesFirst,
   resolvePluginImageTags,
   promoteFirstH2toH1,

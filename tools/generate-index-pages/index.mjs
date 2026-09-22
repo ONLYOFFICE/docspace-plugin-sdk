@@ -9,9 +9,18 @@ import { STRUCTURAL_TRANSFORMS, CLEANUP_TRANSFORMS } from "./page-transforms.mjs
 import { dropPageTitleFragments } from "./cross-page-links.mjs";
 import { applyApiTables } from "./api-tables.mjs";
 import { generateIndexPage } from "./section-index.mjs";
+import typedocConfig from "../../typedoc.config.mjs";
 
 const ROOT = join(fileURLToPath(import.meta.url), "../../..");
 const DOCS_DIR = join(ROOT, "docs");
+
+/**
+ * Edit link of the section index pages: the file their prose lives in, on the
+ * revision being documented.
+ */
+const SECTIONS_EDIT_URL = String(typedocConfig.sourceLinkTemplate)
+  .replace("{gitRevision}", String(typedocConfig.gitRevision))
+  .replace("{path}", "tools/constants/sections.mjs");
 
 /**
  * Every generated page under docs/ (index pages excluded — they are
@@ -56,7 +65,7 @@ for (const pagePath of generatedPages) {
 applyApiTables(generatedPages);
 
 for (const section of SECTIONS) {
-  generateIndexPage(section, DOCS_DIR);
+  generateIndexPage(section, DOCS_DIR, SECTIONS_EDIT_URL);
 }
 
 console.log("✅  All index pages generated.");

@@ -10,7 +10,7 @@ The documentation system uses:
 
 - **TypeDoc** — extracts documentation from JSDoc comments in the TypeScript sources
 - **typedoc-plugin-markdown** — converts TypeDoc output to Markdown
-- **typedoc-plugin-frontmatter** — adds frontmatter metadata to the generated files
+- **typedoc-plugin-frontmatter** — required by the Docusaurus theme; it emits nothing itself, the only front matter on a page is the `custom_edit_url` added by `tools/`
 - **typedoc-docusaurus-theme** — emits a Docusaurus-compatible sidebar (`typedoc-sidebar.cjs`)
 - **`tools/`** — post-processing scripts that reshape the raw TypeDoc output into the final page skeleton
 
@@ -23,7 +23,7 @@ npm run docs:sync   # full pipeline + copy into ../api.onlyoffice.com
 
 `npm run docs` executes five steps in sequence (see `package.json`):
 
-1. **`tools/update-revision.mjs`** — reads the current Git branch and writes it into `typedoc.config.mjs` → `gitRevision`, so "View source on GitHub" links point at the branch being documented.
+1. **`tools/update-revision.mjs`** — reads the current Git branch and writes it into `typedoc.config.mjs` → `gitRevision`, so the `custom_edit_url` of every page points at the branch being documented.
 2. **`typedoc`** — parses the entry points and generates raw Markdown into `docs/`.
 3. **`tools/generate-index-pages/index.mjs`** — rewrites every generated page (see [Post-processing](#post-processing)) and builds an `index.md` per section.
 4. **`tools/flatten-sidebar.mjs`** — flattens and regroups the Docusaurus sidebar (see [Sidebar](#sidebar)).
@@ -76,9 +76,9 @@ The full configuration is `typedoc.config.mjs`. The options that define the look
 | `expandObjects` / `expandParameters` | `true` | Inline objects expanded in signatures; the signature is the overview, the "Type Declaration" table below is the reference |
 | `propertiesFormat` etc. | `"table"` | Members are table rows; TypeDoc's per-row `<a id>` anchors are later replaced by the `<APITable>` wrapper (see below) |
 | `enumMembersFormat` | `"list"` | Enum members stay a list: their descriptions carry `@example` fences, which cannot live in a table cell |
-| `tableColumnSettings` | `{ hideSources: true }` | No per-member source column; one "View source on GitHub" link per symbol instead |
+| `tableColumnSettings` | `{ hideSources: true }` | No per-member source column; the page-level source reference becomes `custom_edit_url` instead |
 | `excludeInternal` / `excludePrivate` / `excludeProtected` | `true` | `@internal` symbols never appear in the output |
-| `sourceLinkTemplate` | GitHub blob URL with `{gitRevision}` | Source links; revision is set by `update-revision.mjs`, reverted to `master` by `update-sidebar.mjs` |
+| `sourceLinkTemplate` | GitHub blob URL with `{gitRevision}`, no line anchor | The file URL that becomes `custom_edit_url`; revision is set by `update-revision.mjs`, reverted to `master` by `update-sidebar.mjs` |
 | `githubPages` | `false` | Keeps TypeDoc from dropping a `.nojekyll` that `docs:sync` would carry into the site repo |
 | `commentStyle` | `"jsdoc"` | Only `/** */` comments are picked up |
 | `validation` | notExported, invalidLink, rewrittenLink, unusedMergeModuleWith | Link and export validation on every run |
@@ -98,8 +98,8 @@ Layout of `tools/`:
 
 ### Structural transforms (order matters)
 
-1. `convertSourceLinks` — rewrites `Defined in: [file.ts:N](url)` to one `[View source on GitHub](url)` per symbol; member-level source lines are dropped.
-2. `hoistMainSection` — moves the H2 section matching the file name to the front (fixes TypeDoc's kind-based ordering).
+1. `hoistMainSection` — moves the H2 section matching the file name to the front (fixes TypeDoc's kind-based ordering).
+2. `moveSourceLinkToFrontmatter` — moves the `Defined in: [file.ts:N](url)` line under the main symbol into `custom_edit_url` front matter, so the site's "Edit this page" link opens the source file on GitHub; every other source line (secondary symbols and members) is dropped. Runs after the hoist, so the URL is the main symbol's, and before the heading shifts, while symbols are still H1/H2.
 3. `reorderExamplesFirst` — inside each symbol section, `### Example(s)` moves ahead of the reference tables (Type Declaration, Properties, …).
 4. `resolvePluginImageTags` — rewrites `<plugin-image src="x.png" [dark[="y.png"]] />` to Markdown images under `/assets/images/docspace/`; `dark` emits a light/dark pair using the `#gh-light-mode-only` / `#gh-dark-mode-only` URL convention.
 5. `promoteFirstH2toH1` — gives the page its H1 (TypeDoc emits none): promotes the main-symbol H2, or injects a title derived from the file name when the page has several symbols and a module preamble.
@@ -133,7 +133,8 @@ The result carries no raw HTML: the only non-Markdown syntax in the output is th
 For every section in `tools/constants/sections.mjs` (`components`, `items`, `plugins`, `settings`, `enums`), `section-index.mjs` generates an `index.md`:
 
 - **H1 title**, intro **description** and optional **usage** paragraph — all authored in `sections.mjs`;
-- an **Overview table** (`| Interface | Description |`, header name configurable) built from each page's final H1 and the first sentence of its description.
+- an **Overview table** (`| Interface | Description |`, header name configurable) built from each page's final H1 and the first sentence of its description;
+- `custom_edit_url` front matter pointing at `tools/constants/sections.mjs` on the documented revision, since that is where the prose lives.
 
 ## Sidebar
 
