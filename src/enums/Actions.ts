@@ -64,9 +64,7 @@ export enum Actions {
 
   /**
    * Makes the portal re-read the plugin status through
-   * [`getStatus`](../interfaces/plugins/IPlugin.md#getstatus) and apply
-   * it: `active` registers the items of every scope the plugin declares and
-   * loads its CSS, `hide` unregisters them and unloads the CSS again.
+   * [`getStatus`](../interfaces/plugins/IPlugin.md#getstatus) and apply it.
    *
    * @example
    * ```typescript
@@ -414,7 +412,8 @@ export enum Actions {
 
   /**
    * Calls a function to navigate to the specified path.
-   * All actions listed after navigate will be called after the navigation is complete.
+   * The portal starts the navigation and goes straight on to the actions listed
+   * after it, without waiting for the new page.
    * It does not work if the [`navigatePath`](../interfaces/utils.md#imessage) parameter is not passed to the message.
    *
    * @example
