@@ -63,7 +63,7 @@ import { Component } from "./Component";
  *   flexBasis: "50%",
  *   flexProp: "1",
  *   flexWrap: "wrap",
- *   children: inputComponent
+ *   children: [inputComponent]
  * }
  * ```
  */

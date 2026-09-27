@@ -227,6 +227,7 @@ export enum Actions {
    * const message: IMessage = {
    *   actions: [Actions.updateCreateDialogModal],
    *   createDialogProps: {
+   *     ...newDiagramDialog,
    *     title: "some title value",
    *   },
    * };
