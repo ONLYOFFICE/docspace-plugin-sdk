@@ -57,6 +57,8 @@ import {
  *   // Enables and sets the text for the cancel button.
  *   withCancelButton: true,
  *   cancelButtonLabel: "Cancel",
+ *   // A callback function that is executed when the user clicks the cancel button.
+ *   onCancel: () => ({ actions: [Actions.closeSelector] }),
  *
  *   // Enables breadcrumbs for easy navigation through folders.
  *   withBreadCrumbs: true,

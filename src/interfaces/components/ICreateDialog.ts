@@ -36,6 +36,8 @@ import { IComboBoxItem } from "./IComboBox";
  * Document creation dialog with multiple format options
  *
  * ```typescript
+ * let format = "docx";
+ *
  * const newDocumentDialog: ICreateDialog = {
  *   title: "Create New Document",
  *   startValue: "Untitled",
@@ -63,38 +65,38 @@ import { IComboBoxItem } from "./IComboBox";
  *     icon: "word.svg"
  *   },
  *   onSelect: (option) => {
+ *     format = option.key;
+ *
  *     return {
- *       actions: [Actions.updateProps],
- *       newProps: {
+ *       actions: [Actions.updateCreateDialogModal],
+ *       createDialogProps: {
+ *         ...newDocumentDialog,
  *         selectedOption: option,
  *         extension: option.key
  *       }
  *     };
  *   },
  *   onSave: async (e, value) => {
- *     try {
- *       // Create the document
- *       await createDocument(value, selectedOption.key);
+ *     // A throw here keeps the dialog open and hands the error to onError
+ *     await createDocument(value, format);
  *
- *       return {
- *         actions: [Actions.updateProps, Actions.showToast],
- *         newProps: {
- *           visible: false
- *         },
- *         toastProps: [{
- *           title: `Document "${value}" created successfully`,
- *           type: ToastType.success
- *         }]
- *       };
- *     } catch (error) {
- *       return {
- *         actions: [Actions.showToast],
- *         toastProps: [{
- *           title: "Failed to create document. Please try again.",
- *           type: ToastType.error
- *         }]
- *       };
- *     }
+ *     // The dialog then closes by itself: isCloseAfterCreate defaults to true
+ *     return {
+ *       actions: [Actions.showToast],
+ *       toastProps: [{
+ *         title: `Document "${value}" created successfully`,
+ *         type: ToastType.success
+ *       }]
+ *     };
+ *   },
+ *   onError: (error) => {
+ *     return {
+ *       actions: [Actions.showToast],
+ *       toastProps: [{
+ *         title: "Failed to create document. Please try again.",
+ *         type: ToastType.error
+ *       }]
+ *     };
  *   },
  *   onCancel: (e) => {
  *     // Clean up any temporary state if needed
@@ -105,6 +107,30 @@ import { IComboBoxItem } from "./IComboBox";
  *   isCreateDialog: true,
  *   extension: "docx"
  * }
+ * ```
+ *
+ * @example
+ *
+ * Name check that keeps the error text in the dialog
+ *
+ * ```typescript
+ * const newDiagramDialog: ICreateDialog = {
+ *   title: "Create diagram",
+ *   startValue: "New diagram",
+ *   visible: true,
+ *   isCreateDialog: true,
+ *   isAutoFocusOnError: true,
+ *   extension: "drawio",
+ *   onSave: async (e, value) => {
+ *     if (!value.trim()) throw new Error("Enter a diagram name");
+ *
+ *     await drawIo.createNewFile(value);
+ *   },
+ *   onError: (error) => ({
+ *     actions: [Actions.updateCreateDialogModal],
+ *     createDialogProps: { ...newDiagramDialog, errorText: error.message }
+ *   })
+ * };
  * ```
  */
 export interface ICreateDialog {
@@ -130,6 +156,16 @@ export interface ICreateDialog {
 
   /**
    * Specifies if the modal dialog should be closed after the create action.
+   * @default true
+   *
+   * @remarks
+   * Once [`onSave`](#onsave) resolves, the dialog closes whatever its message
+   * sets, so an [`errorText`](#errortext) returned there disappears with it.
+   * To keep the dialog open on a validation error, throw from `onSave` and
+   * return the text from [`onError`](#onerror): the dialog is never closed on
+   * that path. With `false`, the plugin closes the dialog itself with
+   * [`Actions.updateCreateDialogModal`](../../enums/Actions.md#updatecreatedialogmodal)
+   * and `visible: false`.
    */
   isCloseAfterCreate?: boolean;
 
@@ -145,6 +181,11 @@ export interface ICreateDialog {
 
   /**
    * Error text to display when validation fails or an error occurs.
+   *
+   * @remarks
+   * Return it from [`onError`](#onerror) or [`onChange`](#onchange). Returned
+   * from a successful [`onSave`](#onsave), it closes together with the dialog
+   * unless [`isCloseAfterCreate`](#iscloseaftercreate) is `false`.
    */
   errorText?: string;
 
@@ -178,6 +219,11 @@ export interface ICreateDialog {
 
   /**
    * Sets a function which is triggered whenever an error occurs during the onSave operation.
+   *
+   * @remarks
+   * Runs when [`onSave`](#onsave) throws or rejects. The dialog stays open
+   * whatever [`isCloseAfterCreate`](#iscloseaftercreate) is, so an
+   * [`errorText`](#errortext) set by the returned message stays on screen.
    */
   onError?: (e: any) => Promise<IMessage> | Promise<void> | IMessage | void;
 

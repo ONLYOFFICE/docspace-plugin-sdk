@@ -39,7 +39,11 @@ export interface TCurrentFile {
   isFolder?: boolean;
   /** `true` when the selection is a room. */
   isRoom?: boolean;
-  /** Room type identifier, e.g. `"CustomRoom"`. Present only for rooms. */
+  /**
+   * Room type, e.g. `"custom-room"` — a
+   * [`RoomsType`](../enums/Rooms.md#roomstype) value, so it compares directly
+   * against that enum. Present only for rooms.
+   */
   roomType?: string;
 }
 

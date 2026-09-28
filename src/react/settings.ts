@@ -69,15 +69,15 @@ export interface PluginSettingsClient {
   load<T = unknown>(): T | null;
 
   /**
-   * Persist plugin settings to the server.
-   * After saving, ONLYOFFICE Apps calls `setAdminPluginSettingsValue` on the plugin
-   * class instance so any module-scope cache stays in sync, and then re-reads
-   * [`getStatus`](../interfaces/plugins/IPlugin.md#getstatus): a plugin can
-   * hide or show itself from its own settings, and this is the only moment the
-   * React runtime re-reads the status — it has no status action of its own.
-   * `data` is serialized into the one string the portal caps at 255 characters —
-   * see [`ISettingsPlugin`](../interfaces/plugins/ISettingsPlugin.md) for what
-   * fits into it.
+   * Persist plugin settings to the server and pass them to the plugin class
+   * through
+   * [`setAdminPluginSettingsValue`](../interfaces/plugins/ISettingsPlugin.md#setadminpluginsettingsvalue).
+   *
+   * The portal then re-reads
+   * [`getStatus`](../interfaces/plugins/IPlugin.md#getstatus), the one way a
+   * component can switch its plugin on or off. `data` becomes a single string
+   * of at most 255 characters, see
+   * [`ISettingsPlugin`](../interfaces/plugins/ISettingsPlugin.md).
    *
    * @param data - Plain JSON-serialisable object to store as plugin settings.
    *
