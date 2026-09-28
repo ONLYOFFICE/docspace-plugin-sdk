@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "author": "",
   "private": true,
+  "type": "module",
   "runtime": "module",
   "scopes": [],
   "scripts": {
@@ -15,7 +16,7 @@
     "@vitejs/plugin-react": "^6.0.0",
     "prettier": "^3.0.0",
     "typescript": "^5.6.0",
-    "vite": "^8.0.0"
+    "vite": "^8.3.0"
   },
   "dependencies": {
     "@onlyoffice/docspace-plugin-sdk": "^3.0.0",

@@ -6,13 +6,17 @@ const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 export default defineConfig({
   plugins: [react()],
+  define: {
+    "process.env.NODE_ENV": JSON.stringify("production"),
+    "process.env": "{}",
+  },
   build: {
     lib: {
       entry: `${__dirname}src/index.tsx`,
       formats: ["es"],
       fileName: () => "plugin.js",
     },
-    rollupOptions: {
+    rolldownOptions: {
       // Kept out of the bundle: DocSpace supplies its own copies at load time
       // and rewrites these specifiers to them. A second React arrives with its
       // own contexts, so every SDK hook throws; a second ui-kit fails more
@@ -30,8 +34,11 @@ export default defineConfig({
         /^@docspace\/ui-kit(\/.*)?$/,
       ],
       output: {
+        codeSplitting: false,
         assetFileNames: (assetInfo: { name?: string }) =>
-          assetInfo.name?.endsWith(".css") ? "plugin.css" : (assetInfo.name ?? "asset"),
+          assetInfo.name?.endsWith(".css")
+            ? "plugin.css"
+            : (assetInfo.name ?? "asset"),
       },
     },
   },
