@@ -59,6 +59,7 @@ import {
   Security,
   PluginLocale,
   SelectorType,
+  FilterType,
   RoomSearchArea,
   RoomsType,
   Section
@@ -211,6 +212,7 @@ export {
   Devices,
   Security,
   SelectorType,
+  FilterType,
   Section,
   TSelector,
   TBaseSelector,
