@@ -221,9 +221,8 @@ export interface IFloatingOperationsButton {
    onCancelOperationFromList?: (operationId: string) => TReturnMessage;
 
    /**
-    * Lifecycle callback executed once when floating operations button with given id is displayed for the first time.
-    * Receives a dispatchMessage function to send updates back to DocSpace.
-    * Use this to initialize progress tracking or update.
+    * Lifecycle callback executed when the entry with given id is shown, and again if it was
+    * cleared and added anew. Send later updates through `dispatchMessage`.
     * @param dispatchMessage - Function to send progress updates to DocSpace
     */
    onLoad?: (dispatchMessage: (message: IMessage) => void) => TReturnMessage;

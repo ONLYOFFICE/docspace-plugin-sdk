@@ -25,7 +25,7 @@ import type { PluginSettingsClient } from "./settings";
  * Returned by [`useCurrentFile`](hooks.md#usecurrentfile).
  */
 export interface TCurrentFile {
-  /** Numeric file/folder ID or string room ID. */
+  /** File, folder or room ID: a number, or a string in third-party storage. */
   id: number | string;
   /** Display name including extension, e.g. `"Report Q4.docx"`. */
   title: string;
