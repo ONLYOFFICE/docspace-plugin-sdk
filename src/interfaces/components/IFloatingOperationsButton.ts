@@ -172,93 +172,92 @@ import { IMessage, TReturnMessage } from "../utils";
  * ```
  */
 export interface IFloatingOperationsButton {
-   /**
-    * Unique identifier for floating operations.
-    * Used to track and update operations from the same plugin.
-    * When Actions.addFloatingOperationsButton is called again with the same identifier,
-    * the existing operations are preserved rather than replaced.
-    * Use Actions.updateFloatingOperationsButton to update the state.
-    */
-   id: string;
+  /**
+   * Unique identifier for floating operations.
+   * Used to track and update operations from the same plugin.
+   * When Actions.addFloatingOperationsButton is called again with the same identifier,
+   * the existing operations are preserved rather than replaced.
+   * Use Actions.updateFloatingOperationsButton to update the state.
+   */
+  id: string;
 
-   /**
-    * Array of operations to display in the floating button.
-    * Each operation shows as a row with icon, label, and progress indicator.
-    * Operations from multiple plugins are aggregated and displayed together.
-    */
-   operations?: IFloatingOperation[];
+  /**
+   * Array of operations to display in the floating button.
+   * Each operation shows as a row with icon, label, and progress indicator.
+   * Operations from multiple plugins are aggregated and displayed together.
+   */
+  operations?: IFloatingOperation[];
 
-   /**
-    * Flag indicating all operations are completed.
-    * When true, the button shows a green checkmark and "completed" status.
-    * User can then dismiss the button or review completed operations.
-    */
-   operationsCompleted?: boolean;
+  /**
+   * Flag indicating all operations are completed.
+   * When true, the button shows a green checkmark and "completed" status.
+   * User can then dismiss the button or review completed operations.
+   */
+  operationsCompleted?: boolean;
 
-   /**
-    * Flag indicating at least one operation has an error.
-    * When true, the button shows a red warning indicator.
-    */
-   operationsAlert?: boolean;
+  /**
+   * Flag indicating at least one operation has an error.
+   * When true, the button shows a red warning indicator.
+   */
+  operationsAlert?: boolean;
 
-   /**
-    * Controls the visibility of the cancel button.
-    * Cancel button is displayed only if the floating button contains only one operation
-    * from the plugin and this flag is set to true.
-    */
-   showCancelButton?: boolean;
+  /**
+   * Controls the visibility of the cancel button.
+   * Cancel button is displayed only if the floating button contains only one operation
+   * from the plugin and this flag is set to true.
+   */
+  showCancelButton?: boolean;
 
-   /**
-    * Callback executed when user clicks the cancel button in the floating button.
-    */
-   cancelOperation?: () => TReturnMessage;
+  /**
+   * Callback executed when user clicks the cancel button in the floating button.
+   */
+  cancelOperation?: () => TReturnMessage;
 
-   /**
-    * Callback executed when user closes a specific operation from the operations list.
-    * Receives the operation ID.
-    * Typically returns Actions.updateFloatingOperationsButton with the updated operations list.
-    */
-   onCancelOperationFromList?: (operationId: string) => TReturnMessage;
+  /**
+   * Callback executed when user closes a specific operation from the operations list.
+   * Receives the operation ID.
+   * Typically returns Actions.updateFloatingOperationsButton with the updated operations list.
+   */
+  onCancelOperationFromList?: (operationId: string) => TReturnMessage;
 
-   /**
-    * Lifecycle callback executed once when floating operations button with given id is displayed for the first time.
-    * Receives a dispatchMessage function to send updates back to ONLYOFFICE Apps.
-    * Use this to initialize progress tracking or update.
-    * @param dispatchMessage - Function to send progress updates to ONLYOFFICE Apps
-    */
-   onLoad?: (dispatchMessage: (message: IMessage) => void) => TReturnMessage;
+  /**
+   * Lifecycle callback executed when the entry with given id is shown, and again if it was
+   * cleared and added anew. Send later updates through `dispatchMessage`.
+   * @param dispatchMessage - Function to send progress updates to ONLYOFFICE Apps
+   */
+  onLoad?: (dispatchMessage: (message: IMessage) => void) => TReturnMessage;
 }
 
 /**
  * Determines the icon and visual representation of the operation.
  */
 export enum FloatingOperationType {
-   /** File download operation */
-   Download = 'download',
-   /** File conversion operation */
-   Convert = 'convert',
-   /** File copy operation */
-   Copy = 'copy',
-   /** File duplication operation */
-   Duplicate = 'duplicate',
-   /** Mark as read operation */
-   MarkAsRead = 'markAsRead',
-   /** Permanent deletion operation */
-   DeletePermanently = 'deletePermanently',
-   /** Export index operation */
-   ExportIndex = 'exportIndex',
-   /** File move operation */
-   Move = 'move',
-   /** Move to trash operation */
-   Trash = 'trash',
-   /** Other custom operation */
-   Other = 'other',
-   /** File upload operation */
-   Upload = 'upload',
-   /** Delete file version operation */
-   DeleteVersionFile = 'deleteVersionFile',
-   /** Backup operation */
-   Backup = 'backup',
+  /** File download operation */
+  Download = "download",
+  /** File conversion operation */
+  Convert = "convert",
+  /** File copy operation */
+  Copy = "copy",
+  /** File duplication operation */
+  Duplicate = "duplicate",
+  /** Mark as read operation */
+  MarkAsRead = "markAsRead",
+  /** Permanent deletion operation */
+  DeletePermanently = "deletePermanently",
+  /** Export index operation */
+  ExportIndex = "exportIndex",
+  /** File move operation */
+  Move = "move",
+  /** Move to trash operation */
+  Trash = "trash",
+  /** Other custom operation */
+  Other = "other",
+  /** File upload operation */
+  Upload = "upload",
+  /** Delete file version operation */
+  DeleteVersionFile = "deleteVersionFile",
+  /** Backup operation */
+  Backup = "backup",
 }
 
 /**
@@ -266,46 +265,46 @@ export enum FloatingOperationType {
  * Each operation displays as a row with icon, label, and progress indicator.
  */
 export interface IFloatingOperation {
-   /**
-    * Unique identifier for the operation.
-    */
-   id: string;
+  /**
+   * Unique identifier for the operation.
+   */
+  id: string;
 
-   /**
-    * Text label displayed to the user describing the operation.
-    * Example: "Uploading document.pdf" or "Converting 5 files"
-    */
-   label: string;
+  /**
+   * Text label displayed to the user describing the operation.
+   * Example: "Uploading document.pdf" or "Converting 5 files"
+   */
+  label: string;
 
-   /**
-    * Type of operation - determines the default icon and visual representation.
-    * Use predefined types (Upload, Convert, etc.).
-    */
-   operation: FloatingOperationType;
+  /**
+   * Type of operation - determines the default icon and visual representation.
+   * Use predefined types (Upload, Convert, etc.).
+   */
+  operation: FloatingOperationType;
 
-   /**
-    * Error flag - if true, the operation is displayed with a warning/error state.
-    * Shows a red icon and allows the user to see what went wrong.
-    */
-   alert: boolean;
+  /**
+   * Error flag - if true, the operation is displayed with a warning/error state.
+   * Shows a red icon and allows the user to see what went wrong.
+   */
+  alert: boolean;
 
-   /**
-    * Completion flag - if true, the operation is marked as completed.
-    * Shows checkmark icon and allows user to dismiss the operation.
-    */
-   completed: boolean;
+  /**
+   * Completion flag - if true, the operation is marked as completed.
+   * Shows checkmark icon and allows user to dismiss the operation.
+   */
+  completed: boolean;
 
-   /**
-    * Progress percentage of the operation (0-100).
-    * If undefined, displays an infinite loader animation instead of percentage.
-    */
-   percent?: number;
+  /**
+   * Progress percentage of the operation (0-100).
+   * If undefined, displays an infinite loader animation instead of percentage.
+   */
+  percent?: number;
 
-   /**
-    * Custom icon for the operation (overrides default operation icon).
-    * The icon image must be uploaded to the assets folder.
-    * Only the image name with the extension must be specified in this field,
-    * for example, "upload.svg" or "custom-icon.png".
-    */
-   icon?: string;
+  /**
+   * Custom icon for the operation (overrides default operation icon).
+   * The icon image must be uploaded to the assets folder.
+   * Only the image name with the extension must be specified in this field,
+   * for example, "upload.svg" or "custom-icon.png".
+   */
+  icon?: string;
 }

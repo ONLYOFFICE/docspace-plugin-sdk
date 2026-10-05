@@ -62,6 +62,7 @@ import { FilesExst, FilesSecurity, Devices, UserRole, UsersType } from "../../en
  * }
  *
  * const mediaViewerProps: IMediaViewer = {
+ *   fileId: file.id,
  *   title: "Custom Video Player",
  *   component: VideoPlayer,
  *   onClose: () => ({ actions: [Actions.closeMediaViewer] })
@@ -121,6 +122,7 @@ import { FilesExst, FilesSecurity, Devices, UserRole, UsersType } from "../../en
  * }
  *
  * const mediaViewerProps: IMediaViewer = {
+ *   fileId: file.id,
  *   title: "Image preview",
  *   component: ImagePreview,
  *   playlistFilter: {
@@ -134,8 +136,9 @@ import { FilesExst, FilesSecurity, Devices, UserRole, UsersType } from "../../en
  */
 export interface IMediaViewer {
   /**
-   * The ID of the file to display in the media viewer.
-   * If not specified, the first file in the playlist will be displayed.
+   * The ID of the file to display: a file of the open folder that matches
+   * `playlistFilter`, otherwise nothing opens. Required to open the viewer;
+   * omit it in an update to keep the current file.
    */
   fileId?: number | string;
   /**
@@ -162,9 +165,9 @@ export interface IMediaViewer {
   title?: string;
 
   /**
-   * Callback function that is called when the media viewer should be closed.
-   * This is triggered when the user clicks the close button, background, or presses ESC.
-   * Can return a TReturnMessage with Actions.closeMediaViewer to close the viewer.
+   * Callback function that is called when the user closes the media viewer.
+   * Return [`Actions.closeMediaViewer`](../../enums/Actions.md#closemediaviewer)
+   * to close it, otherwise it stays open. Without `onClose` it closes by itself.
    */
   onClose?: () => TReturnMessage;
 

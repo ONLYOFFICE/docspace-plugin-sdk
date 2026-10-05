@@ -388,7 +388,9 @@ export type TSelectorLifecycleEvents = {
    */
   onLoad?: () => TReturnMessage;
   /**
-   * A callback function that is triggered when the selector is closed.
+   * A callback function that is triggered when the user clicks outside the selector.
+   * Return [`Actions.closeSelector`](../../enums/Actions.md#closeselector) to close it.
+   * Not called by the Files selector.
    */
   onClose?: () => TReturnMessage;
 }

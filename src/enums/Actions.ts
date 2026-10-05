@@ -449,7 +449,7 @@ export enum Actions {
    * ```typescript
    * const message: IMessage = {
    *   actions: [Actions.showMediaViewer],
-   *   mediaViewerProps: { ...mediaViewerProps },
+   *   mediaViewerProps: { ...mediaViewerProps, fileId: file.id },
    * }
    * ```
    */
@@ -457,13 +457,14 @@ export enum Actions {
 
   /**
    * Calls a function to update the plugin media viewer.
-   * The new configuration is passed in the [`mediaViewerProps`](../interfaces/components/IMediaViewer.md) parameter.
+   * The new configuration is passed in the [`mediaViewerProps`](../interfaces/components/IMediaViewer.md) parameter
+   * and replaces the current one, so pass all fields again. A different `fileId` opens that file.
    *
    * @example
    * ```typescript
    * const message: IMessage = {
    *   actions: [Actions.updateMediaViewer],
-   *   mediaViewerProps: { ...mediaViewerProps },
+   *   mediaViewerProps: { ...mediaViewerProps, fileId: nextId },
    * }
    * ```
    */
