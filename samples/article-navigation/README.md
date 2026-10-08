@@ -25,15 +25,17 @@ npm run build   # vite build && npx build-onlyoffice-plugin → dist/plugin.zip
 
 `@onlyoffice/apps-ui-kit` is not published to npm. The packed tarball has to sit
 next to this `package.json` before the install: `onlyoffice-apps-ui-kit-4.0.0.tgz`,
-which the `dependencies` entry already points at. It is the same build the
-ONLYOFFICE Apps client ships as `onlyoffice-apps-ui-kit.tgz` in its repository root, so
-the components the plugin imports are the ones the portal substitutes at load
-time.
+which the `dependencies` entry already points at. Copy it from the
+`onlyoffice-apps-ui-kit.tgz` in the ONLYOFFICE Apps client repository root, or
+pack it yourself:
 
 ```bash
 # from a docspace-ui-kit-react checkout
 pnpm build && pnpm pack
 ```
+
+At load time the portal swaps in its own copy of the kit, so the tarball only
+supplies the types the sample compiles against.
 
 ## Why react and the ui kit stay external
 

@@ -16,8 +16,8 @@
  * limitations under the License.
  */
 
-// Kept for plugins whose build script still calls the pre-3.0 name. The warning
-// has to print before the command runs, so the hand-over is a dynamic import.
+// Kept for anyone who still runs the pre-3.0 name. The warning has to print
+// before the command runs, so the hand-over is a dynamic import.
 console.warn(
   `⚠️  'create-docspace-plugin' is deprecated. Use 'create-onlyoffice-plugin' instead.`
 );

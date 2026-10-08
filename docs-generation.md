@@ -118,6 +118,7 @@ Layout of `tools/`:
 3. `fixInPageAnchors` — drops stale `-N` dedup suffixes from in-page hash links; warns about anchors that resolve to nothing.
 4. `ensureBlankLineBeforeHeadings` — restores the blank line MDX requires before a heading.
 5. `stripTrailingHorizontalRule` — removes a dangling `***` left at the end of a page by `hoistMainSection`.
+6. `dropStrikethrough` removes the strikethrough TypeDoc puts on deprecated names. Page titles feed the sidebar and the section index tables, where it would show as literal markers; the deprecation stays in the text.
 
 ### APITable wrapping
 

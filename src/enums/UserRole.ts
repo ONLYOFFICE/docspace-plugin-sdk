@@ -29,11 +29,12 @@
  * @example
  *
  * ```typescript
- * import { IArticleButtonItem, UserRole } from "@onlyoffice/docspace-plugin-sdk";
+ * import { IContextMenuItem, UserRole } from "@onlyoffice/docspace-plugin-sdk";
  *
- * const adminOnly: IArticleButtonItem = {
+ * const adminOnly: IContextMenuItem = {
  *   key: "reports",
  *   label: "Reports",
+ *   icon: "reports.svg",
  *   usersTypes: [UserRole.owner, UserRole.fullAdmin],
  *   onClick: () => ({ actions: [] }),
  * };

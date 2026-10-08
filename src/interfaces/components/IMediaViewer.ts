@@ -39,7 +39,7 @@ import { FilesExst, FilesSecurity, Devices, UserRole, UsersType } from "../../en
  *
  * ```tsx
  * import { useCurrentFile, usePluginActions } from "@onlyoffice/docspace-plugin-sdk/react";
- * import { IMediaViewer } from "@onlyoffice/docspace-plugin-sdk";
+ * import { Actions, IMediaViewer } from "@onlyoffice/docspace-plugin-sdk";
  *
  * function VideoPlayer() {
  *   const file = useCurrentFile();
@@ -83,7 +83,7 @@ import { FilesExst, FilesSecurity, Devices, UserRole, UsersType } from "../../en
  *   IMediaViewer,
  *   FilesExst,
  *   FilesSecurity,
- *   UsersType,
+ *   UserRole,
  *   Devices,
  * } from "@onlyoffice/docspace-plugin-sdk";
  *
