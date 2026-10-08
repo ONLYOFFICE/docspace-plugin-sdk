@@ -96,5 +96,5 @@ export interface ISettings {
    *
    * @deprecated Use a React component via `component` with `useEffect` for data loading instead.
    */
-  onLoad?: () => Promise<{ settings: IBox; saveButton?: ButtonGroup }>;
+  onLoad?: () => Promise<{ settings?: IBox; saveButton?: ButtonGroup }>;
 }

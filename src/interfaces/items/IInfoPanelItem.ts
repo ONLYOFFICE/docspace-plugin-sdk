@@ -163,7 +163,7 @@ export interface IInfoPanelItem {
    *
    * @deprecated Use a React component via `component` with `useEffect` for data loading instead.
    */
-  onLoad?: () => Promise<{ body: IBox }>;
+  onLoad?: () => Promise<{ body?: IBox }>;
 
   /**
    * The types of files where the current item will be displayed in the info panel.

@@ -36,14 +36,16 @@
 - Add to `PluginActions`: `showCreateDialog`, `updateSelector`, a tab argument for
   `openInfoPanel` and the `update*Items` family
 - Add `Actions.updateArticleButtonItems` and `Actions.updateArticleNavigationItems`
-- Export `FilterType` from the package root — `IFilesSelector.filterParam` is typed with it, but
-  the enum was reachable only through a deep import that the `exports` map blocks
+- Export `FilterType` from the package root. `IFilesSelector.filterParam` is typed with it, but
+  the enum was reachable only through a deep import into `dist/`, which keeps working
 - Add the `create-onlyoffice-plugin` and `build-onlyoffice-plugin` commands
 - Add the `UserRole` enum: `owner`, `fullAdmin`, `roomAdmin`, `user`, `guest`. Item
   fields widen to `(UserRole | UsersType)[]`, so existing plugin sources still compile
 - Rename the SDK's own `package.json` field `minDocSpaceVersion` to `minPortalVersion`.
-  Nothing outside the package could read it — `exports` never exposed `./package.json` —
-  and the key written into a plugin's `config.json` stays `minDocSpaceVersion`
+  Only `build-onlyoffice-plugin` reads it, and the key written into a plugin's
+  `config.json` stays `minDocSpaceVersion`
+- Add `@types/react` to `dependencies`: the declarations reference React types, so a
+  plugin without them and with `skipLibCheck` off failed to compile
 - Add `runtime: "module"` support in `build-onlyoffice-plugin`, written to `config.json`
 - Bump `react` peer dependency to `>=19.0.0`
 - Docs: separate React API section

@@ -142,7 +142,7 @@ export interface IArticleButtonItem {
    *
    * @deprecated Use a React component via `component` with `useEffect` for data loading instead.
    */
-  onLoad?: () => Promise<{ body: IBox }>;
+  onLoad?: () => Promise<{ body?: IBox }>;
 
   /**
    * The types of users who will see the current button item in the article.
