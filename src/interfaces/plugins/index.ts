@@ -75,6 +75,7 @@ import { IContextMenuPlugin } from "./IContextMenuPlugin";
 import { IEventListenerPlugin } from "./IEventListenerPlugin";
 import { IPostMessagePlugin } from "./IPostMessagePlugin";
 import { IArticleButtonPlugin } from "./IArticleButtonPlugin";
+import { IArticleNavigationPlugin } from "./IArticleNavigationPlugin";
 
 export {
   IPlugin,
@@ -88,4 +89,5 @@ export {
   IFilePlugin,
   IPostMessagePlugin,
   IArticleButtonPlugin,
+  IArticleNavigationPlugin,
 };

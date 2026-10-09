@@ -1,0 +1,40 @@
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { fileURLToPath } from "url";
+
+const __dirname = fileURLToPath(new URL(".", import.meta.url));
+
+export default defineConfig({
+  plugins: [react()],
+  define: {
+    "process.env.NODE_ENV": JSON.stringify("production"),
+    "process.env": "{}",
+  },
+  build: {
+    lib: {
+      entry: `${__dirname}src/index.ts`,
+      formats: ["es"],
+      fileName: () => "plugin.js",
+    },
+    rolldownOptions: {
+      // Kept out of the bundle: ONLYOFFICE Apps supplies its own copies at load
+      // time and rewrites these specifiers to them. A second React arrives with
+      // its own contexts, so every SDK hook throws. The SDK root stays bundled
+      // like any other dependency: string enums and types, no module state.
+      external: [
+        "react",
+        "react-dom",
+        "react/jsx-runtime",
+        "@onlyoffice/docspace-plugin-sdk/react",
+        /^@onlyoffice\/apps-ui-kit(\/.*)?$/,
+      ],
+      output: {
+        codeSplitting: false,
+        assetFileNames: (assetInfo: { name?: string }) =>
+          assetInfo.name?.endsWith(".css")
+            ? "plugin.css"
+            : (assetInfo.name ?? "asset"),
+      },
+    },
+  },
+});

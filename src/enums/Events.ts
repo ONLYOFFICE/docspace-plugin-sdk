@@ -18,26 +18,29 @@
 
 /**
  * Defines the supported event types for the plugin system.
+ *
+ * Most of them are the signal the portal uses to open a dialog, so they fire
+ * when the dialog opens, before anything is created or changed.
  */
 export enum Events {
-  /** Triggered when a new item is created */
+  /** Triggered when the dialog for creating a new item opens */
   CREATE = "create",
 
-  /** Triggered when an item is renamed */
+  /** Triggered when the rename dialog opens */
   RENAME = "rename",
 
-  /** Triggered when a new room is created */
+  /** Triggered when the dialog for creating a new room opens */
   ROOM_CREATE = "create_room",
 
-  /** Triggered when a room is edited */
+  /** Triggered when the room editing dialog opens */
   ROOM_EDIT = "edit_room",
 
-  /** Triggered when a column configuration is changed */
+  /** Triggered after a column is shown or hidden in a table view */
   CHANGE_COLUMN = "change_column",
 
-  /** Triggered when a user's type or role is modified */
+  /** Triggered when the dialog for changing a user's type opens */
   CHANGE_USER_TYPE = "change_user_type",
 
-  /** Triggered when a new file is created through a plugin */
+  /** Triggered when a plugin opens the create dialog for a file it owns */
   CREATE_PLUGIN_FILE = "create_plugin_file",
 }

@@ -8,8 +8,10 @@ const PATH_PREFIX = "docspace/plugins-sdk/usage-sdk/coding-plugin";
 // Directory and kind levels TypeDoc nests by; their children are lifted out.
 const WRAPPER_LABELS = new Set([
   "interfaces", "components", "items", "plugins", "settings", "utils", "enums",
-  "Interfaces", "Enumerations", "Type Aliases", "Classes",
-  "Components", "Items", "Plugins", "Settings", "Utils", "Enums", "Properties"
+  "react",
+  "Interfaces", "Enumerations", "Type Aliases", "Classes", "Functions",
+  "Components", "Items", "Plugins", "Settings", "Utils", "React", "Enums",
+  "Properties"
 ]);
 
 // Top-level groups in sidebar order, each with the doc id of its index page
@@ -21,6 +23,7 @@ const GROUPS = {
   Plugins: "interfaces/plugins/index",
   Settings: "interfaces/settings/index",
   Utils: null,
+  React: "react/index",
   Enums: "enums/index"
 };
 
@@ -84,6 +87,7 @@ function groupNameOf(item) {
   if (docId.includes("/plugins/")) return "Plugins";
   if (docId.includes("/settings/")) return "Settings";
   if (docId.includes("/utils/") || docId.endsWith("utils")) return "Utils";
+  if (docId.includes("/react/")) return "React";
   if (docId.includes("/enums/")) return "Enums";
 
   return null;

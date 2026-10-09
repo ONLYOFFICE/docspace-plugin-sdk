@@ -63,14 +63,14 @@ export enum Actions {
   updateContext = "update-context",
 
   /**
-   * Calls a function to update the plugin status.
+   * Makes the portal re-read the plugin status through
+   * [`getStatus`](../interfaces/plugins/IPlugin.md#getstatus) and apply it.
    *
    * @example
    * ```typescript
+   * // the plugin has just set its own status to PluginStatus.hide
    * const message: IMessage = {
-   *   newProps: {...acceptButton, isDisabled: true},
-   *   actions: [Actions.showToast, Actions.updateProps, Actions.updateStatus],
-   *   toastProps,
+   *   actions: [Actions.updateStatus],
    * }
    * ```
    */
@@ -149,6 +149,32 @@ export enum Actions {
   updateEventListenerItems = "update-event-listener-items",
 
   /**
+   * Calls a function to update all the article navigation items.
+   * The sidebar is refreshed, so a new "label" or "icon" set through
+   * "IArticleNavigationPlugin.updateArticleNavigationItem" becomes visible.
+   *
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   actions: [Actions.updateArticleNavigationItems],
+   * }
+   * ```
+   */
+  updateArticleNavigationItems = "update-article-navigation-items",
+
+  /**
+   * Calls a function to update all the article button items.
+   *
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   actions: [Actions.updateArticleButtonItems],
+   * }
+   * ```
+   */
+  updateArticleButtonItems = "update-article-button-items",
+
+  /**
    * Calls a function to display a toast notification after the user actions.
    * It does not work if the [`toastProps`](../interfaces/components/IToast.md) parameter is not passed to the message.
    *
@@ -201,6 +227,7 @@ export enum Actions {
    * const message: IMessage = {
    *   actions: [Actions.updateCreateDialogModal],
    *   createDialogProps: {
+   *     ...newDiagramDialog,
    *     title: "some title value",
    *   },
    * };
@@ -386,7 +413,8 @@ export enum Actions {
 
   /**
    * Calls a function to navigate to the specified path.
-   * All actions listed after navigate will be called after the navigation is complete.
+   * The portal starts the navigation and goes straight on to the actions listed
+   * after it, without waiting for the new page.
    * It does not work if the [`navigatePath`](../interfaces/utils.md#imessage) parameter is not passed to the message.
    *
    * @example
@@ -421,7 +449,7 @@ export enum Actions {
    * ```typescript
    * const message: IMessage = {
    *   actions: [Actions.showMediaViewer],
-   *   mediaViewerProps: { ...mediaViewerProps },
+   *   mediaViewerProps: { ...mediaViewerProps, fileId: file.id },
    * }
    * ```
    */
@@ -429,13 +457,14 @@ export enum Actions {
 
   /**
    * Calls a function to update the plugin media viewer.
-   * The new configuration is passed in the [`mediaViewerProps`](../interfaces/components/IMediaViewer.md) parameter.
+   * The new configuration is passed in the [`mediaViewerProps`](../interfaces/components/IMediaViewer.md) parameter
+   * and replaces the current one, so pass all fields again. A different `fileId` opens that file.
    *
    * @example
    * ```typescript
    * const message: IMessage = {
    *   actions: [Actions.updateMediaViewer],
-   *   mediaViewerProps: { ...mediaViewerProps },
+   *   mediaViewerProps: { ...mediaViewerProps, fileId: nextId },
    * }
    * ```
    */

@@ -25,10 +25,10 @@
  * Defines the supported file types.
  */
 export enum FilesType {
-  /** DocSpace room or workspace */
+  /** ONLYOFFICE Apps room or workspace */
   room = "room",
 
-  /** Generic file type */
+  /** A file — whether an image or a video counts as one depends on the scope, see the item's `fileType`/`filesType` */
   file = "file",
 
   /** Directory or folder */

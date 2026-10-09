@@ -22,13 +22,22 @@
  */
 
 /**
- * Defines the supported plugin statuses.
+ * Defines the supported plugin statuses. The portal reads the current one
+ * through [`IPlugin.getStatus`](../interfaces/plugins/IPlugin.md#getstatus)
+ * and switches the plugin on and off by it.
  */
 export enum PluginStatus {
-  /** Plugin is enabled and visible to users */
+  /**
+   * Plugin is enabled and visible to users: its items are registered and its
+   * CSS is loaded. A plugin that reports no status is treated as active.
+   */
   active = "active",
 
-  /** Plugin is disabled and hidden from the user interface */
+  /**
+   * Plugin is hidden from the user interface: its items are unregistered and
+   * its CSS unloaded until the status is read as `active` again. Unlike the
+   * administrator's switch, it does not disable the plugin.
+   */
   hide = "hide",
 }
 

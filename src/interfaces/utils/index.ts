@@ -227,14 +227,19 @@ export interface IMessage {
   postMessage?: IPostMessage;
 
   /**
-   * Defines a parameter that is used to save and transfer the administrator or owner plugin settings to all the portal users.
+   * Defines the administrator or owner plugin settings to store, one string of at most
+   * 255 characters (see [`ISettingsPlugin`](plugins/ISettingsPlugin.md)).
    * This parameter is used only with Actions.saveSettings.
+   *
+   * @remarks Unlike `save` in the React settings client, the action does not pass the
+   * settings to the plugin class: it receives them the next time it loads.
    */
   settings?: string;
 
   /**
    * Defines the path to navigate to.
-   * All actions listed after navigate will be called after the navigation is complete.
+   * The portal starts the navigation and goes straight on to the actions listed
+   * after navigate, without waiting for the new page.
    * This parameter is used only with Actions.navigate.
    */
   navigatePath?: string;
@@ -339,7 +344,8 @@ export interface IPostMessageCallbackMessage {
 
   /**
    * Defines the path to navigate to.
-   * All actions listed after navigate will be called after the navigation is complete.
+   * The portal starts the navigation and goes straight on to the actions listed
+   * after navigate, without waiting for the new page.
    * This parameter is used only with Actions.navigate.
    */
   navigatePath?: string;

@@ -2,13 +2,15 @@
 import { basename } from "node:path";
 import { collectPageAnchors, walkMarkdownLines } from "../shared/markdown.mjs";
 
-export const SOURCE_LINK_LABEL = "View source on GitHub";
+/** Docusaurus front matter key that overrides the "Edit this page" link. */
+export const EDIT_URL_KEY = "custom_edit_url";
 
 const IMAGE_BASE = "/assets/images/docspace";
 
 const ANY_HEADING = /^(#{1,6}) /;
 const SECTION_START = /^## /m;
-const SOURCE_REFERENCE = /^Defined in: \[[^\]]+\]\((https:\/\/github\.com\/[^)]+)\)$/;
+const SOURCE_REFERENCE =
+  /^Defined in: \[[^\]]+\]\((https:\/\/github\.com\/[^)]+)\)$/;
 const PLUGIN_IMAGE_TAG =
   /<plugin-image\s+src=(["'])([^"']+)\1(\s+dark(?:=(["'])([^"']*)\4)?)?\s*\/>/g;
 const IN_PAGE_LINK = /\]\(#([^)\s]+)\)/g;
@@ -23,16 +25,21 @@ function mainSymbolNames(pageName) {
 }
 
 /**
- * Rewrites "Defined in: [file.ts:12](url)" to "[View source on GitHub](url)" —
- * one link per symbol (the line under an H1/H2). Member-level ones are dropped.
- * Runs before the heading shifts, while symbols are still H1/H2.
+ * Moves the page's own source reference — the "Defined in: [file.ts:12](url)"
+ * line under the main symbol's heading — into `custom_edit_url` front matter,
+ * so the site's "Edit this page" link opens the source file on GitHub. Every
+ * other source line (secondary symbols and members) is dropped.
+ * Runs after `hoistMainSection`, so the main symbol is the page's first, and
+ * before the heading shifts, while symbols are still H1/H2.
  * @param {string} content
  */
-function convertSourceLinks(content) {
+function moveSourceLinkToFrontmatter(content) {
   /** @type {string[]} */
   const resultLines = [];
 
   let isUnderSymbolHeading = false;
+  /** @type {string | undefined} */
+  let editUrl;
 
   for (const { line, insideCodeBlock } of walkMarkdownLines(content)) {
     if (insideCodeBlock) {
@@ -53,17 +60,19 @@ function convertSourceLinks(content) {
       continue;
     }
 
-    if (isUnderSymbolHeading) {
-      resultLines.push(`[${SOURCE_LINK_LABEL}](${sourceMatch[1]})`);
+    if (isUnderSymbolHeading && editUrl === undefined) {
+      editUrl = sourceMatch[1];
       isUnderSymbolHeading = false;
-      continue;
     }
 
-    // Member-level source line: drop it and the blank line it leaves behind.
+    // Drop the source line and the blank line it leaves behind.
     if (resultLines[resultLines.length - 1]?.trim() === "") resultLines.pop();
   }
 
-  return resultLines.join("\n");
+  const body = resultLines.join("\n");
+  return editUrl === undefined
+    ? body
+    : `---\n${EDIT_URL_KEY}: ${editUrl}\n---\n\n${body}`;
 }
 
 /**
@@ -84,8 +93,8 @@ function hoistMainSection(content, filePath) {
 
   const mainSectionIndex = sections.findIndex((section) =>
     mainSymbolNames(pageName).some((symbolName) =>
-      new RegExp(`^## ${symbolName}\\b`).test(section)
-    )
+      new RegExp(`^## ${symbolName}\\b`).test(section),
+    ),
   );
   if (mainSectionIndex <= 0) return content; // already first or not found
 
@@ -138,7 +147,14 @@ function deriveDarkImageName(imageName) {
 function resolvePluginImageTags(content, filePath) {
   const updated = content.replace(
     PLUGIN_IMAGE_TAG,
-    (_tag, _quote, imageName, darkAttribute, _darkQuote, darkAttributeValue) => {
+    (
+      _tag,
+      _quote,
+      imageName,
+      darkAttribute,
+      _darkQuote,
+      darkAttributeValue,
+    ) => {
       const altText = imageName.replace(/\.[^.]+$/, "");
 
       if (darkAttribute === undefined) {
@@ -151,12 +167,12 @@ function resolvePluginImageTags(content, filePath) {
       const lightImage = `![${altText}](${IMAGE_BASE}/${imageName}#gh-light-mode-only)`;
       const darkImage = `![${altText}](${IMAGE_BASE}/${darkImageName}#gh-dark-mode-only)`;
       return `${lightImage}${darkImage}`;
-    }
+    },
   );
 
   for (const leftoverTag of updated.matchAll(/<plugin-image[^>]*>/g)) {
     console.warn(
-      `[warn] Unrecognised ${leftoverTag[0]} in ${basename(filePath)} — left as raw HTML`
+      `[warn] Unrecognised ${leftoverTag[0]} in ${basename(filePath)} — left as raw HTML`,
     );
   }
 
@@ -216,7 +232,7 @@ function raiseMainSymbolSubtree(content) {
   const markedLines = [...walkMarkdownLines(content)];
 
   const titleIndex = markedLines.findIndex(
-    ({ line, insideCodeBlock }) => !insideCodeBlock && /^# /.test(line)
+    ({ line, insideCodeBlock }) => !insideCodeBlock && /^# /.test(line),
   );
   if (titleIndex < 0) return content;
 
@@ -231,12 +247,18 @@ function raiseMainSymbolSubtree(content) {
 
   return markedLines
     .map(({ line, lineNumber, insideCodeBlock }) => {
-      if (insideCodeBlock || lineNumber <= titleIndex || lineNumber >= subtreeEnd) {
+      if (
+        insideCodeBlock ||
+        lineNumber <= titleIndex ||
+        lineNumber >= subtreeEnd
+      ) {
         return line;
       }
 
       const headingMatch = line.match(/^(#{3,6}) (.*)$/);
-      return headingMatch ? `${headingMatch[1].slice(1)} ${headingMatch[2]}` : line;
+      return headingMatch
+        ? `${headingMatch[1].slice(1)} ${headingMatch[2]}`
+        : line;
     })
     .join("\n");
 }
@@ -288,7 +310,7 @@ function escapePipesInTableCells(content) {
       if (insideCodeBlock || !line.startsWith("|")) return line;
 
       return line.replace(/`[^`]*`/g, (inlineCode) =>
-        inlineCode.replace(/(?<!\\)\|/g, "\\|")
+        inlineCode.replace(/(?<!\\)\|/g, "\\|"),
       );
     })
     .join("\n");
@@ -313,7 +335,7 @@ function fixInPageAnchors(content, filePath) {
     }
 
     console.warn(
-      `[warn] Unresolved in-page anchor #${anchor} in ${basename(filePath)}`
+      `[warn] Unresolved in-page anchor #${anchor} in ${basename(filePath)}`,
     );
     return wholeLink;
   });
@@ -351,13 +373,27 @@ function stripTrailingHorizontalRule(content) {
   return content.replace(/\n\*{3,}\s*$/, "\n");
 }
 
+/**
+ * Removes the strikethrough TypeDoc puts on deprecated names. The sidebar and
+ * the section index tables take their labels from page titles, where it would
+ * show as literal markers; the deprecation itself stays in the text.
+ * @param {string} content
+ */
+function dropStrikethrough(content) {
+  return [...walkMarkdownLines(content)]
+    .map(({ line, insideCodeBlock }) =>
+      insideCodeBlock ? line : line.replace(/~~(\S(?:.*?\S)?)~~/g, "$1"),
+    )
+    .join("\n");
+}
+
 export const STRUCTURAL_TRANSFORMS = [
-  convertSourceLinks,
   hoistMainSection,
+  moveSourceLinkToFrontmatter,
   reorderExamplesFirst,
   resolvePluginImageTags,
   promoteFirstH2toH1,
-  raiseMainSymbolSubtree
+  raiseMainSymbolSubtree,
 ];
 
 export const CLEANUP_TRANSFORMS = [
@@ -365,5 +401,6 @@ export const CLEANUP_TRANSFORMS = [
   escapePipesInTableCells,
   fixInPageAnchors,
   ensureBlankLineBeforeHeadings,
-  stripTrailingHorizontalRule
+  stripTrailingHorizontalRule,
+  dropStrikethrough,
 ];

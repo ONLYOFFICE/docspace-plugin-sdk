@@ -75,6 +75,7 @@ const scopes = [
   { name: "File action", value: "File" },
   { name: "Post message", value: "PostMessage" },
   { name: "Article button", value: "ArticleButton" },
+  { name: "Article navigation", value: "ArticleNavigation" },
 ];
 
 const scopesQuestion = {

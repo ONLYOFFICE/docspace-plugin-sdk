@@ -16,13 +16,18 @@
  * @license
  */
 
-import { Devices, UsersType } from "../../enums";
+import type { ComponentType } from "react";
+
+import { Devices, UserRole, UsersType } from "../../enums";
 import { IBox } from "../components/IBox";
 
 /**
  * Describes a button item that will be embedded in the article sidebar.
  * Article button items are displayed as custom plugin components above the DevTools section.
- * Maximum 5 items can be displayed at once.
+ * Maximum 5 items can be displayed at once across all the installed plugins,
+ * in registration order.
+ * Each one is drawn in a fixed 32x32 box with `overflow: hidden`, so a label
+ * does not fit — use an icon and put the words in its `title`.
  *
  * Items are registered by a plugin implementing
  * [`IArticleButtonPlugin`](../plugins/IArticleButtonPlugin.md).
@@ -31,54 +36,77 @@ import { IBox } from "../components/IBox";
  *
  * @example
  *
- * Article button item with custom component
+ * Article button item with a React component
  *
- * ```typescript
+ * ```tsx
+ * import { usePluginActions } from "@onlyoffice/docspace-plugin-sdk/react";
+ * import { IArticleButtonItem, ToastType, UserRole } from "@onlyoffice/docspace-plugin-sdk";
+ *
+ * function NotificationsButton() {
+ *   const { showToast } = usePluginActions();
+ *
+ *   return (
+ *     <button
+ *       type="button"
+ *       title="Notifications"
+ *       style={{ width: 32, height: 32, border: "none", background: "none", cursor: "pointer" }}
+ *       onClick={() => showToast({ type: ToastType.info, title: "No new notifications" })}
+ *     >
+ *       <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden>
+ *         <path fill="currentColor" d="M8 2a4 4 0 0 0-4 4v3l-1 2h10l-1-2V6a4 4 0 0 0-4-4Z" />
+ *       </svg>
+ *     </button>
+ *   );
+ * }
+ *
  * const notificationItem: IArticleButtonItem = {
  *   key: "notifications-item",
- *   body: {
- *     component: Components.box,
- *     props: {
- *       children: [
- *         {
- *           component: Components.button,
- *           props: {
- *             label: "Notifications",
- *             onClick: async () => {
- *               // Handle click
- *             }
- *           }
- *         }
- *       ]
- *     }
- *   },
- *   usersTypes: [UsersType.owner, UsersType.docSpaceAdmin]
+ *   component: NotificationsButton,
+ *   usersTypes: [UserRole.owner, UserRole.fullAdmin]
  * };
  * ```
  *
  * @example
  *
- * Plugin settings access button item with onLoad
+ * Article button item that loads its own state
  *
- * ```typescript
- * const settingsItem: IArticleButtonItem = {
- *   key: "plugin-settings-item",
- *   body: {
- *     component: Components.skeleton,
- *     props: { width: "100%", height: "32px" }
- *   },
- *   onLoad: async () => {
- *     return {
- *       body: {
- *         component: Components.button,
- *         props: {
- *           label: "Settings",
- *           onClick: async () => { }
- *         }
- *       }
- *     };
- *   },
- *   usersTypes: [UsersType.owner, UsersType.docSpaceAdmin],
+ * The component owns its loading state, so no `onLoad` callback is needed:
+ * fetch inside `useEffect` and render a placeholder until the data arrives.
+ *
+ * ```tsx
+ * import { useEffect, useState } from "react";
+ * import { usePluginAPI, usePluginActions } from "@onlyoffice/docspace-plugin-sdk/react";
+ * import { IArticleButtonItem, Devices, UserRole } from "@onlyoffice/docspace-plugin-sdk";
+ *
+ * function PendingInvitesButton() {
+ *   const api = usePluginAPI();
+ *   const { navigate } = usePluginActions();
+ *   const [count, setCount] = useState<number | null>(null);
+ *
+ *   useEffect(() => {
+ *     api
+ *       .get<{ total: number }>("/people/invites")
+ *       .then((invites) => setCount(invites.total));
+ *   }, []);
+ *
+ *   if (count === null) return null;
+ *
+ *   return (
+ *     <button
+ *       type="button"
+ *       title={`Invites (${count})`}
+ *       style={{ width: 32, height: 32, border: "none", background: "none", cursor: "pointer" }}
+ *       onClick={() => navigate("/accounts/people")}
+ *     >
+ *       {count}
+ *     </button>
+ *   );
+ * }
+ *
+ * const invitesItem: IArticleButtonItem = {
+ *   key: "pending-invites-item",
+ *   component: PendingInvitesButton,
+ *   usersTypes: [UserRole.owner, UserRole.fullAdmin],
  *   devices: [Devices.desktop, Devices.tablet]
  * };
  * ```
@@ -91,23 +119,37 @@ export interface IArticleButtonItem {
   key: string;
 
   /**
-   * The body of the article button item. This is the main content that will be displayed.
-   * Recommended size: 32x32 pixels to fit properly in the article sidebar.
+   * The body of the article button item rendered via the IBox component tree.
+   * This is the main content that will be displayed.
+   * Use either `body` or `component`, not both.
+   *
+   * @deprecated Use `component` instead — accepts a React component and supports hooks from `@onlyoffice/docspace-plugin-sdk/react`.
    */
-  body: IBox;
+  body?: IBox;
+
+  /**
+   * A React component rendered as the article button item.
+   * The slot has no click handler of its own.
+   * Use either `component` or `body`, not both.
+   * The component can use `usePluginActions`, `usePluginAPI` and other hooks
+   * from `@onlyoffice/docspace-plugin-sdk/react`.
+   */
+  component?: ComponentType;
 
   /**
    * A function that is executed after the article button item is loaded.
    * It returns a new body. If this functionality is not needed, the old body value is returned.
+   *
+   * @deprecated Use a React component via `component` with `useEffect` for data loading instead.
    */
-  onLoad?: () => Promise<{ body: IBox }>;
+  onLoad?: () => Promise<{ body?: IBox }>;
 
   /**
    * The types of users who will see the current button item in the article.
-   * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
+   * Currently the following user types are available: owner, fullAdmin, roomAdmin, user, guest.
    * If this parameter is not specified, then the item will be displayed for all user types.
    */
-  usersTypes?: UsersType[];
+  usersTypes?: (UserRole | UsersType)[];
 
   /**
    * The types of devices where the current button item will be displayed.

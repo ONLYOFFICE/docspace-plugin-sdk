@@ -9,5 +9,5 @@
     "esModuleInterop": true
   },
   "include": ["./src"],
-  "exclude": ["node_modules", "template", "npx", "dist", "samples"]
+  "exclude": ["node_modules", "template", "npx", "dist", "samples", "src/react"]
 }

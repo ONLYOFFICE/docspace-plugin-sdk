@@ -28,7 +28,8 @@ import {
   IFilePlugin,
   IPostMessagePlugin,
   IArticleButtonPlugin,
-} from "./interfaces/plugins"
+  IArticleNavigationPlugin
+} from "./interfaces/plugins";
 
 import {
   IContextMenuItem,
@@ -38,11 +39,12 @@ import {
   IProfileMenuItem,
   IEventListenerItem,
   IArticleButtonItem,
+  IArticleNavigationItem,
   IFileItem,
-  File,
-} from "./interfaces/items"
+  File
+} from "./interfaces/items";
 
-import { ISettings } from "./interfaces/settings"
+import { ISettings } from "./interfaces/settings";
 
 import {
   Actions,
@@ -53,13 +55,16 @@ import {
   FilesSecurity,
   PluginStatus,
   UsersType,
+  UserRole,
   Devices,
   Security,
   PluginLocale,
   SelectorType,
+  FilterType,
   RoomSearchArea,
   RoomsType,
-} from "./enums"
+  Section
+} from "./enums";
 
 import {
   IBox,
@@ -114,16 +119,16 @@ import {
   ILink,
   LinkType,
   LinkTarget,
-  IMediaViewer,
-} from "./interfaces/components"
+  IMediaViewer
+} from "./interfaces/components";
 
 import {
   IPostMessage,
   IPostMessageCallbackMessage,
   IMessage,
   TReturnPostMessage,
-  TInfoPanelTab,
-} from "./interfaces/utils/index"
+  TInfoPanelTab
+} from "./interfaces/utils/index";
 
 export {
   IPlugin,
@@ -135,9 +140,11 @@ export {
   IMainButtonPlugin,
   IEventListenerPlugin,
   IArticleButtonItem,
+  IArticleNavigationItem,
   IFilePlugin,
   IPostMessagePlugin,
   IArticleButtonPlugin,
+  IArticleNavigationPlugin,
   IContextMenuItem,
   IInfoPanelItem,
   IInfoPanelSubMenu,
@@ -171,6 +178,7 @@ export {
   IconButtonGroup,
   LinkGroup,
   UsersType,
+  UserRole,
   IBox,
   IBorderProp,
   IButton,
@@ -206,6 +214,8 @@ export {
   Devices,
   Security,
   SelectorType,
+  FilterType,
+  Section,
   TSelector,
   TBaseSelector,
   TFilesSelector,
@@ -218,5 +228,5 @@ export {
   IFloatingOperationsButton,
   FloatingOperationType,
   IFloatingOperation,
-  IMediaViewer,
-}
+  IMediaViewer
+};

@@ -24,6 +24,14 @@ import { IPostMessageCallbackMessage } from "../utils";
  * and triggers portal-side actions (such as showing toasts, modals, or updating items)
  * by calling the postMessageCallback with an {@link IPostMessageCallbackMessage}.
  *
+ * The direction: the portal hands the callback to the plugin through
+ * `setPostMessageCallback`, and the plugin invokes it to ask the portal for
+ * something. Receiving the frame's messages is the plugin's own
+ * `window.addEventListener("message", ...)` — on `window`, not `window.parent`,
+ * since a module plugin runs in the portal's own window, and inside a component
+ * effect, where the cleanup runs. Check `event.origin`, and list the frame's
+ * origin in the manifest's `cspDomains`.
+ *
  * @example
  *
  * PostMessage handler with toast notification
@@ -43,8 +51,12 @@ import { IPostMessageCallbackMessage } from "../utils";
  *
  * const plugin = new Plugin();
  *
- * window.parent.addEventListener("message", (event) => {
+ * // In a real plugin this subscription belongs in a component effect.
+ *
+ * window.addEventListener("message", (event) => {
  *   try {
+ *     if (event.origin !== "https://frame.example.com") return;
+ *
  *     const data = typeof event.data === "string" ? JSON.parse(event.data) : event.data;
  *     if (data?.source !== "my-plugin") return;
  *
@@ -66,8 +78,10 @@ import { IPostMessageCallbackMessage } from "../utils";
  * PostMessage handler with modal dialog
  *
  * ```typescript
- * window.parent.addEventListener("message", (event) => {
+ * window.addEventListener("message", (event) => {
  *   try {
+ *     if (event.origin !== "https://frame.example.com") return;
+ *
  *     const data = typeof event.data === "string" ? JSON.parse(event.data) : event.data;
  *     if (data?.source !== "my-plugin") return;
  *

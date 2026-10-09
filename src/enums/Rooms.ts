@@ -1,5 +1,5 @@
 /**
- * Enumerations for DocSpace room types and search scopes.
+ * Enumerations for ONLYOFFICE Apps room types and search scopes.
  * @packageDocumentation
  */
 

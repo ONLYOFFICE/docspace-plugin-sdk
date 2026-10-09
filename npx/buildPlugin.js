@@ -21,6 +21,8 @@ import * as fs from "fs";
 import * as path from "path";
 import { fileURLToPath } from "url";
 
+import { DEFAULT_PLUGIN_VERSION } from "./constants/index.js";
+
 /**
  * Dynamically reads information from the installed SDK package.
  * @returns {{minDocSpaceVersion: string}}
@@ -84,7 +86,7 @@ async function buildPlugin() {
   const sdkInfo = getSdkInfo();
 
   // Create config.json for the plugin
-  const docspace = {
+  const pluginConfig = {
     name: jsonDataObj.name.toLowerCase(),
     nameLocale: jsonDataObj.nameLocale || {},
     version: jsonDataObj.version || DEFAULT_PLUGIN_VERSION,
@@ -98,11 +100,12 @@ async function buildPlugin() {
     image: jsonDataObj.logo || "",
     scopes: jsonDataObj.scopes ? jsonDataObj.scopes.join(",") : "",
     cspDomains: (jsonDataObj.cspDomains && jsonDataObj.cspDomains.join(",")) || "",
+    ...(jsonDataObj.runtime ? { runtime: jsonDataObj.runtime } : {}),
   };
 
   // Add files to zip
   zip.file("plugin.js", jsData);
-  zip.file("config.json", JSON.stringify(docspace, null, 2));
+  zip.file("config.json", JSON.stringify(pluginConfig, null, 2));
 
   // Add plugin.css
   let pluginCssPath = path.join(currentDir, "dist", "plugin.css");
@@ -141,9 +144,9 @@ async function buildPlugin() {
     fs.writeFileSync(outputPath, content);
 
     console.log(`✅ Plugin built successfully: ${outputPath}`);
-    console.log(`📦 Plugin name: ${docspace.name}`);
-    console.log(`🔢 Version: ${docspace.version}`);
-    console.log(`🎯 Min DocSpace version: ${docspace.minDocSpaceVersion}`);
+    console.log(`📦 Plugin name: ${pluginConfig.name}`);
+    console.log(`🔢 Version: ${pluginConfig.version}`);
+    console.log(`🎯 Min ONLYOFFICE Apps version: ${pluginConfig.minDocSpaceVersion}`);
     console.log("");
   } catch (error) {
     console.error("❌ Error generating plugin zip:", error);

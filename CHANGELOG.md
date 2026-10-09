@@ -1,11 +1,74 @@
 # Change Log
 
+## 3.0.0
+
+## Deprecated
+
+- **DEPRECATED** `body` in `IInfoPanelItem` and `IArticleButtonItem`, `settings` in
+  `ISettings`, `content` in `IMediaViewer`, `dialogBody` and `dialogFooter` in
+  `IModalDialog` — use `component` (`dialogBodyComponent` in `IModalDialog`)
+- **DEPRECATED** `onLoad` in `IInfoPanelItem`, `IArticleButtonItem`, `IMediaViewer`,
+  `ISettings`, `IModalDialog` — load data with `useEffect` in the component
+- **DEPRECATED** the whole `UsersType` enum — use `UserRole`, whose members carry the
+  names the portal uses: `docSpaceAdmin` is `fullAdmin`, `collaborator` is `user`, and
+  the old `user` (the guest type) is `guest`. The values differ as well, so the enums
+  are not interchangeable; the portal matches a role against the old value too, which
+  is what keeps a plugin built against an earlier SDK showing for the right people
+
+## Added
+
+- Add `@onlyoffice/docspace-plugin-sdk/react` subpath — modules `api`, `actions`,
+  `settings`, `runtime`, `hooks`
+- Add hooks `useCurrentFile`, `useCurrentUser`, `usePluginActions`, `usePluginAPI`,
+  `usePluginSettings`, `usePluginRuntime` and the `withPluginRuntime` HOC
+- Add `component` prop to `IInfoPanelItem`, `IArticleButtonItem`, `IMediaViewer`,
+  `ISettings` and `dialogBodyComponent` to `IModalDialog`
+- Add `IArticleNavigationPlugin`, `IArticleNavigationItem`, `Section` enum
+- Add `PluginAPIClient` — `request` plus `get`, `post`, `put`, `patch`, `delete`, body
+  on `delete`, `headers` and `AbortSignal` options, the portal's `response` wrapper
+  unwrapped (`{ total, items }` for lists), `..` and absolute paths refused
+- Add `PluginApiError` and the `isPluginApiError` guard — `status`, portal message,
+  failed `request`, error body in `details`
+- Add `PluginActions`, returned by `usePluginActions` — the `IMessage` actions as
+  methods: toasts, modals, selectors, the create dialog, navigation, the info panel, the
+  media viewer, the floating operations button and the `update*Items` family
+- Add `Actions.updateArticleButtonItems` and `Actions.updateArticleNavigationItems`
+- Export `FilterType` from the package root. `IFilesSelector.filterParam` is typed with it, but
+  the enum was reachable only through a deep import into `dist/`, which keeps working
+- Add the `UserRole` enum: `owner`, `fullAdmin`, `roomAdmin`, `user`, `guest`. Item
+  fields widen to `(UserRole | UsersType)[]`, so existing plugin sources still compile
+- Add `@types/react` to `dependencies`: the declarations reference React types
+- Add `runtime: "module"` support in `build-docspace-plugin`, written to `config.json`
+- Add `react >=19.0.0` as an optional peer dependency
+- Docs: separate React API section
+- Sample: `samples/article-navigation` on Vite + React 19 and `@onlyoffice/apps-ui-kit`
+
+## Changed
+
+- Raise `minDocSpaceVersion` to 4.0.0 — plugins built with this SDK need the module
+  runtime and the React entry the portal supplies from 4.0.0 on
+- Rename DocSpace to ONLYOFFICE Apps throughout the documentation, JSDoc and CLI
+  output. Package names, import specifiers, the `create-docspace-plugin` and
+  `build-docspace-plugin` commands, the `minDocSpaceVersion` key written into a plugin's
+  `config.json` and the `"DocSpaceAdmin"` user type value are unchanged
+- Template: Vite 8 + `@vitejs/plugin-react` instead of Webpack 5 + ts-loader, CSS
+  output renamed to `plugin.css`
+- Template: TypeScript 5.6, target `ES2017`, `moduleResolution: bundler`,
+  `jsx: react-jsx`, prettier 3.x
+- Template: `react` and `react-dom ^19` added as dependencies; react, react-dom, the
+  SDK React subpath and `@onlyoffice/apps-ui-kit` marked `external` — the SDK root stays
+  bundled
+- Template: `"runtime": "module"` added to `package.json`, `window.Plugins`
+  registration dropped from `src/index.ts`
+- Packaging: `.npmignore` denylist replaced with a `files` allowlist — `dist`, `npx`,
+  `template`
+
 ## 2.1.1
 
 ## Added
 
 - Add markdown documentation generation with TypeDoc
-- Add LLM instructions for DocSpace Plugin SDK development
+- Add LLM instructions for ONLYOFFICE Apps Plugin SDK development
 
 ## 2.1.0
 

@@ -10,7 +10,7 @@ The documentation system uses:
 
 - **TypeDoc** — extracts documentation from JSDoc comments in the TypeScript sources
 - **typedoc-plugin-markdown** — converts TypeDoc output to Markdown
-- **typedoc-plugin-frontmatter** — adds frontmatter metadata to the generated files
+- **typedoc-plugin-frontmatter** — required by the Docusaurus theme; it emits nothing itself, the only front matter on a page is the `custom_edit_url` added by `tools/`
 - **typedoc-docusaurus-theme** — emits a Docusaurus-compatible sidebar (`typedoc-sidebar.cjs`)
 - **`tools/`** — post-processing scripts that reshape the raw TypeDoc output into the final page skeleton
 
@@ -23,7 +23,7 @@ npm run docs:sync   # full pipeline + copy into ../api.onlyoffice.com
 
 `npm run docs` executes five steps in sequence (see `package.json`):
 
-1. **`tools/update-revision.mjs`** — reads the current Git branch and writes it into `typedoc.config.mjs` → `gitRevision`, so "View source on GitHub" links point at the branch being documented.
+1. **`tools/update-revision.mjs`** — reads the current Git branch and writes it into `typedoc.config.mjs` → `gitRevision`, so the `custom_edit_url` of every page points at the branch being documented.
 2. **`typedoc`** — parses the entry points and generates raw Markdown into `docs/`.
 3. **`tools/generate-index-pages/index.mjs`** — rewrites every generated page (see [Post-processing](#post-processing)) and builds an `index.md` per section.
 4. **`tools/flatten-sidebar.mjs`** — flattens and regroups the Docusaurus sidebar (see [Sidebar](#sidebar)).
@@ -45,6 +45,7 @@ src/interfaces/plugins/*.ts
 src/interfaces/settings/*.ts
 src/interfaces/utils/index.ts
 src/enums/*.ts
+src/react/*.ts
 ```
 
 Generated output:
@@ -76,11 +77,12 @@ The full configuration is `typedoc.config.mjs`. The options that define the look
 | `expandObjects` / `expandParameters` | `true` | Inline objects expanded in signatures; the signature is the overview, the "Type Declaration" table below is the reference |
 | `propertiesFormat` etc. | `"table"` | Members are table rows; TypeDoc's per-row `<a id>` anchors are later replaced by the `<APITable>` wrapper (see below) |
 | `enumMembersFormat` | `"list"` | Enum members stay a list: their descriptions carry `@example` fences, which cannot live in a table cell |
-| `tableColumnSettings` | `{ hideSources: true }` | No per-member source column; one "View source on GitHub" link per symbol instead |
+| `tableColumnSettings` | `{ hideSources: true }` | No per-member source column; the page-level source reference becomes `custom_edit_url` instead |
 | `excludeInternal` / `excludePrivate` / `excludeProtected` | `true` | `@internal` symbols never appear in the output |
-| `sourceLinkTemplate` | GitHub blob URL with `{gitRevision}` | Source links; revision is set by `update-revision.mjs`, reverted to `master` by `update-sidebar.mjs` |
+| `sourceLinkTemplate` | GitHub blob URL with `{gitRevision}`, no line anchor | The file URL that becomes `custom_edit_url`; revision is set by `update-revision.mjs`, reverted to `master` by `update-sidebar.mjs` |
 | `githubPages` | `false` | Keeps TypeDoc from dropping a `.nojekyll` that `docs:sync` would carry into the site repo |
 | `commentStyle` | `"jsdoc"` | Only `/** */` comments are picked up |
+| `tsconfig` | `"tsconfig.docs.json"` | The build splits `src` across two projects (`tsconfig.json` excludes `src/react`, which `tsconfig.react.json` builds on its own). TypeDoc cannot document files outside its project, so the docs run uses a third project that covers all of `src` and emits nothing |
 | `validation` | notExported, invalidLink, rewrittenLink, unusedMergeModuleWith | Link and export validation on every run |
 
 ## Post-processing
@@ -98,8 +100,8 @@ Layout of `tools/`:
 
 ### Structural transforms (order matters)
 
-1. `convertSourceLinks` — rewrites `Defined in: [file.ts:N](url)` to one `[View source on GitHub](url)` per symbol; member-level source lines are dropped.
-2. `hoistMainSection` — moves the H2 section matching the file name to the front (fixes TypeDoc's kind-based ordering).
+1. `hoistMainSection` — moves the H2 section matching the file name to the front (fixes TypeDoc's kind-based ordering).
+2. `moveSourceLinkToFrontmatter` — moves the `Defined in: [file.ts:N](url)` line under the main symbol into `custom_edit_url` front matter, so the site's "Edit this page" link opens the source file on GitHub; every other source line (secondary symbols and members) is dropped. Runs after the hoist, so the URL is the main symbol's, and before the heading shifts, while symbols are still H1/H2.
 3. `reorderExamplesFirst` — inside each symbol section, `### Example(s)` moves ahead of the reference tables (Type Declaration, Properties, …).
 4. `resolvePluginImageTags` — rewrites `<plugin-image src="x.png" [dark[="y.png"]] />` to Markdown images under `/assets/images/docspace/`; `dark` emits a light/dark pair using the `#gh-light-mode-only` / `#gh-dark-mode-only` URL convention.
 5. `promoteFirstH2toH1` — gives the page its H1 (TypeDoc emits none): promotes the main-symbol H2, or injects a title derived from the file name when the page has several symbols and a module preamble.
@@ -116,31 +118,33 @@ Layout of `tools/`:
 3. `fixInPageAnchors` — drops stale `-N` dedup suffixes from in-page hash links; warns about anchors that resolve to nothing.
 4. `ensureBlankLineBeforeHeadings` — restores the blank line MDX requires before a heading.
 5. `stripTrailingHorizontalRule` — removes a dangling `***` left at the end of a page by `hoistMainSection`.
+6. `dropStrikethrough` removes the strikethrough TypeDoc puts on deprecated names. Page titles feed the sidebar and the section index tables, where it would show as literal markers; the deprecation stays in the text.
 
 ### APITable wrapping
 
-`applyApiTables` (`api-tables.mjs`) runs last, after the cleanup transforms have validated the original anchors. It wraps every member table (a table whose rows carry TypeDoc's `<a id>` anchors) in the docs site's `<APITable>` component via `mdx-code-block` fences, strips the `<a id>` anchors, and rewrites all fragment links to the ids the component derives at runtime:
+`applyApiTables` (`api-tables.mjs`) runs last, after the cleanup transforms have validated the original anchors. It wraps every member table (a table whose rows carry TypeDoc's `<a id>` anchors) in the docs site's `<APITable>` component (a plain JSX tag pair plus a one-line import), strips the `<a id>` anchors, and rewrites all fragment links to the ids the component derives at runtime:
 
 - the row id is the **literal text of the first cell** (case-sensitive, `?` included for optional members): `<a id="onclick">` becomes `#onClick`, `<a id="primary">` becomes `#primary?`;
 - on pages where row names collide across tables, every table gets a `name="Symbol"` prop and ids become `Symbol-member` (e.g. `#IMessage-actions` in `utils.md`);
 - the component makes rows clickable and highlights the row targeted by the URL hash;
 - enum pages are unaffected — enum members render as a list, their anchors stay heading slugs.
 
-The result carries no raw HTML: the only non-Markdown syntax in the output is the `mdx-code-block` fences around `<APITable>`.
+The result carries no raw HTML: the only non-Markdown syntax in the output is the `<APITable>` tags and their import.
 
 ### Section index pages
 
 For every section in `tools/constants/sections.mjs` (`components`, `items`, `plugins`, `settings`, `enums`), `section-index.mjs` generates an `index.md`:
 
 - **H1 title**, intro **description** and optional **usage** paragraph — all authored in `sections.mjs`;
-- an **Overview table** (`| Interface | Description |`, header name configurable) built from each page's final H1 and the first sentence of its description.
+- an **Overview table** (`| Interface | Description |`, header name configurable) built from each page's final H1 and the first sentence of its description;
+- `custom_edit_url` front matter pointing at `tools/constants/sections.mjs` on the documented revision, since that is where the prose lives.
 
 ## Sidebar
 
 `flatten-sidebar.mjs` reshapes the auto-generated `typedoc-sidebar.cjs`:
 
 - drops TypeDoc's wrapper levels (directory names, "Interfaces", "Type Aliases", …);
-- regroups everything under six top-level categories — **Components, Items, Plugins, Settings, Utils, Enums** — each linking to its section `index.md` (Utils, a single page, links to the page itself);
+- regroups everything under seven top-level categories — **Components, Items, Plugins, Settings, Utils, React, Enums** — each linking to its section `index.md` (Utils, a single page, links to the page itself);
 - sorts categories before docs, alphabetically within each;
 - relabels items with the H1 of the generated page when it differs from the file name (e.g. `Utility` → `FilterType`).
 

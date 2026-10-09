@@ -13,16 +13,22 @@ export default {
     "src/interfaces/plugins/*.ts",
     "src/interfaces/settings/*.ts",
     "src/interfaces/utils/index.ts",
-    "src/enums/*.ts"
+    "src/enums/*.ts",
+    "src/react/*.ts"
   ],
   exclude: [
     "src/interfaces/components/index.ts",
     "src/interfaces/items/index.ts",
     "src/interfaces/plugins/index.ts",
     "src/interfaces/settings/index.ts",
-    "src/enums/index.ts"
+    "src/enums/index.ts",
+    "src/react/index.ts"
   ],
   entryPointStrategy: "expand",
+  // tsconfig.json excludes src/react (tsconfig.react.json builds it separately
+  // with jsx/bundler resolution), and TypeDoc cannot document files outside its
+  // project — so the docs run uses a project that covers the whole of src.
+  tsconfig: "tsconfig.docs.json",
   plugin: [
     "typedoc-plugin-markdown",
     "typedoc-plugin-frontmatter",
@@ -80,8 +86,10 @@ export default {
   },
   treatValidationWarningsAsErrors: false,
   disableSources: false,
+  // No line anchor: the page-level reference becomes the "Edit this page"
+  // link, which points at the file, not at a line inside it.
   sourceLinkTemplate:
-    "https://github.com/ONLYOFFICE/docspace-plugin-sdk/blob/{gitRevision}/{path}#L{line}",
+    "https://github.com/ONLYOFFICE/docspace-plugin-sdk/blob/{gitRevision}/{path}",
   gitRevision: "master",
   // Keeps TypeDoc from dropping a .nojekyll into docs/, which docs:sync would
   // then carry into the site repository.
@@ -130,7 +138,8 @@ export default {
   parametersFormat: "table",
   propertyMembersFormat: "table",
   // The per-member source link is dropped from the tables: generate-index-pages
-  // keeps one "View source on GitHub" link per symbol instead.
+  // moves the page-level source reference into `custom_edit_url` front matter
+  // instead.
   tableColumnSettings: {
     hideSources: true
   }

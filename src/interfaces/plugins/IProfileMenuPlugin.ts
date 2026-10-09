@@ -25,7 +25,7 @@ import { IProfileMenuItem } from "../items";
  * @example
  *
  * The plugin class implements `IProfileMenuPlugin` and registers a "User Settings"
- * entry in the constructor. DocSpace calls `getProfileMenuItems` to embed the items
+ * entry in the constructor. ONLYOFFICE Apps calls `getProfileMenuItems` to embed the items
  * into the user profile dropdown.
  *
  * ```typescript

@@ -1,0 +1,15 @@
+{
+  "//": "TypeDoc-only project. tsconfig.json excludes src/react (it is built separately by tsconfig.react.json), so the docs run needs a project that sees the whole of src at once.",
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "lib": ["es2017", "dom"],
+    "jsx": "react",
+    "strict": true,
+    "esModuleInterop": true,
+    "noEmit": true
+  },
+  "include": ["./src"],
+  "exclude": ["node_modules", "template", "npx", "dist", "samples"]
+}

@@ -16,7 +16,7 @@
  * @license
  */
 
-import { Devices, Events, UsersType } from "../../enums";
+import { Devices, Events, UserRole, UsersType } from "../../enums";
 import { IMessage } from "../utils";
 
 /**
@@ -53,7 +53,7 @@ import { IMessage } from "../utils";
  *       };
  *     }
  *   },
- *   usersTypes: [UsersType.docSpaceAdmin, UsersType.roomAdmin],
+ *   usersTypes: [UserRole.fullAdmin, UserRole.roomAdmin],
  *   devices: [Devices.desktop]
  * }
  * ```
@@ -69,19 +69,19 @@ import { IMessage } from "../utils";
  *   eventHandler: async () => {
  *     try {
  *       await auditService.logFileRename();
- *       return {
- *         actions: [Actions.updateItems],
- *         itemList: await getUpdatedFileList()
- *       };
+ *
+ *       // The plugin has already updated its own items; ask the portal
+ *       // to re-read the collection.
+ *       return { actions: [Actions.updateContextMenuItems] };
  *     } catch (error) {
  *       console.error("Failed to log file rename:", error);
  *     }
  *   },
  *   usersTypes: [
- *     UsersType.owner,
- *     UsersType.docSpaceAdmin,
- *     UsersType.roomAdmin,
- *     UsersType.collaborator
+ *     UserRole.owner,
+ *     UserRole.fullAdmin,
+ *     UserRole.roomAdmin,
+ *     UserRole.user
  *   ]
  * }
  * ```
@@ -122,16 +122,20 @@ export interface IEventListenerItem {
   /**
    * A function that will be executed when the event is triggered.
    * This function can be asynchronous.
-   * After the event is executed, only updating the items or displaying toast is possible, other actions are blocked.
+   *
+   * @remarks
+   * The returned message goes through the same dispatcher as any other
+   * class-side callback, so every action is honoured. Prefer item updates and
+   * toasts: the event fires over a dialog the portal has just opened.
    */
   eventHandler: () => Promise<IMessage> |  Promise<void> | IMessage | void;
 
   /**
    * The types of users who have the access to the current item.
-   * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
+   * Currently the following user types are available: owner, fullAdmin, roomAdmin, user, guest.
    * If this parameter is not specified, then the current item will be available for all user types.
    */
-  usersTypes?: UsersType[];
+  usersTypes?: (UserRole | UsersType)[];
 
   /**
    * The types of devices where the current item will be available.

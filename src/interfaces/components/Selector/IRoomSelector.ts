@@ -56,6 +56,8 @@ import {
  *   // Enables and sets the text for the cancel button.
  *   withCancelButton: true,
  *   cancelButtonLabel: "Close",
+ *   // A callback function that is executed when the user clicks the cancel button.
+ *   onCancel: () => ({ actions: [Actions.closeSelector] }),
  *
  *   // Custom text to display when no rooms are found.
  *   emptyScreenHeader: "No Rooms Available",

@@ -35,6 +35,7 @@ import { getEventListenerTemp } from "./helpers/eventListeners.js";
 import { getFileTemp } from "./helpers/file.js";
 import { getPostMessageTemp } from "./helpers/postMessage.js";
 import { getArticleTemp } from "./helpers/articleSlot.js";
+import { getArticleNavigationTemp } from "./helpers/articleNavigation.js";
 
 const CURR_DIR = process.cwd();
 
@@ -106,14 +107,6 @@ class NameIns implements PluginsIns {
 
 const plugin = new NameIns();
 
-declare global {
-  interface Window {
-    Plugins: any;
-  }
-}
-
-window.Plugins.NameIns = plugin || {};
-
 export default plugin;
 `;
 
@@ -130,6 +123,7 @@ export default plugin;
         const withFile = scopes.includes("File");
         const withPostMessage = scopes.includes("PostMessage");
         const withArticle = scopes.includes("ArticleButton");
+        const withArticleNavigation = scopes.includes("ArticleNavigation");
 
         const { apiVars, apiMeth, IApiPlugin } = getApiTemp(withApi);
         const { settingsVars, settingsMeth, ISettingsPlugin, ISettings } =
@@ -178,6 +172,12 @@ export default plugin;
           articleButtonVars,
           articleButtonMeth,
         } = getArticleTemp(withArticle);
+        const {
+          IArticleNavigationPlugin,
+          IArticleNavigationItem,
+          articleNavigationVars,
+          articleNavigationMeth,
+        } = getArticleNavigationTemp(withArticleNavigation);
 
         if (withApi) {
           pluginsImpIns += `, ${IApiPlugin}`;
@@ -229,6 +229,11 @@ export default plugin;
           pluginsIns += `, ${IArticleButtonPlugin}`;
         }
 
+        if (withArticleNavigation) {
+          pluginsImpIns += `, ${IArticleNavigationPlugin}, ${IArticleNavigationItem} `;
+          pluginsIns += `, ${IArticleNavigationPlugin}`;
+        }
+
         let nameIns = `${pluginName}`;
         let contentIns = `
   ${status}
@@ -242,6 +247,7 @@ export default plugin;
           ${fileVars}
           ${postMessageVars}
           ${articleButtonVars}
+          ${articleNavigationVars}
           ${onLoadCallback}
           ${updateStatus}
           ${getStatus}
@@ -255,7 +261,8 @@ export default plugin;
           ${eventListenerMeth}
           ${fileMeth}
           ${postMessageMeth}
-          ${articleButtonMeth}`;
+          ${articleButtonMeth}
+          ${articleNavigationMeth}`;
 
         template = template
           .replaceAll("pluginsImpIns", pluginsImpIns)
@@ -263,11 +270,17 @@ export default plugin;
           .replaceAll("NameIns", nameIns)
           .replaceAll("contentIns", contentIns);
 
-        const srcDir = writePath.replace("index.ts", "src");
+        fs.writeFileSync(writePath, template, "utf8");
 
-        fs.mkdirSync(srcDir);
-
-        fs.writeFileSync(`${srcDir}/index.ts`, template, "utf8");
+        break;
+      // npm strips files named `.gitignore` from the published package, so the
+      // template carries it undotted and it is renamed back on copy.
+      case "gitignore":
+        fs.writeFileSync(
+          writePath.replace(/gitignore$/, ".gitignore"),
+          contents,
+          "utf8",
+        );
 
         break;
       default:
