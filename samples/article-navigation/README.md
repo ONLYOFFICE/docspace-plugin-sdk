@@ -20,7 +20,7 @@ context, and the UI kit picks up the portal theme.
 
 ```bash
 npm install
-npm run build   # vite build && npx build-onlyoffice-plugin → dist/plugin.zip
+npm run build   # vite build && npx build-docspace-plugin → dist/plugin.zip
 ```
 
 ## Why react and the ui kit stay external

@@ -1,1 +1,1 @@
-// Replaced by create-onlyoffice-plugin with the generated plugin class.
+// Replaced by create-docspace-plugin with the generated plugin class.

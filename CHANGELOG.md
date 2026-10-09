@@ -9,10 +9,6 @@
   `IModalDialog` — use `component` (`dialogBodyComponent` in `IModalDialog`)
 - **DEPRECATED** `onLoad` in `IInfoPanelItem`, `IArticleButtonItem`, `IMediaViewer`,
   `ISettings`, `IModalDialog` — load data with `useEffect` in the component
-- **DEPRECATED** the `create-docspace-plugin` and `build-docspace-plugin` commands —
-  use `create-onlyoffice-plugin` and `build-onlyoffice-plugin`. The old names stay as
-  aliases that print a deprecation warning and hand over to the same scripts, so an
-  existing plugin keeps building unchanged
 - **DEPRECATED** the whole `UsersType` enum — use `UserRole`, whose members carry the
   names the portal uses: `docSpaceAdmin` is `fullAdmin`, `collaborator` is `user`, and
   the old `user` (the guest type) is `guest`. The values differ as well, so the enums
@@ -38,12 +34,11 @@
 - Add `Actions.updateArticleButtonItems` and `Actions.updateArticleNavigationItems`
 - Export `FilterType` from the package root. `IFilesSelector.filterParam` is typed with it, but
   the enum was reachable only through a deep import into `dist/`, which keeps working
-- Add the `create-onlyoffice-plugin` and `build-onlyoffice-plugin` commands
 - Add the `UserRole` enum: `owner`, `fullAdmin`, `roomAdmin`, `user`, `guest`. Item
   fields widen to `(UserRole | UsersType)[]`, so existing plugin sources still compile
 - Add `@types/react` to `dependencies`: the declarations reference React types, so a
   plugin without them and with `skipLibCheck` off failed to compile
-- Add `runtime: "module"` support in `build-onlyoffice-plugin`, written to `config.json`
+- Add `runtime: "module"` support in `build-docspace-plugin`, written to `config.json`
 - Bump `react` peer dependency to `>=19.0.0`
 - Docs: separate React API section
 - Sample: `samples/article-navigation` rewritten on Vite + React 19 and
@@ -54,9 +49,9 @@
 - Raise `minDocSpaceVersion` to 4.0.0 — plugins built with this SDK need the module
   runtime and the React entry the portal supplies from 4.0.0 on
 - Rename DocSpace to ONLYOFFICE Apps throughout the documentation, JSDoc and CLI
-  output. Package names, import specifiers, the `minDocSpaceVersion` key written into
-  a plugin's `config.json` and the `"DocSpaceAdmin"` user type value are unchanged —
-  the portal reads them
+  output. Package names, import specifiers, the `create-docspace-plugin` and
+  `build-docspace-plugin` commands, the `minDocSpaceVersion` key written into a plugin's
+  `config.json` and the `"DocSpaceAdmin"` user type value are unchanged
 - Template: Vite 8 + `@vitejs/plugin-react` instead of Webpack 5 + ts-loader, CSS
   output renamed to `plugin.css`
 - Template: TypeScript 5.6, target `ES2017`, `moduleResolution: bundler`,

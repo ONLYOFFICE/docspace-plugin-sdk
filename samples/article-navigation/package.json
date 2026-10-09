@@ -16,7 +16,7 @@
     "ArticleNavigation"
   ],
   "scripts": {
-    "build": "vite build && npx build-onlyoffice-plugin",
+    "build": "vite build && npx build-docspace-plugin",
     "format": "npx prettier --write ."
   },
   "devDependencies": {

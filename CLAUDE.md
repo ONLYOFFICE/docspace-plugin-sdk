@@ -22,7 +22,7 @@ This is `@onlyoffice/docspace-plugin-sdk` — a TypeScript type-definition packa
 
 1. **Types/interfaces** (`src/` → `dist/`) — imported by plugin developers from the package root
 2. **React runtime** (`src/react/` → `dist/react/`) — the `@onlyoffice/docspace-plugin-sdk/react` subpath export: hooks that reach the portal from inside a plugin's own React components
-3. **CLI tools** (`npx/`) — `create-onlyoffice-plugin` and `build-onlyoffice-plugin` binaries (`create-docspace-plugin` / `build-docspace-plugin` are deprecated aliases — thin wrappers that warn and hand over to the same scripts)
+3. **CLI tools** (`npx/`) — `create-docspace-plugin` and `build-docspace-plugin` binaries
 
 ### Type hierarchy
 
@@ -71,7 +71,7 @@ Each plugin type contains `*Item` interfaces (e.g., `IContextMenuItem`, `IInfoPa
 - `src/react/` — React runtime: `hooks`, `runtime`, `actions`, `api`, `settings`
 - `src/index.ts` — barrel re-export of everything public (root entry; `src/react/index.ts` is the `/react` entry)
 - `npx/` — CLI source (Inquirer.js prompts, template cloning, build tools)
-- `template/` — boilerplate used by `create-onlyoffice-plugin`
+- `template/` — boilerplate used by `create-docspace-plugin`
 - `samples/` — working plugins, one per scope; `samples/article-navigation` is the reference React + `@onlyoffice/apps-ui-kit` build
 - `tools/` — documentation pipeline scripts (TypeDoc post-processing for Docusaurus)
 
@@ -82,9 +82,9 @@ Documentation is generated from JSDoc comments by TypeDoc + post-processing scri
 ### Key constraints
 
 - Targets ES5 / CommonJS output (see `tsconfig.json`, `tsconfig.react.json`)
-- Minimum ONLYOFFICE Apps version: 4.0.0 (enforced by SDK version 3.0.0). `build-onlyoffice-plugin` reads it from the **installed SDK's** `package.json` field `minDocSpaceVersion` and writes it into the plugin's `config.json` under the same key. A plugin author cannot set it.
+- Minimum ONLYOFFICE Apps version: 4.0.0 (enforced by SDK version 3.0.0). `build-docspace-plugin` reads it from the **installed SDK's** `package.json` field `minDocSpaceVersion` and writes it into the plugin's `config.json` under the same key. A plugin author cannot set it.
 - Package manager: npm (`package-lock.json`) — CI installs with `npm ci`
-- **The DocSpace name survives only where something outside this repo reads it**, and those spellings must not be "fixed": the package name `@onlyoffice/docspace-plugin-sdk` and its `/react` subpath, the external `@onlyoffice/apps-ui-kit` and `@onlyoffice/docspace-api-sdk`, the `minDocSpaceVersion` key inside a generated `config.json` (the portal reads it through `WebPluginDto`) and the same field in the SDK's own `package.json`, the deprecated `UsersType` enum with its `docSpaceAdmin` member and `"DocSpaceAdmin"` value (still matched by the portal for older plugins), the `github.com/ONLYOFFICE/docspace-*` URLs and the `docspace/plugins-sdk/usage-sdk` docs-site paths. Everything else says ONLYOFFICE Apps.
+- **The DocSpace name survives only where something outside this repo reads it**, and those spellings must not be "fixed": the package name `@onlyoffice/docspace-plugin-sdk` and its `/react` subpath, the `create-docspace-plugin` / `build-docspace-plugin` commands (plugin build scripts call them), the external `@onlyoffice/apps-ui-kit` and `@onlyoffice/docspace-api-sdk`, the `minDocSpaceVersion` key inside a generated `config.json` (the portal reads it through `WebPluginDto`) and the same field in the SDK's own `package.json`, the deprecated `UsersType` enum with its `docSpaceAdmin` member and `"DocSpaceAdmin"` value (still matched by the portal for older plugins), the `github.com/ONLYOFFICE/docspace-*` URLs and the `docspace/plugins-sdk/usage-sdk` docs-site paths. Everything else says ONLYOFFICE Apps.
 
 ---
 
@@ -144,7 +144,7 @@ The SDK **root** stays bundled — string enums and types, no module state. Only
 
 ### Generated plugin project structure
 
-After `npx create-onlyoffice-plugin`, the plugin project looks like:
+After `npx create-docspace-plugin`, the plugin project looks like:
 
 ```
 my-plugin/
@@ -159,12 +159,12 @@ my-plugin/
 Build command inside a plugin project:
 
 ```bash
-npm run build   # runs: vite build && npx build-onlyoffice-plugin → dist/plugin.zip
+npm run build   # runs: vite build && npx build-docspace-plugin → dist/plugin.zip
 ```
 
-`build-onlyoffice-plugin` zips `dist/plugin.js`, `dist/plugin.css` (skipped when empty), `assets/` and a generated `config.json`. It requires `dist/plugin.js` to exist.
+`build-docspace-plugin` zips `dist/plugin.js`, `dist/plugin.css` (skipped when empty), `assets/` and a generated `config.json`. It requires `dist/plugin.js` to exist.
 
-`npx create-onlyoffice-plugin` must be run **outside** the SDK repository directory, otherwise it errors with "could not determine executable to run".
+`npx create-docspace-plugin` must be run **outside** the SDK repository directory, otherwise it errors with "could not determine executable to run".
 
 ### Common IMessage actions
 
@@ -199,8 +199,8 @@ Inside a React component the same actions are methods on `usePluginActions()` in
 Plugin `package.json` build script by SDK generation:
 
 ```json
-"build": "vite build && npx build-onlyoffice-plugin"   // 3.x
-"build": "webpack && npx build-docspace-plugin"       // 2.x
+"build": "vite build && npx build-docspace-plugin"      // 3.x
+"build": "webpack && npx build-docspace-plugin"         // 2.x
 ```
 
 ### Reference links
