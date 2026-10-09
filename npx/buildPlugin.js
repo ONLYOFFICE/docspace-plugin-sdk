@@ -21,6 +21,8 @@ import * as fs from "fs";
 import * as path from "path";
 import { fileURLToPath } from "url";
 
+import { DEFAULT_PLUGIN_VERSION } from "./constants/index.js";
+
 /**
  * Dynamically reads information from the installed SDK package.
  * @returns {{minDocSpaceVersion: string}}
