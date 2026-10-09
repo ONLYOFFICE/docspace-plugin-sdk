@@ -29,20 +29,19 @@
   unwrapped (`{ total, items }` for lists), `..` and absolute paths refused
 - Add `PluginApiError` and the `isPluginApiError` guard — `status`, portal message,
   failed `request`, error body in `details`
-- Add to `PluginActions`: `showCreateDialog`, `updateSelector`, a tab argument for
-  `openInfoPanel` and the `update*Items` family
+- Add `PluginActions`, returned by `usePluginActions` — the `IMessage` actions as
+  methods: toasts, modals, selectors, the create dialog, navigation, the info panel, the
+  media viewer, the floating operations button and the `update*Items` family
 - Add `Actions.updateArticleButtonItems` and `Actions.updateArticleNavigationItems`
 - Export `FilterType` from the package root. `IFilesSelector.filterParam` is typed with it, but
   the enum was reachable only through a deep import into `dist/`, which keeps working
 - Add the `UserRole` enum: `owner`, `fullAdmin`, `roomAdmin`, `user`, `guest`. Item
   fields widen to `(UserRole | UsersType)[]`, so existing plugin sources still compile
-- Add `@types/react` to `dependencies`: the declarations reference React types, so a
-  plugin without them and with `skipLibCheck` off failed to compile
+- Add `@types/react` to `dependencies`: the declarations reference React types
 - Add `runtime: "module"` support in `build-docspace-plugin`, written to `config.json`
-- Bump `react` peer dependency to `>=19.0.0`
+- Add `react >=19.0.0` as an optional peer dependency
 - Docs: separate React API section
-- Sample: `samples/article-navigation` rewritten on Vite + React 19 and
-  `@onlyoffice/apps-ui-kit`
+- Sample: `samples/article-navigation` on Vite + React 19 and `@onlyoffice/apps-ui-kit`
 
 ## Changed
 
@@ -63,8 +62,6 @@
   registration dropped from `src/index.ts`
 - Packaging: `.npmignore` denylist replaced with a `files` allowlist — `dist`, `npx`,
   `template`
-- Packaging: the React `tsc` pass runs before the root pass, so `dist` keeps the
-  CommonJS emit the package declares
 
 ## 2.1.1
 
