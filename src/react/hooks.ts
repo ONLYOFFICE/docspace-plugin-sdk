@@ -11,7 +11,7 @@
 // provider and consumer therefore share the same context reference.
 
 /**
- * React hooks for plugin components rendered inside the DocSpace application tree.
+ * React hooks for plugin components rendered inside the ONLYOFFICE Apps application tree.
  *
  * A plugin component is passed to the SDK through one of the `*Component` props —
  * [`IInfoPanelItem.component`](../interfaces/items/IInfoPanelItem.md#component),
@@ -19,7 +19,7 @@
  * [`IArticleNavigationItem.component`](../interfaces/items/IArticleNavigationItem.md#component),
  * [`IModalDialog.dialogBodyComponent`](../interfaces/components/IModalDialog.md#dialogbodycomponent)
  * or [`ISettings.component`](../interfaces/settings/ISettings.md#component).
- * DocSpace renders it with the plugin runtime in context, and these hooks read
+ * ONLYOFFICE Apps renders it with the plugin runtime in context, and these hooks read
  * that context.
  *
  * The hooks are published from the `@onlyoffice/docspace-plugin-sdk/react`
@@ -31,8 +31,8 @@
  *
  * :::info Bundling
  * `react`, `react-dom`, `react/jsx-runtime`,
- * `@onlyoffice/docspace-plugin-sdk/react` and `@docspace/ui-kit` must stay
- * **external** in the plugin bundle — DocSpace supplies its own copies at load
+ * `@onlyoffice/docspace-plugin-sdk/react` and `@onlyoffice/apps-ui-kit` must stay
+ * **external** in the plugin bundle — ONLYOFFICE Apps supplies its own copies at load
  * time. A plugin that bundles its own React gets a second React instance with
  * its own context objects, and every hook below then throws; the same goes for
  * a second copy of this subpath, which owns the context those hooks read.
@@ -41,8 +41,8 @@
  * carries string enums and types and no module state, so it is bundled like
  * any other dependency.
  *
- * DocSpace substitutes these specifiers, spelled exactly that way.
- * `@docspace/ui-kit` is today the package root only: a subpath import left
+ * ONLYOFFICE Apps substitutes these specifiers, spelled exactly that way.
+ * `@onlyoffice/apps-ui-kit` is today the package root only: a subpath import left
  * external reaches the portal unresolved and the plugin then fails to load,
  * naming the specifier in the console.
  * :::
@@ -58,7 +58,7 @@ import type { PluginAPIClient } from "./api";
 import type { PluginSettingsClient } from "./settings";
 
 /**
- * The context that carries the plugin runtime from the DocSpace client into the
+ * The context that carries the plugin runtime from the ONLYOFFICE Apps client into the
  * plugin component tree.
  *
  * @remarks
@@ -70,11 +70,11 @@ import type { PluginSettingsClient } from "./settings";
 export const LocalRuntimeContext = createContext<PluginRuntime | null>(null);
 
 /**
- * Wraps a plugin component so that the DocSpace client can inject the
+ * Wraps a plugin component so that the ONLYOFFICE Apps client can inject the
  * [`PluginRuntime`](runtime.md#pluginruntime) via a prop.
  *
  * @remarks
- * This is an **internal** helper used by the DocSpace client — plugin authors
+ * This is an **internal** helper used by the ONLYOFFICE Apps client — plugin authors
  * do not need to call it. It is exported so that the client can import it from
  * the shimmed copy of the SDK that the plugin bundle also uses, ensuring that
  * both sides share the same React context reference.
@@ -105,7 +105,7 @@ export function withPluginRuntime(Component: React.ComponentType) {
  * etc.) when you only need a single slice of the runtime — they are more
  * readable and produce narrower TypeScript types.
  *
- * @throws {Error} When called outside a plugin component rendered by DocSpace.
+ * @throws {Error} When called outside a plugin component rendered by ONLYOFFICE Apps.
  *
  * @example
  * ```tsx
@@ -121,14 +121,14 @@ export function usePluginRuntime(): PluginRuntime {
   const ctx = useContext(LocalRuntimeContext);
   if (!ctx)
     throw new Error(
-      "usePluginRuntime must be used inside a plugin component rendered by DocSpace",
+      "usePluginRuntime must be used inside a plugin component rendered by ONLYOFFICE Apps",
     );
   return ctx;
 }
 
 /**
  * Returns metadata of the file, folder or room currently selected in the
- * DocSpace UI, or `null` when nothing is selected. It is also `null` on
+ * ONLYOFFICE Apps UI, or `null` when nothing is selected. It is also `null` on
  * surfaces that have no selection of their own — an article navigation page,
  * the settings panel, and a dialog opened from a class-side callback — so pass
  * the id the click knew through a module variable or a factory closure.
@@ -250,18 +250,9 @@ export function useCurrentUser(): TCurrentUser | null {
  *
  * function SettingsPanel() {
  *   const settings = usePluginSettings();
- *   const [apiKey, setApiKey] = useState("");
- *   const [loaded, setLoaded] = useState(false);
+ *   const [apiKey, setApiKey] = useState(() => settings.load<Config>()?.apiKey ?? "");
  *
  *   useEffect(() => {
- *     settings.load<Config>().then((saved) => {
- *       if (saved) setApiKey(saved.apiKey);
- *       setLoaded(true);
- *     });
- *   }, []);
- *
- *   useEffect(() => {
- *     if (!loaded) return;
  *     settings.setSaveButton({
  *       component: Components.button,
  *       props: {
@@ -271,7 +262,7 @@ export function useCurrentUser(): TCurrentUser | null {
  *         onClick: async () => { await settings.save({ apiKey }); },
  *       },
  *     });
- *   }, [apiKey, loaded]);
+ *   }, [apiKey]);
  *
  *   return <input value={apiKey} onChange={(e) => setApiKey(e.target.value)} />;
  * }

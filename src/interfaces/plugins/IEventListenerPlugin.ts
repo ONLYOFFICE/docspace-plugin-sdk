@@ -24,7 +24,7 @@ import { IEventListenerItem } from "../items";
  * @example
  *
  * The plugin class implements `IEventListenerPlugin` and registers a listener for
- * the room creation event in the constructor. DocSpace calls `getEventListenerItems`
+ * the room creation event in the constructor. ONLYOFFICE Apps calls `getEventListenerItems`
  * to subscribe the handlers to the portal events.
  *
  * ```typescript

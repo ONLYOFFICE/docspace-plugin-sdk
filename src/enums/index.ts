@@ -30,6 +30,7 @@ import { Events } from "./Events";
 import { PluginStatus, PluginLocale } from "./Plugins";
 import { FilesExst, FilesType, FilesSecurity } from "./Files";
 import { UsersType } from "./UsersType";
+import { UserRole } from "./UserRole";
 import { Components } from "./Components";
 import { Devices } from "./Devices";
 import { Security } from "./Security";
@@ -47,6 +48,7 @@ export {
   FilesSecurity,
   PluginStatus,
   UsersType,
+  UserRole,
   Devices,
   Security,
   PluginLocale,

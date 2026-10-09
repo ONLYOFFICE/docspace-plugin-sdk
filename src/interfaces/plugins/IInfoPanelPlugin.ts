@@ -24,7 +24,7 @@ import { IInfoPanelItem } from "../items";
  * @example
  *
  * The plugin class implements `IInfoPanelPlugin` and registers a "Document Info" tab
- * in the constructor. DocSpace calls `getInfoPanelItems` to embed the tabs into the
+ * in the constructor. ONLYOFFICE Apps calls `getInfoPanelItems` to embed the tabs into the
  * file info panel; the tab UI is described by the item's `body` box.
  *
  * ```typescript

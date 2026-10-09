@@ -20,7 +20,7 @@ import type { ComponentType } from "react";
 
 import { IBox } from "./IBox";
 import { TReturnMessage } from "../utils";
-import { FilesExst, FilesSecurity, Devices, UsersType } from "../../enums";
+import { FilesExst, FilesSecurity, Devices, UserRole, UsersType } from "../../enums";
 
 /**
  * Properties for the Media Viewer component that allows plugins to display custom content.
@@ -39,7 +39,7 @@ import { FilesExst, FilesSecurity, Devices, UsersType } from "../../enums";
  *
  * ```tsx
  * import { useCurrentFile, usePluginActions } from "@onlyoffice/docspace-plugin-sdk/react";
- * import { IMediaViewer } from "@onlyoffice/docspace-plugin-sdk";
+ * import { Actions, IMediaViewer } from "@onlyoffice/docspace-plugin-sdk";
  *
  * function VideoPlayer() {
  *   const file = useCurrentFile();
@@ -83,7 +83,7 @@ import { FilesExst, FilesSecurity, Devices, UsersType } from "../../enums";
  *   IMediaViewer,
  *   FilesExst,
  *   FilesSecurity,
- *   UsersType,
+ *   UserRole,
  *   Devices,
  * } from "@onlyoffice/docspace-plugin-sdk";
  *
@@ -128,7 +128,7 @@ import { FilesExst, FilesSecurity, Devices, UsersType } from "../../enums";
  *   playlistFilter: {
  *     filesExsts: [".jpg", ".png", FilesExst.svg],
  *     filesSecurity: [FilesSecurity.Read],
- *     usersTypes: [UsersType.user, UsersType.collaborator],
+ *     usersTypes: [UserRole.guest, UserRole.user],
  *     devices: [Devices.desktop, Devices.tablet]
  *   }
  * };
@@ -214,10 +214,10 @@ export interface IMediaViewerPlaylistFilter {
 
   /**
    * The types of users who will see the media viewer.
-   * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
+   * Currently the following user types are available: owner, fullAdmin, roomAdmin, user, guest.
    * If this parameter is not specified, then the media viewer will be displayed for all user types.
    */
-  usersTypes?: UsersType[];
+  usersTypes?: (UserRole | UsersType)[];
 
   /**
    * The types of devices where the media viewer will be displayed.

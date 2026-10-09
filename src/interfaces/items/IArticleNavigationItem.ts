@@ -18,12 +18,12 @@
 
 import type { ComponentType } from "react";
 
-import { Devices, UsersType } from "../../enums";
+import { Devices, UserRole, UsersType } from "../../enums";
 import { Section } from "../../enums/Section";
 
 /**
  * Describes a navigation item that will be embedded in the article sidebar as a first-class
- * navigation entry. When the user clicks the item, DocSpace navigates to a dedicated plugin
+ * navigation entry. When the user clicks the item, ONLYOFFICE Apps navigates to a dedicated plugin
  * section page where the `component` is rendered.
  *
  * Items are registered by a plugin implementing
@@ -35,7 +35,7 @@ import { Section } from "../../enums/Section";
  *
  * :::info
  * The section page is a full portal page, not a panel. The component is
- * rendered inside the DocSpace application tree, so it inherits the portal theme.
+ * rendered inside the ONLYOFFICE Apps application tree, so it inherits the portal theme.
  * See the [`article-navigation` sample](https://github.com/ONLYOFFICE/docspace-plugin-sdk/tree/master/samples/article-navigation)
  * for a working build configuration.
  * :::
@@ -47,7 +47,7 @@ import { Section } from "../../enums/Section";
  * ```tsx
  * import { useEffect, useState } from "react";
  * import { usePluginAPI } from "@onlyoffice/docspace-plugin-sdk/react";
- * import { IArticleNavigationItem, Section, UsersType } from "@onlyoffice/docspace-plugin-sdk";
+ * import { IArticleNavigationItem, Section, UserRole } from "@onlyoffice/docspace-plugin-sdk";
  *
  * type Room = { id: number; title: string };
  *
@@ -81,7 +81,7 @@ import { Section } from "../../enums/Section";
  *   label: "Rooms overview",
  *   icon: "icon.svg",
  *   component: RoomsOverview,
- *   usersTypes: [UsersType.owner, UsersType.docSpaceAdmin],
+ *   usersTypes: [UserRole.owner, UserRole.fullAdmin],
  *   appears: [Section.Files]
  * };
  * ```
@@ -90,7 +90,7 @@ import { Section } from "../../enums/Section";
  *
  * Renaming the item from inside its own section
  *
- * The component mutates the item through the plugin instance and then asks DocSpace
+ * The component mutates the item through the plugin instance and then asks ONLYOFFICE Apps
  * to redraw the sidebar with `Actions.updateArticleNavigationItems`.
  *
  * ```tsx
@@ -153,7 +153,7 @@ export interface IArticleNavigationItem {
    * The types of users who will see this navigation item.
    * If omitted, the item is visible to all user types.
    */
-  usersTypes?: UsersType[];
+  usersTypes?: (UserRole | UsersType)[];
 
   /**
    * The device types on which this navigation item is displayed.

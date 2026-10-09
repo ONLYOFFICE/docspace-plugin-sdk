@@ -17,21 +17,16 @@ export default defineConfig({
       fileName: () => "plugin.js",
     },
     rolldownOptions: {
-      // Kept out of the bundle: DocSpace supplies its own copies at load
-      // time and rewrites these specifiers to them. A second React or a
-      // second react-dom arrives with its own contexts and its own event
-      // system, and every hook breaks.
-      //
-      // The SDK root is deliberately absent: it holds string enums and types
-      // and no module state, so a bundled copy behaves exactly like the
-      // host's. Only the React entry, which owns the runtime context, has to
-      // be shared.
+      // Kept out of the bundle: ONLYOFFICE Apps supplies its own copies at load
+      // time and rewrites these specifiers to them. A second React arrives with
+      // its own contexts, so every SDK hook throws. The SDK root stays bundled
+      // like any other dependency: string enums and types, no module state.
       external: [
         "react",
         "react-dom",
         "react/jsx-runtime",
         "@onlyoffice/docspace-plugin-sdk/react",
-        /^@docspace\/ui-kit(\/.*)?$/,
+        /^@onlyoffice\/apps-ui-kit(\/.*)?$/,
       ],
       output: {
         codeSplitting: false,

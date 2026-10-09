@@ -17,7 +17,7 @@ export default defineConfig({
       fileName: () => "plugin.js",
     },
     rolldownOptions: {
-      // Kept out of the bundle: DocSpace supplies its own copies at load time
+      // Kept out of the bundle: ONLYOFFICE Apps supplies its own copies at load time
       // and rewrites these specifiers to them. A second React arrives with its
       // own contexts, so every SDK hook throws; a second ui-kit fails more
       // quietly, reading an empty theme context and rendering light and
@@ -31,7 +31,7 @@ export default defineConfig({
         "react-dom",
         "react/jsx-runtime",
         "@onlyoffice/docspace-plugin-sdk/react",
-        /^@docspace\/ui-kit(\/.*)?$/,
+        /^@onlyoffice\/apps-ui-kit(\/.*)?$/,
       ],
       output: {
         codeSplitting: false,

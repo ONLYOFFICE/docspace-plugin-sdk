@@ -24,7 +24,7 @@ import { IMainButtonItem } from "../items";
  * @example
  *
  * The plugin class implements `IMainButtonPlugin` and registers an "Export to PDF"
- * action in the constructor. DocSpace calls `getMainButtonItems` to embed the items
+ * action in the constructor. ONLYOFFICE Apps calls `getMainButtonItems` to embed the items
  * into the **More** section of the main button menu inside a room.
  *
  * ```typescript

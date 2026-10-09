@@ -208,7 +208,7 @@ export interface IModalDialog {
     /**
      * Defines a new modal dialog body.
      */
-    newDialogBody: IBox;
+    newDialogBody?: IBox;
     /**
      * Defines a new modal dialog footer.
      */

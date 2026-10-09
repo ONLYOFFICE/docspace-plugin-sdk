@@ -9,6 +9,11 @@
   `IModalDialog` — use `component` (`dialogBodyComponent` in `IModalDialog`)
 - **DEPRECATED** `onLoad` in `IInfoPanelItem`, `IArticleButtonItem`, `IMediaViewer`,
   `ISettings`, `IModalDialog` — load data with `useEffect` in the component
+- **DEPRECATED** the whole `UsersType` enum — use `UserRole`, whose members carry the
+  names the portal uses: `docSpaceAdmin` is `fullAdmin`, `collaborator` is `user`, and
+  the old `user` (the guest type) is `guest`. The values differ as well, so the enums
+  are not interchangeable; the portal matches a role against the old value too, which
+  is what keeps a plugin built against an earlier SDK showing for the right people
 
 ## Added
 
@@ -27,22 +32,32 @@
 - Add to `PluginActions`: `showCreateDialog`, `updateSelector`, a tab argument for
   `openInfoPanel` and the `update*Items` family
 - Add `Actions.updateArticleButtonItems` and `Actions.updateArticleNavigationItems`
+- Export `FilterType` from the package root. `IFilesSelector.filterParam` is typed with it, but
+  the enum was reachable only through a deep import into `dist/`, which keeps working
+- Add the `UserRole` enum: `owner`, `fullAdmin`, `roomAdmin`, `user`, `guest`. Item
+  fields widen to `(UserRole | UsersType)[]`, so existing plugin sources still compile
+- Add `@types/react` to `dependencies`: the declarations reference React types, so a
+  plugin without them and with `skipLibCheck` off failed to compile
 - Add `runtime: "module"` support in `build-docspace-plugin`, written to `config.json`
 - Bump `react` peer dependency to `>=19.0.0`
 - Docs: separate React API section
 - Sample: `samples/article-navigation` rewritten on Vite + React 19 and
-  `@docspace/ui-kit`
+  `@onlyoffice/apps-ui-kit`
 
 ## Changed
 
 - Raise `minDocSpaceVersion` to 4.0.0 — plugins built with this SDK need the module
   runtime and the React entry the portal supplies from 4.0.0 on
+- Rename DocSpace to ONLYOFFICE Apps throughout the documentation, JSDoc and CLI
+  output. Package names, import specifiers, the `create-docspace-plugin` and
+  `build-docspace-plugin` commands, the `minDocSpaceVersion` key written into a plugin's
+  `config.json` and the `"DocSpaceAdmin"` user type value are unchanged
 - Template: Vite 8 + `@vitejs/plugin-react` instead of Webpack 5 + ts-loader, CSS
   output renamed to `plugin.css`
 - Template: TypeScript 5.6, target `ES2017`, `moduleResolution: bundler`,
   `jsx: react-jsx`, prettier 3.x
 - Template: `react` and `react-dom ^19` added as dependencies; react, react-dom, the
-  SDK React subpath and `@docspace/ui-kit` marked `external` — the SDK root stays
+  SDK React subpath and `@onlyoffice/apps-ui-kit` marked `external` — the SDK root stays
   bundled
 - Template: `"runtime": "module"` added to `package.json`, `window.Plugins`
   registration dropped from `src/index.ts`
@@ -56,7 +71,7 @@
 ## Added
 
 - Add markdown documentation generation with TypeDoc
-- Add LLM instructions for DocSpace Plugin SDK development
+- Add LLM instructions for ONLYOFFICE Apps Plugin SDK development
 
 ## 2.1.0
 

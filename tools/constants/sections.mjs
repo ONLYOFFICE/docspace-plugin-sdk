@@ -31,10 +31,10 @@ export const SECTIONS = [
     docsDir: "interfaces/items",
     title: "Items",
     description:
-      "Plugin items that extend specific DocSpace UI locations — context menus, file rows, info panels, " +
+      "Plugin items that extend specific ONLYOFFICE Apps UI locations — context menus, file rows, info panels, " +
       "profile menus, and navigation buttons.",
     usage:
-      "Choose the item interface that matches the DocSpace UI area you want to extend with your plugin action. " +
+      "Choose the item interface that matches the ONLYOFFICE Apps UI area you want to extend with your plugin action. " +
       "Items are registered through the matching [plugin type interface](../plugins/index.md). " +
       "For example, a context menu plugin stores its `IContextMenuItem` objects in a `Map` " +
       "and returns them from the `getContextMenuItems()` method.",
@@ -44,10 +44,10 @@ export const SECTIONS = [
     docsDir: "interfaces/plugins",
     title: "Plugins",
     description:
-      "Core plugin interfaces that define the contract for each plugin type supported by DocSpace. " +
+      "Core plugin interfaces that define the contract for each plugin type supported by ONLYOFFICE Apps. " +
       "Every plugin must implement `IPlugin` plus one or more type-specific interfaces.",
     usage:
-      "Implement the interface that matches the DocSpace UI area you want to extend. " +
+      "Implement the interface that matches the ONLYOFFICE Apps UI area you want to extend. " +
       "Each plugin type registers its UI entries as [items](../items/index.md) kept in a `Map`.",
     tableCaption: "Available plugin type interfaces:"
   },
@@ -55,7 +55,7 @@ export const SECTIONS = [
     docsDir: "interfaces/settings",
     title: "Settings",
     description:
-      "Interfaces for configuring plugin settings displayed in the DocSpace admin and user settings panels.",
+      "Interfaces for configuring plugin settings displayed in the ONLYOFFICE Apps admin and user settings panels.",
     usage:
       "Implement `ISettingsPlugin` and use `ISettings` to describe each configurable field.",
     tableCaption: "Settings interfaces:"
@@ -65,14 +65,14 @@ export const SECTIONS = [
     title: "React",
     description:
       "Hooks and runtime types for plugin UI written as React components. " +
-      "A component is handed to DocSpace through one of the `*Component` props on an " +
+      "A component is handed to ONLYOFFICE Apps through one of the `*Component` props on an " +
       "[item](../interfaces/items/index.md), a " +
       "[modal dialog](../interfaces/components/IModalDialog.md) or the " +
       "[settings block](../interfaces/settings/ISettings.md), and reads the portal " +
       "selection, user, API and actions through these hooks.",
     usage:
       "Import from the `@onlyoffice/docspace-plugin-sdk/react` subpath, and keep `react` and " +
-      "both SDK entry points external in the plugin bundle — DocSpace supplies its own copies, " +
+      "both SDK entry points external in the plugin bundle — ONLYOFFICE Apps supplies its own copies, " +
       "and a second React instance breaks every hook.",
     tableCaption: "The React API is split across these pages:",
     tableHeaderName: "Page"

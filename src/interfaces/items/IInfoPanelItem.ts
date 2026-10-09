@@ -18,7 +18,7 @@
 
 import type { ComponentType } from "react";
 
-import { Devices, UsersType } from "../../enums";
+import { Devices, UserRole, UsersType } from "../../enums";
 import { FilesExst, FilesType } from "../../enums/Files";
 import { IBox } from "../components";
 import { IMessage } from "../utils";
@@ -163,7 +163,7 @@ export interface IInfoPanelItem {
    *
    * @deprecated Use a React component via `component` with `useEffect` for data loading instead.
    */
-  onLoad?: () => Promise<{ body: IBox }>;
+  onLoad?: () => Promise<{ body?: IBox }>;
 
   /**
    * The types of files where the current item will be displayed in the info panel.
@@ -185,10 +185,10 @@ export interface IInfoPanelItem {
 
   /**
    * The types of users who will see the current item in the info panel.
-   * Currently the following user types are available: owner, docSpaceAdmin, roomAdmin, collaborator, user.
+   * Currently the following user types are available: owner, fullAdmin, roomAdmin, user, guest.
    * If this parameter is not specified, then the current info panel item will be displayed for all user types.
    */
-  usersTypes?: UsersType[];
+  usersTypes?: (UserRole | UsersType)[];
 
   /**
    * The types of devices where the current item will be displayed in the info panel.
