@@ -41,9 +41,6 @@
 - Add the `create-onlyoffice-plugin` and `build-onlyoffice-plugin` commands
 - Add the `UserRole` enum: `owner`, `fullAdmin`, `roomAdmin`, `user`, `guest`. Item
   fields widen to `(UserRole | UsersType)[]`, so existing plugin sources still compile
-- Rename the SDK's own `package.json` field `minDocSpaceVersion` to `minPortalVersion`.
-  Only `build-onlyoffice-plugin` reads it, and the key written into a plugin's
-  `config.json` stays `minDocSpaceVersion`
 - Add `@types/react` to `dependencies`: the declarations reference React types, so a
   plugin without them and with `skipLibCheck` off failed to compile
 - Add `runtime: "module"` support in `build-onlyoffice-plugin`, written to `config.json`
@@ -54,7 +51,7 @@
 
 ## Changed
 
-- Raise `minPortalVersion` to 4.0.0 — plugins built with this SDK need the module
+- Raise `minDocSpaceVersion` to 4.0.0 — plugins built with this SDK need the module
   runtime and the React entry the portal supplies from 4.0.0 on
 - Rename DocSpace to ONLYOFFICE Apps throughout the documentation, JSDoc and CLI
   output. Package names, import specifiers, the `minDocSpaceVersion` key written into

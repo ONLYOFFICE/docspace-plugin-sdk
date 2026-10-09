@@ -82,9 +82,9 @@ Documentation is generated from JSDoc comments by TypeDoc + post-processing scri
 ### Key constraints
 
 - Targets ES5 / CommonJS output (see `tsconfig.json`, `tsconfig.react.json`)
-- Minimum ONLYOFFICE Apps version: 4.0.0 (enforced by SDK version 3.0.0). `build-onlyoffice-plugin` reads it from the **installed SDK's** `package.json` field `minPortalVersion` and writes it into the plugin's `config.json` under the key `minDocSpaceVersion`. A plugin author cannot set it.
+- Minimum ONLYOFFICE Apps version: 4.0.0 (enforced by SDK version 3.0.0). `build-onlyoffice-plugin` reads it from the **installed SDK's** `package.json` field `minDocSpaceVersion` and writes it into the plugin's `config.json` under the same key. A plugin author cannot set it.
 - Package manager: npm (`package-lock.json`) — CI installs with `npm ci`
-- **The DocSpace name survives only where something outside this repo reads it**, and those spellings must not be "fixed": the package name `@onlyoffice/docspace-plugin-sdk` and its `/react` subpath, the external `@onlyoffice/apps-ui-kit` and `@onlyoffice/docspace-api-sdk`, the `minDocSpaceVersion` key inside a generated `config.json` (the portal reads it through `WebPluginDto`), the deprecated `UsersType` enum with its `docSpaceAdmin` member and `"DocSpaceAdmin"` value (still matched by the portal for older plugins), the `github.com/ONLYOFFICE/docspace-*` URLs and the `docspace/plugins-sdk/usage-sdk` docs-site paths. Everything else says ONLYOFFICE Apps.
+- **The DocSpace name survives only where something outside this repo reads it**, and those spellings must not be "fixed": the package name `@onlyoffice/docspace-plugin-sdk` and its `/react` subpath, the external `@onlyoffice/apps-ui-kit` and `@onlyoffice/docspace-api-sdk`, the `minDocSpaceVersion` key inside a generated `config.json` (the portal reads it through `WebPluginDto`) and the same field in the SDK's own `package.json`, the deprecated `UsersType` enum with its `docSpaceAdmin` member and `"DocSpaceAdmin"` value (still matched by the portal for older plugins), the `github.com/ONLYOFFICE/docspace-*` URLs and the `docspace/plugins-sdk/usage-sdk` docs-site paths. Everything else says ONLYOFFICE Apps.
 
 ---
 
