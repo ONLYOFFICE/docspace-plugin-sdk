@@ -149,7 +149,7 @@ After `npx create-docspace-plugin`, the plugin project looks like:
 ```
 my-plugin/
 ├── src/index.ts          # Plugin implementation — exported as default
-├── assets/               # Icons (16×16px SVG/PNG; 20×20 for article navigation items)
+├── assets/               # Icons (16×16px SVG/PNG; SVG only for article navigation items)
 ├── dist/                 # Build output: plugin.js (ESM), plugin.css, plugin.zip
 ├── vite.config.ts
 ├── tsconfig.json

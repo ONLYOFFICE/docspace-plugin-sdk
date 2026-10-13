@@ -20,7 +20,9 @@ import { Devices, UserRole, UsersType } from "../../enums";
 import { IMessage } from "../utils";
 
 /**
- * Describes an item that will be embedded in the More item of the main button menu. It is available only inside a room (folder) and is not available for the room list.
+ * Describes an item that will be embedded in the **More** submenu of the main button menu, which opens from the **New** button.
+ * The same submenu appears in the context menu of an empty area in the file list.
+ * Items are shown in the Files section and inside rooms and their folders, to users who can create files there.
  *
  * Items are registered by a plugin implementing
  * [`IMainButtonPlugin`](../plugins/IMainButtonPlugin.md).

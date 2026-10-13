@@ -156,7 +156,7 @@ const SettingsPage = () => {
 
 /**
  * `key` becomes the last segment of the page URL, so it has to be unique across
- * every installed plugin. `icon` is a file name from the `assets` folder, 20x20.
+ * every installed plugin. `icon` is an SVG from the `assets` folder, drawn at 16x16.
  */
 const filesItem: IArticleNavigationItem = {
   key: "article-navigation-sample-files",

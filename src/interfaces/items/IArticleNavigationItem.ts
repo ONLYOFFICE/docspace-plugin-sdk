@@ -33,6 +33,8 @@ import { Section } from "../../enums/Section";
  * [`Actions.updateArticleNavigationItems`](../../enums/Actions.md#updatearticlenavigationitems)
  * to apply the change to the sidebar.
  *
+ * <plugin-image src="article-navigation-item.png" dark />
+ *
  * :::info
  * The section page is a full portal page, not a panel. The component is
  * rendered inside the ONLYOFFICE Apps application tree, so it inherits the portal theme.
@@ -136,8 +138,8 @@ export interface IArticleNavigationItem {
 
   /**
    * The item display icon. The icon image must be uploaded to the "assets" folder.
-   * Only the image name with the extension must be specified in this field. The required icon size is 20x20 px.
-   * Otherwise, it will be compressed to this size.
+   * Only the image name with the extension must be specified in this field. The icon must be an SVG file:
+   * it is drawn at 16x16 px, and its `path` and `circle` fills take the sidebar icon color of the current theme.
    */
   icon: string;
 

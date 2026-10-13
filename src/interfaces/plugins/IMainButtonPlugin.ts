@@ -25,7 +25,7 @@ import { IMainButtonItem } from "../items";
  *
  * The plugin class implements `IMainButtonPlugin` and registers an "Export to PDF"
  * action in the constructor. ONLYOFFICE Apps calls `getMainButtonItems` to embed the items
- * into the **More** section of the main button menu inside a room.
+ * into the **More** submenu of the main button menu.
  *
  * ```typescript
  * import {
