@@ -36,7 +36,7 @@
  *   label: "Reports",
  *   icon: "reports.svg",
  *   usersTypes: [UserRole.owner, UserRole.fullAdmin],
- *   onClick: () => ({ actions: [] }),
+ *   onItemClick: () => ({ actions: [] }),
  * };
  * ```
  */

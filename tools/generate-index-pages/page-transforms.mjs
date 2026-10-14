@@ -14,6 +14,8 @@ const SOURCE_REFERENCE =
 const PLUGIN_IMAGE_TAG =
   /<plugin-image\s+src=(["'])([^"']+)\1(\s+dark(?:=(["'])([^"']*)\4)?)?\s*\/>/g;
 const IN_PAGE_LINK = /\]\(#([^)\s]+)\)/g;
+// A `\|` right after a token that opens a type: a table cell, `(`, `:` or `=>`.
+const STRAY_UNION_OPENER = /(\(|(?<!\\)\| |: |=> ) ?\\\| /g;
 
 /**
  * The H2 names under which a page's main symbol may live: the file name
@@ -265,8 +267,9 @@ function raiseMainSymbolSubtree(content) {
 
 /**
  * Removes the stray `\|` TypeDoc leaves in front of the first member of a
- * union: on the line that opens a multi-line union, and after the `=>` of a
- * function type inside a table cell.
+ * multi-line union: on the line that opens it, and after the token that opens
+ * it once a table cell has collapsed it onto one line — the cell itself, the
+ * `(` of an array, the `:` of an object field or the `=>` of a function type.
  * @param {string} content
  */
 function fixUnionPipeArtifacts(content) {
@@ -289,7 +292,7 @@ function fixUnionPipeArtifacts(content) {
     const opensUnion = isUnionMember && !previousLineWasUnionMember;
 
     let updatedLine = opensUnion ? line.replace(/^(\s*)\\\| /, "$1") : line;
-    updatedLine = updatedLine.replaceAll("=> \\| ", "=> ");
+    updatedLine = updatedLine.replace(STRAY_UNION_OPENER, "$1");
 
     resultLines.push(updatedLine);
     previousLineWasUnionMember = isUnionMember;

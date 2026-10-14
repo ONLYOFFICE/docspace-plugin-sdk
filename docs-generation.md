@@ -113,7 +113,7 @@ Layout of `tools/`:
 
 ### Cleanup transforms
 
-1. `fixUnionPipeArtifacts` — strips the stray `\|` TypeDoc leaves before the first member of a multi-line union.
+1. `fixUnionPipeArtifacts` — strips the stray `\|` TypeDoc leaves before the first member of a multi-line union, including where a table cell collapses it onto one line (after the cell start, `(`, `:` or `=>`).
 2. `escapePipesInTableCells` — escapes `|` inside inline code in table cells (an unescaped pipe from a comment breaks the row).
 3. `fixInPageAnchors` — drops stale `-N` dedup suffixes from in-page hash links; warns about anchors that resolve to nothing.
 4. `ensureBlankLineBeforeHeadings` — restores the blank line MDX requires before a heading.
