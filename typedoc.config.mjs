@@ -90,6 +90,8 @@ export default {
   // link, which points at the file, not at a line inside it.
   sourceLinkTemplate:
     "https://github.com/ONLYOFFICE/docspace-plugin-sdk/blob/{gitRevision}/{path}",
+  // Always master, whatever branch the docs are built from: the site publishes
+  // them, and a feature branch link breaks once the branch is merged.
   gitRevision: "master",
   // Keeps TypeDoc from dropping a .nojekyll into docs/, which docs:sync would
   // then carry into the site repository.

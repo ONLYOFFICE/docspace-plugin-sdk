@@ -22,8 +22,6 @@ import { join } from "node:path";
 
 const PATH_PREFIX = "docspace/plugins-sdk/usage-sdk";
 const SIDEBAR_FILE = join(process.cwd(), "docs", "typedoc-sidebar.cjs");
-const CONFIG_FILE = join(process.cwd(), "typedoc.config.mjs");
-const DEFAULT_BRANCH = "master";
 
 try {
   // Update sidebar IDs with path prefix
@@ -42,15 +40,6 @@ try {
   
   writeFileSync(SIDEBAR_FILE, sidebarContent, "utf-8");
   console.log(`✅ Updated sidebar IDs with prefix: ${PATH_PREFIX}`);
-
-  // Revert git revision to default branch
-  let configContent = readFileSync(CONFIG_FILE, "utf-8");
-  configContent = configContent.replace(
-    /gitRevision:\s*["'][^"']*["']/,
-    `gitRevision: "${DEFAULT_BRANCH}"`
-  );
-  writeFileSync(CONFIG_FILE, configContent, "utf-8");
-  console.log(`✅ Reverted git revision to: ${DEFAULT_BRANCH}`);
 } catch (error) {
   console.error("❌ Error updating sidebar:", error);
   process.exit(1);

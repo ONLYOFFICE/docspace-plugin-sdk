@@ -32,7 +32,7 @@ If a change would — stop and confirm with the user first.
    groups — Components, Items, Plugins, Settings, Utils, React, Enums — linking
    to those index pages, labels from page H1s.
 4. **No links to page titles by `#fragment`** (Docusaurus strips H1 ids);
-   `gitRevision` ends every run as `"master"`; no stray files in `docs/`
+   `gitRevision` is always `"master"`, whatever branch is built; no stray files in `docs/`
    (no `_category_.json`, no `.nojekyll`).
 
 ## Rules

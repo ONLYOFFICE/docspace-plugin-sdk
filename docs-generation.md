@@ -21,13 +21,12 @@ npm run docs        # full pipeline → docs/
 npm run docs:sync   # full pipeline + copy into ../api.onlyoffice.com
 ```
 
-`npm run docs` executes five steps in sequence (see `package.json`):
+`npm run docs` executes four steps in sequence (see `package.json`):
 
-1. **`tools/update-revision.mjs`** — reads the current Git branch and writes it into `typedoc.config.mjs` → `gitRevision`, so the `custom_edit_url` of every page points at the branch being documented.
-2. **`typedoc`** — parses the entry points and generates raw Markdown into `docs/`.
-3. **`tools/generate-index-pages/index.mjs`** — rewrites every generated page (see [Post-processing](#post-processing)) and builds an `index.md` per section.
-4. **`tools/flatten-sidebar.mjs`** — flattens and regroups the Docusaurus sidebar (see [Sidebar](#sidebar)).
-5. **`tools/update-sidebar.mjs`** — prefixes sidebar doc ids with the site path and reverts `gitRevision` back to `master`.
+1. **`typedoc`** — parses the entry points and generates raw Markdown into `docs/`.
+2. **`tools/generate-index-pages/index.mjs`** — rewrites every generated page (see [Post-processing](#post-processing)) and builds an `index.md` per section.
+3. **`tools/flatten-sidebar.mjs`** — flattens and regroups the Docusaurus sidebar (see [Sidebar](#sidebar)).
+4. **`tools/update-sidebar.mjs`** — prefixes sidebar doc ids with the site path.
 
 `npm run docs:sync` additionally runs `tools/sync-docs.mjs`, which replaces
 `../api.onlyoffice.com/site/docspace/plugins-sdk/usage-sdk/coding-plugin` with the content of `docs/`, dropping the root `index.md`.
@@ -79,7 +78,7 @@ The full configuration is `typedoc.config.mjs`. The options that define the look
 | `enumMembersFormat` | `"list"` | Enum members stay a list: their descriptions carry `@example` fences, which cannot live in a table cell |
 | `tableColumnSettings` | `{ hideSources: true }` | No per-member source column; the page-level source reference becomes `custom_edit_url` instead |
 | `excludeInternal` / `excludePrivate` / `excludeProtected` | `true` | `@internal` symbols never appear in the output |
-| `sourceLinkTemplate` | GitHub blob URL with `{gitRevision}`, no line anchor | The file URL that becomes `custom_edit_url`; revision is set by `update-revision.mjs`, reverted to `master` by `update-sidebar.mjs` |
+| `sourceLinkTemplate` | GitHub blob URL with `{gitRevision}`, no line anchor | The file URL that becomes `custom_edit_url`; `gitRevision` is fixed to `master`, whatever branch the docs are built from |
 | `githubPages` | `false` | Keeps TypeDoc from dropping a `.nojekyll` that `docs:sync` would carry into the site repo |
 | `commentStyle` | `"jsdoc"` | Only `/** */` comments are picked up |
 | `tsconfig` | `"tsconfig.docs.json"` | The build splits `src` across two projects (`tsconfig.json` excludes `src/react`, which `tsconfig.react.json` builds on its own). TypeDoc cannot document files outside its project, so the docs run uses a third project that covers all of `src` and emits nothing |
@@ -96,7 +95,7 @@ Layout of `tools/`:
 - `generate-index-pages/api-tables.mjs` — wraps member tables in `<APITable>`, swaps the anchor scheme (needs all pages at once)
 - `generate-index-pages/section-index.mjs` — `index.md` per section
 - `constants/sections.mjs` — section titles, prose and table config for the index pages
-- `flatten-sidebar.mjs`, `update-sidebar.mjs`, `update-revision.mjs`, `sync-docs.mjs` — sidebar, revision and sync steps
+- `flatten-sidebar.mjs`, `update-sidebar.mjs`, `sync-docs.mjs` — sidebar and sync steps
 
 ### Structural transforms (order matters)
 
@@ -150,7 +149,7 @@ For every section in `tools/constants/sections.mjs` (`components`, `items`, `plu
 - sorts categories before docs, alphabetically within each;
 - relabels items with the H1 of the generated page when it differs from the file name (e.g. `Utility` → `FilterType`).
 
-`update-sidebar.mjs` then prefixes every doc id with `docspace/plugins-sdk/usage-sdk` and reverts `gitRevision` to `master`.
+`update-sidebar.mjs` then prefixes every doc id with `docspace/plugins-sdk/usage-sdk`.
 
 ## Writing documentation comments
 
@@ -208,7 +207,6 @@ Conventions:
 
 - `docs/` is regenerated from scratch (`cleanOutputDir: true`) and gitignored — manual edits are lost; fix the JSDoc or a `tools/` script.
 - The `tools/` transforms are regex-based rewrites of TypeDoc's Markdown; a TypeDoc/plugin version bump can silently change the output shape and break them — diff `docs/` against a pre-bump run.
-- `update-revision.mjs` mutates `typedoc.config.mjs` and `update-sidebar.mjs` reverts it. An interrupted run can leave `gitRevision` on your branch name — re-run `npm run docs` or reset it to `master` before committing.
 - Barrel `index.ts` files are excluded on purpose; adding one as an entry point duplicates every symbol.
 - `docs:sync` requires the `api.onlyoffice.com` checkout as a sibling directory of the repo.
 
