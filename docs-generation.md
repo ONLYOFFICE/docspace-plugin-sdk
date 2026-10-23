@@ -120,12 +120,13 @@ Layout of `tools/`:
 5. `ensureBlankLineBeforeHeadings` — restores the blank line MDX requires before a heading.
 6. `stripTrailingHorizontalRule` — removes a dangling `***` left at the end of a page by `hoistMainSection`.
 7. `dropStrikethrough` removes the strikethrough TypeDoc puts on deprecated names. Page titles feed the sidebar and the section index tables, where it would show as literal markers; the deprecation stays in the text.
+8. `dropOptionalMarkers` — drops TypeDoc's optional `?` from the name in a table's first cell (`` `usersTypes` ``, not `` `usersTypes?` ``), as in the Embed SDK docs. The APITable row id is then the bare name; a member's description says when it can be omitted.
 
 ### APITable wrapping
 
 `applyApiTables` (`api-tables.mjs`) runs last, after the cleanup transforms have validated the original anchors. It wraps every member table (a table whose rows carry TypeDoc's `<a id>` anchors) in the docs site's `<APITable>` component (a plain JSX tag pair plus a one-line import), strips the `<a id>` anchors, and rewrites all fragment links to the ids the component derives at runtime:
 
-- the row id is the **literal text of the first cell** (case-sensitive, `?` included for optional members): `<a id="onclick">` becomes `#onClick`, `<a id="primary">` becomes `#primary?`;
+- the row id is the **literal text of the first cell** (case-sensitive): `<a id="onclick">` becomes `#onClick`, `<a id="primary">` becomes `#primary` — `dropOptionalMarkers` has already taken TypeDoc's optional `?` off the name, as in the Embed SDK docs;
 - on pages where row names collide across tables, every table gets a `name="Symbol"` prop and ids become `Symbol-member` (e.g. `#IMessage-actions` in `utils.md`);
 - the component makes rows clickable and highlights the row targeted by the URL hash;
 - enum pages are unaffected — enum members render as a list, their anchors stay heading slugs.

@@ -22,7 +22,8 @@ If a change would — stop and confirm with the user first.
    light/dark image pair → Examples → reference tables.
 2. **Members are table rows** in source order, each table wrapped in the
    site's `<APITable>` component (plain JSX + import); row anchors are the
-   literal first-cell text (case-sensitive, `?` included), `Symbol-`-prefixed
+   literal first-cell text (case-sensitive, no optional `?` — it is dropped
+   from first cells), `Symbol-`-prefixed
    on pages with colliding names. No raw HTML in the output. Signatures are
    ` ```ts ` fences. **Enum members stay a list** — their example fences
    can't live in table cells.

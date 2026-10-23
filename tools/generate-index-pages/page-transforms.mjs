@@ -16,6 +16,8 @@ const PLUGIN_IMAGE_TAG =
 const IN_PAGE_LINK = /\]\(#([^)\s]+)\)/g;
 // A `\|` right after a token that opens a type: a table cell, `(`, `:` or `=>`.
 const STRAY_UNION_OPENER = /(\(|(?<!\\)\| |: |=> ) ?\\\| /g;
+// A table's first cell, after the row anchor TypeDoc puts on member rows.
+const OPTIONAL_FIRST_CELL = /^(\| (?:<a id="[^"]+"><\/a> )?`[^`]+)\?`/;
 
 /**
  * The H2 names under which a page's main symbol may live: the file name
@@ -405,6 +407,20 @@ function dropStrikethrough(content) {
     .join("\n");
 }
 
+/**
+ * Drops TypeDoc's optional `?` from the name in a table's first cell, as the
+ * Embed SDK docs do, so the row id applyApiTables derives from it is the bare
+ * name. Runs after dropStrikethrough, so a deprecated name carries no `~~`.
+ * @param {string} content
+ */
+function dropOptionalMarkers(content) {
+  return [...walkMarkdownLines(content)]
+    .map(({ line, insideCodeBlock }) =>
+      insideCodeBlock ? line : line.replace(OPTIONAL_FIRST_CELL, "$1`"),
+    )
+    .join("\n");
+}
+
 export const STRUCTURAL_TRANSFORMS = [
   hoistMainSection,
   moveSourceLinkToFrontmatter,
@@ -422,4 +438,5 @@ export const CLEANUP_TRANSFORMS = [
   ensureBlankLineBeforeHeadings,
   stripTrailingHorizontalRule,
   dropStrikethrough,
+  dropOptionalMarkers,
 ];
