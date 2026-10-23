@@ -96,6 +96,8 @@ export default {
   githubPages: false,
   cleanOutputDir: true,
   commentStyle: "jsdoc",
+  // The colon separates the label from the text in a table cell; where a tag
+  // renders as a heading, dropTrailingColonFromHeadings takes it off.
   locales: {
     en: {
       tag_deprecated: "Deprecated:",

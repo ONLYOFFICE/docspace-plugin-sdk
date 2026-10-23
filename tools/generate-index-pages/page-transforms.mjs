@@ -320,6 +320,21 @@ function escapePipesInTableCells(content) {
 }
 
 /**
+ * Drops the colon a block tag label carries when the tag renders as a heading.
+ * The locale keeps it for the table-cell form, `**Deprecated:** text`.
+ * @param {string} content
+ */
+function dropTrailingColonFromHeadings(content) {
+  return [...walkMarkdownLines(content)]
+    .map(({ line, insideCodeBlock }) =>
+      !insideCodeBlock && ANY_HEADING.test(line)
+        ? line.replace(/:\s*$/, "")
+        : line,
+    )
+    .join("\n");
+}
+
+/**
  * Repairs in-page hash links: drops stale `-N` dedup suffixes when the plain
  * anchor exists, and warns about anchors that resolve to nothing.
  * @param {string} content
@@ -402,6 +417,7 @@ export const STRUCTURAL_TRANSFORMS = [
 export const CLEANUP_TRANSFORMS = [
   fixUnionPipeArtifacts,
   escapePipesInTableCells,
+  dropTrailingColonFromHeadings,
   fixInPageAnchors,
   ensureBlankLineBeforeHeadings,
   stripTrailingHorizontalRule,

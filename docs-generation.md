@@ -115,10 +115,11 @@ Layout of `tools/`:
 
 1. `fixUnionPipeArtifacts` — strips the stray `\|` TypeDoc leaves before the first member of a multi-line union, including where a table cell collapses it onto one line (after the cell start, `(`, `:` or `=>`).
 2. `escapePipesInTableCells` — escapes `|` inside inline code in table cells (an unescaped pipe from a comment breaks the row).
-3. `fixInPageAnchors` — drops stale `-N` dedup suffixes from in-page hash links; warns about anchors that resolve to nothing.
-4. `ensureBlankLineBeforeHeadings` — restores the blank line MDX requires before a heading.
-5. `stripTrailingHorizontalRule` — removes a dangling `***` left at the end of a page by `hoistMainSection`.
-6. `dropStrikethrough` removes the strikethrough TypeDoc puts on deprecated names. Page titles feed the sidebar and the section index tables, where it would show as literal markers; the deprecation stays in the text.
+3. `dropTrailingColonFromHeadings` — drops the colon from a block tag heading (`Deprecated`, `Remarks`). The locale sets the labels with a colon for the table-cell form, `**Deprecated:** text`, and TypeDoc uses the same label for both.
+4. `fixInPageAnchors` — drops stale `-N` dedup suffixes from in-page hash links; warns about anchors that resolve to nothing.
+5. `ensureBlankLineBeforeHeadings` — restores the blank line MDX requires before a heading.
+6. `stripTrailingHorizontalRule` — removes a dangling `***` left at the end of a page by `hoistMainSection`.
+7. `dropStrikethrough` removes the strikethrough TypeDoc puts on deprecated names. Page titles feed the sidebar and the section index tables, where it would show as literal markers; the deprecation stays in the text.
 
 ### APITable wrapping
 
