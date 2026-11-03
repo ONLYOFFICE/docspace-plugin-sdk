@@ -1,5 +1,16 @@
 # Change Log
 
+## #.#.#
+
+## Added
+
+- Add `itemSecurity` to `IInfoPanelItem` — the tab is shown only when the selected file,
+  folder or room has every listed right, as `itemSecurity` in `IContextMenuItem`
+- Add `roomType` to `IInfoPanelItem` — the tab is shown for a selected room only when its
+  type is listed
+- Add `itemId` to `IInfoPanelItem` — the tab is shown only for the listed files, folders
+  or rooms, as `itemId` in `IContextMenuItem`
+
 ## 3.0.0
 
 ## Deprecated
