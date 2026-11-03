@@ -10,6 +10,8 @@
   type is listed
 - Add `itemId` to `IInfoPanelItem` — the tab is shown only for the listed files, folders
   or rooms, as `itemId` in `IContextMenuItem`
+- Add `roomType` to `IContextMenuItem` — the item is shown in the context menu of a room
+  only when its type is listed
 
 ## 3.0.0
 

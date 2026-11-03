@@ -21,6 +21,7 @@ import {
   FilesExst,
   FilesType,
   FilesSecurity,
+  RoomsType,
   Security,
   UserRole,
   UsersType
@@ -316,4 +317,11 @@ export interface IContextMenuItem {
    * If this parameter is not specified, the item will be displayed for all entities (subject to other filters).
    */
   itemId?: (number | string)[];
+
+  /**
+   * The types of rooms where the current item will be displayed in the context menu.
+   * It only works for the context menu of a room: files and folders are not checked against it.
+   * If this parameter is not specified, then the current context menu item will be displayed in any room type.
+   */
+  roomType?: RoomsType[];
 }
