@@ -33,6 +33,10 @@ import { Section } from "../../enums/Section";
  * [`Actions.updateArticleNavigationItems`](../../enums/Actions.md#updatearticlenavigationitems)
  * to apply the change to the sidebar.
  *
+ * The sidebar lists the items of different plugins in the order of the plugin names, numbers
+ * inside a name compared as numbers (`plugin-2` before `plugin-10`); the items of one plugin keep
+ * the order the plugin added them in.
+ *
  * :::info
  * The section page is a full portal page, not a panel. The component is
  * rendered inside the ONLYOFFICE Apps application tree, so it inherits the portal theme.
@@ -133,6 +137,12 @@ export interface IArticleNavigationItem {
    * The text label displayed next to the icon when the sidebar is expanded.
    */
   label: string;
+
+  /**
+   * The counter shown on the item, for example the number of unread messages. Nothing is shown for
+   * `0`, an empty string or no value. Earlier portal versions ignore the field.
+   */
+  badge?: number | string;
 
   /**
    * The item display icon. The icon image must be uploaded to the "assets" folder.

@@ -1,5 +1,16 @@
 # Change Log
 
+## #.#.#
+
+## Added
+
+- Add `IPlugin.setModuleEvents`, `IModuleEvents` and `TModuleEventHandler` — events of the
+  integration modules over the portal's socket: `on` for an event, `subscribeRoom` for a
+  module room
+- Add `badge` to `IArticleNavigationItem` — a counter on the sidebar entry
+- Docs: sidebar entries of different plugins are listed by plugin name; context menu items
+  and file items are never offered for private (encrypted) rooms
+
 ## 3.0.0
 
 ## Deprecated

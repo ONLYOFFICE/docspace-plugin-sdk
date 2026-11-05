@@ -46,6 +46,8 @@ type GroupItem = {
  * Items are registered by a plugin implementing
  * [`IContextMenuPlugin`](../plugins/IContextMenuPlugin.md).
  *
+ * The items are never shown for private (encrypted) rooms or the files and folders inside them.
+ *
  * <plugin-image src="context-menu-plugin.png" dark />
  *
  * @example

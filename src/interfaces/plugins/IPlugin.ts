@@ -16,6 +16,7 @@
  */
 
 import { PluginLocale, PluginStatus } from "../../enums";
+import { IModuleEvents } from "../utils";
 
 /**
  * The default plugin, implemented by every plugin class together with the
@@ -98,6 +99,16 @@ export interface IPlugin {
    * `descriptionLocale` — the interface language when it is not implemented.
    */
   getLanguage?: () => PluginLocale;
+
+  /**
+   * The method is called on the portal side right before every `onLoadCallback` with the
+   * plugin's {@link IModuleEvents}: the portal's socket for
+   * integration-module events.
+   *
+   * @remarks A portal without module events never calls it, which is how a plugin tells the two
+   * apart and falls back to polling.
+   */
+  setModuleEvents?: (events: IModuleEvents) => void;
 
   /**
    * Callback the portal awaits each time it loads the plugin, before reading

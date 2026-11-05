@@ -370,3 +370,84 @@ export type TReturnPostMessage =
  * Describes a return message.
  */
 export type TReturnMessage = Promise<IMessage> | Promise<void> | void | IMessage;
+
+/**
+ * Handles an integration-module event. It receives the message the module sent, as a string —
+ * empty when the module sent none. What it returns is handled like the message of an item callback,
+ * on behalf of the plugin that subscribed.
+ */
+export type TModuleEventHandler = (message: string) => TReturnMessage;
+
+/**
+ * Events of the integration modules connected to the portal (mail, chat, tasks and the like),
+ * received over the portal's own socket connection.
+ *
+ * A module registered on the server sends an event with `POST /api/2.0/portal/moduleEvents`,
+ * either to one user, who gets it on every portal page they have open, or to a module room. The
+ * portal hands this object to {@link interfaces/plugins/IPlugin!IPlugin.setModuleEvents | IPlugin.setModuleEvents}; everything subscribed
+ * through it belongs to the plugin and is dropped when the plugin is disabled or loaded again.
+ *
+ * @example
+ *
+ * Unread counter on a sidebar entry, pushed by the module
+ *
+ * ```typescript
+ * import {
+ *   Actions,
+ *   type IArticleNavigationItem,
+ *   type IModuleEvents
+ * } from "@onlyoffice/docspace-plugin-sdk";
+ *
+ * class MailPlugin {
+ *   articleNavigationItems = new Map<string, IArticleNavigationItem>();
+ *
+ *   setModuleEvents = (events: IModuleEvents): void => {
+ *     events.on("mail", "unread", (message) => {
+ *       const { count } = JSON.parse(message) as { count: number };
+ *       const item = this.articleNavigationItems.get("mail-inbox");
+ *
+ *       if (!item) return;
+ *
+ *       this.articleNavigationItems.set("mail-inbox", { ...item, badge: count });
+ *
+ *       return { actions: [Actions.updateArticleNavigationItems] };
+ *     });
+ *   };
+ * }
+ * ```
+ *
+ * @example
+ *
+ * Events of a shared mailbox, received by everyone who opened it
+ *
+ * ```typescript
+ * let leaveMailbox: (() => void) | undefined;
+ *
+ * const openMailbox = (events: IModuleEvents, mailbox: string) => {
+ *   leaveMailbox?.();
+ *   leaveMailbox = events.subscribeRoom("mail", mailbox);
+ * };
+ * ```
+ */
+export interface IModuleEvents {
+  /**
+   * Listens for an event of the module. Events sent to the current user arrive without a
+   * subscription, room events only after `subscribeRoom`.
+   *
+   * @param module - The module name: 1–64 letters, digits or `_` `.` `-`. Any other name throws.
+   * @param event - The event name: 1–128 letters, digits or `_` `.` `:` `-`. Any other name throws.
+   * @param handler - Called with the message of every such event. An error it throws is logged and does not reach the portal.
+   * @returns The function that stops listening.
+   */
+  on(module: string, event: string, handler: TModuleEventHandler): () => void;
+
+  /**
+   * Joins a module room of the current portal, so its room events arrive. The room is joined
+   * again after a reconnect.
+   *
+   * @param module - The module name, by the rules of `on`.
+   * @param room - The room name: 1–128 letters, digits or `_` `.` `:` `-`. Any other name throws.
+   * @returns The function that leaves the room.
+   */
+  subscribeRoom(module: string, room: string): () => void;
+}

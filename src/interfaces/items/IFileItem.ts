@@ -23,6 +23,8 @@ import { IMessage } from "../utils";
  * Describes an item that will be embedded in the file list.
  * The file item can be displayed as a file or a folder.
  *
+ * The files of private (encrypted) rooms are never handed to the plugin: they open the usual way.
+ *
  * <plugin-image src="file-icon.png" dark />
  *
  * @example
