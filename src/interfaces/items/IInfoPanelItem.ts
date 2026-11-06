@@ -18,8 +18,8 @@
 
 import type { ComponentType } from "react";
 
-import { Devices, UserRole, UsersType } from "../../enums";
-import { FilesExst, FilesType } from "../../enums/Files";
+import { Devices, RoomsType, Security, UserRole, UsersType } from "../../enums";
+import { FilesExst, FilesSecurity, FilesType } from "../../enums/Files";
 import { IBox } from "../components";
 import { IMessage } from "../utils";
 
@@ -196,4 +196,25 @@ export interface IInfoPanelItem {
    * If this parameter is not specified, then the current info panel item will be displayed in any device types.
    */
   devices?: Devices[];
+
+  /**
+   * The security parameters of the selected file, folder or room that will be checked.
+   * If all the parameters are true, the current item will be displayed in the info panel.
+   * If this parameter is not specified, it will be ignored.
+   */
+  itemSecurity?: (FilesSecurity | Security)[];
+
+  /**
+   * The types of rooms where the current item will be displayed in the info panel.
+   * It only works when a room is selected: files and folders are not checked against it.
+   * If this parameter is not specified, then the current info panel item will be displayed in any room type.
+   */
+  roomType?: RoomsType[];
+
+  /**
+   * The identifiers of specific files, folders, or rooms where this item will be displayed in the info panel.
+   * If specified, the item is shown only for entities whose ID is included in this list.
+   * If this parameter is not specified, the item will be displayed for all entities (subject to other filters).
+   */
+  itemId?: (number | string)[];
 }
