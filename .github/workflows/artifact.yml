@@ -30,7 +30,7 @@ jobs:
           echo "package=$FILE" >> $GITHUB_OUTPUT
           echo "packageName=$(basename "$FILE" .tgz)" >> $GITHUB_OUTPUT
       - name: Upload Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ steps.tgz.outputs.packageName }}
           path: ${{ steps.tgz.outputs.package }}
