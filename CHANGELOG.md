@@ -4,6 +4,10 @@
 
 ## Added
 
+- Add `Actions.showHtmlInFrame` with `IMessage.htmlFrameProps` (`IHtmlFrame`), and
+  `showHtmlInFrame` in `PluginActions` — show HTML a plugin does not control (a mail body,
+  an HTML file) in one of its frames on the portal's html-frame page, where its images,
+  styles and fonts load from any site without touching the portal's CSP
 - Add `itemSecurity` to `IInfoPanelItem` — the tab is shown only when the selected file,
   folder or room has every listed right, as `itemSecurity` in `IContextMenuItem`
 - Add `roomType` to `IInfoPanelItem` — the tab is shown for a selected room only when its

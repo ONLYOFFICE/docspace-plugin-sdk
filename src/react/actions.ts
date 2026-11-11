@@ -15,7 +15,7 @@ import type { TSelector } from "../interfaces/components/Selector";
 import type { IMediaViewer } from "../interfaces/components/IMediaViewer";
 import type { IFloatingOperationsButton } from "../interfaces/components/IFloatingOperationsButton";
 import type { ICreateDialog } from "../interfaces/components/ICreateDialog";
-import type { TInfoPanelTab } from "../interfaces/utils";
+import type { IHtmlFrame, TInfoPanelTab } from "../interfaces/utils";
 
 export type {
   IToast,
@@ -199,6 +199,27 @@ export interface PluginActions {
    * ```
    */
   closeMediaViewer(): void;
+
+  /**
+   * Show HTML the plugin does not control — a mail body, an HTML file — in one of its
+   * frames, on the portal's html-frame page, where its images, styles and fonts load
+   * from any site. See [`IHtmlFrame`](../interfaces/utils.md#ihtmlframe) for what the
+   * page does and what the plugin still has to clean.
+   *
+   * @param props - The frame, the HTML and its title.
+   *
+   * @example
+   * ```tsx
+   * const { showHtmlInFrame } = usePluginActions();
+   *
+   * useEffect(() => {
+   *   showHtmlInFrame({ frameId: "mail-body-frame", html, title: subject });
+   * }, [showHtmlInFrame, html, subject]);
+   *
+   * return <iframe id="mail-body-frame" title={subject} />;
+   * ```
+   */
+  showHtmlInFrame(props: IHtmlFrame): void;
 
   /**
    * Add a floating button that tracks long-running operations. Buttons from all
