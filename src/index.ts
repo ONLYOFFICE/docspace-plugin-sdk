@@ -28,7 +28,8 @@ import {
   IFilePlugin,
   IPostMessagePlugin,
   IArticleButtonPlugin,
-  IArticleNavigationPlugin
+  IArticleNavigationPlugin,
+  IDashboardWidgetPlugin
 } from "./interfaces/plugins";
 
 import {
@@ -40,6 +41,8 @@ import {
   IEventListenerItem,
   IArticleButtonItem,
   IArticleNavigationItem,
+  IDashboardCard,
+  IDashboardWidgetItem,
   IFileItem,
   File
 } from "./interfaces/items";
@@ -141,10 +144,13 @@ export {
   IEventListenerPlugin,
   IArticleButtonItem,
   IArticleNavigationItem,
+  IDashboardCard,
+  IDashboardWidgetItem,
   IFilePlugin,
   IPostMessagePlugin,
   IArticleButtonPlugin,
   IArticleNavigationPlugin,
+  IDashboardWidgetPlugin,
   IContextMenuItem,
   IInfoPanelItem,
   IInfoPanelSubMenu,
