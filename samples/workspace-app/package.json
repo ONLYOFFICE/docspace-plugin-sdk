@@ -1,9 +1,9 @@
 {
-  "name": "article-navigation-access-sample",
-  "pluginName": "ArticleNavigationAccessSample",
+  "name": "workspace-app-sample",
+  "pluginName": "WorkspaceAppSample",
   "version": "1.0.1",
   "author": "",
-  "description": "Sample plugin whose sidebar entry is shown only to the people and groups chosen in its settings",
+  "description": "Sample plugin adding a sidebar entry, a Home page card and a Home page widget, shown only to the people and groups chosen in its settings",
   "descriptionLocale": {},
   "nameLocale": {},
   "private": true,
@@ -14,6 +14,7 @@
   "homepage": "",
   "scopes": [
     "ArticleNavigation",
+    "DashboardWidget",
     "Settings"
   ],
   "scripts": {

@@ -22,6 +22,8 @@ import {
   Components,
   type IArticleNavigationItem,
   type IArticleNavigationPlugin,
+  type IDashboardWidgetItem,
+  type IDashboardWidgetPlugin,
   type IMessage,
   type IPlugin,
   type ISettings,
@@ -205,8 +207,8 @@ const AccessSettings = () => {
       </div>
       <Text fontSize="12px" lineHeight="16px">
         {access.restricted
-          ? "Only the people and the members of the groups below see Deals in the sidebar."
-          : "Everyone sees Deals in the sidebar."}
+          ? "Only the people and the members of the groups below see Deals in the sidebar and on the Home page."
+          : "Everyone sees Deals in the sidebar and on the Home page."}
       </Text>
       {access.restricted ? (
         <>
@@ -237,20 +239,25 @@ const AccessSettings = () => {
   );
 };
 
-// --- Page ----------------------------------------------------------------------
+// --- Deals -------------------------------------------------------------------
 
 const DEALS = [
-  { title: "Annual licence renewal", stage: "Negotiation", amount: "$12,400" },
-  { title: "Cloud migration", stage: "Proposal", amount: "$8,900" },
-  { title: "Training package", stage: "Won", amount: "$2,300" },
+  { title: "Annual licence renewal", stage: "Negotiation", amount: 12400 },
+  { title: "Cloud migration", stage: "Proposal", amount: 8900 },
+  { title: "Support extension", stage: "Proposal", amount: 4100 },
+  { title: "Training package", stage: "Won", amount: 2300 },
 ];
+
+const STAGES = ["Proposal", "Negotiation", "Won"];
+
+const formatAmount = (amount: number) => `$${amount.toLocaleString("en-US")}`;
 
 const DealsPage = () => {
   const user = useCurrentUser();
 
   return (
     <div
-      id="article-navigation-access-sample-page"
+      id="workspace-app-sample-deals-page"
       style={{ padding: "20px", maxWidth: "640px" }}
     >
       <Heading level={HeadingLevel.h1} size={HeadingSize.medium}>
@@ -273,7 +280,7 @@ const DealsPage = () => {
             {title}
           </Text>
           <Text fontSize="13px">
-            {stage} · {amount}
+            {stage} · {formatAmount(amount)}
           </Text>
         </div>
       ))}
@@ -281,19 +288,83 @@ const DealsPage = () => {
   );
 };
 
-// --- Navigation item -----------------------------------------------------------
+const PipelineWidget = () => {
+  const totals = STAGES.map((stage) => ({
+    stage,
+    amount: DEALS.filter((deal) => deal.stage === stage).reduce(
+      (sum, deal) => sum + deal.amount,
+      0,
+    ),
+  }));
+  const max = Math.max(...totals.map(({ amount }) => amount));
+
+  return (
+    <div
+      id="workspace-app-sample-pipeline"
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "12px",
+        padding: "16px",
+        border: "var(--tile-border)",
+        borderRadius: "var(--tile-border-radius)",
+      }}
+    >
+      {totals.map(({ stage, amount }) => (
+        <div
+          key={stage}
+          style={{ display: "flex", alignItems: "center", gap: "12px" }}
+        >
+          <Text fontSize="13px" style={{ width: "96px", flex: "0 0 auto" }}>
+            {stage}
+          </Text>
+          <div style={{ flex: "1 1 auto", minWidth: 0 }}>
+            <div
+              style={{
+                width: `${(amount / max) * 100}%`,
+                height: "8px",
+                borderRadius: "4px",
+                background: "var(--color-scheme-main-accent, #4781d1)",
+              }}
+            />
+          </div>
+          <Text fontSize="13px" fontWeight={600}>
+            {formatAmount(amount)}
+          </Text>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+// --- Items -------------------------------------------------------------------
 
 const dealsItem: IArticleNavigationItem = {
-  key: "article-navigation-access-sample-deals",
+  key: "workspace-app-sample-deals",
   label: "Deals",
   icon: "plugin-icon.svg",
   component: DealsPage,
+  dashboardCard: {
+    description: "Follow the deals of your sales team from proposal to won.",
+    buttonLabel: "Open deals",
+  },
 };
 
-// --- Plugin --------------------------------------------------------------------
+const pipelineWidget: IDashboardWidgetItem = {
+  key: "workspace-app-sample-pipeline",
+  title: "Pipeline",
+  description: "Open deals by stage",
+  component: PipelineWidget,
+};
 
-class ArticleNavigationAccessSample
-  implements IPlugin, IArticleNavigationPlugin, ISettingsPlugin
+// --- Plugin ------------------------------------------------------------------
+
+class WorkspaceAppSample
+  implements
+    IPlugin,
+    IArticleNavigationPlugin,
+    IDashboardWidgetPlugin,
+    ISettingsPlugin
 {
   status: PluginStatus = PluginStatus.active;
 
@@ -324,6 +395,19 @@ class ArticleNavigationAccessSample
     this.articleNavigationItems.set(item.key, item);
   };
 
+  dashboardWidgetItems: Map<string, IDashboardWidgetItem> = new Map();
+
+  addDashboardWidgetItem = (item: IDashboardWidgetItem): void => {
+    this.dashboardWidgetItems.set(item.key, item);
+  };
+
+  getDashboardWidgetItems = (): Map<string, IDashboardWidgetItem> =>
+    this.dashboardWidgetItems;
+
+  updateDashboardWidgetItem = (item: IDashboardWidgetItem): void => {
+    this.dashboardWidgetItems.set(item.key, item);
+  };
+
   adminPluginSettings: ISettings | null = null;
 
   setAdminPluginSettings = (settings: ISettings | null): void => {
@@ -332,16 +416,16 @@ class ArticleNavigationAccessSample
 
   getAdminPluginSettings = (): ISettings | null => this.adminPluginSettings;
 
-  // Every user's portal calls this with the stored settings, so the item is registered only once its access is known.
+  // Every user's portal calls this with the stored settings, so the items are registered only once their access is known.
   setAdminPluginSettingsValue = (settings: string | null): void => {
     const { restricted, users, groups } = parseAccess(settings);
+    const access = restricted ? { users, groups } : {};
 
-    this.addArticleNavigationItem(
-      restricted ? { ...dealsItem, users, groups } : dealsItem,
-    );
+    this.addArticleNavigationItem({ ...dealsItem, ...access });
+    this.addDashboardWidgetItem({ ...pipelineWidget, ...access });
   };
 }
 
-const plugin = new ArticleNavigationAccessSample();
+const plugin = new WorkspaceAppSample();
 
 export default plugin;
