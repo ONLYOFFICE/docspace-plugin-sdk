@@ -228,7 +228,7 @@ export interface IMessage {
 
   /**
    * Defines the administrator or owner plugin settings to store, one string of at most
-   * 255 characters (see [`ISettingsPlugin`](plugins/ISettingsPlugin.md)).
+   * 4096 characters, 255 before version 4.1 (see [`ISettingsPlugin`](plugins/ISettingsPlugin.md)).
    * This parameter is used only with Actions.saveSettings.
    *
    * @remarks Unlike `save` in the React settings client, the action does not pass the

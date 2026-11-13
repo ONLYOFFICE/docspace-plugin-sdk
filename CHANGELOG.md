@@ -15,6 +15,10 @@
 - Add `users` and `groups` to `IArticleNavigationItem` — the sidebar entry is shown only
   to the listed users and the members of the listed groups
 
+## Changed
+
+- Plugin settings are capped at 4096 characters instead of 255 from version 4.1
+
 ## 3.0.0
 
 ## Deprecated
