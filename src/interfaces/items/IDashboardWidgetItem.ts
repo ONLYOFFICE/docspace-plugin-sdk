@@ -23,8 +23,7 @@ import { UserRole, UsersType } from "../../enums";
 /**
  * Describes a widget the plugin adds to the Home page: a full-width block below the apps block,
  * headed by its title and description the way the portal's own blocks are. The portal draws no
- * frame around the component, so the widget owns its look. Widgets go one under another, in the
- * order of their plugins' names and then in the order each plugin gives them.
+ * frame around the component, so the widget owns its look. Widgets go one under another.
  *
  * @example
  *
@@ -59,9 +58,9 @@ export interface IDashboardWidgetItem {
    */
   usersTypes?: (UserRole | UsersType)[];
 
-  /** The IDs of the users who will see the widget. Works like `users` in `IArticleNavigationItem`. */
+  /** The IDs of the users who will see the widget. Works like [`users`](IArticleNavigationItem.md#users). */
   users?: string[];
 
-  /** The IDs of the groups whose members will see the widget. Works like `groups` in `IArticleNavigationItem`. */
+  /** The IDs of the groups whose members will see the widget. Works like [`groups`](IArticleNavigationItem.md#groups). */
   groups?: string[];
 }

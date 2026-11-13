@@ -20,19 +20,29 @@ import { IDashboardWidgetItem } from "../items/IDashboardWidgetItem";
 
 /**
  * Describes a plugin that adds widgets to the Home page.
- * After changing a widget through `updateDashboardWidgetItem`, return an `IMessage` with
- * `Actions.updateDashboardWidgetItems` to redraw the page.
+ * After changing a widget through `updateDashboardWidgetItem`, return an
+ * [`IMessage`](../utils.md#imessage) with
+ * [`Actions.updateDashboardWidgetItems`](../../enums/Actions.md#updatedashboardwidgetitems) to redraw the page.
  */
 export interface IDashboardWidgetPlugin {
   /** The widgets, keyed by their `key`. */
   dashboardWidgetItems: Map<string, IDashboardWidgetItem>;
 
-  /** Add a widget to the plugin's collection. */
+  /**
+   * Add a widget to the plugin's collection.
+   * @param item - The widget to add
+   */
   addDashboardWidgetItem(item: IDashboardWidgetItem): void;
 
-  /** Get all the widgets provided by the plugin. */
+  /**
+   * Get all the widgets provided by the plugin.
+   * @returns A Map containing all registered widgets
+   */
   getDashboardWidgetItems(): Map<string, IDashboardWidgetItem>;
 
-  /** Update an existing widget in the plugin's collection. */
+  /**
+   * Update an existing widget in the plugin's collection.
+   * @param item - The widget to update
+   */
   updateDashboardWidgetItem(item: IDashboardWidgetItem): void;
 }

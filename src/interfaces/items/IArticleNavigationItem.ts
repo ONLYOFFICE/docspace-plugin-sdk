@@ -23,8 +23,8 @@ import { Section } from "../../enums/Section";
 import { IMessage } from "../utils";
 
 /**
- * Shows a navigation item as a card in the apps block of the Home page, next to Files, Rooms and Forms.
- * The card takes its title, icon and access from the item and keeps the portal's own look.
+ * Shows a navigation item as a card in the apps block of the Home page.
+ * The card takes the item's label, icon and access and keeps the portal's own look.
  */
 export interface IDashboardCard {
   /** The card description. If omitted, the plugin description from its manifest is used. */
@@ -189,12 +189,13 @@ export interface IArticleNavigationItem {
   /**
    * The IDs of the users who will see this navigation item. Together with `groups`, it limits the item
    * to the listed users and the members of the listed groups; an empty array lists no one.
-   * If both are omitted, the item is visible to everyone.
+   * If both are omitted, the item is visible to everyone. It hides the item, it does not protect
+   * the data behind it.
    */
   users?: string[];
 
   /**
-   * The IDs of the groups whose members will see this navigation item. See `users`.
+   * The IDs of the groups whose members will see this navigation item. See [`users`](#users).
    */
   groups?: string[];
 

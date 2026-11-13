@@ -118,8 +118,9 @@ export interface ISettingsPlugin {
    * `null` until the first save.
    *
    * @remarks Called as the plugin loads and after a save through the React
-   * settings client, with [`getStatus`](IPlugin.md#getstatus) re-read straight
-   * after, so a plugin can hide itself by its own configuration. A save
+   * settings client, with [`getStatus`](IPlugin.md#getstatus) re-read and the
+   * plugin's items registered again straight after, so a plugin can hide itself
+   * or its items by its own configuration. A save
    * reaches only the browser session that made it.
    */
   setAdminPluginSettingsValue(settings: string | null): void;

@@ -335,7 +335,15 @@ export interface PluginActions {
    */
   updateArticleNavigationItems(): void;
 
-  /** Redraw the plugin's widgets on the Home page after adding or changing them. */
+  /**
+   * Redraw the plugin's widgets on the Home page after adding or changing them.
+   *
+   * @example
+   * ```ts
+   * plugin.updateDashboardWidgetItem({ ...widget, title: "Pipeline (3)" });
+   * updateDashboardWidgetItems();
+   * ```
+   */
   updateDashboardWidgetItems(): void;
 }
 

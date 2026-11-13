@@ -41,6 +41,7 @@ All plugin types extend from `IPlugin` (base interface). Each plugin type corres
 | `IPostMessagePlugin`       | Cross-frame messaging                    |
 | `IArticleButtonPlugin`     | Article panel button                     |
 | `IArticleNavigationPlugin` | Sidebar navigation entry + its full page |
+| `IDashboardWidgetPlugin`   | Home page widget                         |
 
 Each plugin type contains `*Item` interfaces (e.g., `IContextMenuItem`, `IInfoPanelItem`) which accept content in one of two forms:
 
