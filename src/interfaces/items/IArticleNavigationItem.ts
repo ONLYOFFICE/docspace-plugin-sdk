@@ -166,4 +166,16 @@ export interface IArticleNavigationItem {
    * If omitted, the item is visible in all sections.
    */
   appears?: Section[];
+
+  /**
+   * The IDs of the users who will see this navigation item. Together with `groups`, it limits the item
+   * to the listed users and the members of the listed groups; an empty array lists no one.
+   * If both are omitted, the item is visible to everyone.
+   */
+  users?: string[];
+
+  /**
+   * The IDs of the groups whose members will see this navigation item. See `users`.
+   */
+  groups?: string[];
 }

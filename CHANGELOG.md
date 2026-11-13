@@ -12,6 +12,8 @@
   or rooms, as `itemId` in `IContextMenuItem`
 - Add `roomType` to `IContextMenuItem` — the item is shown in the context menu of a room
   only when its type is listed
+- Add `users` and `groups` to `IArticleNavigationItem` — the sidebar entry is shown only
+  to the listed users and the members of the listed groups
 
 ## 3.0.0
 
