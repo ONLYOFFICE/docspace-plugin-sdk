@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import {
   Button,
@@ -51,7 +51,7 @@ const parseAccess = (settings: string | null): TAccess => {
 
 const ENTITY_PATHS: Record<TAccessList, (id: string) => string> = {
   users: (id) => `/people/${id}`,
-  groups: (id) => `/group/${id}`,
+  groups: (id) => `/group/${id}?includeMembers=false`,
 };
 
 const toast = (type: ToastType, title: string): IMessage => ({
@@ -62,10 +62,13 @@ const toast = (type: ToastType, title: string): IMessage => ({
 const useEntityNames = (list: TAccessList, ids: string[]) => {
   const api = usePluginAPI();
   const [names, setNames] = useState<Record<string, string>>({});
+  const requested = useRef(new Set<string>());
 
   useEffect(() => {
     for (const id of ids) {
-      if (names[id]) continue;
+      if (requested.current.has(id)) continue;
+
+      requested.current.add(id);
 
       api
         .get<{ displayName?: string; name?: string }>(ENTITY_PATHS[list](id))
@@ -264,8 +267,8 @@ const DealsPage = () => {
         Deals
       </Heading>
       <Text fontSize="13px" lineHeight="20px" style={{ margin: "4px 0 24px" }}>
-        {user?.displayName ?? "You"} can open this page: the administrator
-        listed them, or one of their groups, in the plugin settings.
+        Signed in as {user?.displayName ?? "…"}. Who sees Deals is set by the
+        administrator in the plugin settings.
       </Text>
       {DEALS.map(({ title, stage, amount }) => (
         <div
