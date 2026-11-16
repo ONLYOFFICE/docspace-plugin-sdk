@@ -297,6 +297,24 @@ export enum Actions {
   sendPostMessage = "send-post-message",
 
   /**
+   * Calls a function to show HTML a plugin does not control — a mail body, an HTML file — in one of the plugin's frames, on the portal's html-frame page, where its images, styles and fonts load from any site.
+   * It does not work if the [`htmlFrameProps`](../interfaces/utils.md#ihtmlframe) parameter is not passed to the message or the specified frame is not found.
+   *
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   actions: [Actions.showHtmlInFrame],
+   *   htmlFrameProps: {
+   *     frameId: "mail-body-frame",
+   *     html: cleanHtml,
+   *     title: subject,
+   *   },
+   * }
+   * ```
+   */
+  showHtmlInFrame = "show-html-in-frame",
+
+  /**
    * Calls a function to save the data that was transferred in the [`settings`](../interfaces/utils.md#imessage) parameter
    * and returns it in the "setAdminPluginSettingsValue" method each time the plugin is requested.
    * It functions only when the "Save" button is clicked in the "Settings" block.

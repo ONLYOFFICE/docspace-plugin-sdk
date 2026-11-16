@@ -130,7 +130,8 @@ import {
   IPostMessageCallbackMessage,
   IMessage,
   TReturnPostMessage,
-  TInfoPanelTab
+  TInfoPanelTab,
+  IHtmlFrame
 } from "./interfaces/utils/index";
 
 export {
@@ -234,5 +235,6 @@ export {
   IFloatingOperationsButton,
   FloatingOperationType,
   IFloatingOperation,
-  IMediaViewer
+  IMediaViewer,
+  IHtmlFrame
 };

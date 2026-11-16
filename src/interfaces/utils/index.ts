@@ -227,6 +227,13 @@ export interface IMessage {
   postMessage?: IPostMessage;
 
   /**
+   * Defines the frame and the HTML to show in it on the portal's html-frame page.
+   * If the frame with such an ID does not exist, then nothing changes.
+   * This parameter is used only with Actions.showHtmlInFrame.
+   */
+  htmlFrameProps?: IHtmlFrame;
+
+  /**
    * Defines the administrator or owner plugin settings to store, one string of at most
    * 4096 characters, 255 before version 4.1 (see [`ISettingsPlugin`](plugins/ISettingsPlugin.md)).
    * This parameter is used only with Actions.saveSettings.
@@ -255,6 +262,48 @@ export interface IMessage {
    * This parameter is used only with Actions.showMediaViewer and Actions.updateMediaViewer.
    */
   mediaViewerProps?: IMediaViewer;
+}
+
+/**
+ * HTML that a plugin does not control — a mail body, an HTML file — to show in one of
+ * the plugin's frames, so that its images, styles and fonts load from wherever they are
+ * without adding those sites to the portal's Content Security Policy.
+ *
+ * The portal points the frame at `/static/html-frame/html-frame.html` and hands the
+ * HTML over to it. The page has a policy of its own, under which images, styles, fonts
+ * and media load from any site, and puts the HTML into a frame sandboxed without
+ * `allow-scripts` and `allow-same-origin`: the content runs no script and cannot reach
+ * the portal, and the sites it loads from are not sent the portal's address. A link with
+ * `target="_blank"` opens in a new tab; any other link opens inside the frame.
+ *
+ * The page isolates the content but does not clean it. Before handing the HTML over,
+ * remove `meta` (a `refresh` would take the frame to another site), `base`, forms, and
+ * remote images the reader has not asked for, and give links `target="_blank"`.
+ *
+ * @example
+ *
+ * Showing a mail body in a frame of a modal dialog
+ *
+ * ```typescript
+ * const message: IMessage = {
+ *   actions: [Actions.showHtmlInFrame],
+ *   htmlFrameProps: {
+ *     frameId: "mail-body-frame",
+ *     html: cleanHtml,
+ *     title: subject,
+ *   },
+ * }
+ * ```
+ */
+export interface IHtmlFrame {
+  /** The `id` of the `iframe` to show the HTML in, already in the document. The portal takes over its `src`, `srcdoc` and `sandbox` attributes; its size and style stay the plugin's. */
+  frameId: string;
+
+  /** A whole HTML document or a fragment, already cleaned. New HTML sent to the same frame replaces what it shows. */
+  html: string;
+
+  /** The accessible title of the frame the content is shown in, e.g. the message subject. */
+  title?: string;
 }
 
 /**
