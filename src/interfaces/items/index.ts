@@ -59,7 +59,8 @@ import { IInfoPanelItem, IInfoPanelSubMenu } from "./IInfoPanelItem";
 import { IContextMenuItem } from "./IContextMenuItem";
 import { IMainButtonItem } from "./IMainButtonItem";
 import { IArticleButtonItem } from "./IArticleButtonItem";
-import { IArticleNavigationItem } from "./IArticleNavigationItem";
+import { IArticleNavigationItem, IDashboardCard } from "./IArticleNavigationItem";
+import { IDashboardWidgetItem } from "./IDashboardWidgetItem";
 
 export {
   IContextMenuItem,
@@ -71,5 +72,7 @@ export {
   IFileItem,
   File,
   IArticleButtonItem,
-  IArticleNavigationItem
+  IArticleNavigationItem,
+  IDashboardCard,
+  IDashboardWidgetItem
 };

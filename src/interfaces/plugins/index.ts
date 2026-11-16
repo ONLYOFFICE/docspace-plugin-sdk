@@ -76,6 +76,7 @@ import { IEventListenerPlugin } from "./IEventListenerPlugin";
 import { IPostMessagePlugin } from "./IPostMessagePlugin";
 import { IArticleButtonPlugin } from "./IArticleButtonPlugin";
 import { IArticleNavigationPlugin } from "./IArticleNavigationPlugin";
+import { IDashboardWidgetPlugin } from "./IDashboardWidgetPlugin";
 
 export {
   IPlugin,
@@ -90,4 +91,5 @@ export {
   IPostMessagePlugin,
   IArticleButtonPlugin,
   IArticleNavigationPlugin,
+  IDashboardWidgetPlugin,
 };
