@@ -12,6 +12,20 @@
   or rooms, as `itemId` in `IContextMenuItem`
 - Add `roomType` to `IContextMenuItem` — the item is shown in the context menu of a room
   only when its type is listed
+- Add `users` and `groups` to `IArticleNavigationItem` — the sidebar entry is shown only
+  to the listed users and the members of the listed groups
+- Add `dashboardCard` (`IDashboardCard`) to `IArticleNavigationItem` — the item is also shown
+  as a card in the apps block of the Home page, with the item's label, icon and access
+- Add the `DashboardWidget` scope: `IDashboardWidgetPlugin` and `IDashboardWidgetItem` — React
+  widgets on the Home page, `Actions.updateDashboardWidgetItems` and
+  `PluginActions.updateDashboardWidgetItems` to redraw them
+- Add the "Dashboard widget" scope to `create-docspace-plugin`
+- Add the `workspace-app` sample: a sidebar entry with a Home page card and a widget, shown only
+  to the people and groups chosen in its settings
+
+## Changed
+
+- Plugin settings are capped at 4096 characters instead of 255 from version 4.1
 
 ## 3.0.0
 

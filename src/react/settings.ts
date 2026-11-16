@@ -76,7 +76,7 @@ export interface PluginSettingsClient {
    * The portal then re-reads
    * [`getStatus`](../interfaces/plugins/IPlugin.md#getstatus), the one way a
    * component can switch its plugin on or off. `data` becomes a single string
-   * of at most 255 characters, see
+   * of at most 4096 characters (255 before version 4.1), see
    * [`ISettingsPlugin`](../interfaces/plugins/ISettingsPlugin.md).
    *
    * @param data - Plain JSON-serialisable object to store as plugin settings.

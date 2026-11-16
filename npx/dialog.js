@@ -76,6 +76,7 @@ const scopes = [
   { name: "Post message", value: "PostMessage" },
   { name: "Article button", value: "ArticleButton" },
   { name: "Article navigation", value: "ArticleNavigation" },
+  { name: "Dashboard widget", value: "DashboardWidget" },
 ];
 
 const scopesQuestion = {

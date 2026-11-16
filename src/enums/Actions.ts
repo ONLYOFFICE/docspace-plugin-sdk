@@ -163,6 +163,19 @@ export enum Actions {
   updateArticleNavigationItems = "update-article-navigation-items",
 
   /**
+   * Calls a function to update all the Home page widgets of the plugin,
+   * so a widget added or changed through "IDashboardWidgetPlugin" becomes visible.
+   *
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   actions: [Actions.updateDashboardWidgetItems],
+   * }
+   * ```
+   */
+  updateDashboardWidgetItems = "update-dashboard-widget-items",
+
+  /**
    * Calls a function to update all the article button items.
    *
    * @example

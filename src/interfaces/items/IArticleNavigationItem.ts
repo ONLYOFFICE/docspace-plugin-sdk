@@ -20,6 +20,25 @@ import type { ComponentType } from "react";
 
 import { Devices, UserRole, UsersType } from "../../enums";
 import { Section } from "../../enums/Section";
+import { IMessage } from "../utils";
+
+/**
+ * Shows a navigation item as a card in the apps block of the Home page.
+ * The card takes the item's label, icon and access and keeps the portal's own look.
+ */
+export interface IDashboardCard {
+  /** The card description. If omitted, the plugin description from its manifest is used. */
+  description?: string;
+
+  /** The label of the card button. If omitted, the button reads "Open". */
+  buttonLabel?: string;
+
+  /**
+   * A function that is executed when the card button is clicked. This function can be asynchronous.
+   * If omitted, the button opens the item's page.
+   */
+  onClick?: () => Promise<IMessage> | Promise<void> | IMessage | void;
+}
 
 /**
  * Describes a navigation item that will be embedded in the article sidebar as a first-class
@@ -166,4 +185,23 @@ export interface IArticleNavigationItem {
    * If omitted, the item is visible in all sections.
    */
   appears?: Section[];
+
+  /**
+   * The IDs of the users who will see this navigation item. Together with `groups`, it limits the item
+   * to the listed users and the members of the listed groups; an empty array lists no one.
+   * If both are omitted, the item is visible to everyone. It hides the item, it does not protect
+   * the data behind it.
+   */
+  users?: string[];
+
+  /**
+   * The IDs of the groups whose members will see this navigation item. See [`users`](#users).
+   */
+  groups?: string[];
+
+  /**
+   * Shows the item as a card on the Home page as well, to everyone who sees the item.
+   * If omitted, the item has no card.
+   */
+  dashboardCard?: IDashboardCard;
 }
