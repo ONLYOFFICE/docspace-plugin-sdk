@@ -49,7 +49,7 @@ Each plugin type contains `*Item` interfaces (e.g., `IContextMenuItem`, `IInfoPa
 - **UI components** — the SDK's declarative descriptors: `IButton`, `IInput`, `IBox`, `IModalDialog`, etc.
 - **React components** — the `component` prop (`dialogBodyComponent` in `IModalDialog`), rendered by the client inside its own React tree
 
-`component` is the current form. The declarative `body` (`IInfoPanelItem`, `IArticleButtonItem`), `settings` (`ISettings`), `content` (`IMediaViewer`), `dialogBody`/`dialogFooter` (`IModalDialog`) and the `onLoad` callbacks are deprecated in favour of it — data loading moves into a `useEffect` in the component. `IArticleNavigationItem.component` is React-only: it has no declarative form.
+`component` is the current form. The declarative `body` (`IInfoPanelItem`, `IArticleButtonItem`), `settings` (`ISettings`), `content` (`IMediaViewer`), `dialogBody`/`dialogFooter` (`IModalDialog`) and the `onLoad` callbacks are deprecated in favour of it — data loading moves into a `useEffect` in the component. `component` in `IArticleNavigationItem`, `IDashboardWidgetItem` and `IArticleWidgetItem` is React-only: it has no declarative form.
 
 ### React runtime (`/react`)
 

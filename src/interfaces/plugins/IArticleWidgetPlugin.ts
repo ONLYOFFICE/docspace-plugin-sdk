@@ -20,8 +20,9 @@ import { IArticleWidgetItem } from "../items/IArticleWidgetItem";
 
 /**
  * Describes a plugin that adds a widget to the top of the sidebar. A plugin has one widget.
- * After changing it through `setArticleWidgetItem`, return an `IMessage` with
- * `Actions.updateArticleWidgetItem` to redraw the sidebar.
+ * After changing it through `setArticleWidgetItem`, return an
+ * [`IMessage`](../utils.md#imessage) with
+ * [`Actions.updateArticleWidgetItem`](../../enums/Actions.md#updatearticlewidgetitem) to redraw the sidebar.
  *
  * @example
  *

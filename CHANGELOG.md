@@ -35,7 +35,7 @@
 
 - Plugin settings are capped at 4096 characters instead of 255 from version 4.1
 - `Actions.navigate` and `PluginActions.navigate` close the sidebar on a phone and replace the
-  history entry, instead of adding one, for a path that is already open
+  history entry, instead of adding one, for a path that is already open, from version 4.1
 
 ## 3.0.0
 

@@ -28,6 +28,8 @@ import { Section } from "../../enums/Section";
  * opens from its `icon`.
  *
  * Set by a plugin implementing [`IArticleWidgetPlugin`](../plugins/IArticleWidgetPlugin.md).
+ * In the example, `/p/search-results` is the page of the plugin's
+ * [`IArticleNavigationItem`](IArticleNavigationItem.md) with the `key` `search-results`.
  *
  * @example
  *
@@ -106,9 +108,9 @@ export interface IArticleWidgetItem {
    */
   appears?: Section[];
 
-  /** The IDs of the users who will see the widget. Works like `users` in `IArticleNavigationItem`. */
+  /** The IDs of the users who will see the widget. Works like [`users`](IArticleNavigationItem.md#users). */
   users?: string[];
 
-  /** The IDs of the groups whose members will see the widget. Works like `groups` in `IArticleNavigationItem`. */
+  /** The IDs of the groups whose members will see the widget. Works like [`groups`](IArticleNavigationItem.md#groups). */
   groups?: string[];
 }

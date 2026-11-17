@@ -458,8 +458,8 @@ export enum Actions {
   /**
    * Calls a function to navigate to the specified path.
    * The portal starts the navigation and goes straight on to the actions listed
-   * after it, without waiting for the new page. A path that is already open replaces the current
-   * history entry instead of adding one. On a phone it also closes the sidebar.
+   * after it, without waiting for the new page. From version 4.1, a path that is already open replaces
+   * the current history entry instead of adding one, and on a phone the sidebar closes.
    * It does not work if the [`navigatePath`](../interfaces/utils.md#imessage) parameter is not passed to the message.
    *
    * @example
