@@ -19,11 +19,13 @@
 import type { ComponentType } from "react";
 
 import { Devices, UserRole, UsersType } from "../../enums";
+import { Section } from "../../enums/Section";
 
 /**
  * Describes a widget at the top of the sidebar, under the logo — for example, a search box.
- * The sidebar has one widget slot: if several plugins set a widget, the portal shows the first one,
- * in the order of the plugin names. In a collapsed sidebar the widget opens from its `icon`.
+ * The sidebar of each section has one widget slot: if several plugins set a widget for a section,
+ * the portal shows the first one, in the order of the plugin names. In a collapsed sidebar the widget
+ * opens from its `icon`.
  *
  * Set by a plugin implementing [`IArticleWidgetPlugin`](../plugins/IArticleWidgetPlugin.md).
  *
@@ -82,6 +84,12 @@ export interface IArticleWidgetItem {
    * If omitted, the widget is visible on all device types.
    */
   devices?: Devices[];
+
+  /**
+   * The sections in which the widget is displayed.
+   * If omitted, the widget is visible in all sections.
+   */
+  appears?: Section[];
 
   /** The IDs of the users who will see the widget. Works like `users` in `IArticleNavigationItem`. */
   users?: string[];
