@@ -156,7 +156,7 @@ export interface IArticleNavigationItem {
   /**
    * The item display icon. The icon image must be uploaded to the "assets" folder.
    * Only the image name with the extension must be specified in this field. The required icon size is 20x20 px.
-   * Otherwise, it will be compressed to this size.
+   * Otherwise, it will be compressed to this size. The icon must be an SVG image with a `viewBox`.
    */
   icon: string;
 

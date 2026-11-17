@@ -142,6 +142,8 @@ export interface PluginActions {
 
   /**
    * Navigate the portal to another route, without a full page reload.
+   * From version 4.1, a path that is already open replaces the current history
+   * entry instead of adding one, and on a phone the sidebar closes.
    *
    * @param path - Absolute portal path, e.g. `"/rooms/shared"`.
    *
@@ -366,6 +368,17 @@ export interface PluginActions {
    * ```
    */
   updateDashboardWidgetItems(): void;
+
+  /**
+   * Redraw the plugin's sidebar widget after setting or clearing it.
+   *
+   * @example
+   * ```ts
+   * plugin.setArticleWidgetItem(null);
+   * updateArticleWidgetItem();
+   * ```
+   */
+  updateArticleWidgetItem(): void;
 }
 
 /** The HTTP methods the portal API is reachable with. */

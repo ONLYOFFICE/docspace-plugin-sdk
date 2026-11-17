@@ -37,6 +37,7 @@ import { getPostMessageTemp } from "./helpers/postMessage.js";
 import { getArticleTemp } from "./helpers/articleSlot.js";
 import { getArticleNavigationTemp } from "./helpers/articleNavigation.js";
 import { getDashboardWidgetTemp } from "./helpers/dashboardWidget.js";
+import { getArticleWidgetTemp } from "./helpers/articleWidget.js";
 
 const CURR_DIR = process.cwd();
 
@@ -126,6 +127,7 @@ export default plugin;
         const withArticle = scopes.includes("ArticleButton");
         const withArticleNavigation = scopes.includes("ArticleNavigation");
         const withDashboardWidget = scopes.includes("DashboardWidget");
+        const withArticleWidget = scopes.includes("ArticleWidget");
 
         const { apiVars, apiMeth, IApiPlugin } = getApiTemp(withApi);
         const { settingsVars, settingsMeth, ISettingsPlugin, ISettings } =
@@ -186,6 +188,12 @@ export default plugin;
           dashboardWidgetVars,
           dashboardWidgetMeth,
         } = getDashboardWidgetTemp(withDashboardWidget);
+        const {
+          IArticleWidgetPlugin,
+          IArticleWidgetItem,
+          articleWidgetVars,
+          articleWidgetMeth,
+        } = getArticleWidgetTemp(withArticleWidget);
 
         if (withApi) {
           pluginsImpIns += `, ${IApiPlugin}`;
@@ -247,6 +255,11 @@ export default plugin;
           pluginsIns += `, ${IDashboardWidgetPlugin}`;
         }
 
+        if (withArticleWidget) {
+          pluginsImpIns += `, ${IArticleWidgetPlugin}, ${IArticleWidgetItem} `;
+          pluginsIns += `, ${IArticleWidgetPlugin}`;
+        }
+
         let nameIns = `${pluginName}`;
         let contentIns = `
   ${status}
@@ -262,6 +275,7 @@ export default plugin;
           ${articleButtonVars}
           ${articleNavigationVars}
           ${dashboardWidgetVars}
+          ${articleWidgetVars}
           ${onLoadCallback}
           ${updateStatus}
           ${getStatus}
@@ -277,7 +291,8 @@ export default plugin;
           ${postMessageMeth}
           ${articleButtonMeth}
           ${articleNavigationMeth}
-          ${dashboardWidgetMeth}`;
+          ${dashboardWidgetMeth}
+          ${articleWidgetMeth}`;
 
         template = template
           .replaceAll("pluginsImpIns", pluginsImpIns)

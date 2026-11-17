@@ -42,13 +42,14 @@ All plugin types extend from `IPlugin` (base interface). Each plugin type corres
 | `IArticleButtonPlugin`     | Article panel button                     |
 | `IArticleNavigationPlugin` | Sidebar navigation entry + its full page |
 | `IDashboardWidgetPlugin`   | Home page widget                         |
+| `IArticleWidgetPlugin`     | Sidebar widget under the logo (one slot) |
 
 Each plugin type contains `*Item` interfaces (e.g., `IContextMenuItem`, `IInfoPanelItem`) which accept content in one of two forms:
 
 - **UI components** — the SDK's declarative descriptors: `IButton`, `IInput`, `IBox`, `IModalDialog`, etc.
 - **React components** — the `component` prop (`dialogBodyComponent` in `IModalDialog`), rendered by the client inside its own React tree
 
-`component` is the current form. The declarative `body` (`IInfoPanelItem`, `IArticleButtonItem`), `settings` (`ISettings`), `content` (`IMediaViewer`), `dialogBody`/`dialogFooter` (`IModalDialog`) and the `onLoad` callbacks are deprecated in favour of it — data loading moves into a `useEffect` in the component. `IArticleNavigationItem.component` is React-only: it has no declarative form.
+`component` is the current form. The declarative `body` (`IInfoPanelItem`, `IArticleButtonItem`), `settings` (`ISettings`), `content` (`IMediaViewer`), `dialogBody`/`dialogFooter` (`IModalDialog`) and the `onLoad` callbacks are deprecated in favour of it — data loading moves into a `useEffect` in the component. `component` in `IArticleNavigationItem`, `IDashboardWidgetItem` and `IArticleWidgetItem` is React-only: it has no declarative form.
 
 ### React runtime (`/react`)
 

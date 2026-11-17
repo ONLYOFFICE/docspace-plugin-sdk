@@ -77,6 +77,7 @@ import { IPostMessagePlugin } from "./IPostMessagePlugin";
 import { IArticleButtonPlugin } from "./IArticleButtonPlugin";
 import { IArticleNavigationPlugin } from "./IArticleNavigationPlugin";
 import { IDashboardWidgetPlugin } from "./IDashboardWidgetPlugin";
+import { IArticleWidgetPlugin } from "./IArticleWidgetPlugin";
 
 export {
   IPlugin,
@@ -92,4 +93,5 @@ export {
   IArticleButtonPlugin,
   IArticleNavigationPlugin,
   IDashboardWidgetPlugin,
+  IArticleWidgetPlugin,
 };

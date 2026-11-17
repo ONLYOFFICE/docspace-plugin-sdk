@@ -17,8 +17,9 @@
  */
 
 /**
- * Defines the portal sections in which an article navigation item can appear.
+ * Defines the portal sections in which an article navigation item or an article widget can appear.
  * Pass one or more values in the `appears` array on [`IArticleNavigationItem`](../interfaces/items/IArticleNavigationItem.md)
+ * or [`IArticleWidgetItem`](../interfaces/items/IArticleWidgetItem.md)
  * to restrict visibility. When omitted, the item is shown in all sections.
  */
 export enum Section {

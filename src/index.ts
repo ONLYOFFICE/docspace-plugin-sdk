@@ -29,7 +29,8 @@ import {
   IPostMessagePlugin,
   IArticleButtonPlugin,
   IArticleNavigationPlugin,
-  IDashboardWidgetPlugin
+  IDashboardWidgetPlugin,
+  IArticleWidgetPlugin
 } from "./interfaces/plugins";
 
 import {
@@ -43,6 +44,7 @@ import {
   IArticleNavigationItem,
   IDashboardCard,
   IDashboardWidgetItem,
+  IArticleWidgetItem,
   IFileItem,
   File
 } from "./interfaces/items";
@@ -147,11 +149,13 @@ export {
   IArticleNavigationItem,
   IDashboardCard,
   IDashboardWidgetItem,
+  IArticleWidgetItem,
   IFilePlugin,
   IPostMessagePlugin,
   IArticleButtonPlugin,
   IArticleNavigationPlugin,
   IDashboardWidgetPlugin,
+  IArticleWidgetPlugin,
   IContextMenuItem,
   IInfoPanelItem,
   IInfoPanelSubMenu,

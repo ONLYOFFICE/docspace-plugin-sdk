@@ -77,6 +77,7 @@ const scopes = [
   { name: "Article button", value: "ArticleButton" },
   { name: "Article navigation", value: "ArticleNavigation" },
   { name: "Dashboard widget", value: "DashboardWidget" },
+  { name: "Article widget", value: "ArticleWidget" },
 ];
 
 const scopesQuestion = {
