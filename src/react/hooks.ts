@@ -17,6 +17,7 @@
  * [`IInfoPanelItem.component`](../interfaces/items/IInfoPanelItem.md#component),
  * [`IArticleButtonItem.component`](../interfaces/items/IArticleButtonItem.md#component),
  * [`IArticleNavigationItem.component`](../interfaces/items/IArticleNavigationItem.md#component),
+ * [`IArticleWidgetItem.component`](../interfaces/items/IArticleWidgetItem.md#component),
  * [`IModalDialog.dialogBodyComponent`](../interfaces/components/IModalDialog.md#dialogbodycomponent)
  * or [`ISettings.component`](../interfaces/settings/ISettings.md#component).
  * ONLYOFFICE Apps renders it with the plugin runtime in context, and these hooks read

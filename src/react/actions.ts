@@ -142,6 +142,7 @@ export interface PluginActions {
 
   /**
    * Navigate the portal to another route, without a full page reload.
+   * On a phone it also closes the sidebar.
    *
    * @param path - Absolute portal path, e.g. `"/rooms/shared"`.
    *
@@ -366,6 +367,17 @@ export interface PluginActions {
    * ```
    */
   updateDashboardWidgetItems(): void;
+
+  /**
+   * Redraw the plugin's sidebar widget after setting or clearing it.
+   *
+   * @example
+   * ```ts
+   * plugin.setArticleWidgetItem(null);
+   * updateArticleWidgetItem();
+   * ```
+   */
+  updateArticleWidgetItem(): void;
 }
 
 /** The HTTP methods the portal API is reachable with. */

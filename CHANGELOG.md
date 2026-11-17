@@ -24,12 +24,17 @@
   widgets on the Home page, `Actions.updateDashboardWidgetItems` and
   `PluginActions.updateDashboardWidgetItems` to redraw them
 - Add the "Dashboard widget" scope to `create-docspace-plugin`
+- Add the `ArticleWidget` scope: `IArticleWidgetPlugin` and `IArticleWidgetItem` — a React
+  widget at the top of the sidebar, `Actions.updateArticleWidgetItem` and
+  `PluginActions.updateArticleWidgetItem` to redraw it
+- Add the "Article widget" scope to `create-docspace-plugin`
 - Add the `workspace-app` sample: a sidebar entry with a Home page card and a widget, shown only
   to the people and groups chosen in its settings
 
 ## Changed
 
 - Plugin settings are capped at 4096 characters instead of 255 from version 4.1
+- `Actions.navigate` and `PluginActions.navigate` close the sidebar on a phone
 
 ## 3.0.0
 

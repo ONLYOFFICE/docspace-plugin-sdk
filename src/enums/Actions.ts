@@ -176,6 +176,19 @@ export enum Actions {
   updateDashboardWidgetItems = "update-dashboard-widget-items",
 
   /**
+   * Calls a function to update the plugin's sidebar widget,
+   * so a widget set through "IArticleWidgetPlugin" becomes visible.
+   *
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   actions: [Actions.updateArticleWidgetItem],
+   * }
+   * ```
+   */
+  updateArticleWidgetItem = "update-article-widget-item",
+
+  /**
    * Calls a function to update all the article button items.
    *
    * @example
@@ -445,7 +458,7 @@ export enum Actions {
   /**
    * Calls a function to navigate to the specified path.
    * The portal starts the navigation and goes straight on to the actions listed
-   * after it, without waiting for the new page.
+   * after it, without waiting for the new page. On a phone it also closes the sidebar.
    * It does not work if the [`navigatePath`](../interfaces/utils.md#imessage) parameter is not passed to the message.
    *
    * @example
