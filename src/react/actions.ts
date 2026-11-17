@@ -142,7 +142,8 @@ export interface PluginActions {
 
   /**
    * Navigate the portal to another route, without a full page reload.
-   * On a phone it also closes the sidebar.
+   * A path that is already open replaces the current history entry instead of
+   * adding one. On a phone it also closes the sidebar.
    *
    * @param path - Absolute portal path, e.g. `"/rooms/shared"`.
    *

@@ -32,14 +32,28 @@ import { Section } from "../../enums/Section";
  * @example
  *
  * ```tsx
- * import { useState } from "react";
+ * import { useSyncExternalStore } from "react";
  * import { SearchInput, InputSize } from "@onlyoffice/apps-ui-kit";
  * import { usePluginActions } from "@onlyoffice/docspace-plugin-sdk/react";
  * import { IArticleWidgetItem } from "@onlyoffice/docspace-plugin-sdk";
  *
+ * let query = "";
+ * const listeners = new Set<() => void>();
+ * const setQuery = (value: string) => {
+ *   query = value;
+ *   listeners.forEach((listener) => listener());
+ * };
+ * const subscribe = (listener: () => void) => {
+ *   listeners.add(listener);
+ *   return () => {
+ *     listeners.delete(listener);
+ *   };
+ * };
+ * const getQuery = () => query;
+ *
  * function SearchBox() {
  *   const { navigate } = usePluginActions();
- *   const [value, setValue] = useState("");
+ *   const value = useSyncExternalStore(subscribe, getQuery);
  *
  *   return (
  *     <SearchInput
@@ -47,10 +61,11 @@ import { Section } from "../../enums/Section";
  *       scale
  *       value={value}
  *       placeholder="Search"
- *       onChange={(query) => {
- *         setValue(query);
- *         navigate("/p/search-results");
+ *       onChange={(next) => {
+ *         setQuery(next);
+ *         if (next.trim()) navigate("/p/search-results");
  *       }}
+ *       onClearSearch={() => setQuery("")}
  *     />
  *   );
  * }
