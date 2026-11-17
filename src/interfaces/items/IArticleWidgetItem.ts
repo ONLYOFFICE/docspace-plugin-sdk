@@ -55,7 +55,7 @@ import { Section } from "../../enums/Section";
  *
  * function SearchBox() {
  *   const { navigate } = usePluginActions();
- *   const value = useSyncExternalStore(subscribe, getQuery);
+ *   const value = useSyncExternalStore(subscribe, getQuery, getQuery);
  *
  *   return (
  *     <SearchInput
