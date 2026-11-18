@@ -78,6 +78,8 @@ const scopes = [
   { name: "Article navigation", value: "ArticleNavigation" },
   { name: "Dashboard widget", value: "DashboardWidget" },
   { name: "Article widget", value: "ArticleWidget" },
+  { name: "Profile tab", value: "ProfileTab" },
+  { name: "Profile field", value: "ProfileField" },
 ];
 
 const scopesQuestion = {

@@ -38,6 +38,8 @@ import { getArticleTemp } from "./helpers/articleSlot.js";
 import { getArticleNavigationTemp } from "./helpers/articleNavigation.js";
 import { getDashboardWidgetTemp } from "./helpers/dashboardWidget.js";
 import { getArticleWidgetTemp } from "./helpers/articleWidget.js";
+import { getProfileTabTemp } from "./helpers/profileTab.js";
+import { getProfileFieldTemp } from "./helpers/profileField.js";
 
 const CURR_DIR = process.cwd();
 
@@ -128,6 +130,8 @@ export default plugin;
         const withArticleNavigation = scopes.includes("ArticleNavigation");
         const withDashboardWidget = scopes.includes("DashboardWidget");
         const withArticleWidget = scopes.includes("ArticleWidget");
+        const withProfileTab = scopes.includes("ProfileTab");
+        const withProfileField = scopes.includes("ProfileField");
 
         const { apiVars, apiMeth, IApiPlugin } = getApiTemp(withApi);
         const { settingsVars, settingsMeth, ISettingsPlugin, ISettings } =
@@ -194,6 +198,18 @@ export default plugin;
           articleWidgetVars,
           articleWidgetMeth,
         } = getArticleWidgetTemp(withArticleWidget);
+        const {
+          IProfileTabPlugin,
+          IProfileTabItem,
+          profileTabVars,
+          profileTabMeth,
+        } = getProfileTabTemp(withProfileTab);
+        const {
+          IProfileFieldPlugin,
+          IProfileFieldItem,
+          profileFieldVars,
+          profileFieldMeth,
+        } = getProfileFieldTemp(withProfileField);
 
         if (withApi) {
           pluginsImpIns += `, ${IApiPlugin}`;
@@ -260,6 +276,16 @@ export default plugin;
           pluginsIns += `, ${IArticleWidgetPlugin}`;
         }
 
+        if (withProfileTab) {
+          pluginsImpIns += `, ${IProfileTabPlugin}, ${IProfileTabItem} `;
+          pluginsIns += `, ${IProfileTabPlugin}`;
+        }
+
+        if (withProfileField) {
+          pluginsImpIns += `, ${IProfileFieldPlugin}, ${IProfileFieldItem} `;
+          pluginsIns += `, ${IProfileFieldPlugin}`;
+        }
+
         let nameIns = `${pluginName}`;
         let contentIns = `
   ${status}
@@ -276,6 +302,8 @@ export default plugin;
           ${articleNavigationVars}
           ${dashboardWidgetVars}
           ${articleWidgetVars}
+          ${profileTabVars}
+          ${profileFieldVars}
           ${onLoadCallback}
           ${updateStatus}
           ${getStatus}
@@ -292,7 +320,9 @@ export default plugin;
           ${articleButtonMeth}
           ${articleNavigationMeth}
           ${dashboardWidgetMeth}
-          ${articleWidgetMeth}`;
+          ${articleWidgetMeth}
+          ${profileTabMeth}
+          ${profileFieldMeth}`;
 
         template = template
           .replaceAll("pluginsImpIns", pluginsImpIns)
