@@ -30,7 +30,9 @@ import {
   IArticleButtonPlugin,
   IArticleNavigationPlugin,
   IDashboardWidgetPlugin,
-  IArticleWidgetPlugin
+  IArticleWidgetPlugin,
+  IProfileTabPlugin,
+  IProfileFieldPlugin
 } from "./interfaces/plugins";
 
 import {
@@ -45,6 +47,8 @@ import {
   IDashboardCard,
   IDashboardWidgetItem,
   IArticleWidgetItem,
+  IProfileTabItem,
+  IProfileFieldItem,
   IFileItem,
   File
 } from "./interfaces/items";
@@ -150,12 +154,16 @@ export {
   IDashboardCard,
   IDashboardWidgetItem,
   IArticleWidgetItem,
+  IProfileTabItem,
+  IProfileFieldItem,
   IFilePlugin,
   IPostMessagePlugin,
   IArticleButtonPlugin,
   IArticleNavigationPlugin,
   IDashboardWidgetPlugin,
   IArticleWidgetPlugin,
+  IProfileTabPlugin,
+  IProfileFieldPlugin,
   IContextMenuItem,
   IInfoPanelItem,
   IInfoPanelSubMenu,

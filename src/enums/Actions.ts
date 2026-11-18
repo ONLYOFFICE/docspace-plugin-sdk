@@ -189,6 +189,32 @@ export enum Actions {
   updateArticleWidgetItem = "update-article-widget-item",
 
   /**
+   * Calls a function to update the plugin's profile tabs,
+   * so a tab added or changed through "IProfileTabPlugin" becomes visible.
+   *
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   actions: [Actions.updateProfileTabItems],
+   * }
+   * ```
+   */
+  updateProfileTabItems = "update-profile-tab-items",
+
+  /**
+   * Calls a function to update the plugin's rows in the profile card,
+   * so a row added or changed through "IProfileFieldPlugin" becomes visible.
+   *
+   * @example
+   * ```typescript
+   * const message: IMessage = {
+   *   actions: [Actions.updateProfileFieldItems],
+   * }
+   * ```
+   */
+  updateProfileFieldItems = "update-profile-field-items",
+
+  /**
    * Calls a function to update all the article button items.
    *
    * @example

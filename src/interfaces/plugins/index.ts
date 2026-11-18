@@ -78,6 +78,8 @@ import { IArticleButtonPlugin } from "./IArticleButtonPlugin";
 import { IArticleNavigationPlugin } from "./IArticleNavigationPlugin";
 import { IDashboardWidgetPlugin } from "./IDashboardWidgetPlugin";
 import { IArticleWidgetPlugin } from "./IArticleWidgetPlugin";
+import { IProfileTabPlugin } from "./IProfileTabPlugin";
+import { IProfileFieldPlugin } from "./IProfileFieldPlugin";
 
 export {
   IPlugin,
@@ -94,4 +96,6 @@ export {
   IArticleNavigationPlugin,
   IDashboardWidgetPlugin,
   IArticleWidgetPlugin,
+  IProfileTabPlugin,
+  IProfileFieldPlugin,
 };

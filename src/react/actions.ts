@@ -379,6 +379,28 @@ export interface PluginActions {
    * ```
    */
   updateArticleWidgetItem(): void;
+
+  /**
+   * Redraw the plugin's tabs on the profile page after adding or changing them.
+   *
+   * @example
+   * ```ts
+   * plugin.updateProfileTabItem({ ...tab, label: "Calendar (2)" });
+   * updateProfileTabItems();
+   * ```
+   */
+  updateProfileTabItems(): void;
+
+  /**
+   * Redraw the plugin's rows in the profile card after adding or changing them.
+   *
+   * @example
+   * ```ts
+   * plugin.updateProfileFieldItem({ ...field, label: "Telegram ID" });
+   * updateProfileFieldItems();
+   * ```
+   */
+  updateProfileFieldItems(): void;
 }
 
 /** The HTTP methods the portal API is reachable with. */

@@ -28,6 +28,13 @@
   widget at the top of the sidebar, `Actions.updateArticleWidgetItem` and
   `PluginActions.updateArticleWidgetItem` to redraw it
 - Add the "Article widget" scope to `create-docspace-plugin`
+- Add the `ProfileTab` scope: `IProfileTabPlugin` and `IProfileTabItem` — React tabs on the
+  profile page, `Actions.updateProfileTabItems` and `PluginActions.updateProfileTabItems` to
+  redraw them
+- Add the `ProfileField` scope: `IProfileFieldPlugin` and `IProfileFieldItem` — React rows in the
+  profile card, `Actions.updateProfileFieldItems` and `PluginActions.updateProfileFieldItems` to
+  redraw them
+- Add the "Profile tab" and "Profile field" scopes to `create-docspace-plugin`
 - Add the `workspace-app` sample: a sidebar entry with a Home page card and a widget, shown only
   to the people and groups chosen in its settings
 

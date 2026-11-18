@@ -62,6 +62,8 @@ import { IArticleButtonItem } from "./IArticleButtonItem";
 import { IArticleNavigationItem, IDashboardCard } from "./IArticleNavigationItem";
 import { IDashboardWidgetItem } from "./IDashboardWidgetItem";
 import { IArticleWidgetItem } from "./IArticleWidgetItem";
+import { IProfileTabItem } from "./IProfileTabItem";
+import { IProfileFieldItem } from "./IProfileFieldItem";
 
 export {
   IContextMenuItem,
@@ -76,5 +78,7 @@ export {
   IArticleNavigationItem,
   IDashboardCard,
   IDashboardWidgetItem,
-  IArticleWidgetItem
+  IArticleWidgetItem,
+  IProfileTabItem,
+  IProfileFieldItem
 };

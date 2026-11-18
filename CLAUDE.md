@@ -43,6 +43,8 @@ All plugin types extend from `IPlugin` (base interface). Each plugin type corres
 | `IArticleNavigationPlugin` | Sidebar navigation entry + its full page |
 | `IDashboardWidgetPlugin`   | Home page widget                         |
 | `IArticleWidgetPlugin`     | Sidebar widget under the logo (one slot) |
+| `IProfileTabPlugin`        | Tab on the profile page                  |
+| `IProfileFieldPlugin`      | Row in the profile card                  |
 
 Each plugin type contains `*Item` interfaces (e.g., `IContextMenuItem`, `IInfoPanelItem`) which accept content in one of two forms:
 
